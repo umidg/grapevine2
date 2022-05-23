@@ -43,7 +43,7 @@ const EnterUsername = ({ navigation }) => {
       setLoading(true);
       grapevineBackend(
         "/auth/register",
-        { ...data, passwordConfirm: data.password, intrests: data.intrests[0] },
+        { ...data, passwordConfirm: data.password, intrests: data.intrests },
         "POST"
       )
         .then(async ({ data }) => {

@@ -18,7 +18,6 @@ const { SignupSchema } = require("../../FormValidationSchema");
 const Login = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [loading, setLoading] = useState(false);
-  const { setUserDetails } = userHook();
   const logIn = (data) => {
     setLoading(true);
     grapevineBackend(
@@ -27,20 +26,37 @@ const Login = ({ navigation }) => {
       "POST"
     )
       .then(async ({ data }) => {
-        if (data.status) {
-          await AsyncStorage.setItem("user", JSON.stringify(data.data));
-          setUser({
-            ...data.data,
-            ...user,
-          });
-        } else {
-          setLoading(false);
-          Toast.show(data.message, {
+        console.log(data);
+        try {
+          if (data.status) {
+            await AsyncStorage.setItem("user", JSON.stringify(data.data));
+            setUser({
+              ...data.data,
+              ...user,
+            });
+          } else {
+            setLoading(false);
+            if (typeof data.message == "string") {
+              Toast.show(data.message, {
+                duration: Toast.durations.LONG,
+              });
+            } else {
+              throw Error("Something Went Wrong");
+            }
+          }
+        } catch (err) {
+          Toast.show(err.message, {
             duration: Toast.durations.LONG,
           });
+          setLoading(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        Toast.show(err.message, {
+          duration: Toast.durations.LONG,
+        });
+        setLoading(false);
+      });
   };
   return (
     <LayoutFrame>

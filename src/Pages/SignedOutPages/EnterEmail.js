@@ -27,7 +27,6 @@ const EnterEmail = ({ navigation }) => {
         "POST"
       )
         .then(async (response) => {
-          console.log(response.data, "response");
           if (response.data.status) {
             setData({ ...data, email: email });
             navigation.navigate("EnterCode", {

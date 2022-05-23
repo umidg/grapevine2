@@ -23,6 +23,7 @@ const Post_Instagram_Yiktok_Youtube = ({ navigation, route }) => {
       user_uuid: user.uuid,
       post: caption,
       video_url: tiktokVideo.embed_link,
+      keys: user.intrests,
     };
     grapevineBackend("/post/create", data, "POST")
       .then(async ({ data }) => {

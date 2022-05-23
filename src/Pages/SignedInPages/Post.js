@@ -28,7 +28,13 @@ const Post = ({ navigation }) => {
   const [type, setType] = useState("text");
   const [tiktokVideo, setTiktokVideo] = useState(null);
   const uploadPost = () => {
-    let data = { title: "Title", post_type: type, user_uuid: user.uuid };
+    let data = {
+      title: "Title",
+      post_type: type,
+      user_uuid: user.uuid,
+      keys: user.intrests,
+    };
+
     if (type == "text") {
       if (post.length < 1) {
         Toast.show("enter post", {

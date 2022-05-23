@@ -8,11 +8,11 @@ import {
   Flex,
   Input,
 } from "native-base";
-// import { Country, State, City } from "country-state-city";
+import { Country, State, City } from "country-state-city";
 const SelectCountry = ({ onValueChange, value, status }) => {
   return (
     <View w="100%">
-      {/* <Select
+      <Select
         borderBottomColor={
           status == "normal" ? "rgba(61,54,130,0.7)" : "#ff0000"
         }
@@ -43,7 +43,7 @@ const SelectCountry = ({ onValueChange, value, status }) => {
               />
             );
           })}
-      </Select> */}
+      </Select>
     </View>
   );
 };

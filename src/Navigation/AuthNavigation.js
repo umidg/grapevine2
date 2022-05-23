@@ -9,14 +9,12 @@ const AuthNavigation = () => {
 
   return (
     <>
-      {!user.data ? (
-        user.id ? (
-          <SignedInStack />
-        ) : (
-          <SignedOutStack />
-        )
+      {user.data ? (
+        <>{user.id ? <SignedInStack /> : <SignedOutStack />}</>
       ) : (
-        <Splash />
+        <>
+          <Splash />
+        </>
       )}
     </>
   );

@@ -2,38 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Button, Center } from "native-base";
 import Notification from "./Notification";
 
-const NotificationContainer = ({ time }) => {
+const NotificationContainer = ({ time, notifications }) => {
   const data = [1, 2, 3];
-  // const acceptRequest = (id) => {
-  //   setShowModal(true);
-  //   grapevineBackend(
-  //     "/friendship/acceptfriendrequest",
-  //     { friendship_id: id, user_accept: user_id },
-  //     "POST"
-  //   )
-  //     .then(async ({ data }) => {
-  //       setModalMessage(data.message);
-  //     })
-  //     .catch((err) => {
-  //       setModalMessage("Something Went Wrong");
-  //       console.log(err);
-  //     });
-  // };
-  // const sendRequest = (id) => {
-  //   setShowModal(true);
-  //   grapevineBackend(
-  //     "/friendship/sendfriendrequest",
-  //     { user_request: user_id, user_accept: id },
-  //     "POST"
-  //   )
-  //     .then(async ({ data }) => {
-  //       setModalMessage(data.data.message);
-  //     })
-  //     .catch((err) => {
-  //       setModalMessage("Something Went Wrong");
-  //       console.log(err);
-  //     });
-  // };
+  console.log(notifications);
   return (
     <Box>
       <Text fontSize="13px" color={"#8a8b90"} fontWeight="800">

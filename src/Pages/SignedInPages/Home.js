@@ -7,18 +7,34 @@ import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import TiktokPost from "../../MoleculeComponents/Post/TiktokPost";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Home = ({ navigation }) => {
   const [post, setPost] = useState(null);
+  const [postType, setPostType] = useState("connected");
   const [error, setError] = useState(false);
   const [user, setUser] = useContext(UserValue);
-
+  const [forYouPost, setForYouPost] = useState(null);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend("/post/getAllPost", {}, "POST")
         .then(async ({ data }) => {
+          setError(false);
+          console.log("all post", data);
           if (data.status == true) {
             setPost([...data.data]);
+          }
+        })
+        .catch((err) => {
+          console.log("Err", err);
+          setError(true);
+        });
+      grapevineBackend("/post/forYouPost", {}, "POST")
+        .then(async ({ data }) => {
+          setError(false);
+          console.log("for you", data);
+          if (data.status == true) {
+            setForYouPost([...data.data]);
           }
         })
         .catch((err) => {
@@ -30,9 +46,45 @@ const Home = ({ navigation }) => {
     return unsubscribe;
   }, []);
   return (
-    <LayoutFrame>
-      <Box h="100%" w="100%">
-        <Flex
+    <Box h="100%" w="100%">
+      <LinearGradient
+        colors={[
+          "rgba(255,255,255,0.9)",
+          "rgba(255,255,255,0.9)",
+          "rgba(255,255,255,0)",
+          "transparent",
+        ]}
+        style={{
+          height: 200,
+          width: "100%",
+          position: "absolute",
+          zIndex: 1000,
+        }}
+      />
+      <Flex
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        p="5"
+        h="70"
+        w="100%"
+        zIndex={2000}
+        position={"absolute"}
+      >
+        <Pressable onPress={() => setPostType("foryou")}>
+          <Text fontWeight={postType == "foryou" ? "800" : "600"} mx={1}>
+            For You
+          </Text>
+        </Pressable>
+        <Pressable onPress={() => setPostType("connected")}>
+          <Text fontWeight={postType == "connected" ? "800" : "600"} mx={1}>
+            Connected
+          </Text>
+        </Pressable>
+      </Flex>
+      <LayoutFrame>
+        <Box h="100%" w="100%">
+          {/* <Flex
           direction="row"
           justifyContent="space-between"
           alignItems="center"
@@ -67,44 +119,89 @@ const Home = ({ navigation }) => {
               <FontAwesome5 name="location-arrow" color="#000" size={22} />
             </Pressable>
           </Flex>
-        </Flex>
-        {error ? (
-          <Center h="100%" w="100%">
-            <Text fontWeight={"800"}>Error occured</Text>
-          </Center>
-        ) : post ? (
-          <>
-            <Box pb="70" p={2}>
-              {post.map((d) => {
-                if (d.post_type == "text") {
-                  return (
-                    <PostV2
-                      key={d.id}
-                      data={d}
-                      user={user}
-                      navigation={navigation}
-                    />
-                  );
-                } else if ((d.post_type = "tiktok")) {
-                  return (
-                    <TiktokPost
-                      data={d}
-                      key={d.id}
-                      user={user}
-                      navigation={navigation}
-                    />
-                  );
-                }
-              })}
-            </Box>
-          </>
-        ) : (
-          <Center h="100%" w="100%">
-            <ActivityIndicator size="small" color="#0000ff" />
-          </Center>
-        )}
-      </Box>
-    </LayoutFrame>
+        </Flex> */}
+          {error ? (
+            <Center h="100%" w="100%">
+              <Text fontWeight={"800"}>Error occured</Text>
+            </Center>
+          ) : postType == "connected" ? (
+            <>
+              {post ? (
+                <>
+                  <Box pb="70" p={2} mt={35}>
+                    {post.map((d) => {
+                      if (d.post_type == "text") {
+                        return (
+                          <PostV2
+                            key={d.id}
+                            data={d}
+                            user={user}
+                            navigation={navigation}
+                          />
+                        );
+                      } else if ((d.post_type = "tiktok")) {
+                        return (
+                          <TiktokPost
+                            data={d}
+                            key={d.id}
+                            user={user}
+                            navigation={navigation}
+                          />
+                        );
+                      }
+                    })}
+                  </Box>
+                </>
+              ) : (
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
+                </Center>
+              )}
+            </>
+          ) : (
+            <>
+              {forYouPost ? (
+                <>
+                  {forYouPost.length > 0 ? (
+                    <Box pb="70" p={2}>
+                      {forYouPost.map((d) => {
+                        if (d.post_type == "text") {
+                          return (
+                            <PostV2
+                              key={d.id}
+                              data={d}
+                              user={user}
+                              navigation={navigation}
+                            />
+                          );
+                        } else if ((d.post_type = "tiktok")) {
+                          return (
+                            <TiktokPost
+                              data={d}
+                              key={d.id}
+                              user={user}
+                              navigation={navigation}
+                            />
+                          );
+                        }
+                      })}
+                    </Box>
+                  ) : (
+                    <Center h="100%" w="100%">
+                      <Text>No Post To Show</Text>
+                    </Center>
+                  )}
+                </>
+              ) : (
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
+                </Center>
+              )}
+            </>
+          )}
+        </Box>
+      </LayoutFrame>
+    </Box>
   );
 };
 
