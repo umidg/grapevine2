@@ -17,6 +17,7 @@ const OtherProfile = ({ navigation, user_uuid }) => {
   useEffect(() => {
     grapevineBackend(`/auth/getuserInfo/${user_uuid}`, {}, "POST")
       .then(({ data }) => {
+        console.log(data);
         if (data.status) {
           setUser({ ...data.data });
         }

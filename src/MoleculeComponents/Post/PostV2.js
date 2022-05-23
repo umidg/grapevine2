@@ -21,13 +21,12 @@ const PostV2 = ({ data, user, navigation }) => {
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
     return diffInDays + " days ago";
   }, [data]);
-  // console.log(data);
   return (
     <Box w="100%" bg="theme.bg" mt="15" borderRadius="md">
       <Box p="2">
         <PostHeader
           username={data.username}
-          user_uuid={data.user_id}
+          user_uuid={data.user_uuid}
           navigation={navigation}
         />
       </Box>

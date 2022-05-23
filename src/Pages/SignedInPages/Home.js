@@ -55,10 +55,11 @@ const Home = ({ navigation }) => {
           "transparent",
         ]}
         style={{
-          height: 200,
+          height: 100,
           width: "100%",
           position: "absolute",
           zIndex: 1000,
+          // backgroundColor: "red",
         }}
       />
       <Flex
@@ -83,7 +84,7 @@ const Home = ({ navigation }) => {
         </Pressable>
       </Flex>
       <LayoutFrame>
-        <Box h="100%" w="100%">
+        <Box h="100%" w="100%" mt={20}>
           {/* <Flex
           direction="row"
           justifyContent="space-between"

@@ -13,7 +13,7 @@ const NotificationPage = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.log("fetching");
-      grapevineBackend("/notification/get", "POST")
+      grapevineBackend("/notification/get", {}, "POST")
         .then(async ({ data }) => {
           console.log("notification", data);
           if (data.code == 200) {

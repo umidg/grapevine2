@@ -6,6 +6,37 @@ import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
+
+const data = [
+  {
+    id: "id",
+    uuid: "uuid",
+    message: "umid posted new photo.",
+    post_uuid: "Post_uuid",
+    user_uuid: "user_uuid",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  },
+  {
+    id: "id",
+    uuid: "uuid",
+    message: "umid posted new photo.",
+    post_uuid: "Post_uuid",
+    user_uuid: "user_uuid",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  },
+  {
+    id: "id",
+    uuid: "uuid",
+    message: "umid posted new photo.",
+    post_uuid: "Post_uuid",
+    user_uuid: "user_uuid",
+    created_at: "created_at",
+    updated_at: "updated_at",
+  },
+];
+
 const Activity = ({ navigation }) => {
   const [component, setComponent] = useState("you");
   return (
@@ -67,9 +98,9 @@ const Activity = ({ navigation }) => {
         </Flex>
 
         <Box pl="5%" pr="5%">
-          <NotificationContainer time="New" />
-          <NotificationContainer time="Yesterday" />
-          <NotificationContainer time="This Week" />
+          <NotificationContainer time="New" notifications={data} />
+          <NotificationContainer time="Yesterday" notifications={data} />
+          <NotificationContainer time="This Week" notifications={data} />
         </Box>
       </Box>
     </LayoutFrame>

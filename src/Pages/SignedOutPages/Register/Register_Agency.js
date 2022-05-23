@@ -80,12 +80,19 @@ const Register_Agency = ({ navigation }) => {
                     status={errors.number ? "danger" : "normal"}
                   />
                   <Text style={styles.EmailPw}>Location</Text>
-                  <SelectCountry
+                  <Input
+                    placeholder="Location"
+                    onChangeText={handleChange("address")}
+                    value={values.address}
+                    onBlur={handleBlur("address")}
+                    status={errors.address ? "danger" : "normal"}
+                  />
+                  {/* <SelectCountry
                     value={values.address}
                     onBlur={handleBlur("address")}
                     status={errors.address ? "danger" : "normal"}
                     onValueChange={handleChange("address")}
-                  />
+                  /> */}
                   <Text style={styles.EmailPw}>Password</Text>
                   <InputPassword
                     placeholder="Password"

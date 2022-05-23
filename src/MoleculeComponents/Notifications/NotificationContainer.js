@@ -3,7 +3,6 @@ import { Box, Text, Button, Center } from "native-base";
 import Notification from "./Notification";
 
 const NotificationContainer = ({ time, notifications }) => {
-  const data = [1, 2, 3];
   console.log(notifications);
   return (
     <Box>
@@ -12,29 +11,29 @@ const NotificationContainer = ({ time, notifications }) => {
       </Text>
 
       <Box pl="5px" pr="5px">
-        {data.map((d) => {
+        {notifications.map((_notification) => {
           return (
             <Notification
-              key={d}
+              key={_notification.uuid}
               profileImage={require("../../../assets/Images/1.png")}
-              message={"Sent You Friend Request"}
+              message={_notification.message}
               time="2h"
-              username={"Username"}
-              component={
-                d % 2 == 0 && (
-                  <Center>
-                    <Button
-                      onPress={() => acceptRequest(d.id)}
-                      h="7"
-                      pt="0"
-                      pb="0"
-                      bg="buttonPrimaryColor"
-                    >
-                      Accept
-                    </Button>
-                  </Center>
-                )
-              }
+              username={_notification.username}
+              // component={
+              //   d % 2 == 0 && (
+              //     <Center>
+              //       <Button
+              //         onPress={() => acceptRequest(d.id)}
+              //         h="7"
+              //         pt="0"
+              //         pb="0"
+              //         bg="buttonPrimaryColor"
+              //       >
+              //         Accept
+              //       </Button>
+              //     </Center>
+              //   )
+              // }
             />
           );
         })}

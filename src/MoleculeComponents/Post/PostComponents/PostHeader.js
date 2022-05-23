@@ -5,7 +5,7 @@ import RegularImage from "../../../AtomComponents/Image/RegularImage";
 import RoundImage from "../../../AtomComponents/Image/RoundImage";
 import OptionDark from "../../../../assets/Icons/Options.png";
 
-const PostHeader = ({ username, user_id, navigation }) => {
+const PostHeader = ({ username, user_uuid, navigation }) => {
   const [showReport, setShowReport] = useState(false);
   return (
     <Flex
@@ -17,10 +17,9 @@ const PostHeader = ({ username, user_id, navigation }) => {
       <Flex direction="row" alignItems="center">
         <Pressable
           onPress={() => {
-            if (navigation)
-              navigation.navigate("FriendProfile", {
-                user_id: user_id,
-              });
+            navigation.navigate("FriendProfile", {
+              user_uuid: user_uuid,
+            });
           }}
         >
           <RoundImage

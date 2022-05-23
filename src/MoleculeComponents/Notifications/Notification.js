@@ -17,9 +17,11 @@ const Notification = ({
         </Box>
         <Flex direction="row" alignItems="center" pl="10px" pr="10px">
           <Box flex={5}>
-            <Text fontSize="14px" fontWeight="800" mt="0px">
-              {username}
-            </Text>
+            {username && (
+              <Text fontSize="14px" fontWeight="800" mt="0px">
+                {username}
+              </Text>
+            )}
             <Text fontSize="13px" fontWeight="300" ml="5px">
               {message}{" "}
               <Text fontSize="12px" color="gray.500">
