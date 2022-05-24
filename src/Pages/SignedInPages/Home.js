@@ -20,7 +20,6 @@ const Home = ({ navigation }) => {
       grapevineBackend("/post/getAllPost", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
-          console.log("all post", data);
           if (data.status == true) {
             setPost([...data.data]);
           }
@@ -32,7 +31,6 @@ const Home = ({ navigation }) => {
       grapevineBackend("/post/forYouPost", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
-          console.log("for you", data);
           if (data.status == true) {
             setForYouPost([...data.data]);
           }
@@ -45,6 +43,7 @@ const Home = ({ navigation }) => {
 
     return unsubscribe;
   }, []);
+
   return (
     <Box h="100%" w="100%">
       <LinearGradient

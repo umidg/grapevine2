@@ -33,6 +33,7 @@ const Post = ({ navigation }) => {
       post_type: type,
       user_uuid: user.uuid,
       keys: user.intrests,
+      username: user.username,
     };
 
     if (type == "text") {

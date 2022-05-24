@@ -16,7 +16,7 @@ const OwnProfile = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   // const [show, setShow] = useState(true);
   useEffect(() => {
-    grapevineBackend("/post/userposts", { id: user.id }, "POST")
+    grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
       .then(({ data }) => {
         if (data.status) {
           let textPost_temp = [];

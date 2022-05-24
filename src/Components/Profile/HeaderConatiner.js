@@ -130,7 +130,7 @@ const HeaderContainer = (props) => {
           <Box flex="1" flexDir="row">
             <Box flexDir="column" alignItems="center">
               <Text italic fontSize="xl" fontWeight="bold">
-                {posts ?? "2K"}
+                {posts?.length > 0 ? `${posts.length}` : "2K"}
               </Text>
               <Text italic fontWeight="bold" fontSize="10">
                 Posts

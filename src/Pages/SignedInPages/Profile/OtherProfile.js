@@ -17,30 +17,28 @@ const OtherProfile = ({ navigation, user_uuid }) => {
   useEffect(() => {
     grapevineBackend(`/auth/getuserInfo/${user_uuid}`, {}, "POST")
       .then(({ data }) => {
-        console.log(data);
         if (data.status) {
           setUser({ ...data.data });
         }
-        grapevineBackend("/post/userposts", { uuid: user_uuid }, "POST")
-          .then(({ data }) => {
-            if (data.status) {
-              let textPost_temp = [];
-              let tikTokPost_temp = [];
-              data.data.forEach((post) => {
-                if (post.post_type == "text") {
-                  textPost_temp.push({ ...post, username: user.username });
-                } else if (post.post_type == "tiktok") {
-                  tikTokPost_temp.push({ ...post, username: user.username });
-                }
-              });
-              setTextPost([...textPost_temp]);
-              setTiktokPost([...tikTokPost_temp]);
-            }
-          })
-          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (user?.posts?.length > 0) {
+      let textPost_temp = [];
+      let tikTokPost_temp = [];
+      user.posts.forEach((post) => {
+        if (post.post_type == "text") {
+          textPost_temp.push({ ...post, username: user.username });
+        } else if (post.post_type == "tiktok") {
+          tikTokPost_temp.push({ ...post, username: user.username });
+        }
+      });
+      setTextPost([...textPost_temp]);
+      setTiktokPost([...tikTokPost_temp]);
+    }
+  }, [user]);
 
   return (
     <LayoutFrame>
