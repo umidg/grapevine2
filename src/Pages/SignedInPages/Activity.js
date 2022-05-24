@@ -5,40 +5,42 @@ import NotificationContainer from "../../MoleculeComponents/Notifications/Notifi
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
 import { grapevineBackend } from "../../API";
-import { UserValue } from "../../Context/UserContext";
-
-const data = [
-  {
-    id: "id",
-    uuid: "uuid",
-    message: "umid posted new photo.",
-    post_uuid: "Post_uuid",
-    user_uuid: "user_uuid",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  },
-  {
-    id: "id",
-    uuid: "uuid",
-    message: "umid posted new photo.",
-    post_uuid: "Post_uuid",
-    user_uuid: "user_uuid",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  },
-  {
-    id: "id",
-    uuid: "uuid",
-    message: "umid posted new photo.",
-    post_uuid: "Post_uuid",
-    user_uuid: "user_uuid",
-    created_at: "created_at",
-    updated_at: "updated_at",
-  },
-];
 
 const Activity = ({ navigation }) => {
-  const [component, setComponent] = useState("you");
+  const [component, setComponent] = useState("foryou");
+  const [forYouActicity, setForYouActivity] = useState([]);
+  const [connectedcticity, setConnectedActivity] = useState([]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      grapevineBackend("/activity/get/foryou", {}, "POST")
+        .then(async ({ data }) => {
+          setError(false);
+          if (data.status == true) {
+            setForYouActivity([...data.data]);
+          }
+        })
+        .catch((err) => {
+          setError(true);
+          console.log("Err", err);
+        });
+      grapevineBackend("/activity/get/connected", {}, "POST")
+        .then(async ({ data }) => {
+          setError(false);
+          if (data.status == true) {
+            setConnectedActivity([...data.data]);
+          }
+        })
+        .catch((err) => {
+          setError(true);
+          console.log("Err", err);
+        });
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <LayoutFrame>
       <Box h="100%" w="100%">
@@ -48,36 +50,16 @@ const Activity = ({ navigation }) => {
           alignItems="center"
           m="20px"
         >
-          <Text
-            fontSize="15px"
-            fontWeight={component == "you" ? "800" : "400"}
-            pr="2px"
-            flex={1}
-            textAlign="right"
-          >
-            For You
-          </Text>
-
-          <Box w="1px" h="70%" m="5px" bg="red.500"></Box>
-
-          <Text
-            fontSize="15px"
-            pl="2px"
-            flex={1}
-            textAlign="left"
-            fontWeight={component == "you" ? "400" : "800"}
-          >
-            Connected
-            {/* <Box
-              h={1}
-              w={1}
-              borderRadius="full"
-              bg="buttonPrimaryColor"
-              //   zIndex={1000}
-              position="absolute"
-              top={1000}
-            ></Box> */}
-          </Text>
+          <Pressable onPress={() => setComponent("foryou")}>
+            <Text fontWeight={component == "foryou" ? "800" : "600"} mx={1}>
+              For You
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => setComponent("connected")}>
+            <Text fontWeight={component == "connected" ? "800" : "600"} mx={1}>
+              Connected
+            </Text>
+          </Pressable>
 
           <Flex
             direction="row"
@@ -97,11 +79,60 @@ const Activity = ({ navigation }) => {
           </Flex>
         </Flex>
 
+        <Box h="100%" w="100%">
+          {error ? (
+            <Center h="100%" w="100%">
+              <Text fontWeight={"800"}>Error occured</Text>
+            </Center>
+          ) : component == "connected" ? (
+            <>
+              {connectedcticity ? (
+                <>
+                  <Box pb="70" p={2}>
+                    <NotificationContainer
+                      time="New"
+                      notifications={connectedcticity}
+                    />
+                  </Box>
+                </>
+              ) : (
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
+                </Center>
+              )}
+            </>
+          ) : (
+            <>
+              {forYouActicity ? (
+                <>
+                  {forYouActicity.length > 0 ? (
+                    <Box pb="70" p={2}>
+                      <NotificationContainer
+                        time="New"
+                        notifications={forYouActicity}
+                      />
+                    </Box>
+                  ) : (
+                    <Center h="100%" w="100%">
+                      <Text>No Post To Show</Text>
+                    </Center>
+                  )}
+                </>
+              ) : (
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
+                </Center>
+              )}
+            </>
+          )}
+        </Box>
+
+        {/* 
         <Box pl="5%" pr="5%">
           <NotificationContainer time="New" notifications={data} />
           <NotificationContainer time="Yesterday" notifications={data} />
           <NotificationContainer time="This Week" notifications={data} />
-        </Box>
+        </Box> */}
       </Box>
     </LayoutFrame>
   );
