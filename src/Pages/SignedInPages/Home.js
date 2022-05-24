@@ -8,6 +8,7 @@ import { UserValue } from "../../Context/UserContext";
 import TiktokPost from "../../MoleculeComponents/Post/TiktokPost";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import PostContainer from "../../MoleculeComponents/Post/PostContainer";
 
 const Home = ({ navigation }) => {
   const [post, setPost] = useState(null);
@@ -32,6 +33,8 @@ const Home = ({ navigation }) => {
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
+            console.log(data.data);
+
             setForYouPost([...data.data]);
           }
         })
@@ -130,25 +133,14 @@ const Home = ({ navigation }) => {
                 <>
                   <Box pb="70" p={2} mt={35}>
                     {post.map((d) => {
-                      if (d.post_type == "text") {
-                        return (
-                          <PostV2
-                            key={d.id}
-                            data={d}
-                            user={user}
-                            navigation={navigation}
-                          />
-                        );
-                      } else if ((d.post_type = "tiktok")) {
-                        return (
-                          <TiktokPost
-                            data={d}
-                            key={d.id}
-                            user={user}
-                            navigation={navigation}
-                          />
-                        );
-                      }
+                      return (
+                        <PostContainer
+                          post={d}
+                          key={d.uuid}
+                          user={user}
+                          navigation={navigation}
+                        />
+                      );
                     })}
                   </Box>
                 </>
@@ -165,25 +157,14 @@ const Home = ({ navigation }) => {
                   {forYouPost.length > 0 ? (
                     <Box pb="70" p={2}>
                       {forYouPost.map((d) => {
-                        if (d.post_type == "text") {
-                          return (
-                            <PostV2
-                              key={d.id}
-                              data={d}
-                              user={user}
-                              navigation={navigation}
-                            />
-                          );
-                        } else if ((d.post_type = "tiktok")) {
-                          return (
-                            <TiktokPost
-                              data={d}
-                              key={d.id}
-                              user={user}
-                              navigation={navigation}
-                            />
-                          );
-                        }
+                        return (
+                          <PostContainer
+                            post={d}
+                            key={d.uuid}
+                            user={user}
+                            navigation={navigation}
+                          />
+                        );
                       })}
                     </Box>
                   ) : (

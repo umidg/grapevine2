@@ -3,6 +3,8 @@ import { Box, Flex, Pressable, Text, View } from "native-base";
 import RegularImage from "../../../AtomComponents/Image/RegularImage";
 import { grapevineBackend } from "../../../API";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import Toast from "react-native-root-toast";
+
 const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, SetLikeCount] = useState(likes.length);
@@ -47,6 +49,28 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
         .catch((err) => setLiked(false));
     }
   };
+
+  const handleShare = () => {
+    Toast.show("Sharing", {
+      duration: Toast.durations.LONG,
+    });
+    grapevineBackend(
+      "/post/share",
+      {
+        post_uuid: post_uuid,
+        user_uuid: user.uuid,
+        username: user.username,
+        keys: user.intrests,
+      },
+      "POST"
+    )
+      .then(({ data }) => {
+        Toast.show("Post Shared", {
+          duration: Toast.durations.LONG,
+        });
+      })
+      .catch((err) => setLiked(false));
+  };
   useEffect(() => {
     let likeLength = 0;
     likes.forEach((element) => {
@@ -79,6 +103,9 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
           <View ml={2}>
             <FontAwesome5 name="comment" size={18} color="#000" p="2" />
           </View>
+          <Pressable onPress={handleShare} ml={2}>
+            <FontAwesome5 name="share" size={18} color="#000" />
+          </Pressable>
         </Flex>
         <Text fontSize="12px" fontWeight="800" textAlign="center">
           {likeCount} Likes

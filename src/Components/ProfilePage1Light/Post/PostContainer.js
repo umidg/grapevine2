@@ -2,8 +2,9 @@ import React from "react";
 import { View, Text, Box, Center, ScrollView } from "native-base";
 import PostV2 from "../../../MoleculeComponents/Post/PostV2";
 import { ActivityIndicator } from "react-native";
+import PostContainer from "../../../MoleculeComponents/Post/PostContainer";
 
-const PostContainer = ({ textPost, user }) => {
+const PostContainer_Profile = ({ textPost, user }) => {
   return (
     <Center w="100%" bg="theme.bg">
       <Box w="90%" h="100%">
@@ -14,7 +15,7 @@ const PostContainer = ({ textPost, user }) => {
           {textPost.length > 0 ? (
             <Box pb="70">
               {textPost.map((d) => {
-                return <PostV2 key={d.id} data={d} user={user} />;
+                return <PostContainer post={d} key={d.uuid} user={user} />;
               })}
             </Box>
           ) : (
@@ -28,4 +29,4 @@ const PostContainer = ({ textPost, user }) => {
   );
 };
 
-export default PostContainer;
+export default PostContainer_Profile;

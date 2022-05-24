@@ -1,16 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Box, Center, Text, Image, Flex } from "native-base";
 import PostHeader from "./PostComponents/PostHeader";
 import CommentsContainer from "./PostComponents/CommentsContainer";
 import LikeContainer from "./PostComponents/LikeContainer";
-
-const PostV2 = ({
-  data,
-  user,
-  navigation,
-  showLike = true,
-  showComment = true,
-}) => {
+import { grapevineBackend } from "../../API";
+import PostV2 from "./PostV2";
+const SharedPost = ({ data, user, navigation }) => {
+  const [post, setPost] = useState(null);
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
     const date2 = new Date();
@@ -27,6 +23,22 @@ const PostV2 = ({
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
     return diffInDays + " days ago";
   }, [data]);
+
+  useEffect(() => {
+    grapevineBackend(
+      "/post/getPostByUuid",
+      { post_uuid: data.shared_post_uuid },
+      "POST"
+    )
+      .then(({ data }) => {
+        if (data.status) {
+          setPost({ ...data.data });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data]);
   return (
     <Box w="100%" bg="theme.bg" mt="15" borderRadius="md">
       <Box p="2">
@@ -36,28 +48,30 @@ const PostV2 = ({
           navigation={navigation}
         />
       </Box>
-      <Box w="100%" pl="2" pr="5">
-        <Text fontSize="18" fontWeight="300">
-          {data.post}
-        </Text>
-      </Box>
-      {showLike && (
-        <Box pl={1} pr="3">
-          <LikeContainer
-            likes={data.likes}
-            post_uuid={data.uuid}
+      <Box w="100%" pl="2" pr="5" borderWidth={1}>
+        {post && (
+          <PostV2
+            showLike={false}
+            showComment={false}
+            data={post}
             user={user}
-            timeStamp={time}
+            navigation={navigation}
           />
-        </Box>
-      )}
-      {showComment && (
-        <Box p="2">
-          <CommentsContainer comments={data.comments} user={user} />
-        </Box>
-      )}
+        )}
+      </Box>
+      <Box pl={1} pr="3">
+        <LikeContainer
+          likes={data.likes}
+          post_uuid={data.uuid}
+          user={user}
+          timeStamp={time}
+        />
+      </Box>
+      <Box p="2">
+        <CommentsContainer comments={data.comments} user={user} />
+      </Box>
     </Box>
   );
 };
 
-export default PostV2;
+export default SharedPost;

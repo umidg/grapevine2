@@ -17,7 +17,7 @@ const PostHeader = ({ username, user_uuid, navigation }) => {
       <Flex direction="row" alignItems="center">
         <Pressable
           onPress={() => {
-            navigation.navigate("FriendProfile", {
+            navigation?.navigate("FriendProfile", {
               user_uuid: user_uuid,
             });
           }}

@@ -4,7 +4,7 @@ import { useWindowDimensions } from "react-native";
 import { TabView } from "react-native-tab-view";
 import { Pressable } from "react-native";
 import PhotoContainer from "../../Components/ProfilePage1Light/Photos/PhotosContainer";
-import PostContainer from "../../Components/ProfilePage1Light/Post/PostContainer";
+import PostContainer_Profile from "../../Components/ProfilePage1Light/Post/PostContainer";
 import ProfileInfo from "../../Components/ProfilePage1Light/ProfileInfo/ProfileInfo";
 const Grid = require("../../../assets/Icons/grid.png");
 const Pen = require("../../../assets/Icons/pen.png");
@@ -37,7 +37,7 @@ const TabContainer = ({ tiktokPost, textPost, user }) => {
       case "first":
         return <PhotoContainer tiktokPost={tiktokPost} />;
       case "second":
-        return <PostContainer textPost={textPost} user={user} />;
+        return <PostContainer_Profile textPost={textPost} user={user} />;
       case "third":
         // return <ProfileInfo />;
         return <Activity />;
