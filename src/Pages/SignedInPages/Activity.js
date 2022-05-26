@@ -17,6 +17,7 @@ const Activity = ({ navigation }) => {
       grapevineBackend("/activity/get/foryou", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
+          console.log("for you", forYouActicity);
           if (data.status == true) {
             setForYouActivity([...data.data]);
           }

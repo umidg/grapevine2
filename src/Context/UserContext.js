@@ -3,7 +3,9 @@ export const UserValue = React.createContext(null);
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UserContext = (props) => {
-  const [user, setUser] = useState({ data: false });
+  const [user, setUser] = useState({
+    data: false,
+  });
   useEffect(async () => {
     var temp = { data: true };
     try {

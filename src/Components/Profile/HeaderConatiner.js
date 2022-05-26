@@ -61,7 +61,7 @@ const HeaderContainer = (props) => {
     grapevineBackend(
       "/friendship/acceptfriendrequest",
       {
-        friendship_uuid: friend.id,
+        friendship_uuid: friend.uuid,
         user_accept: user.uuid,
       },
       "POST"
