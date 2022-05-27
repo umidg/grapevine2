@@ -16,6 +16,7 @@ const Home = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [user, setUser] = useContext(UserValue);
   const [forYouPost, setForYouPost] = useState(null);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend("/post/getAllPost", {}, "POST")

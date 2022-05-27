@@ -10,20 +10,23 @@ import {
   Pressable,
 } from "native-base";
 import React, { useEffect, useState, useRef, useContext } from "react";
+import { Alert } from "react-native";
 import { grapevineBackend } from "../../API";
+import ButtonDark from "../../AtomComponents/Buttons/ButtonDark";
 import RegularImage from "../../AtomComponents/Image/RegularImage";
 import RoundImage from "../../AtomComponents/Image/RoundImage";
 import Header from "../../Components/Messages/Header/Header";
 import { UserValue } from "../../Context/UserContext";
 const { io } = require("socket.io-client");
 const ChatRoom = ({ navigation, route }) => {
-  const { friend_uuid, username, friendship_uuid } = route.params;
+  const { friend_uuid, username, friendship_uuid, chatroom_uuid, valid_room } =
+    route.params;
   const [message, setMessage] = useState("");
   const [user, setUser] = useContext(UserValue);
   const [messages, setMessages] = useState([]);
+  const [valid, setValid] = useState(valid_room);
   const socket = useRef(null);
   const scrollViewref = useRef(null);
-  // console.log("navigation", navigation.getState());
   const sendMessage = () => {
     if (message.length > 0) {
       socket.current.emit("messageSent", {
@@ -34,13 +37,29 @@ const ChatRoom = ({ navigation, route }) => {
       setMessage("");
     }
   };
+  const useGrape = () => {
+    grapevineBackend(
+      "/grape/use",
+      { user_uuid: user.uuid, chatroom_uuid: chatroom_uuid },
+      "POST"
+    )
+      .then(({ data }) => {
+        if (data.status) {
+          setValid(true);
+        } else {
+          Alert.alert("", data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    console.log(friendship_uuid);
     socket.current = io(
-      `http://192.168.1.70:4000/?chatRoomid=${friendship_uuid}`
+      `http://192.168.1.70:4000/?chatRoomid=${chatroom_uuid}`
     );
-    grapevineBackend(`/chat/getRoomChats/${friendship_uuid}`, {}, "POST")
+    grapevineBackend(`/chat/getRoomChats/${chatroom_uuid}`, {}, "POST")
       .then(({ data }) => {
         console.log(data);
         if (data.status) setMessages([...data.data]);
@@ -60,6 +79,7 @@ const ChatRoom = ({ navigation, route }) => {
       setMessages([...temp]);
     });
   }, [messages]);
+
   return (
     <Box h="100%" w="100%">
       <Flex
@@ -95,59 +115,70 @@ const ChatRoom = ({ navigation, route }) => {
           w={10}
         />
       </Flex>
-      <Box w="100%" h="80%">
-        <ScrollView
-          ref={scrollViewref}
-          onContentSizeChange={() => {
-            scrollViewref.current.scrollToEnd({ animated: true });
-          }}
-        >
-          {messages.map((m) => {
-            if (m.from_user == user.id) {
-              return (
-                <Flex
-                  key={m.id}
-                  p="2"
-                  direction="row"
-                  justifyContent={"flex-end"}
-                >
-                  <Text bg="blue.800" color="#fff" w="50%" p="5">
-                    {m.content}
-                  </Text>
-                </Flex>
-              );
-            }
-            return (
-              <View key={m.id} p="2">
-                <Text bg="red.800" color="#fff" w="50%" p="5">
-                  {m.content}
-                </Text>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </Box>
-      <Box w="100%" h="10%">
-        <Flex
-          direction="row"
-          justifyContent={"space-between"}
-          pl="1"
-          pr="1"
-          h="100%"
-        >
-          <Input
-            bg="#fff"
-            borderWidth={0.5}
-            width="80%"
-            value={message}
-            onChangeText={(t) => setMessage(t)}
-            h="100%"
-          />
-          <Button w="20%" onPress={sendMessage} h="100%">
-            Send
-          </Button>
-        </Flex>
-      </Box>
+      {valid ? (
+        <>
+          <Box w="100%" h="80%">
+            <ScrollView
+              ref={scrollViewref}
+              onContentSizeChange={() => {
+                scrollViewref.current.scrollToEnd({ animated: true });
+              }}
+            >
+              {messages.map((m) => {
+                if (m.from_user == user.id) {
+                  return (
+                    <Flex
+                      key={m.id}
+                      p="2"
+                      direction="row"
+                      justifyContent={"flex-end"}
+                    >
+                      <Text bg="blue.800" color="#fff" w="50%" p="5">
+                        {m.content}
+                      </Text>
+                    </Flex>
+                  );
+                }
+                return (
+                  <View key={m.id} p="2">
+                    <Text bg="red.800" color="#fff" w="50%" p="5">
+                      {m.content}
+                    </Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </Box>
+          <Box w="100%" h="10%">
+            <Flex
+              direction="row"
+              justifyContent={"space-between"}
+              pl="1"
+              pr="1"
+              h="100%"
+            >
+              <Input
+                bg="#fff"
+                borderWidth={0.5}
+                width="80%"
+                value={message}
+                onChangeText={(t) => setMessage(t)}
+                h="100%"
+              />
+              <Button w="20%" onPress={sendMessage} h="100%">
+                Send
+              </Button>
+            </Flex>
+          </Box>
+        </>
+      ) : (
+        <Box h="100%" w="100%" justifyContent={"center"} alignItems="center">
+          <Text>You cannot Send Message now</Text>
+          <Box w="50%">
+            <ButtonDark onPress={useGrape}>Use Grape</ButtonDark>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };

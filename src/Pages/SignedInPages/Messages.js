@@ -13,10 +13,11 @@ const Messages = ({ navigation }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend(
         "/friendship/getAllFriends",
-        { user_id: user.id },
+        { user_uuid: user.uuid },
         "POST"
       )
         .then(async ({ data }) => {
+          console.log("friends", data, "friends");
           setFriends([...data.data]);
         })
         .catch((err) => console.log(err));
@@ -36,14 +37,16 @@ const Messages = ({ navigation }) => {
         <View>
           {friends.map((d) => {
             return (
-              <View key={d.friendship_id}>
+              <View key={d.uuid}>
                 <Message
                   username={d.username}
                   onPress={() =>
                     navigation.navigate("Chatroom", {
-                      friend_id: d.user_id,
+                      friend_uuid: d.user_uuid,
                       username: d.username,
-                      friendship_id: d.friendship_id,
+                      friendship_uuid: d.friendship_uuid,
+                      chatroom_uuid: d.chatroom_uuid,
+                      valid_room: d.valid_room,
                     })
                   }
                 />
