@@ -34,8 +34,6 @@ const Home = ({ navigation }) => {
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
-            console.log(data.data);
-
             setForYouPost([...data.data]);
           }
         })

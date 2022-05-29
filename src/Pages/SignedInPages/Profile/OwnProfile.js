@@ -16,23 +16,26 @@ const OwnProfile = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   // const [show, setShow] = useState(true);
   useEffect(() => {
-    grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
-      .then(({ data }) => {
-        if (data.status) {
-          let textPost_temp = [];
-          let tikTokPost_temp = [];
-          data.data.forEach((post) => {
-            if (post.post_type == "text") {
-              textPost_temp.push({ ...post, username: user.username });
-            } else if (post.post_type == "tiktok") {
-              tikTokPost_temp.push({ ...post, username: user.username });
-            }
-          });
-          setTextPost([...textPost_temp]);
-          setTiktokPost([...tikTokPost_temp]);
-        }
-      })
-      .catch((err) => console.log(err));
+    const unsubscribe = navigation.addListener("focus", () => {
+      grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
+        .then(({ data }) => {
+          if (data.status) {
+            let textPost_temp = [];
+            let tikTokPost_temp = [];
+            data.data.forEach((post) => {
+              if (post.post_type == "text") {
+                textPost_temp.push({ ...post, username: user.username });
+              } else if (post.post_type == "tiktok") {
+                tikTokPost_temp.push({ ...post, username: user.username });
+              }
+            });
+            setTextPost([...textPost_temp]);
+            setTiktokPost([...tikTokPost_temp]);
+          }
+        })
+        .catch((err) => console.log(err));
+    });
+    return unsubscribe;
   }, []);
   const logout = async () => {
     await AsyncStorage.removeItem("user");

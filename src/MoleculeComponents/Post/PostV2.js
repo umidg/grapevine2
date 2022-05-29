@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Box, Center, Text, Image, Flex } from "native-base";
+import { Box, Center, Text, Image, Flex, Pressable } from "native-base";
 import PostHeader from "./PostComponents/PostHeader";
 import CommentsContainer from "./PostComponents/CommentsContainer";
 import LikeContainer from "./PostComponents/LikeContainer";
@@ -52,9 +52,20 @@ const PostV2 = ({
         </Box>
       )}
       {showComment && (
-        <Box p="2">
-          <CommentsContainer comments={data.comments} user={user} />
-        </Box>
+        <Pressable
+          onPress={() => {
+            if (navigation) {
+              navigation.navigate("CommentPage", {
+                comments: data.comments,
+                post_uuid: data.uuid,
+              });
+            }
+          }}
+        >
+          <Box p="2">
+            <CommentsContainer comments={data.comments} user={user} />
+          </Box>
+        </Pressable>
       )}
     </Box>
   );

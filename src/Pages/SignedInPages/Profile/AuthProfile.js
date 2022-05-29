@@ -10,7 +10,6 @@ const AuthProfile = ({ navigation, route }) => {
     params: { user_uuid },
   } = route;
   if (user.uuid == user_uuid) {
-    console.log("here");
     navigation.navigate("Profile");
   }
   return <OtherProfile user_uuid={user_uuid} navigation={navigation} />;

@@ -32,6 +32,7 @@ import FriendRequest from "../Pages/SignedInPages/FriendRequest";
 import AuthProfile from "../Pages/SignedInPages/Profile/AuthProfile";
 import OwnProfile from "../Pages/SignedInPages/Profile/OwnProfile";
 import Activity from "../Pages/SignedInPages/Activity";
+import CommentPage from "../Pages/SignedInPages/CommentPage";
 export const signedInRoutes = [
   // {
   //   routeName: "Home",
@@ -54,6 +55,10 @@ export const signedInRoutes = [
   {
     routeName: "Messages",
     component: Messages,
+  },
+  {
+    routeName: "CommentPage",
+    component: CommentPage,
   },
   // // {
   // //   routeName: "Network",

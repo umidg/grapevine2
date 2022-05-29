@@ -6,7 +6,13 @@ import LikeContainer from "./PostComponents/LikeContainer";
 
 import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import ColorWrapper from "../../AtomComponents/ColorWrapper/ColorWrapper";
-const TiktokPost = ({ data, user, navigation }) => {
+const TiktokPost = ({
+  data,
+  user,
+  navigation,
+  showLike = true,
+  showComment = true,
+}) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
     const date2 = new Date();
@@ -51,17 +57,32 @@ const TiktokPost = ({ data, user, navigation }) => {
         </Box>
         <Tiktokvideo uri={data.video_url} />
       </Box>
-      <Box pl="3" pr="3">
-        <LikeContainer
-          likes={data.likes}
-          post_id={data.id}
-          user={user}
-          timeStamp={time}
-        />
-      </Box>
-      <Box p="2">
-        <CommentsContainer comments={data.comments} />
-      </Box>
+      {showLike && (
+        <Box pl={1} pr="3">
+          <LikeContainer
+            likes={data.likes}
+            post_uuid={data.uuid}
+            user={user}
+            timeStamp={time}
+          />
+        </Box>
+      )}
+      {showComment && (
+        <Pressable
+          onPress={() => {
+            if (navigation) {
+              navigation.navigate("CommentPage", {
+                comments: data.comments,
+                post_uuid: data.uuid,
+              });
+            }
+          }}
+        >
+          <Box p="2">
+            <CommentsContainer comments={data.comments} user={user} />
+          </Box>
+        </Pressable>
+      )}
     </Box>
   );
 };
