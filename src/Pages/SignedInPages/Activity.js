@@ -17,9 +17,8 @@ const Activity = ({ navigation }) => {
       grapevineBackend("/activity/get/foryou", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
-          console.log("for you", forYouActicity);
           if (data.status == true) {
-            setForYouActivity([...data.data]);
+            setForYouActivity([...data.data.result]);
           }
         })
         .catch((err) => {
@@ -30,7 +29,7 @@ const Activity = ({ navigation }) => {
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
-            setConnectedActivity([...data.data]);
+            setConnectedActivity([...data.data.result]);
           }
         })
         .catch((err) => {

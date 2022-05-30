@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // server
 const baseUrl = "https://admin.grapevine-app.co/";
 // localhost
-// const baseUrl = "http://192.168.100.132:4000/api";
+// const baseUrl = "http://192.168.1.70:4000/api";
 export const grapevineBackend = async (
   url,
   data,

@@ -19,11 +19,11 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/post/getAllPost", {}, "POST")
+      grapevineBackend("/post/getAllPost?page=1&limit=10", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
-            setPost([...data.data]);
+            setPost([...data.data.result]);
           }
         })
         .catch((err) => {
@@ -34,7 +34,7 @@ const Home = ({ navigation }) => {
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
-            setForYouPost([...data.data]);
+            setForYouPost([...data.data.result]);
           }
         })
         .catch((err) => {

@@ -12,12 +12,10 @@ const NotificationPage = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      console.log("fetching");
       grapevineBackend("/notification/get", {}, "POST")
         .then(async ({ data }) => {
-          console.log("notification", data);
           if (data.code == 200) {
-            setnotification([...data.data]);
+            setnotification([...data.data.result]);
           } else {
             console.log("Err: Friend Request", data);
           }
