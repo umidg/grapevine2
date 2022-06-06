@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
+
 export const RegisterData = React.createContext(null);
 
-const RegisterContext = (props) => {
-  const [data, setData] = useState({ data: true, intrests: [] });
+const RegisterContext = ({ children }) => {
+  const [register, setRegister] = useState({ data: true, interests: [] });
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
+  const registerMemo = React.useMemo(() => [register, setRegister], [register]);
   return (
-    <RegisterData.Provider value={[data, setData]}>
-      {props.children}
+    <RegisterData.Provider value={registerMemo}>
+      {children}
     </RegisterData.Provider>
   );
 };

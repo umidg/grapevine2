@@ -1,0 +1,30 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "react-native/react-native": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb", "airbnb/hooks"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-native"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }], //js treated as jsx
+    "object-curly-newline": "off", // import { new line issue fixed}
+    "react/react-in-jsx-scope": "off", // no need to import react in each file, if t works it works
+    "comma-dangle": "warn",
+    "react/function-component-definition": [
+      0,
+      {
+        "namedComponents": "function-declaration"
+      }
+    ],
+    "react/prop-types": "off",
+    "jsx-quotes": "warn"
+  }
+}

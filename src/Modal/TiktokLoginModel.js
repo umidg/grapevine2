@@ -1,15 +1,15 @@
-import { View, Text, Flex, Pressable, Image, Center, Box } from "native-base";
-import React, { useState, useRef, useEffect } from "react";
-import { WebView } from "react-native-webview";
-import axios from "axios";
-import { Alert } from "react-native";
+import { View, Text, Flex, Pressable, Image, Center, Box } from 'native-base';
+import React, { useState, useRef, useEffect } from 'react';
+import { WebView } from 'react-native-webview';
+import axios from 'axios';
+import { Alert } from 'react-native';
 
 const TiktokLoginModel = ({ show, close, loginSuccess }) => {
   const [key, setKey] = useState(0);
   const webViewRef = useRef(null);
-  const redirectUrl = "https://grapevine-app.co/tiktok/call_back";
-  const appId = "awyowg81mowgtks0";
-  const appSecret = "426f3d47bb5f6f295fda4f7ded27be5c";
+  const redirectUrl = 'https://grapevine-app.co/tiktok/call_back';
+  const appId = 'awyowg81mowgtks0';
+  const appSecret = '426f3d47bb5f6f295fda4f7ded27be5c';
   const csrfState = Math.random().toString(36).substring(2);
   // let url = "https://open-api.tiktok.com/platform/oauth/connect/";
   // url += `?client_key=${appId}`;
@@ -17,22 +17,22 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
   // url += "&response_type=code";
   // url += `&redirect_uri=${redirectUrl}`;
   // url += "&state=" + csrfState;
-  let url = "https://www.tiktok.com/auth/authorize/";
+  let url = 'https://www.tiktok.com/auth/authorize/';
   url += `?client_key=${appId}`;
-  url += "&scope=user.info.basic,video.list,video.upload";
-  url += "&response_type=code";
+  url += '&scope=user.info.basic,video.list,video.upload';
+  url += '&response_type=code';
   url += `&redirect_uri=${redirectUrl}`;
-  url += "&state=" + csrfState;
+  url += '&state=' + csrfState;
   const getUserInfo = async ({ access_token, open_id }) => {
-    const user = await fetch("https://open-api.tiktok.com/user/info/", {
-      method: "POST",
+    const user = await fetch('https://open-api.tiktok.com/user/info/', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         access_token: access_token,
         open_id: open_id,
-        fields: ["open_id", "union_id", "avatar_url"],
+        fields: ['open_id', 'union_id', 'avatar_url'],
       }),
     })
       .then((data) => data.json())
@@ -40,10 +40,10 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
     // console.log("user", user);
   };
   const getUserVideos = async ({ access_token, open_id }) => {
-    const video = await fetch("https://open-api.tiktok.com/video/list/", {
-      method: "POST",
+    const video = await fetch('https://open-api.tiktok.com/video/list/', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         access_token: access_token,
@@ -51,19 +51,19 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
         cursor: 0,
         max_count: 10,
         fields: [
-          "embed_html",
-          "embed_link",
-          "like_count",
-          "comment_count",
-          "share_count",
-          "view_count",
-          "title",
+          'embed_html',
+          'embed_link',
+          'like_count',
+          'comment_count',
+          'share_count',
+          'view_count',
+          'title',
         ],
       }),
     })
       .then((data) => data.json())
       .catch((err) => err);
-    console.log("videos", video);
+    console.log('videos', video);
     const tiktokPost = video.data.videos.map((v) => {
       return {
         embed_link: v.embed_link,
@@ -78,13 +78,13 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
 
   const getToken = async (code) => {
     // console.log("code", code);
-    let url_access_token = "https://open-api.tiktok.com/oauth/access_token/";
-    url_access_token += "?client_key=" + appId;
-    url_access_token += "&client_secret=" + appSecret;
-    url_access_token += "&code=" + code;
-    url_access_token += "&grant_type=authorization_code";
+    let url_access_token = 'https://open-api.tiktok.com/oauth/access_token/';
+    url_access_token += '?client_key=' + appId;
+    url_access_token += '&client_secret=' + appSecret;
+    url_access_token += '&code=' + code;
+    url_access_token += '&grant_type=authorization_code';
 
-    const demo = await fetch(url_access_token, { method: "post" })
+    const demo = await fetch(url_access_token, { method: 'post' })
       .then((res) => res.json())
       .then(async ({ data }) => {
         if (data.access_token) {
@@ -110,14 +110,14 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
     const { url } = state;
     if (url && url.startsWith(redirectUrl) && key < 1) {
       setKey(key + 1);
-      let code = url.split(redirectUrl + "?code=");
-      code = code[1].split("&");
+      let code = url.split(redirectUrl + '?code=');
+      code = code[1].split('&');
       code = code[0];
       if (!code) {
         close();
         return;
       }
-      code = code.split("#_");
+      code = code.split('#_');
       code = code[0];
       // now fetch token with code
       const data = await getToken(code);
@@ -127,7 +127,7 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
         close();
       } else {
         setKey(0);
-        Alert.alert("", "Error Occured");
+        Alert.alert('', 'Error Occured');
         close();
       }
     } else {
@@ -140,15 +140,15 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
   }
   return (
     <Center
-      h="100%"
-      w="100%"
-      bg="rgba(0,0,0,0.2)"
-      position={"absolute"}
+      h='100%'
+      w='100%'
+      bg='rgba(0,0,0,0.2)'
       top={100}
       left={0}
-      zIndex={1000}
+      position='absolute'
+      zIndex={10000}
     >
-      <Box h="600" w="100%" bg="#fff">
+      <Box h='600' w='100%' bg='#fff'>
         <WebView
           ref={webViewRef}
           source={{ uri: url }}
@@ -156,7 +156,7 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
         />
         <Center>
           <Pressable onPress={close}>
-            <Text p={5} fontWeight={800} color="red.500">
+            <Text p={5} fontWeight={800} color='red.500'>
               Close
             </Text>
           </Pressable>

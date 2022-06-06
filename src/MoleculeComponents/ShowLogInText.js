@@ -1,25 +1,16 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
-import { Text } from "native-base";
-const ShowLogInText = ({ onPress }) => {
-  return (
+import { TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Box, Text } from 'native-base';
+
+const ShowLogInText = ({ onPress }) => (
+  <Box position='absolute' zIndex={9}>
     <TouchableOpacity onPress={onPress}>
-      <Text style={styles.logninText}>
-        Already have an account? <Text color="buttonDark">Login</Text>
+      <Text fontSize='13' fontWeight='800' color='white' textAlign='center'>
+        Already have an account? &nbsp;
+        <Text color='buttonDark'>Login</Text>
       </Text>
     </TouchableOpacity>
-  );
-};
+  </Box>
+);
 
 export default ShowLogInText;
-
-const styles = StyleSheet.create({
-  logninText: {
-    fontSize: 13,
-    fontWeight: "800",
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 20,
-    fontStyle: "italic",
-  },
-});

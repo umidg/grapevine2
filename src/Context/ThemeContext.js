@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
 export const ThemeValue = React.createContext(null);
-const ThemeContext = (props) => {
-  const [theme, setTheme] = useState("light");
-  return (
-    <ThemeValue.Provider value={[theme, setTheme]}>
-      {props.children}
-    </ThemeValue.Provider>
-  );
+const ThemeContext = ({ children }) => {
+  const [theme, setTheme] = useState('light');
+  const value = React.useMemo(() => [theme, setTheme], [theme]);
+  return <ThemeValue.Provider value={value}>{children}</ThemeValue.Provider>;
 };
 
 export default ThemeContext;

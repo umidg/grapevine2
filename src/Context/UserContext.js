@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from "react";
-export const UserValue = React.createContext(null);
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const UserContext = (props) => {
+export const UserValue = React.createContext(null);
+
+const UserContext = ({ children }) => {
   const [user, setUser] = useState({
     data: false,
   });
-  useEffect(async () => {
-    var temp = { data: true };
-    try {
-      let loggedUser = JSON.parse(await AsyncStorage.getItem("user"));
-      if (loggedUser) {
-        temp = { ...temp, ...loggedUser };
+  useEffect(() => {
+    const getLoggedUser = async () => {
+      let temp = { data: true };
+      try {
+        const loggedUser = JSON.parse(await AsyncStorage.getItem('user'));
+        if (loggedUser) {
+          temp = { loggedUser, ...temp };
+        }
+        setUser({ ...temp });
+      } catch (err) {
+        console.log(err, 'asyncstorage error');
       }
-    } catch (err) {}
-    setUser({ ...temp });
+    };
+    getLoggedUser();
   }, []);
 
-  return (
-    <UserValue.Provider value={[user, setUser]}>
-      {props.children}
-    </UserValue.Provider>
-  );
+  const userMemo = React.useMemo(() => [user, setUser], [user]);
+
+  return <UserValue.Provider value={userMemo}>{children}</UserValue.Provider>;
 };
 
 export default UserContext;
