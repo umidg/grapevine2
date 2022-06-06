@@ -12,10 +12,9 @@ import {
 } from "native-base";
 import Collection from "../../Components/Explore/Collection/Collection";
 import Features from "../../Components/Explore/Featurs/Features";
-import Filter from "../../Components/Explore/Filter/Filter";
 import Search from "../../AtomComponents/Input/Search";
 import { Box } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import { grapevineBackend } from "../../API";
 import Notification from "../../MoleculeComponents/Notifications/Notification";
 import { userHook } from "../../Hooks";
@@ -63,7 +62,7 @@ const Explore = ({ navigation }) => {
   // };
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%">
         <ScrollView style={{ height: "100%" }}>
           <View h="100%">
@@ -118,7 +117,7 @@ const Explore = ({ navigation }) => {
           </View>
         </ScrollView>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

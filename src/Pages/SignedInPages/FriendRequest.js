@@ -1,7 +1,7 @@
 import { View, Text, Box, Flex, Center, Button } from "native-base";
 import React, { useEffect, useState, useContext } from "react";
 import { ScrollView } from "react-native";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import { AntDesign } from "@expo/vector-icons";
 import { Pressable } from "react-native";
 import Search from "../../AtomComponents/Input/Search";
@@ -51,7 +51,7 @@ const FriendRequest = ({ navigation }) => {
     });
   }, []);
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box w="100%" h="100%" alignItems={"center"}>
         <Flex
           direction="row"
@@ -130,7 +130,7 @@ const FriendRequest = ({ navigation }) => {
           </ScrollView>
         </View>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

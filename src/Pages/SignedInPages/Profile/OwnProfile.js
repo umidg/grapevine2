@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import HeaderContainer from "../../../Components/Profile/HeaderConatiner";
 import NetworkContainer from "../../../Components/ProfilePage1Light/Networks/NetworkContainer";
 import { Box, Button, Switch, Text } from "native-base";
-import LayoutFrame from "../../../Layout/LayoutFrame";
+import { SignInLayout } from "../../../Layout/index";
 import TabContainer from "../../../Components/Profile/TabContainer";
 import { AntDesign } from "@expo/vector-icons";
 import { grapevineBackend } from "../../../API";
@@ -43,7 +43,7 @@ const OwnProfile = ({ navigation }) => {
   };
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box w="100%" h="100%">
         <Button onPress={logout} bg="buttonDark">
           Logout
@@ -72,7 +72,7 @@ const OwnProfile = ({ navigation }) => {
           />
         </Box>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 export default OwnProfile;

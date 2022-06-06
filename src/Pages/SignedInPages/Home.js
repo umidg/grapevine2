@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
-import PostV2 from "../../MoleculeComponents/Post/PostV2";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import { ActivityIndicator } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-import TiktokPost from "../../MoleculeComponents/Post/TiktokPost";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import PostContainer from "../../MoleculeComponents/Post/PostContainer";
 
@@ -84,7 +81,7 @@ const Home = ({ navigation }) => {
           </Text>
         </Pressable>
       </Flex>
-      <LayoutFrame>
+      <SignInLayout>
         <Box h="100%" w="100%" mt={20}>
           {/* <Flex
           direction="row"
@@ -180,7 +177,7 @@ const Home = ({ navigation }) => {
             </>
           )}
         </Box>
-      </LayoutFrame>
+      </SignInLayout>
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
 import React, { useContext } from "react";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import {
   Box,
   Text,
@@ -11,12 +11,16 @@ import {
   Flex,
   Input,
 } from "native-base";
-import Logo from "../../AtomComponents/Logo/Logo";
-import ShowLogInText from "../../MoleculeComponents/ShowLogInText";
-import BackIcon from "../../AtomComponents/BackIcon/BackIcon";
-import ButtonDark from "../../AtomComponents/Buttons/ButtonDark";
-import ButtonLight from "../../AtomComponents/Buttons/ButtonLight";
+
 import { RegisterData } from "../../Context/RegisterContext";
+
+import {
+  ButtonDark,
+  ButtonLight,
+  // Input,
+  Logo,
+} from "../../AtomComponents/index";
+
 const EnterDob = ({ navigation }) => {
   const [data, setData] = useContext(RegisterData);
   const ethinicity = [
@@ -79,193 +83,195 @@ const EnterDob = ({ navigation }) => {
 
   return (
     <LayoutFrame>
-      <Box
-        h="100%"
-        w="100%"
-        bg="loginPageBg"
-        pt="15%"
-        px="5"
-        pb="30"
-        justifyContent={"space-between"}
-      >
-        <BackIcon onPress={() => navigation.pop()} />
-        <View>
-          <View w="100%" alignItems="center">
-            <Logo />
-          </View>
-          <Center mt="15">
-            <Text color="#fff" fontWeight={"800"} m="3" fontSize={14} italic>
-              Date Of Birth
-            </Text>
-            <Flex direction="row">
-              <ButtonLight w={70} h={10} m={1} p={0}>
-                <Input
-                  borderWidth="0"
-                  w="100%"
-                  h="100%"
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
+          <Box pt="15%" px="5" pb="30">
+            <View>
+              <View w="100%" alignItems="center">
+                <Logo />
+              </View>
+              <Center mt="15">
+                <Text
                   color="#fff"
-                  placeholder="dd"
                   fontWeight={"800"}
+                  m="3"
                   fontSize={14}
-                  p={0}
-                  keyboardType="number-pad"
-                  maxLength={2}
-                  value={data.dob ? data.dob.day : null}
-                  onChangeText={(text) =>
-                    setData({ ...data, dob: { ...data.dob, day: text } })
-                  }
-                />
-              </ButtonLight>
-              <ButtonLight w={70} h={10} m={1} p={0}>
-                <Input
-                  borderWidth="0"
-                  w="100%"
-                  h="100%"
-                  color="#fff"
-                  placeholder="mm"
-                  fontWeight={"800"}
-                  fontSize={14}
-                  p={0}
-                  keyboardType="number-pad"
-                  maxLength={2}
-                  value={data.dob ? data.dob.month : null}
-                  onChangeText={(text) =>
-                    setData({ ...data, dob: { ...data.dob, month: text } })
-                  }
-                />
-              </ButtonLight>
-              <ButtonLight w={70} h={10} m={1} p={0}>
-                <Input
-                  borderWidth="0"
-                  w="100%"
-                  h="100%"
-                  color="#fff"
-                  placeholder="yy"
-                  fontWeight={"800"}
-                  fontSize={14}
-                  p={0}
-                  keyboardType="number-pad"
-                  maxLength={4}
-                  value={data.dob ? data.dob.year : null}
-                  onChangeText={(text) =>
-                    setData({ ...data, dob: { ...data.dob, year: text } })
-                  }
-                />
-              </ButtonLight>
-            </Flex>
-            <Text
-              color="#fff"
-              fontWeight={"800"}
-              mt="5"
-              mb="3"
-              fontSize={14}
-              italic
-            >
-              Gender
-            </Text>
-            <Flex w="100%" direction="row" justify="space-around">
-              <ButtonDark
-                w={"40%"}
-                h={10}
-                m={1}
-                onPress={() => setData({ ...data, gender: "Male" })}
-                bg={data.gender == "Male" ? "buttonDarkClick" : "buttonDark"}
-              >
-                <Text fontSize={14} color="#fff" fontWeight={"800"}>
-                  Male
+                  italic
+                >
+                  Date Of Birth
                 </Text>
-              </ButtonDark>
-
-              <ButtonDark
-                w={"40%"}
-                h={10}
-                m={1}
-                onPress={() => setData({ ...data, gender: "Female" })}
-                bg={data.gender == "Female" ? "buttonDarkClick" : "buttonDark"}
-              >
-                <Text fontSize={14} color="#fff" fontWeight={"800"}>
-                  Female
-                </Text>
-              </ButtonDark>
-            </Flex>
-            <ButtonDark
-              w={"70%"}
-              h={10}
-              m={1}
-              onPress={() => setData({ ...data, gender: "Other" })}
-              bg={data.gender == "Other" ? "buttonDarkClick" : "buttonDark"}
-            >
-              <Text fontSize={14} color="#fff" fontWeight={"800"}>
-                Prefer not to say
-              </Text>
-            </ButtonDark>
-            <Text
-              color="#fff"
-              fontWeight={"800"}
-              mt="5"
-              mb="3"
-              fontSize={14}
-              italic
-            >
-              Ethnicity
-            </Text>
-            <Center>
-              <Select
-                bg="rgba(61,54,130,0.6705882352941176)"
-                borderRadius={"md"}
-                height="10"
-                width={"70%"}
-                selectedValue={data.ethinicity}
-                minWidth="200"
-                color={"#fff"}
-                fontWeight="800"
-                accessibilityLabel="Choose "
-                placeholder="Choose "
-                _selectedItem={{
-                  bg: "teal.600",
-                  // endIcon: <CheckIcon size="5" />,
-                }}
-                borderWidth="0"
-                mt={1}
-                onValueChange={(itemValue) =>
-                  setData({ ...data, ethinicity: itemValue })
-                }
-              >
-                {ethinicity.map((data) =>
-                  data.disable ? (
-                    <Select.Item
-                      disabled
-                      label={
-                        <Text fontSize={20} fontWeight="800" color="#000">
-                          {data.value}
-                        </Text>
+                <Flex direction="row">
+                  <ButtonLight w={70} h={10} m={1} p={0}>
+                    <Input
+                      borderWidth="0"
+                      w="100%"
+                      h="100%"
+                      color="#fff"
+                      placeholder="dd"
+                      fontWeight={"800"}
+                      fontSize={14}
+                      p={0}
+                      keyboardType="number-pad"
+                      maxLength={2}
+                      value={data.dob ? data.dob.day : null}
+                      onChangeText={(text) =>
+                        setData({ ...data, dob: { ...data.dob, day: text } })
                       }
-                      value={data.value}
-                      key={data.value}
                     />
-                  ) : (
-                    <Select.Item
-                      label={data.value}
-                      value={data.value}
-                      key={data.value}
+                  </ButtonLight>
+                  <ButtonLight w={70} h={10} m={1} p={0}>
+                    <Input
+                      borderWidth="0"
+                      w="100%"
+                      h="100%"
+                      color="#fff"
+                      placeholder="mm"
+                      fontWeight={"800"}
+                      fontSize={14}
+                      p={0}
+                      keyboardType="number-pad"
+                      maxLength={2}
+                      value={data.dob ? data.dob.month : null}
+                      onChangeText={(text) =>
+                        setData({ ...data, dob: { ...data.dob, month: text } })
+                      }
                     />
-                  )
-                )}
-              </Select>
+                  </ButtonLight>
+                  <ButtonLight w={70} h={10} m={1} p={0}>
+                    <Input
+                      borderWidth="0"
+                      w="100%"
+                      h="100%"
+                      color="#fff"
+                      placeholder="yy"
+                      fontWeight={"800"}
+                      fontSize={14}
+                      p={0}
+                      keyboardType="number-pad"
+                      maxLength={4}
+                      value={data.dob ? data.dob.year : null}
+                      onChangeText={(text) =>
+                        setData({ ...data, dob: { ...data.dob, year: text } })
+                      }
+                    />
+                  </ButtonLight>
+                </Flex>
+                <Text
+                  color="#fff"
+                  fontWeight={"800"}
+                  mt="5"
+                  mb="3"
+                  fontSize={14}
+                  italic
+                >
+                  Gender
+                </Text>
+                <Flex w="100%" direction="row" justify="space-around">
+                  <ButtonDark
+                    w={"40%"}
+                    h={10}
+                    m={1}
+                    onPress={() => setData({ ...data, gender: "Male" })}
+                    bg={
+                      data.gender == "Male" ? "buttonDarkClick" : "buttonDark"
+                    }
+                  >
+                    <Text fontSize={14} color="#fff" fontWeight={"800"}>
+                      Male
+                    </Text>
+                  </ButtonDark>
+
+                  <ButtonDark
+                    w={"40%"}
+                    h={10}
+                    m={1}
+                    onPress={() => setData({ ...data, gender: "Female" })}
+                    bg={
+                      data.gender == "Female" ? "buttonDarkClick" : "buttonDark"
+                    }
+                  >
+                    <Text fontSize={14} color="#fff" fontWeight={"800"}>
+                      Female
+                    </Text>
+                  </ButtonDark>
+                </Flex>
+                <ButtonDark
+                  w={"70%"}
+                  h={10}
+                  m={1}
+                  onPress={() => setData({ ...data, gender: "Other" })}
+                  bg={data.gender == "Other" ? "buttonDarkClick" : "buttonDark"}
+                >
+                  <Text fontSize={14} color="#fff" fontWeight={"800"}>
+                    Prefer not to say
+                  </Text>
+                </ButtonDark>
+                <Text
+                  color="#fff"
+                  fontWeight={"800"}
+                  mt="5"
+                  mb="3"
+                  fontSize={14}
+                  italic
+                >
+                  Ethnicity
+                </Text>
+                <Center>
+                  <Select
+                    bg="rgba(61,54,130,0.6705882352941176)"
+                    borderRadius={"md"}
+                    height="10"
+                    width={"70%"}
+                    selectedValue={data.ethinicity}
+                    minWidth="200"
+                    color={"#fff"}
+                    fontWeight="800"
+                    accessibilityLabel="Choose "
+                    placeholder="Choose "
+                    _selectedItem={{
+                      bg: "teal.600",
+                      // endIcon: <CheckIcon size="5" />,
+                    }}
+                    borderWidth="0"
+                    mt={1}
+                    onValueChange={(itemValue) =>
+                      setData({ ...data, ethinicity: itemValue })
+                    }
+                  >
+                    {ethinicity.map((data) =>
+                      data.disable ? (
+                        <Select.Item
+                          disabled
+                          label={
+                            <Text fontSize={20} fontWeight="800" color="#000">
+                              {data.value}
+                            </Text>
+                          }
+                          value={data.value}
+                          key={data.value}
+                        />
+                      ) : (
+                        <Select.Item
+                          label={data.value}
+                          value={data.value}
+                          key={data.value}
+                        />
+                      )
+                    )}
+                  </Select>
+                </Center>
+              </Center>
+            </View>
+            <Center w="100%" mt="10">
+              <ButtonDark w="80%" onPress={validate}>
+                <Text fontSize="14" color="#fff" fontWeight="800">
+                  Next
+                </Text>
+              </ButtonDark>
             </Center>
-          </Center>
-        </View>
-        <Center w="100%" mt="10">
-          <ButtonDark w="80%" onPress={validate}>
-            <Text fontSize="14" color="#fff" fontWeight="800">
-              Next
-            </Text>
-          </ButtonDark>
-          <View style={[{ marginTop: 20 }]}>
-            <ShowLogInText onPress={() => navigation.navigate("Login")} />
-          </View>
-        </Center>
-      </Box>
+          </Box>
+        </LoginLayout>
+      </BackLayout>
     </LayoutFrame>
   );
 };

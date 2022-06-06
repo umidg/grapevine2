@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, Center, Flex, Text, Image, View } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import NotificationContainer from "../../MoleculeComponents/Notifications/NotificationContainer";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -42,7 +42,7 @@ const Activity = ({ navigation }) => {
   }, []);
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%">
         <Flex
           direction="row"
@@ -134,7 +134,7 @@ const Activity = ({ navigation }) => {
           <NotificationContainer time="This Week" notifications={data} />
         </Box> */}
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

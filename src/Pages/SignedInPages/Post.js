@@ -9,9 +9,7 @@ import {
   Center,
 } from "native-base";
 import React, { useEffect, useState, useContext, useMemo } from "react";
-import LayoutFrame from "../../Layout/LayoutFrame";
 import RoundImage from "../../AtomComponents/Image/RoundImage";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { UserValue } from "../../Context/UserContext";
 import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import { grapevineBackend } from "../../API";
@@ -20,6 +18,8 @@ import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
+import { SignInLayout } from "../../Layout/index";
+
 const Post = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [post, setPost] = useState("");
@@ -119,7 +119,7 @@ const Post = ({ navigation }) => {
   }, [type, post, tiktokVideo]);
 
   return (
-    // <LayoutFrame>
+    // <SignInLayout>
     <Box h="100%" w="100%">
       <LoadingMessageModal
         showModal={showModal}
@@ -211,7 +211,7 @@ const Post = ({ navigation }) => {
         </Pressable>
       </Flex>
     </Box>
-    // </LayoutFrame>
+    // </SignInLayout>
   );
 };
 

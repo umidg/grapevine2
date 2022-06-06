@@ -3,12 +3,12 @@ import { ScrollView, StyleSheet } from "react-native";
 import { View } from "native-base";
 import { Box, Text, Flex, Image } from "native-base";
 import Search from "../../AtomComponents/Input/Search";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import Box2 from "../../MoleculeComponents/ExploreBox/Box2";
 import Features from "../../Components/Explore/Featurs/Features";
 const data = [1, 2, 3, 4, 5, 6];
 const Explore4 = () => (
-  <LayoutFrame>
+  <SignInLayout>
     <Box h="100%" w="100%" mb={70}>
       <View>
         <View pl={30} pr={30} mt={20}>
@@ -41,7 +41,7 @@ const Explore4 = () => (
         </View>
       </View>
     </Box>
-  </LayoutFrame>
+  </SignInLayout>
 );
 
 export default Explore4;

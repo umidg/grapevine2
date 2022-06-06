@@ -4,27 +4,20 @@ import AuthNavigation from "../Navigation/AuthNavigation";
 import { ThemeValue } from "../Context/ThemeContext";
 const LinearGradient = require("expo-linear-gradient").LinearGradient;
 const Theme = () => {
-  const [theme, setTheme] = useContext(ThemeValue);
-  var customTheme = extendTheme({
+  const theme = useContext(ThemeValue);
+
+  const customTheme = extendTheme({
     colors: {
-      theme: {
-        bg: theme == "dark" ? "rgba(0,0,0,1)" : "rgba(255,255,255,1)",
-        txt: theme == "dark" ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)",
+      tertiary: "#5162F1",
+      secondary: "#714EE9",
+      primary: "#7949E7",
+      dark: "#3e3682",
+      light: "#5251c2",
+      linearGradient: {
+        colors: ["rgba(81, 98, 241, 1)", "rgba(121, 73, 231, 1)"],
+        start: [0, 1],
+        end: [0, 0.2],
       },
-      buttonPrimaryColor:
-        "linear-gradient(90deg, rgba(81,98,241,1) 0%, rgba(121,73,231,1) 100%)",
-      buttonSecondaryColor:
-        theme == "dark" ? "rgba(0,0,0,1)" : "rgba(255,255,255,1)",
-      buttonDark: "rgba(61,54,130,255)",
-      buttonDarkClick: "#5251C2",
-
-      buttonLight: "#5251c2",
-
-      loginPageBg: "rgba(106,83,235,255)",
-    },
-    config: {
-      useSystemColorMode: false,
-      initialColorMode: theme,
     },
   });
 

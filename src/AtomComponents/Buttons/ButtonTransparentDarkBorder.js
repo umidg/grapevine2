@@ -1,10 +1,9 @@
 import React from "react";
 import { Button, Text } from "native-base";
-import { StyleSheet } from "react-native";
 const ButtonTransparentDarkBorder = ({ onPress, h, w, children }) => {
   return (
     <Button
-      borderColor="buttonDark"
+      borderColor="dark"
       h={props.h ? props.h : 50}
       w={props.w ? props.w : "100%"}
       borderWidth={3}

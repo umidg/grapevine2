@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderContainer from "../../Components/Profile/HeaderConatiner";
 import NetworkContainer from "../../Components/ProfilePage1Light/Networks/NetworkContainer";
 import { Box, Button, Switch, Text } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import TabContainer from "../../Components/Profile/TabContainer";
 import { AntDesign } from "@expo/vector-icons";
 import { grapevineBackend } from "../../API";
@@ -36,7 +36,7 @@ const ProfilePage = ({ navigation, route }) => {
   }, []);
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box w="100%" h="100%">
         {/* <Button onPress={() => setShow(true)}>show</Button> */}
         <Box pl="2">
@@ -62,7 +62,7 @@ const ProfilePage = ({ navigation, route }) => {
           />
         </Box>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 export default ProfilePage;

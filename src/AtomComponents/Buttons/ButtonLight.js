@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Button, Text } from "native-base";
-import { StyleSheet } from "react-native";
 
 const ButtonLight = (props) => {
   return (
@@ -12,7 +11,7 @@ const ButtonLight = (props) => {
       mt="1"
       mb="1"
       borderRadius={"full"}
-      bg="buttonLight"
+      bg="light"
       onPress={props.onPress}
       _pressed={{
         bg: "buttonDark",

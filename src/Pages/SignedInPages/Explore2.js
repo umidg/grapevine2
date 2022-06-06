@@ -4,11 +4,11 @@ import LeatherBoard from "../../Components/Explore2/LeatherBoard/LeatherBoard";
 import { Box } from "native-base";
 import Search from "../../AtomComponents/Input/Search";
 import Tagged from "../../Components/Explore2/Tagged/Tagged";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import Features from "../../Components/Explore2/Features/Features";
 import Collection from "../../Components/Explore2/Collection/Collection";
 const Explore2 = () => (
-  <LayoutFrame>
+  <SignInLayout>
     <Box h="100%" w="100%">
       <View>
         <View style={styles.searchContainer}>
@@ -31,7 +31,7 @@ const Explore2 = () => (
         </View>
       </View>
     </Box>
-  </LayoutFrame>
+  </SignInLayout>
 );
 
 export default Explore2;

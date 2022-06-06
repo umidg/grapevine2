@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, Center, Flex, Text, Image } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import NotificationContainer from "../../MoleculeComponents/Notifications/NotificationContainer";
 import { AntDesign } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -25,7 +25,7 @@ const NotificationPage = ({ navigation }) => {
     return unsubscribe;
   }, []);
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%">
         <Box
           flexDirection={"row"}
@@ -90,7 +90,7 @@ const NotificationPage = ({ navigation }) => {
           <NotificationContainer time="This Week" /> */}
         </Box>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

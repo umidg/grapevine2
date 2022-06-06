@@ -1,7 +1,7 @@
 import { TextArea, Text, Box, Pressable, Flex } from "native-base";
 import React, { useState, useContext } from "react";
 import RegularImage from "../../AtomComponents/Image/RegularImage";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import Icon from "react-native-vector-icons/AntDesign";
 import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import PostHeader from "../../MoleculeComponents/Post/PostComponents/PostHeader";
@@ -34,7 +34,7 @@ const Post_Instagram_Yiktok_Youtube = ({ navigation, route }) => {
   };
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%" bg="#fff" mb={5}>
         <LoadingMessageModal
           showModal={showModal}
@@ -180,7 +180,7 @@ const Post_Instagram_Yiktok_Youtube = ({ navigation, route }) => {
           </Box>
         </Pressable>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

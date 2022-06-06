@@ -1,16 +1,14 @@
 import React, { useContext } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View } from "react-native";
 import HeaderContainer from "../../Components/ProfilePage1Light/Header/HeaderContainer";
 import NetworkContainer from "../../Components/ProfilePage1Light/Networks/NetworkContainer";
-import PhotosContainer from "../../Components/ProfilePage1Light/Photos/PhotosContainer";
 import { Box, Switch } from "native-base";
 import { ThemeValue } from "../../Context/ThemeContext";
 import { Button } from "native-base";
 import { UserValue } from "../../Context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import LayoutFrame from "../../Layout/LayoutFrame";
-import TabContainer from "../../Components/ProfilePage1Light/Tabs/TabContainer";
-import PostContainer from "../../Components/ProfilePage1Light/Post/PostContainer";
+
+import { SignInLayout } from "../../Layout/index";
 
 const ProfilePage1Light = () => {
   const [theme, setTheme] = useContext(ThemeValue);
@@ -28,7 +26,7 @@ const ProfilePage1Light = () => {
     setUser({ ...{ data: true } });
   };
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box w="100%" h="100%" bg="theme.bg">
         <Button onPress={logout} bg="buttonDark">
           Logout
@@ -41,7 +39,7 @@ const ProfilePage1Light = () => {
 
         {/* <TabContainer /> */}
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 export default ProfilePage1Light;

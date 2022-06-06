@@ -2,17 +2,14 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import React, { useState, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserValue } from "../../Context/UserContext";
-import { Center, Text, Box, View } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
-import Logo from "../../AtomComponents/Logo/Logo";
-import ButtonDark from "../../AtomComponents/Buttons/ButtonDark";
-import Input from "../../AtomComponents/Input/Input";
+import { Center, Text, View } from "native-base";
+import { LayoutFrame, BackLayout } from "../../Layout/index";
 import { grapevineBackend } from "../../API/index";
-import { userHook } from "../../Hooks";
 import { Formik } from "formik";
 import Toast from "react-native-root-toast";
 import { ActivityIndicator } from "react-native";
-import InputPassword from "../../AtomComponents/Input/inputPassword";
+
+import { ButtonDark, Input, InputPassword } from "../../AtomComponents/index";
 
 const { SignupSchema } = require("../../FormValidationSchema");
 const Login = ({ navigation }) => {
@@ -60,15 +57,7 @@ const Login = ({ navigation }) => {
   };
   return (
     <LayoutFrame>
-      {/* <LoadingMessageModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        title="Login"
-        message={modalMessage}
-        setMessage={setModalMessage}
-      /> */}
-
-      <Center h="100%" w="100%" bg="loginPageBg">
+      <BackLayout navigation={navigation} navigate="LoginSignup">
         <View p="5" w="70%">
           <View alignItems="center" mb="5">
             {/* <Logo /> */}
@@ -146,8 +135,7 @@ const Login = ({ navigation }) => {
                       mt="5"
                       italic
                     >
-                      Don't have an account?{" "}
-                      <Text color="buttonDark">Sign Up</Text>
+                      Don't have an account? <Text color="dark">Sign Up</Text>
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -155,7 +143,7 @@ const Login = ({ navigation }) => {
             )}
           </Formik>
         </View>
-      </Center>
+      </BackLayout>
     </LayoutFrame>
   );
 };

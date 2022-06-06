@@ -34,20 +34,6 @@ import OwnProfile from "../Pages/SignedInPages/Profile/OwnProfile";
 import Activity from "../Pages/SignedInPages/Activity";
 import CommentPage from "../Pages/SignedInPages/CommentPage";
 export const signedInRoutes = [
-  // {
-  //   routeName: "Home",
-  //   component: Home,
-  // },
-
-  // {
-  //   routeName: "Search",
-  //   component: Explore,
-  // },
-
-  // {
-  //   routeName: "Add",
-  //   component: Post,
-  // },
   {
     routeName: "Notification",
     component: Notification,
@@ -60,14 +46,6 @@ export const signedInRoutes = [
     routeName: "CommentPage",
     component: CommentPage,
   },
-  // // {
-  // //   routeName: "Network",
-  // //   component: Community,
-  // // },
-  // {
-  //   routeName: "Profile",
-  //   component: ProfilePage1Light,
-  // },
   {
     routeName: "FriendRequest",
     component: FriendRequest,
@@ -91,12 +69,10 @@ export const TabRoutes = [
     routeName: "Home",
     component: Home,
   },
-
   {
     routeName: "Search",
     component: Explore,
   },
-
   {
     routeName: "Add",
     component: Post,
@@ -105,15 +81,6 @@ export const TabRoutes = [
     routeName: "Activity",
     component: Activity,
   },
-  // {
-  //   routeName: "Network",
-  //   component: Community,
-  // },
-  // {
-  //   routeName: "Profile",
-  //   component: AuthProfile,
-  // },
-
   { routeName: "Profile", component: OwnProfile },
 ];
 

@@ -1,13 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { LayoutFrame } from "../../Layout/index";
 import { Box } from "native-base";
-import Logo from "../../AtomComponents/Logo/Logo";
-import ButtonLight from "../../AtomComponents/Buttons/ButtonLight";
-import ShowLogInText from "../../MoleculeComponents/ShowLogInText";
-import InputUsername from "../../AtomComponents/Input/InputUsername";
-import ButtonDark from "../../AtomComponents/Buttons/ButtonDark";
-import BackIcon from "../../AtomComponents/BackIcon/BackIcon";
+// import ShowLogInText from "../../MoleculeComponents/ShowLogInText";
+
+import { BackIcon, ButtonDark, Logo } from "../../../AtomComponents/index";
 const BrandCreatorV1 = ({ navigation }) => {
   return (
     <LayoutFrame>
@@ -52,7 +49,7 @@ const BrandCreatorV1 = ({ navigation }) => {
             </ButtonDark>
           </View>
         </View>
-        <ShowLogInText onPress={() => navigation.navigate("Login")} />
+        {/* <ShowLogInText onPress={() => navigation.navigate("Login")} /> */}
       </Box>
     </LayoutFrame>
   );

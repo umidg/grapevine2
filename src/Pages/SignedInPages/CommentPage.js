@@ -4,7 +4,7 @@ import { grapevineBackend } from "../../API";
 import ButtonLight from "../../AtomComponents/Buttons/ButtonLight";
 import RoundImage from "../../AtomComponents/Image/RoundImage";
 import { UserValue } from "../../Context/UserContext";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 
 const CommentPage = ({ navigation, route }) => {
   const {
@@ -35,7 +35,7 @@ const CommentPage = ({ navigation, route }) => {
     }
   };
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%" p="10%">
         {_comments.map((d) => {
           console.log(d);
@@ -77,7 +77,7 @@ const CommentPage = ({ navigation, route }) => {
           </Button>
         </Flex>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

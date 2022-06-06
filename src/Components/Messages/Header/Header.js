@@ -1,6 +1,8 @@
 import React from "react";
-import { Box, View, Flex, Text, Image } from "native-base";
+import { Flex, Text, Image } from "native-base";
 import { TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+
 const Header = ({ goBack }) => {
   return (
     <Flex
@@ -11,12 +13,7 @@ const Header = ({ goBack }) => {
       pl="5"
     >
       <TouchableOpacity onPress={goBack}>
-        <Image
-          source={require("../../../../assets/Icons/back_dark.png")}
-          alt="back"
-          h="5"
-          w="5"
-        />
+        <AntDesign name="arrowleft" size={30} color="black" />
       </TouchableOpacity>
 
       <Text fontSize={14} fontWeight="800">

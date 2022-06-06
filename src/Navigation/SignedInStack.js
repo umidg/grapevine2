@@ -41,6 +41,7 @@ export const SignedInStack = () => {
       >
         <Stack.Screen key="Tab" name="Tab" component={TabNavigation} />
         {signedInRoutes.map((route) => {
+          console.log("route", route);
           return (
             <Stack.Screen
               key={route.routeName}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, View, Center, Text, Pressable } from "native-base";
-import LayoutFrame from "../../Layout/LayoutFrame";
+import { SignInLayout } from "../../Layout/index";
 import Header from "../../Components/Messages/Header/Header";
 import Search from "../../AtomComponents/Input/Search";
 import Message from "../../Components/Messages/Message/Message";
@@ -27,7 +27,7 @@ const Messages = ({ navigation }) => {
   }, []);
 
   return (
-    <LayoutFrame>
+    <SignInLayout>
       <Box h="100%" w="100%" pt="5">
         <Header goBack={() => navigation.goBack()} />
         <View pr="5%" pl="5%" mt="5">
@@ -55,7 +55,7 @@ const Messages = ({ navigation }) => {
           })}
         </View>
       </Box>
-    </LayoutFrame>
+    </SignInLayout>
   );
 };
 

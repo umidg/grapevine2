@@ -10,7 +10,7 @@ const ButtonDark = (props) => {
       mt="1"
       mb="1"
       borderRadius={"full"}
-      bg={props.bg ? props.bg : "buttonDark"}
+      bg={props.bg ? props.bg : "dark"}
       onPress={props.onPress}
       variant="solid"
       _pressed={{
