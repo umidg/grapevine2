@@ -8,17 +8,20 @@ import {
   Pressable,
   Center,
 } from "native-base";
-import React, { useEffect, useState, useContext, useMemo } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import { UserValue } from "../../Context/UserContext";
-import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import { grapevineBackend } from "../../API";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
-import { Post } from "../../Components/index";
-import { RoundImage, Tiktokvideo } from "../../AtomComponents/index";
-
+import { AtomComponents, Modal, PageComponent } from "../../Exports/index";
 const PostPage = ({ navigation }) => {
+  const { RoundImage, Tiktokvideo } = AtomComponents;
+  const {
+    Post: { TiktokVideoConteiner },
+  } = PageComponent;
+
+  const { LoadingMessageModal } = Modal;
   const [user, setUser] = useContext(UserValue);
   const [post, setPost] = useState("");
   const [modalMessage, setModalMessage] = useState("");
@@ -106,7 +109,7 @@ const PostPage = ({ navigation }) => {
               </Text>
             </Center>
             <View h="70%" w="100%">
-              <Post.TiktokVideoConteiner
+              <TiktokVideoConteiner
                 onPress={(video) => setTiktokVideo({ ...video })}
                 selectedId={tiktokVideo && tiktokVideo.id}
               />

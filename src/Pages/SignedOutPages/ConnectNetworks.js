@@ -1,20 +1,16 @@
 import React, { useState, useContext } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { Box, View, Flex, Center, Text, Pressable } from "native-base";
-
-import InstagramLoginModel from "../../Modal/InstagramLoginModel";
-import TiktokLoginModel from "../../Modal/TiktokLoginModel";
 import { Alert } from "react-native";
 import { RegisterData } from "../../Context/RegisterContext";
+import { AntDesign } from "@expo/vector-icons";
 
-import {
-  ButtonDark,
-  ColorWrapper,
-  RegularImage,
-  Logo,
-} from "../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../Exports/index";
 
 const ConnectNetworks = ({ navigation }) => {
+  const { ButtonDark, ColorWrapper, RegularImage, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { TiktokLoginModel, InstagramLoginModel } = Modal;
+
   const [showInstaModal, setShowInstaModal] = useState(false);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
   const [data, setData] = useContext(RegisterData);
@@ -77,10 +73,11 @@ const ConnectNetworks = ({ navigation }) => {
                         </ColorWrapper>
                         {data.instagramToken && (
                           <Center>
-                            <RegularImage
-                              h={10}
-                              w={10}
-                              image={require("../../../assets/Icons/Tick_green.png")}
+                            <AntDesign
+                              name="check"
+                              size={18}
+                              color="#00ff00"
+                              p="2"
                             />
                           </Center>
                         )}
@@ -99,10 +96,11 @@ const ConnectNetworks = ({ navigation }) => {
                         </ColorWrapper>
                         {data.googleToken && (
                           <Center>
-                            <RegularImage
-                              h={10}
-                              w={10}
-                              image={require("../../../assets/Icons/Tick_green.png")}
+                            <AntDesign
+                              name="check"
+                              size={18}
+                              color="#00ff00"
+                              p="2"
                             />
                           </Center>
                         )}
@@ -117,10 +115,11 @@ const ConnectNetworks = ({ navigation }) => {
                         </ColorWrapper>
                         {data.tiktokToken && (
                           <Center>
-                            <RegularImage
-                              h={10}
-                              w={10}
-                              image={require("../../../assets/Icons/Tick_green.png")}
+                            <AntDesign
+                              name="check"
+                              size={18}
+                              color="#00ff00"
+                              p="2"
                             />
                           </Center>
                         )}

@@ -1,14 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 
 import { Box, Button, Switch, Text } from "native-base";
-import { SignInLayout } from "../../../Layout/index";
 import { AntDesign } from "@expo/vector-icons";
 import { grapevineBackend } from "../../../API";
 import { UserValue } from "../../../Context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Profile } from "../../../Components/index";
 // import SlideShow from "../../../Components/Profile/SlideShow";
+import { Layout, PageComponent } from "../../../Exports/index";
+
 const OwnProfile = ({ navigation }) => {
+  const {
+    Profile: { HeaderContainer, TabContainer, NetworkContainer },
+  } = PageComponent;
+  const { SignInLayout } = Layout;
+
   const [tiktokPost, setTiktokPost] = useState([]);
   const [textPost, setTextPost] = useState([]);
   const [user, setUser] = useContext(UserValue);
@@ -61,9 +66,9 @@ const OwnProfile = ({ navigation }) => {
           component={<Text>hello</Text>}
         /> */}
         <Box w="100%" h="100%" bg="theme.bg">
-          <Profile.HeaderContainer navigation={navigation} user={user} />
-          <Profile.NetworkContainer />
-          <Profile.TabContainer
+          <HeaderContainer navigation={navigation} user={user} />
+          <NetworkContainer />
+          <TabContainer
             tiktokPost={tiktokPost}
             textPost={textPost}
             user={user}

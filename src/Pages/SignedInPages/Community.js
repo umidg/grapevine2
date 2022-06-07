@@ -1,9 +1,10 @@
 import React from "react";
 import { Box } from "native-base";
-import { SignInLayout } from "../../Layout/index";
-import { CommunityPosts } from "../../MoleculeComponents/index";
-
+import { MolecularComponents, Layout } from "../../Exports/index";
 const Community = () => {
+  const { CommunityPosts } = MolecularComponents;
+  const { SignInLayout } = Layout;
+
   const data = [1, 2, 3, 4, 5];
   return (
     <SignInLayout>

@@ -1,15 +1,21 @@
 import { TextArea, Text, Box, Pressable, Flex } from "native-base";
 import React, { useState, useContext } from "react";
-import { SignInLayout } from "../../Layout/index";
 import Icon from "react-native-vector-icons/AntDesign";
-import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import PostHeader from "../../MoleculeComponents/Post/PostComponents/PostHeader";
 import { UserValue } from "../../Context/UserContext";
 import { grapevineBackend } from "../../API";
 
-import { RegularImage, Tiktokvideo } from "../../AtomComponents/index";
-
+import {
+  AtomComponents,
+  MolecularComponents,
+  Modal,
+  Layout,
+  PageComponent,
+} from "../../Exports/index";
 const Post_Instagram_Yiktok_Youtube = ({ navigation, route }) => {
+  const { RegularImage, Tiktokvideo } = AtomComponents;
+  const { LoadingMessageModal } = Modal;
+  const { SignInLayout } = Layout;
   const { tiktokVideo } = route.params;
   const [user, setUser] = useContext(UserValue);
   const [caption, setCaption] = useState("");

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { Box, Text, View } from "native-base";
 import { RegisterData } from "../../Context/RegisterContext";
 import { UserValue } from "../../Context/UserContext";
@@ -8,9 +7,12 @@ import { ActivityIndicator, Alert } from "react-native";
 import Toast from "react-native-root-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { Logo, ButtonLight, InputUsername } from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 
 const EnterUsername = ({ navigation }) => {
+  const { Logo, ButtonLight, InputUsername } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [state, setState] = useState("initial");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useContext(RegisterData);

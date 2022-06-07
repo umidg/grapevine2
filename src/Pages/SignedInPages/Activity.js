@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Center, Flex, Text } from "native-base";
-import { SignInLayout } from "../../Layout/index";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
 import { grapevineBackend } from "../../API";
-import { NotificationContainer } from "../../MoleculeComponents/index";
-
+import { MolecularComponents, Layout } from "../../Exports/index";
 const Activity = ({ navigation }) => {
+  const { NotificationContainer } = MolecularComponents;
+  const { SignInLayout } = Layout;
+
   const [component, setComponent] = useState("foryou");
   const [forYouActicity, setForYouActivity] = useState([]);
   const [connectedcticity, setConnectedActivity] = useState([]);

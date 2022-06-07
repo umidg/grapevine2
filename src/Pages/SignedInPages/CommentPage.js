@@ -2,15 +2,14 @@ import { View, Text, Flex, Box, Input, Button } from "native-base";
 import React, { useContext, useState } from "react";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-import { SignInLayout } from "../../Layout/index";
-
-import { RoundImage } from "../../AtomComponents/index";
-
+import { AtomComponents, Layout } from "../../Exports/index";
 const CommentPage = ({ navigation, route }) => {
+  const { RoundImage } = AtomComponents;
+  const { SignInLayout } = Layout;
   const {
     params: { comments, post_uuid },
   } = route;
-  console.log(comments, "comments");
+
   const [commentText, setCommentText] = useState("");
   const [user, setUser] = useContext(UserValue);
   const [_comments, _setComments] = useState(comments);

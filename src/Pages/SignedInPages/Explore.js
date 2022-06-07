@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { View, Flex, Pressable, Slide, Box } from "native-base";
-import { SignInLayout } from "../../Layout/index";
 import { grapevineBackend } from "../../API";
 import { userHook } from "../../Hooks";
 import { AntDesign } from "@expo/vector-icons";
-import { Explore } from "../../Components/index";
-import { Notification } from "../../MoleculeComponents/index";
-import { Search } from "../../AtomComponents/index";
+import {
+  AtomComponents,
+  MolecularComponents,
+  Layout,
+  PageComponent,
+} from "../../Exports/index";
 
 const ExplorePage = ({ navigation }) => {
+  const {
+    Explore: { Features, Collection },
+  } = PageComponent;
+  const { Search } = AtomComponents;
+  const { Notification } = MolecularComponents;
+  const { SignInLayout } = Layout;
+
   const [users, setUsers] = useState([]);
   const [showUsers, setShowUsers] = useState(false);
   const { hasUser, setUserDetails } = userHook();
@@ -93,11 +102,11 @@ const ExplorePage = ({ navigation }) => {
 
             <View>
               <View style={styles.featureContainer}>
-                <Explore.Features />
+                <Features />
               </View>
 
               <View style={styles.collectionContainer}>
-                <Explore.Collection />
+                <Collection />
               </View>
             </View>
           </View>

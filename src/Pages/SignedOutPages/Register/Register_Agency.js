@@ -1,20 +1,15 @@
-import { Alert, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useContext } from "react";
 import { Text, Center } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../../Layout/index";
-
 import { RegisterData } from "../../../Context/RegisterContext";
 import { Formik } from "formik";
 const { RegisterAgencySchema } = require("../../../FormValidationSchema");
-
-import {
-  ButtonDark,
-  Input,
-  InputPassword,
-  Logo,
-} from "../../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../../Exports/index";
 
 const Register_Agency = ({ navigation }) => {
+  const { ButtonDark, Input, InputPassword, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [data, setData] = useContext(RegisterData);
 
   const reg = (info) => {

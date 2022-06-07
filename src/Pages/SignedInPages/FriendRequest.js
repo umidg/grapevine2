@@ -1,19 +1,23 @@
-import { View, Text, Box, Flex, Center, Button } from "native-base";
+import { View, Text, Box, Flex, Center, Button, Pressable } from "native-base";
 import React, { useEffect, useState, useContext } from "react";
 import { ScrollView } from "react-native";
-import { SignInLayout } from "../../Layout/index";
 import { AntDesign } from "@expo/vector-icons";
-import { Pressable } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 
-import { Box1, Notification } from "../../MoleculeComponents/index";
-
-import { Search } from "../../AtomComponents/index";
-
+import {
+  AtomComponents,
+  MolecularComponents,
+  Modal,
+  Layout,
+} from "../../Exports/index";
 const data = [1, 3, 4, 6];
 const FriendRequest = ({ navigation }) => {
+  const { Box1, Notification } = MolecularComponents;
+  const { Search } = AtomComponents;
+  const { LoadingMessageModal } = Modal;
+  const { SignInLayout } = Layout;
+
   const [friendRequest, setFriendRequest] = useState([]);
   const [user, setUser] = useContext(UserValue);
   const [showModal, setShowModal] = useState(false);

@@ -13,15 +13,12 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { Alert } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-
-import {
-  ButtonDark,
-  RegularImage,
-  RoundImage,
-} from "../../AtomComponents/index";
+import { AtomComponents } from "../../Exports/index";
 
 const { io } = require("socket.io-client");
 const ChatRoom = ({ navigation, route }) => {
+  const { ButtonDark, RegularImage, RoundImage } = AtomComponents;
+
   const { friend_uuid, username, friendship_uuid, chatroom_uuid, valid_room } =
     route.params;
   const [message, setMessage] = useState("");

@@ -6,12 +6,10 @@ import { Text, View } from "react-native";
 import Splash from "../Pages/Splash";
 const AuthNavigation = () => {
   const [user, setUser] = useContext(UserValue);
-  return <SignedInStack />;
-
   return (
     <>
       {user.data ? (
-        <>{!user.id ? <SignedInStack /> : <SignedOutStack />}</>
+        <>{user.id ? <SignedInStack /> : <SignedOutStack />}</>
       ) : (
         <>
           <Splash />

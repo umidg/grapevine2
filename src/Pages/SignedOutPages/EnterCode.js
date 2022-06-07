@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { Box, Text, Center, View } from "native-base";
 import { Alert } from "react-native";
-
-import { ButtonLight, InputCode, Logo } from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 
 const EnterCode = ({ navigation, route }) => {
+  const { ButtonLight, InputCode, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const [inputCode, setInputCode] = useState("");
   const { code } = route.params;
   const compareCode = () => {

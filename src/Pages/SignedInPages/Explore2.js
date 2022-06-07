@@ -1,36 +1,41 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Box } from "native-base";
-import { SignInLayout } from "../../Layout/index";
-import { Explore2 } from "../../Components/index";
+import { AtomComponents, Layout, PageComponent } from "../../Exports/index";
+const Explore2Page = () => {
+  const {
+    Explore2: { Tagged, Features, Collection, LeatherBoard },
+  } = PageComponent;
+  const { Search } = AtomComponents;
+  const { SignInLayout } = Layout;
 
-import { Search } from "../../AtomComponents/index";
-const Explore2Page = () => (
-  <SignInLayout>
-    <Box h="100%" w="100%">
-      <View>
-        <View style={styles.searchContainer}>
-          <Search />
+  return (
+    <SignInLayout>
+      <Box h="100%" w="100%">
+        <View>
+          <View style={styles.searchContainer}>
+            <Search />
+          </View>
+          <View style={styles.taggedContainer}>
+            <Tagged />
+          </View>
+          <View style={styles.taggedContainer}>
+            <Tagged />
+          </View>
+          <View style={styles.featuresContainer}>
+            <Features />
+          </View>
+          <View style={styles.collectionsContainer}>
+            <Collection />
+          </View>
+          <View style={styles.leatherBoardConainer}>
+            <LeatherBoard />
+          </View>
         </View>
-        <View style={styles.taggedContainer}>
-          <Explore2.Tagged />
-        </View>
-        <View style={styles.taggedContainer}>
-          <Explore2.Tagged />
-        </View>
-        <View style={styles.featuresContainer}>
-          <Explore2.Features />
-        </View>
-        <View style={styles.collectionsContainer}>
-          <Explore2.Collection />
-        </View>
-        <View style={styles.leatherBoardConainer}>
-          <Explore2.LeatherBoard />
-        </View>
-      </View>
-    </Box>
-  </SignInLayout>
-);
+      </Box>
+    </SignInLayout>
+  );
+};
 
 export default Explore2Page;
 

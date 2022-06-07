@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { Box, Text, View } from "native-base";
 import { RegisterData } from "../../Context/RegisterContext";
-
-import { ButtonDark, Logo } from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 const BrandCreator = ({ navigation }) => {
+  const { ButtonDark, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const [data, setData] = useContext(RegisterData);
 
   const validate = (collaborate) => {

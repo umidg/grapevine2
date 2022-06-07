@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
 import { ActivityIndicator } from "react-native";
 import { Text, View, Box, Center } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { RegisterData } from "../../Context/RegisterContext";
 import { grapevineBackend } from "../../API";
 import Toast from "react-native-root-toast";
 
-import { ButtonLight, InputText, Logo } from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 
 const EnterEmail = ({ navigation }) => {
+  const { ButtonLight, InputText, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const [email, setEmail] = useState("");
   const [data, setData] = useContext(RegisterData);
   const [loading, setLoading] = useState(false);

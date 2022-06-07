@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
-import { SignInLayout } from "../../Layout/index";
 import { ActivityIndicator } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
-
-import { PostContainer } from "../../MoleculeComponents/index";
-
+import { MolecularComponents, Layout } from "../../Exports/index";
 const Home = ({ navigation }) => {
+  const { PostContainer } = MolecularComponents;
+  const { SignInLayout } = Layout;
+
   const [post, setPost] = useState(null);
   const [postType, setPostType] = useState("connected");
   const [error, setError] = useState(false);

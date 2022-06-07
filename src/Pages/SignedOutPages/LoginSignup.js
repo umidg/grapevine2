@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View } from "native-base";
-import { LayoutFrame } from "../../Layout/index";
-import { Logo, ButtonDark, ButtonLight } from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 
 const LoginSignup = ({ navigation }) => {
+  const { Logo, ButtonDark, ButtonLight } = AtomComponents;
+  const { LayoutFrame } = Layout;
   return (
     <LayoutFrame>
       <View alignItems={"center"}>
@@ -15,7 +16,6 @@ const LoginSignup = ({ navigation }) => {
           color="#fff"
           mt={5}
           mb={5}
-          italic
         >
           Create, Collaborate, Connect
         </Text>

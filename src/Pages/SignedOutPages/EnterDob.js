@@ -1,27 +1,13 @@
 import { Alert } from "react-native";
 import React, { useContext } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
-import {
-  Box,
-  Text,
-  Center,
-  View,
-  Select,
-  CheckIcon,
-  Flex,
-  Input,
-} from "native-base";
-
+import { Box, Text, Center, View, Select, Flex, Input } from "native-base";
 import { RegisterData } from "../../Context/RegisterContext";
-
-import {
-  ButtonDark,
-  ButtonLight,
-  // Input,
-  Logo,
-} from "../../AtomComponents/index";
+import { AtomComponents, Layout } from "../../Exports/index";
 
 const EnterDob = ({ navigation }) => {
+  const { ButtonDark, ButtonLight, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [data, setData] = useContext(RegisterData);
   const ethinicity = [
     { value: "Asian or Asian British", disable: true },

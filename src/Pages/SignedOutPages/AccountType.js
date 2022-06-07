@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
 import { Box, Text, Center, View, Select, CheckIcon } from "native-base";
-
 import { RegisterData } from "../../Context/RegisterContext";
-
-import { BackIcon, ButtonDark, Logo } from "../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../Exports/index";
 
 const AccountType = ({ navigation }) => {
+  const { ButtonDark, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [data, setData] = useContext(RegisterData);
   const [showDropDown, setShowDropDown] = useState(false);
   const type = ["Brand", "Agency"];
@@ -23,7 +23,6 @@ const AccountType = ({ navigation }) => {
       <BackLayout navigation={navigation}>
         <LoginLayout navigation={navigation}>
           <Box pt="15%" px={5}>
-            <BackIcon onPress={() => navigation.pop()} />
             <View>
               <View w="100%" alignItems={"center"}>
                 <Logo />

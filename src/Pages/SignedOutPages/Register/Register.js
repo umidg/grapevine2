@@ -1,14 +1,15 @@
 import { Alert, StyleSheet, View } from "react-native";
 import React, { useState, useContext } from "react";
 import { Text, Center } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../../Layout/index";
 import { RegisterData } from "../../../Context/RegisterContext";
 const { RegisterSchema } = require("../../../FormValidationSchema");
 import { Formik } from "formik";
-
-import { ButtonDark, Input, Logo } from "../../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../../Exports/index";
 
 const Register = ({ navigation }) => {
+  const { ButtonDark, Input, InputPassword, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [data, setData] = useContext(RegisterData);
 
   const reg = (info) => {
@@ -105,7 +106,7 @@ const Register = ({ navigation }) => {
                     onValueChange={handleChange("address")}
                   /> */}
                       <Text style={styles.EmailPw}>Password</Text>
-                      <Input
+                      <InputPassword
                         onChangeText={handleChange("password")}
                         value={values.password}
                         onBlur={handleBlur("password")}

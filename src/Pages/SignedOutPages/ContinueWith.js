@@ -1,15 +1,12 @@
-import { Alert } from "react-native";
 import React, { useState, useContext } from "react";
-import { View, Text, Center, Box, Flex, Pressable } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
-
-import InstagramLoginModel from "../../Modal/InstagramLoginModel";
-import TiktokLoginModel from "../../Modal/TiktokLoginModel";
+import { View, Text, Center, Pressable } from "native-base";
 import { RegisterData } from "../../Context/RegisterContext";
-
-import { ButtonDark, RegularImage, Logo } from "../../AtomComponents/index";
-
+import { AtomComponents, Modal, Layout } from "../../Exports/index";
 const ContinueWith = ({ navigation }) => {
+  const { ButtonDark, RegularImage, Logo } = AtomComponents;
+  const { InstagramLoginModel, TiktokLoginModel } = Modal;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [showInstaModal, setShowInstaModal] = useState(false);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
   const [data, setData] = useContext(RegisterData);

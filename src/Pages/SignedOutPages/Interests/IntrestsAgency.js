@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet } from "react-native";
 import { View, Text, Flex, Spacer, Center } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../../Layout/index";
 import { Box } from "native-base";
-
 import { RegisterData } from "../../../Context/RegisterContext";
-
-import { ButtonDark, InputIntrests, Logo } from "../../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../../Exports/index";
 
 const InterestsAgency = ({ navigation }) => {
+  const { ButtonDark, InputIntrests, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [showInput, setShowInput] = useState(false);
   const [inputData, setInputData] = useState("");
   const [data, setData] = useContext(RegisterData);

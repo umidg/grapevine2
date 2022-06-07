@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Text, View } from "native-base";
-import { LayoutFrame, BackLayout, LoginLayout } from "../../Layout/index";
-import { Box } from "native-base";
-
+import { Text, View, Box } from "native-base";
 import { RegisterData } from "../../Context/RegisterContext";
 
-import { ButtonLight, InputNumber, Logo } from "../../AtomComponents/index";
+import { AtomComponents, Modal, Layout } from "../../Exports/index";
 
 const EnterPhoneNumber = ({ navigation }) => {
+  const { ButtonLight, InputNumber, Logo } = AtomComponents;
+  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+
   const [number, setNumber] = useState("");
   const [data, setData] = useContext(RegisterData);
 
