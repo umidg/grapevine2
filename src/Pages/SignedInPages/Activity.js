@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Box, Center, Flex, Text, Image, View } from "native-base";
+import React, { useEffect, useState } from "react";
+import { Box, Center, Flex, Text } from "native-base";
 import { SignInLayout } from "../../Layout/index";
-import NotificationContainer from "../../MoleculeComponents/Notifications/NotificationContainer";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
 import { grapevineBackend } from "../../API";
+import { NotificationContainer } from "../../MoleculeComponents/index";
 
 const Activity = ({ navigation }) => {
   const [component, setComponent] = useState("foryou");

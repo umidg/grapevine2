@@ -1,11 +1,12 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { View } from "native-base";
-import { Box, Text, Flex, Image } from "native-base";
-import Search from "../../AtomComponents/Input/Search";
+import { Box, Text } from "native-base";
 import { SignInLayout } from "../../Layout/index";
-import Box2 from "../../MoleculeComponents/ExploreBox/Box2";
-import Features from "../../Components/Explore/Featurs/Features";
+import { Explore } from "../../Components/index";
+import { Box2 } from "../../MoleculeComponents/index";
+
+import { Search } from "../../AtomComponents/index";
 const data = [1, 2, 3, 4, 5, 6];
 const Explore4 = () => (
   <SignInLayout>
@@ -37,7 +38,7 @@ const Explore4 = () => (
           </ScrollView>
         </View>
         <View mt={30}>
-          <Features />
+          <Explore.Features />
         </View>
       </View>
     </Box>

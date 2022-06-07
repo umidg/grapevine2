@@ -1,33 +1,19 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import {
-  Text,
-  View,
-  Center,
-  Button,
-  Flex,
-  Pressable,
-  Image,
-  Slide,
-} from "native-base";
-import Collection from "../../Components/Explore/Collection/Collection";
-import Features from "../../Components/Explore/Featurs/Features";
-import Search from "../../AtomComponents/Input/Search";
-import { Box } from "native-base";
+import { View, Flex, Pressable, Slide, Box } from "native-base";
 import { SignInLayout } from "../../Layout/index";
 import { grapevineBackend } from "../../API";
-import Notification from "../../MoleculeComponents/Notifications/Notification";
 import { userHook } from "../../Hooks";
 import { AntDesign } from "@expo/vector-icons";
+import { Explore } from "../../Components/index";
+import { Notification } from "../../MoleculeComponents/index";
+import { Search } from "../../AtomComponents/index";
 
-const Explore = ({ navigation }) => {
+const ExplorePage = ({ navigation }) => {
   const [users, setUsers] = useState([]);
   const [showUsers, setShowUsers] = useState(false);
-
   const { hasUser, setUserDetails } = userHook();
-
   const user = hasUser();
-
   const searchUser = async (name) => {
     console.log("name", name);
     grapevineBackend("/auth/search", { name: name }, "POST")
@@ -84,7 +70,7 @@ const Explore = ({ navigation }) => {
                   <View>
                     {users?.map((person) => {
                       return (
-                        <Notification // TODO name change
+                        <Notification
                           onPress={() => {
                             setShowUsers(false);
 
@@ -107,11 +93,11 @@ const Explore = ({ navigation }) => {
 
             <View>
               <View style={styles.featureContainer}>
-                <Features />
+                <Explore.Features />
               </View>
 
               <View style={styles.collectionContainer}>
-                <Collection />
+                <Explore.Collection />
               </View>
             </View>
           </View>
@@ -121,7 +107,7 @@ const Explore = ({ navigation }) => {
   );
 };
 
-export default Explore;
+export default ExplorePage;
 
 const styles = StyleSheet.create({
   searchContainer: { paddingLeft: 30, paddingRight: 30, marginTop: 30 },

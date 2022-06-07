@@ -2,8 +2,8 @@ import Login from "../Pages/SignedOutPages/Login";
 import Register from "../Pages/SignedOutPages/Register/Register";
 import LoginSignup from "../Pages/SignedOutPages/LoginSignup";
 import ProfilePage1Light from "../Pages/SignedInPages/ProfilePage1Light";
-import Explore from "../Pages/SignedInPages/Explore";
-import Explore2 from "../Pages/SignedInPages/Explore2";
+import ExplorePage from "../Pages/SignedInPages/Explore";
+import Explore2Page from "../Pages/SignedInPages/Explore2";
 import BrandCreator from "../Pages/SignedOutPages/BrandCreator";
 import Community from "../Pages/SignedInPages/Community";
 import EnterPhoneNumber from "../Pages/SignedOutPages/EnterPhoneNumber";
@@ -20,7 +20,7 @@ import IntrestsCreator from "../Pages/SignedOutPages/Interests/IntrestsCreator";
 import InterestsAgency from "../Pages/SignedOutPages/Interests/IntrestsAgency";
 import AccountType from "../Pages/SignedOutPages/AccountType";
 import EnterDob from "../Pages/SignedOutPages/EnterDob";
-import Post from "../Pages/SignedInPages/Post";
+import PostPage from "../Pages/SignedInPages/Post";
 import ChatRoom from "../Pages/SignedInPages/ChatRoom";
 import Register_Brand from "../Pages/SignedOutPages/Register/Register_Brand";
 import Register_Agency from "../Pages/SignedOutPages/Register/Register_Agency";
@@ -71,11 +71,11 @@ export const TabRoutes = [
   },
   {
     routeName: "Search",
-    component: Explore,
+    component: ExplorePage,
   },
   {
     routeName: "Add",
-    component: Post,
+    component: PostPage,
   },
   {
     routeName: "Activity",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "native-base";
-import CommunityPosts from "../../MoleculeComponents/CommunityPost/CommunityPosts";
 import { SignInLayout } from "../../Layout/index";
+import { CommunityPosts } from "../../MoleculeComponents/index";
 
 const Community = () => {
   const data = [1, 2, 3, 4, 5];

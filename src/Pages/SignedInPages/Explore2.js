@@ -1,13 +1,11 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import LeatherBoard from "../../Components/Explore2/LeatherBoard/LeatherBoard";
 import { Box } from "native-base";
-import Search from "../../AtomComponents/Input/Search";
-import Tagged from "../../Components/Explore2/Tagged/Tagged";
 import { SignInLayout } from "../../Layout/index";
-import Features from "../../Components/Explore2/Features/Features";
-import Collection from "../../Components/Explore2/Collection/Collection";
-const Explore2 = () => (
+import { Explore2 } from "../../Components/index";
+
+import { Search } from "../../AtomComponents/index";
+const Explore2Page = () => (
   <SignInLayout>
     <Box h="100%" w="100%">
       <View>
@@ -15,26 +13,26 @@ const Explore2 = () => (
           <Search />
         </View>
         <View style={styles.taggedContainer}>
-          <Tagged />
+          <Explore2.Tagged />
         </View>
         <View style={styles.taggedContainer}>
-          <Tagged />
+          <Explore2.Tagged />
         </View>
         <View style={styles.featuresContainer}>
-          <Features />
+          <Explore2.Features />
         </View>
         <View style={styles.collectionsContainer}>
-          <Collection />
+          <Explore2.Collection />
         </View>
         <View style={styles.leatherBoardConainer}>
-          <LeatherBoard />
+          <Explore2.LeatherBoard />
         </View>
       </View>
     </Box>
   </SignInLayout>
 );
 
-export default Explore2;
+export default Explore2Page;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },

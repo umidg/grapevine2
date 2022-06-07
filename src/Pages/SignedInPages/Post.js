@@ -9,18 +9,16 @@ import {
   Center,
 } from "native-base";
 import React, { useEffect, useState, useContext, useMemo } from "react";
-import RoundImage from "../../AtomComponents/Image/RoundImage";
 import { UserValue } from "../../Context/UserContext";
 import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import { grapevineBackend } from "../../API";
-import TiktokVideoConteiner from "../../Components/Post/TiktokVideoConteiner";
-import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
-import { SignInLayout } from "../../Layout/index";
+import { Post } from "../../Components/index";
+import { RoundImage, Tiktokvideo } from "../../AtomComponents/index";
 
-const Post = ({ navigation }) => {
+const PostPage = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [post, setPost] = useState("");
   const [modalMessage, setModalMessage] = useState("");
@@ -108,7 +106,7 @@ const Post = ({ navigation }) => {
               </Text>
             </Center>
             <View h="70%" w="100%">
-              <TiktokVideoConteiner
+              <Post.TiktokVideoConteiner
                 onPress={(video) => setTiktokVideo({ ...video })}
                 selectedId={tiktokVideo && tiktokVideo.id}
               />
@@ -119,7 +117,6 @@ const Post = ({ navigation }) => {
   }, [type, post, tiktokVideo]);
 
   return (
-    // <SignInLayout>
     <Box h="100%" w="100%">
       <LoadingMessageModal
         showModal={showModal}
@@ -211,8 +208,7 @@ const Post = ({ navigation }) => {
         </Pressable>
       </Flex>
     </Box>
-    // </SignInLayout>
   );
 };
 
-export default Post;
+export default PostPage;

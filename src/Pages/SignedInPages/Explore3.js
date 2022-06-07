@@ -1,11 +1,10 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { View } from "native-base";
 import { Box, Text, Flex, Image } from "native-base";
-import Search from "../../AtomComponents/Input/Search";
 import { SignInLayout } from "../../Layout/index";
-import Box1 from "../../MoleculeComponents/ExploreBox/Box1";
-
+import { Box1 } from "../../MoleculeComponents/index";
+import { Search } from "../../AtomComponents/index";
 const data = [1, 2, 3, 4, 5, 6];
 const Explore3 = () => (
   <SignInLayout>

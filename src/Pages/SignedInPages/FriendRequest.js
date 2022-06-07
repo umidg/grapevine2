@@ -4,12 +4,14 @@ import { ScrollView } from "react-native";
 import { SignInLayout } from "../../Layout/index";
 import { AntDesign } from "@expo/vector-icons";
 import { Pressable } from "react-native";
-import Search from "../../AtomComponents/Input/Search";
-import Notification from "../../MoleculeComponents/Notifications/Notification";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import LoadingMessageModal from "../../Modal/LoadingMessageModal";
-import Box1 from "../../MoleculeComponents/ExploreBox/Box1";
+
+import { Box1, Notification } from "../../MoleculeComponents/index";
+
+import { Search } from "../../AtomComponents/index";
+
 const data = [1, 3, 4, 6];
 const FriendRequest = ({ navigation }) => {
   const [friendRequest, setFriendRequest] = useState([]);

@@ -5,7 +5,8 @@ import { ActivityIndicator } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
-import PostContainer from "../../MoleculeComponents/Post/PostContainer";
+
+import { PostContainer } from "../../MoleculeComponents/index";
 
 const Home = ({ navigation }) => {
   const [post, setPost] = useState(null);

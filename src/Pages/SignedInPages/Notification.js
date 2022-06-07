@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, Center, Flex, Text, Image } from "native-base";
 import { SignInLayout } from "../../Layout/index";
-import NotificationContainer from "../../MoleculeComponents/Notifications/NotificationContainer";
 import { AntDesign } from "@expo/vector-icons";
-import { Pressable, TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
+
+import { NotificationContainer } from "../../MoleculeComponents/index";
+
 const NotificationPage = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [notifications, setnotification] = useState([]);

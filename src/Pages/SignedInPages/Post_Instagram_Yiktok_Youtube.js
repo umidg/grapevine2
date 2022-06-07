@@ -1,13 +1,14 @@
 import { TextArea, Text, Box, Pressable, Flex } from "native-base";
 import React, { useState, useContext } from "react";
-import RegularImage from "../../AtomComponents/Image/RegularImage";
 import { SignInLayout } from "../../Layout/index";
 import Icon from "react-native-vector-icons/AntDesign";
 import LoadingMessageModal from "../../Modal/LoadingMessageModal";
 import PostHeader from "../../MoleculeComponents/Post/PostComponents/PostHeader";
-import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import { UserValue } from "../../Context/UserContext";
 import { grapevineBackend } from "../../API";
+
+import { RegularImage, Tiktokvideo } from "../../AtomComponents/index";
+
 const Post_Instagram_Yiktok_Youtube = ({ navigation, route }) => {
   const { tiktokVideo } = route.params;
   const [user, setUser] = useContext(UserValue);

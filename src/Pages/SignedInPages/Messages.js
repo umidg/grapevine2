@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Box, View, Center, Text, Pressable } from "native-base";
+import { Box, View } from "native-base";
 import { SignInLayout } from "../../Layout/index";
-import Header from "../../Components/Messages/Header/Header";
-import Search from "../../AtomComponents/Input/Search";
-import Message from "../../Components/Messages/Message/Message";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
+import { Message } from "../../Components/index";
+import { Search } from "../../AtomComponents/index";
+
 const Messages = ({ navigation }) => {
   const [friends, setFriends] = useState([]);
   const [user, setUser] = useContext(UserValue);
@@ -29,7 +29,7 @@ const Messages = ({ navigation }) => {
   return (
     <SignInLayout>
       <Box h="100%" w="100%" pt="5">
-        <Header goBack={() => navigation.goBack()} />
+        <Message.Header goBack={() => navigation.goBack()} />
         <View pr="5%" pl="5%" mt="5">
           <Search />
         </View>
@@ -38,7 +38,7 @@ const Messages = ({ navigation }) => {
           {friends.map((d) => {
             return (
               <View key={d.uuid}>
-                <Message
+                <Message.Message
                   username={d.username}
                   onPress={() =>
                     navigation.navigate("Chatroom", {

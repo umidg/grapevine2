@@ -1,10 +1,10 @@
 import { View, Text, Flex, Box, Input, Button } from "native-base";
 import React, { useContext, useState } from "react";
 import { grapevineBackend } from "../../API";
-import ButtonLight from "../../AtomComponents/Buttons/ButtonLight";
-import RoundImage from "../../AtomComponents/Image/RoundImage";
 import { UserValue } from "../../Context/UserContext";
 import { SignInLayout } from "../../Layout/index";
+
+import { RoundImage } from "../../AtomComponents/index";
 
 const CommentPage = ({ navigation, route }) => {
   const {
