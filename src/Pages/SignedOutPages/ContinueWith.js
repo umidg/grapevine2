@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { View, Text, Center, Pressable } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
-import { AtomComponents, Modal, Layout } from "../../Exports/index";
+import { AtomComponents, Modal, Layout, Hooks } from "../../Exports/index";
 const ContinueWith = ({ navigation }) => {
   const { ButtonDark, RegularImage, Logo } = AtomComponents;
   const { InstagramLoginModel, TiktokLoginModel } = Modal;
@@ -9,16 +8,16 @@ const ContinueWith = ({ navigation }) => {
 
   const [showInstaModal, setShowInstaModal] = useState(false);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
-  const [data, setData] = useContext(RegisterData);
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const instagramLoginSuccess = (token) => {
     console.log(token);
-    setData({ ...data, instagramToken: token });
+    setRegisterData({ ...registerData, instagramToken: token });
     navigation.navigate("AccountType");
   };
   const tiktokLoginSuccess = ({ token, posts, refresh_token }) => {
-    setData({
-      ...data,
+    setRegisterData({
+      ...registerData,
       tiktokToken: token,
       tiktokPost: posts,
       tiktok_refresh_token: refresh_token,

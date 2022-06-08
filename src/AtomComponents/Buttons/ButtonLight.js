@@ -14,7 +14,7 @@ const ButtonLight = (props) => {
       bg="light"
       onPress={props.onPress}
       _pressed={{
-        bg: "buttonDark",
+        bg: "dark",
       }}
       {...props}
     >

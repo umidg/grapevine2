@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Text,
-  Center,
-  View,
-  Select,
-  CheckIcon,
-  Flex,
-  Input,
-} from "native-base";
-import RegularImage from "../Image/RegularImage";
+import { Box, Center, View, Select, Input } from "native-base";
 const { country } = require("../../StaticData/countryMap");
 const InputNumber = ({ h, w, placeholder, value, onChangeText }) => {
   const [dialCode, setDialCode] = React.useState("");
@@ -18,7 +8,7 @@ const InputNumber = ({ h, w, placeholder, value, onChangeText }) => {
   }, [dialCode]);
   return (
     <Box
-      bg="buttonDark"
+      bg="dark"
       h={h ? h : 53}
       w={w ? w : "100%"}
       borderRadius="md"

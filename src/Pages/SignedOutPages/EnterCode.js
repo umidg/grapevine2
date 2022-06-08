@@ -18,8 +18,8 @@ const EnterCode = ({ navigation, route }) => {
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px={5}>
             <View>
               <View w="100%" alignItems={"center"}>
@@ -58,14 +58,14 @@ const EnterCode = ({ navigation, route }) => {
                     italic
                   >
                     Didn’t recieve your code?
-                    <Text color="buttonDark">Resend</Text>
+                    <Text color="dark">Resend</Text>
                   </Text>
                 </View>
               </View>
             </View>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

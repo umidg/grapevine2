@@ -1,32 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { View, Text, Flex, Center } from "native-base";
 import { Box } from "native-base";
-import { RegisterData } from "../../../Context/RegisterContext";
-import { AtomComponents, Layout } from "../../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../../Exports/index";
 
 const IntrestsCreator = ({ navigation }) => {
   const { ButtonDark, InputIntrests, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const [showInput, setShowInput] = useState(false);
   const [inputData, setInputData] = useState("");
-  const [data, setData] = useContext(RegisterData);
 
   const select = (tag) => {
-    let index = data.intrests.indexOf(tag);
-    let temp = data.intrests;
+    let index = registerData.intrests.indexOf(tag);
+    let temp = registerData.intrests;
     if (index == -1) {
       temp.push(tag);
     } else {
       temp.splice(index, 1);
     }
-    setData({ ...data, intrests: temp });
+    setRegisterData({ ...registerData, intrests: temp });
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box style={styles.contaienr}>
             <View>
               <View style={styles.logoContainer}>
@@ -45,9 +44,10 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => select("Fashion")}
                     bg={
-                      data.intrests && data.intrests.indexOf("Fashion") != -1
-                        ? "buttonDarkClick"
-                        : "buttonDark"
+                      registerData.intrests &&
+                      registerData.intrests.indexOf("Fashion") != -1
+                        ? "dark"
+                        : "light"
                     }
                   >
                     <Text style={styles.buttonText}>Fashion</Text>
@@ -57,9 +57,10 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => select("Beauty")}
                     bg={
-                      data.intrests && data.intrests.indexOf("Beauty") != -1
-                        ? "buttonDarkClick"
-                        : "buttonDark"
+                      registerData.intrests &&
+                      registerData.intrests.indexOf("Beauty") != -1
+                        ? "dark"
+                        : "light"
                     }
                   >
                     <Text style={styles.buttonText}>Beauty</Text>
@@ -69,9 +70,10 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => select("Fitness")}
                     bg={
-                      data.intrests && data.intrests.indexOf("Fitness") != -1
-                        ? "buttonDarkClick"
-                        : "buttonDark"
+                      registerData.intrests &&
+                      registerData.intrests.indexOf("Fitness") != -1
+                        ? "dark"
+                        : "light"
                     }
                   >
                     <Text style={styles.buttonText}>Fitness</Text>
@@ -83,10 +85,10 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => select("Entertaintment")}
                     bg={
-                      data.intrests &&
-                      data.intrests.indexOf("Entertaintment") != -1
-                        ? "buttonDarkClick"
-                        : "buttonDark"
+                      registerData.intrests &&
+                      registerData.intrests.indexOf("Entertaintment") != -1
+                        ? "dark"
+                        : "light"
                     }
                   >
                     <Text style={styles.buttonText}>Entertaintment</Text>
@@ -97,9 +99,10 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => select("Lifestyle")}
                     bg={
-                      data.intrests && data.intrests.indexOf("Lifestyle") != -1
-                        ? "buttonDarkClick"
-                        : "buttonDark"
+                      registerData.intrests &&
+                      registerData.intrests.indexOf("Lifestyle") != -1
+                        ? "dark"
+                        : "light"
                     }
                   >
                     <Text style={styles.buttonText}>Lifestyle</Text>
@@ -132,7 +135,7 @@ const IntrestsCreator = ({ navigation }) => {
               </View>
             </View>
             <Center w="100%">
-              {data.intrests && data.intrests.length > 0 ? (
+              {registerData.intrests && registerData.intrests.length > 0 ? (
                 <ButtonDark
                   w="80%"
                   onPress={() => navigation.navigate("ConnectNetworks")}
@@ -150,8 +153,8 @@ const IntrestsCreator = ({ navigation }) => {
               )}
             </Center>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

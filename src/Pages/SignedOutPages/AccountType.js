@@ -1,20 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Box, Text, Center, View, Select, CheckIcon } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
-import { AtomComponents, Modal, Layout } from "../../Exports/index";
-
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 const AccountType = ({ navigation }) => {
+  console.log(Hooks, "hooks");
   const { ButtonDark, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
-  const [data, setData] = useContext(RegisterData);
   const [showDropDown, setShowDropDown] = useState(false);
   const type = ["Brand", "Agency"];
   const SetAccountType = (type) => {
-    if (type == data.account_type) {
-      setData({ ...data, account_type: null });
+    if (type == registerData.account_type) {
+      setRegisterData({ ...registerData, account_type: null });
     } else {
-      setData({ ...data, account_type: type });
+      setRegisterData({ ...registerData, account_type: type });
     }
   };
 
@@ -42,11 +41,7 @@ const AccountType = ({ navigation }) => {
                   w="70%"
                   h={10}
                   onPress={() => SetAccountType("User")}
-                  bg={
-                    data.account_type == "User"
-                      ? "buttonDarkClick"
-                      : "buttonDark"
-                  }
+                  bg={registerData.account_type == "User" ? "dark" : "light"}
                 >
                   <Text fontSize={14} color="#fff" fontWeight={"800"}>
                     User Account
@@ -69,7 +64,9 @@ const AccountType = ({ navigation }) => {
                       height="10"
                       width="70%"
                       selectedValue={
-                        data.account_type ? data.account_type : " "
+                        registerData.account_type
+                          ? registerData.account_type
+                          : " "
                       }
                       minWidth="200"
                       color={"#fff"}
@@ -93,14 +90,14 @@ const AccountType = ({ navigation }) => {
               </Center>
             </View>
             <Center>
-              {data.account_type ? (
+              {registerData.account_type ? (
                 <ButtonDark
                   w="80%"
-                  bg="buttonDark"
+                  bg="dark"
                   onPress={() => {
-                    if (data.account_type == "User")
+                    if (registerData.account_type == "User")
                       navigation.navigate("Register");
-                    else if (data.account_type == "Brand") {
+                    else if (registerData.account_type == "Brand") {
                       navigation.navigate("Register_Brand");
                     } else navigation.navigate("Register_Agency");
                   }}
@@ -110,7 +107,7 @@ const AccountType = ({ navigation }) => {
                   </Text>
                 </ButtonDark>
               ) : (
-                <ButtonDark w="80%" bg="buttonDarkClick">
+                <ButtonDark w="80%" bg="light">
                   <Text fontSize={14} color="#fff" fontWeight={"800"}>
                     Next
                   </Text>

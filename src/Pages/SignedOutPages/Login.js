@@ -1,18 +1,17 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UserValue } from "../../Context/UserContext";
 import { Center, Text, View } from "native-base";
 import { grapevineBackend } from "../../API/index";
 import { Formik } from "formik";
 import Toast from "react-native-root-toast";
 import { ActivityIndicator } from "react-native";
-import { AtomComponents, Layout } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 const { SignupSchema } = require("../../FormValidationSchema");
 const Login = ({ navigation }) => {
   const { ButtonDark, Input, InputPassword } = AtomComponents;
   const { LayoutFrame, BackLayout } = Layout;
-  const [user, setUser] = useContext(UserValue);
+  const { user, setUser } = Hooks.ContextHook();
   const [loading, setLoading] = useState(false);
   const logIn = (data) => {
     setLoading(true);

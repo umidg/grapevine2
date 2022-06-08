@@ -1,22 +1,18 @@
-import { Alert, StyleSheet, View } from "react-native";
-import React, { useState, useContext } from "react";
-import { Text, Center } from "native-base";
-import { RegisterData } from "../../../Context/RegisterContext";
+import React from "react";
+import { Text, Center, View } from "native-base";
+import { StyleSheet } from "react-native";
 const { RegisterSchema } = require("../../../FormValidationSchema");
 import { Formik } from "formik";
-import { AtomComponents, Modal, Layout } from "../../../Exports/index";
+import { AtomComponents, Modal, Layout, Hooks } from "../../../Exports/index";
 
 const Register = ({ navigation }) => {
   const { ButtonDark, Input, InputPassword, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
-
-  const [data, setData] = useContext(RegisterData);
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const reg = (info) => {
-    console.log(info, "heoo");
-
-    setData({
-      ...data,
+    setRegisterData({
+      ...registerData,
       fname: info.firstName,
       lname: info.lastName,
       number: info.number,
@@ -28,8 +24,8 @@ const Register = ({ navigation }) => {
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Center>
             <View style={{ padding: 5, width: "80%" }}>
               <View style={styles.logoContainer}>
@@ -41,7 +37,7 @@ const Register = ({ navigation }) => {
                   lastName: "",
                   number: "",
                   address: "",
-                  email: data.email,
+                  email: registerData.email,
                   password: "",
                 }}
                 onSubmit={reg}
@@ -74,8 +70,8 @@ const Register = ({ navigation }) => {
                         status={errors.lastName ? "danger" : "normal"}
                       />
                       <Text style={styles.EmailPw}>Email</Text>
-                      {data.email ? (
-                        <Input value={data.email} editable={false} />
+                      {registerData.email ? (
+                        <Input value={registerData.email} editable={false} />
                       ) : (
                         <Input
                           onChangeText={handleChange("email")}
@@ -126,8 +122,8 @@ const Register = ({ navigation }) => {
               </Formik>
             </View>
           </Center>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

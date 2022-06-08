@@ -1,19 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Text, View, Box } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
 
-import { AtomComponents, Modal, Layout } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 
 const EnterPhoneNumber = ({ navigation }) => {
   const { ButtonLight, InputNumber, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
 
   const [number, setNumber] = useState("");
-  const [data, setData] = useContext(RegisterData);
-
+  const { registerData, setRegisterData } = Hooks.ContextHook();
   const SendCode = () => {
     if (number.length > 0) {
-      setData({ ...data, number: number });
+      setRegisterData({ ...registerData, number: number });
       navigation.navigate("EnterCode", {
         code: "11111",
       });
@@ -21,8 +19,8 @@ const EnterPhoneNumber = ({ navigation }) => {
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px={5} pb="20">
             <View>
               <View w="100%" alignItems={"center"}>
@@ -56,8 +54,8 @@ const EnterPhoneNumber = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

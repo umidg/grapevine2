@@ -1,16 +1,8 @@
-import {
-  StyleSheet,
-  View,
-  Platform,
-  StatusBar,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
 import Theme from "./src/Theme/Theme";
-import ThemeContext from "./src/Context/ThemeContext";
-import UserContext from "./src/Context/UserContext";
-import ExpoToastContext from "./src/Context/ExpoToastContext";
-
+import { Context } from "./src/Exports/index";
 export default function App() {
+  const { ThemeContext, UserContext, ExpoToastContext } = Context;
   return (
     <SafeAreaView style={styles.container} flex={1}>
       <ThemeContext>

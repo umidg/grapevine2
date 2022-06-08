@@ -6,7 +6,7 @@ import RegularImage from "../Image/RegularImage";
 const InputUsername = ({ h, w, placeholder, value, onChangeText, state }) => {
   return (
     <Box
-      bg="buttonDark"
+      bg="dark"
       h={h ? h : 53}
       w={w ? w : "100%"}
       borderRadius="md"

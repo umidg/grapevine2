@@ -1,24 +1,23 @@
 import React, { useContext } from "react";
 import { Box, Text, View } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
-import { AtomComponents, Layout } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 const BrandCreator = ({ navigation }) => {
   const { ButtonDark, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
-  const [data, setData] = useContext(RegisterData);
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const validate = (collaborate) => {
-    setData({ ...data, collaborate: collaborate });
-    if (data.account_type == "User") {
+    setRegisterData({ ...registerData, collaborate: collaborate });
+    if (registerData.account_type == "User") {
       navigation.navigate("InterestsCreator");
-    } else if (data.account_type == "Brand") {
+    } else if (registerData.account_type == "Brand") {
       navigation.navigate("InterestsBrand");
     }
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px={5}>
             <View>
               <View w="100%" alignItems={"center"}>
@@ -57,8 +56,8 @@ const BrandCreator = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 import { ActivityIndicator } from "react-native";
 import { Text, View, Box, Center } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
 import { grapevineBackend } from "../../API";
 import Toast from "react-native-root-toast";
 
-import { AtomComponents, Layout } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 
 const EnterEmail = ({ navigation }) => {
   const { ButtonLight, InputText, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const [email, setEmail] = useState("");
-  const [data, setData] = useContext(RegisterData);
+  const { registerData, setRegisterData } = Hooks.ContextHook();
+
   const [loading, setLoading] = useState(false);
   const SendCode = () => {
     if (email.length > 0) {
@@ -25,7 +25,7 @@ const EnterEmail = ({ navigation }) => {
       )
         .then(async (response) => {
           if (response.data.status) {
-            setData({ ...data, email: email });
+            setRegisterData({ ...registerData, email: email });
             navigation.navigate("EnterCode", {
               code: response.data.data.code + "1",
             });
@@ -45,8 +45,8 @@ const EnterEmail = ({ navigation }) => {
 
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px={5} pb="30">
             <View>
               <View w="100%" alignItems="center">
@@ -93,8 +93,8 @@ const EnterEmail = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

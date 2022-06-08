@@ -1,21 +1,19 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Text, Center } from "native-base";
-import { RegisterData } from "../../../Context/RegisterContext";
 import { Formik } from "formik";
 const { RegisterBrandSchema } = require("../../../FormValidationSchema");
 
-import { AtomComponents, Layout } from "../../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../../Exports/index";
 
 const Register_Brand = ({ navigation }) => {
   const { ButtonDark, Input, InputPassword, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
-
-  const [data, setData] = useContext(RegisterData);
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const reg = (info) => {
-    setData({
-      ...data,
+    setRegisterData({
+      ...registerData,
       brand_name: info.brand_name,
       number: info.number,
       password: info.password,
@@ -26,8 +24,8 @@ const Register_Brand = ({ navigation }) => {
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Center>
             <View style={{ padding: 5, width: "80%" }}>
               <View style={styles.logoContainer}>
@@ -38,7 +36,7 @@ const Register_Brand = ({ navigation }) => {
                   brand_name: "",
                   number: "",
                   address: "",
-                  email: data.email,
+                  email: registerData.email,
                   password: "",
                 }}
                 onSubmit={reg}
@@ -65,8 +63,8 @@ const Register_Brand = ({ navigation }) => {
                       />
 
                       <Text style={styles.EmailPw}>Email</Text>
-                      {data.email ? (
-                        <Input value={data.email} editable={false} />
+                      {registerData.email ? (
+                        <Input value={registerData.email} editable={false} />
                       ) : (
                         <Input
                           placeholder="Email"
@@ -120,8 +118,8 @@ const Register_Brand = ({ navigation }) => {
               </Formik>
             </View>
           </Center>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

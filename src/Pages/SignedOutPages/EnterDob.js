@@ -1,14 +1,13 @@
 import { Alert } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { Box, Text, Center, View, Select, Flex, Input } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
-import { AtomComponents, Layout } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 
 const EnterDob = ({ navigation }) => {
   const { ButtonDark, ButtonLight, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { registerData, setRegisterData } = Hooks.ContextHook();
 
-  const [data, setData] = useContext(RegisterData);
   const ethinicity = [
     { value: "Asian or Asian British", disable: true },
     { value: "Indian", disable: false },
@@ -47,17 +46,20 @@ const EnterDob = ({ navigation }) => {
 
   const validate = () => {
     if (
-      data.dob &&
-      data.dob.day &&
-      data.dob.day.length > 0 &&
-      data.dob.month &&
-      data.dob.month.length > 0 &&
-      data.dob.year &&
-      data.dob.year.length > 0 &&
-      data.gender &&
-      data.ethinicity
+      // registerData.dob &&
+      // registerData.dob.day &&
+      // registerData.dob.day.length > 0 &&
+      // registerData.dob.month &&
+      // registerData.dob.month.length > 0 &&
+      // registerData.dob.year &&
+      // registerData.dob.year.length > 0 &&
+      registerData.gender &&
+      registerData.ethinicity
     ) {
-      if (data.account_type == "Brand" || data.account_type == "User") {
+      if (
+        registerData.account_type == "Brand" ||
+        registerData.account_type == "User"
+      ) {
         navigation.navigate("BrandCreator");
       } else {
         navigation.navigate("InterestsAgency");
@@ -69,8 +71,8 @@ const EnterDob = ({ navigation }) => {
 
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px="5" pb="30">
             <View>
               <View w="100%" alignItems="center">
@@ -95,13 +97,18 @@ const EnterDob = ({ navigation }) => {
                       color="#fff"
                       placeholder="dd"
                       fontWeight={"800"}
+                      bg="red.400"
                       fontSize={14}
                       p={0}
+                      zIndex={1000}
                       keyboardType="number-pad"
                       maxLength={2}
-                      value={data.dob ? data.dob.day : null}
+                      value={registerData.dob ? registerData.dob.day : null}
                       onChangeText={(text) =>
-                        setData({ ...data, dob: { ...data.dob, day: text } })
+                        setRegisterData({
+                          ...registerData,
+                          dob: { ...registerData.dob, day: text },
+                        })
                       }
                     />
                   </ButtonLight>
@@ -117,9 +124,12 @@ const EnterDob = ({ navigation }) => {
                       p={0}
                       keyboardType="number-pad"
                       maxLength={2}
-                      value={data.dob ? data.dob.month : null}
+                      value={registerData.dob ? registerData.dob.month : null}
                       onChangeText={(text) =>
-                        setData({ ...data, dob: { ...data.dob, month: text } })
+                        setRegisterData({
+                          ...registerData,
+                          dob: { ...registerData.dob, month: text },
+                        })
                       }
                     />
                   </ButtonLight>
@@ -135,9 +145,12 @@ const EnterDob = ({ navigation }) => {
                       p={0}
                       keyboardType="number-pad"
                       maxLength={4}
-                      value={data.dob ? data.dob.year : null}
+                      value={registerData.dob ? registerData.dob.year : null}
                       onChangeText={(text) =>
-                        setData({ ...data, dob: { ...data.dob, year: text } })
+                        setRegisterData({
+                          ...registerData,
+                          dob: { ...registerData.dob, year: text },
+                        })
                       }
                     />
                   </ButtonLight>
@@ -157,10 +170,10 @@ const EnterDob = ({ navigation }) => {
                     w={"40%"}
                     h={10}
                     m={1}
-                    onPress={() => setData({ ...data, gender: "Male" })}
-                    bg={
-                      data.gender == "Male" ? "buttonDarkClick" : "buttonDark"
+                    onPress={() =>
+                      setRegisterData({ ...registerData, gender: "Male" })
                     }
+                    bg={registerData.gender == "Male" ? "dark" : "light"}
                   >
                     <Text fontSize={14} color="#fff" fontWeight={"800"}>
                       Male
@@ -171,10 +184,10 @@ const EnterDob = ({ navigation }) => {
                     w={"40%"}
                     h={10}
                     m={1}
-                    onPress={() => setData({ ...data, gender: "Female" })}
-                    bg={
-                      data.gender == "Female" ? "buttonDarkClick" : "buttonDark"
+                    onPress={() =>
+                      setRegisterData({ ...registerData, gender: "Female" })
                     }
+                    bg={registerData.gender == "Female" ? "dark" : "light"}
                   >
                     <Text fontSize={14} color="#fff" fontWeight={"800"}>
                       Female
@@ -185,8 +198,10 @@ const EnterDob = ({ navigation }) => {
                   w={"70%"}
                   h={10}
                   m={1}
-                  onPress={() => setData({ ...data, gender: "Other" })}
-                  bg={data.gender == "Other" ? "buttonDarkClick" : "buttonDark"}
+                  onPress={() =>
+                    setRegisterData({ ...registerData, gender: "Other" })
+                  }
+                  bg={registerData.gender == "Other" ? "dark" : "light"}
                 >
                   <Text fontSize={14} color="#fff" fontWeight={"800"}>
                     Prefer not to say
@@ -208,7 +223,7 @@ const EnterDob = ({ navigation }) => {
                     borderRadius={"md"}
                     height="10"
                     width={"70%"}
-                    selectedValue={data.ethinicity}
+                    selectedValue={registerData.ethinicity}
                     minWidth="200"
                     color={"#fff"}
                     fontWeight="800"
@@ -221,7 +236,10 @@ const EnterDob = ({ navigation }) => {
                     borderWidth="0"
                     mt={1}
                     onValueChange={(itemValue) =>
-                      setData({ ...data, ethinicity: itemValue })
+                      setRegisterData({
+                        ...registerData,
+                        ethinicity: itemValue,
+                      })
                     }
                   >
                     {ethinicity.map((data) =>
@@ -256,8 +274,8 @@ const EnterDob = ({ navigation }) => {
               </ButtonDark>
             </Center>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

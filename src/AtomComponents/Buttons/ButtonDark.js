@@ -14,7 +14,7 @@ const ButtonDark = (props) => {
       onPress={props.onPress}
       variant="solid"
       _pressed={{
-        bg: "buttonDarkClick",
+        bg: "light",
       }}
     >
       <Text

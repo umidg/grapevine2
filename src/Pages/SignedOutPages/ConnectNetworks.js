@@ -1,26 +1,23 @@
 import React, { useState, useContext } from "react";
 import { Box, View, Flex, Center, Text, Pressable } from "native-base";
 import { Alert } from "react-native";
-import { RegisterData } from "../../Context/RegisterContext";
 import { AntDesign } from "@expo/vector-icons";
 
-import { AtomComponents, Modal, Layout } from "../../Exports/index";
+import { AtomComponents, Modal, Layout, Hooks } from "../../Exports/index";
 
 const ConnectNetworks = ({ navigation }) => {
   const { ButtonDark, ColorWrapper, RegularImage, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const { TiktokLoginModel, InstagramLoginModel } = Modal;
-
   const [showInstaModal, setShowInstaModal] = useState(false);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
-  const [data, setData] = useContext(RegisterData);
-
+  const { registerData, setRegisterData } = Hooks.ContextHook();
   const instagramLoginSuccess = (token) => {
-    setData({ ...data, instagramToken: token });
+    setRegisterData({ ...registerData, instagramToken: token });
   };
   const tiktokLoginSuccess = ({ token, posts, refresh_token }) => {
-    setData({
-      ...data,
+    setRegisterData({
+      ...registerData,
       tiktokToken: token,
       tiktokPost: posts,
       tiktok_refresh_token: refresh_token,
@@ -28,8 +25,8 @@ const ConnectNetworks = ({ navigation }) => {
   };
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px={5} pb="30">
             <Box>
               <InstagramLoginModel
@@ -71,7 +68,7 @@ const ConnectNetworks = ({ navigation }) => {
                             image={require("../../../assets/Icons/Instagram_light.png")}
                           />
                         </ColorWrapper>
-                        {data.instagramToken && (
+                        {registerData.instagramToken && (
                           <Center>
                             <AntDesign
                               name="check"
@@ -94,7 +91,7 @@ const ConnectNetworks = ({ navigation }) => {
                             image={require("../../../assets/Icons/Youtube_light.png")}
                           />
                         </ColorWrapper>
-                        {data.googleToken && (
+                        {registerData.googleToken && (
                           <Center>
                             <AntDesign
                               name="check"
@@ -113,7 +110,7 @@ const ConnectNetworks = ({ navigation }) => {
                             image={require("../../../assets/Icons/TikTok_light.png")}
                           />
                         </ColorWrapper>
-                        {data.tiktokToken && (
+                        {registerData.tiktokToken && (
                           <Center>
                             <AntDesign
                               name="check"
@@ -142,8 +139,8 @@ const ConnectNetworks = ({ navigation }) => {
               </View>
             </Box>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };

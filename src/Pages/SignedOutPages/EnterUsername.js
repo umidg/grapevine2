@@ -1,25 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Box, Text, View } from "native-base";
-import { RegisterData } from "../../Context/RegisterContext";
-import { UserValue } from "../../Context/UserContext";
 import { grapevineBackend } from "../../API/ci.axios";
 import { ActivityIndicator, Alert } from "react-native";
 import Toast from "react-native-root-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { AtomComponents, Layout } from "../../Exports/index";
-
+import { AtomComponents, Layout, Hooks } from "../../Exports/index";
 const EnterUsername = ({ navigation }) => {
   const { Logo, ButtonLight, InputUsername } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
-
+  const { registerData, setRegisterData, user, setUser } = Hooks.ContextHook();
   const [state, setState] = useState("initial");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useContext(RegisterData);
-  const [user, setUser] = useContext(UserValue);
   const validateUsername = (username) => {
     setState("loading");
-    setData({ ...data, username: username });
+    setRegisterData({ ...registerData, username: username });
     grapevineBackend(
       "/auth/usernameIsValid",
       { username: username },
@@ -42,7 +36,11 @@ const EnterUsername = ({ navigation }) => {
       setLoading(true);
       grapevineBackend(
         "/auth/register",
-        { ...data, passwordConfirm: data.password, intrests: data.intrests },
+        {
+          ...registerData,
+          passwordConfirm: registerData.password,
+          intrests: registerData.intrests,
+        },
         "POST"
       )
         .then(async ({ data }) => {
@@ -71,8 +69,8 @@ const EnterUsername = ({ navigation }) => {
 
   return (
     <LayoutFrame>
-      <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
+      <LoginLayout navigation={navigation}>
+        <BackLayout navigation={navigation}>
           <Box pt="15%" px="2%" pb="30">
             <View>
               <View w="100%" alignItems="center">
@@ -93,7 +91,7 @@ const EnterUsername = ({ navigation }) => {
                 </Text>
                 <InputUsername
                   placeholder="Username"
-                  value={data.username}
+                  value={registerData.username}
                   onChangeText={(text) => validateUsername(text)}
                   state={state}
                 />
@@ -123,8 +121,8 @@ const EnterUsername = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </LoginLayout>
-      </BackLayout>
+        </BackLayout>
+      </LoginLayout>
     </LayoutFrame>
   );
 };
