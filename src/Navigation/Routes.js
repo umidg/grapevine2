@@ -1,7 +1,6 @@
 import Login from "../Pages/SignedOutPages/Login";
 import Register from "../Pages/SignedOutPages/Register/Register";
 import LoginSignup from "../Pages/SignedOutPages/LoginSignup";
-import ProfilePage1Light from "../Pages/SignedInPages/ProfilePage1Light";
 import ExplorePage from "../Pages/SignedInPages/Explore";
 import Explore2Page from "../Pages/SignedInPages/Explore2";
 import BrandCreator from "../Pages/SignedOutPages/BrandCreator";
@@ -24,7 +23,6 @@ import PostPage from "../Pages/SignedInPages/Post";
 import ChatRoom from "../Pages/SignedInPages/ChatRoom";
 import Register_Brand from "../Pages/SignedOutPages/Register/Register_Brand";
 import Register_Agency from "../Pages/SignedOutPages/Register/Register_Agency";
-import ProfilePage from "../Pages/SignedInPages/ProfilePage";
 import Post_Instagram_Yiktok_Youtube from "../Pages/SignedInPages/Post_Instagram_Yiktok_Youtube";
 import Explore3 from "../Pages/SignedInPages/Explore3";
 import Explore4 from "../Pages/SignedInPages/Explore4";

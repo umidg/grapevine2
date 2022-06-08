@@ -2,8 +2,9 @@ import { View, Text, ScrollView } from "native-base";
 import React, { useEffect, useContext, useState } from "react";
 import { Pressable } from "react-native";
 import { grapevineBackend } from "../../API";
-import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
+// import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import { UserValue } from "../../Context/UserContext";
+import { Tiktokvideo } from "../../AtomComponents/index";
 
 const TiktokVideoConteiner = ({ onPress, selectedId }) => {
   const [videos, setVideos] = useState([]);

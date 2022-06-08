@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import FeatureBoxPrimary from "../../../MoleculeComponents/Features/FeatureBoxPrimary";
+import { FeatureBoxPrimary } from "../../../MoleculeComponents/index";
 const Features = () => {
   const tempData1 = [1, 2, 3, 4, 5, 6];
   return (

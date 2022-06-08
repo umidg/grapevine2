@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import AllCreators from "../../../MoleculeComponents/Collection/AllCreators";
-import CollectionContainer from "../../../MoleculeComponents/Collection/CollectionContainer";
-
+import {
+  CollectionContainer,
+  AllCreators,
+} from "../../../MoleculeComponents/index";
 const Collection = () => {
   return (
     <View style={styles.container}>

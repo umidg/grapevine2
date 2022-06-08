@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Box, Flex, Text, Image } from "native-base";
-import RoundImage from "../../../AtomComponents/Image/RoundImage";
+
 import { TouchableHighlight } from "react-native";
 const Message = ({ onPress, username }) => {
   return (

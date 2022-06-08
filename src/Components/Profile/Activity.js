@@ -1,6 +1,5 @@
 import { View, Text, Flex, Image, Box, Center } from "native-base";
 import React from "react";
-import RegularImage from "../../../AtomComponents/Image/RegularImage";
 
 const Activity = () => {
   return (
@@ -21,7 +20,7 @@ const Activity = () => {
             {[1, 2, 3, 4].map((d) => (
               <Image
                 key={d}
-                source={require("../../../../assets/Images/1.png")}
+                source={require("../../../assets/Images/1.png")}
                 alt="image"
                 h={50}
                 w={50}
@@ -60,7 +59,7 @@ const Activity = () => {
         </Text>
         <Center>
           <Image
-            source={require("../../../../assets/Images/1.png")}
+            source={require("../../../assets/Images/1.png")}
             alt="image"
             h={50}
             w={50}

@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text, Box, Center, ScrollView } from "native-base";
-import PostV2 from "../../../MoleculeComponents/Post/PostV2";
-import { ActivityIndicator } from "react-native";
-import PostContainer from "../../../MoleculeComponents/Post/PostContainer";
+import { Text, Box, Center, ScrollView } from "native-base";
+import { PostContainer } from "../../MoleculeComponents/index";
 
 const PostContainer_Profile = ({ textPost, user }) => {
   return (

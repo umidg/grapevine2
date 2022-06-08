@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
 const Tagged = () => {

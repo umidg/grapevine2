@@ -32,5 +32,7 @@ export const grapevineBackend = async (
     params,
   };
 
-  return axios(config);
+  return axios(config).catch((err) => {
+    throw Error("Network Problem");
+  });
 };

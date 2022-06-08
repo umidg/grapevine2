@@ -1,18 +1,15 @@
 import React from "react";
-import { View, Box, Text, Image } from "native-base";
+import { Box, Pressable } from "native-base";
 import { useWindowDimensions } from "react-native";
 import { TabView } from "react-native-tab-view";
-import { Pressable } from "react-native";
-import PhotoContainer from "../../Components/ProfilePage1Light/Photos/PhotosContainer";
-import PostContainer_Profile from "../../Components/ProfilePage1Light/Post/PostContainer";
-import ProfileInfo from "../../Components/ProfilePage1Light/ProfileInfo/ProfileInfo";
-const Grid = require("../../../assets/Icons/grid.png");
-const Pen = require("../../../assets/Icons/pen.png");
-const Person = require("../../../assets/Icons/person.png");
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import Activity from "../ProfilePage1Light/ProfileInfo/Activity";
+import {
+  MaterialCommunityIcons,
+  Ionicons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
+import Activity from "./Activity";
+import PhotoContainer from "./Photos/PhotosContainer";
+import PostContainer_Profile from "./PostContainer";
 
 const TabContainer = ({ tiktokPost, textPost, user }) => {
   const layout = useWindowDimensions();
@@ -39,7 +36,6 @@ const TabContainer = ({ tiktokPost, textPost, user }) => {
       case "second":
         return <PostContainer_Profile textPost={textPost} user={user} />;
       case "third":
-        // return <ProfileInfo />;
         return <Activity />;
       default:
         return null;

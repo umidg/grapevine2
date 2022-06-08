@@ -1,5 +1,5 @@
 import { View, Text, Slide, Box, Button, Flex, Pressable } from "native-base";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 const SlideShow = ({ show, close, component }) => {
   return (
