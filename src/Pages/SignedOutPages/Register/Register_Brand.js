@@ -1,9 +1,8 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-import { Text, Center } from "native-base";
+import { Text, Center, View, Box } from "native-base";
 import { Formik } from "formik";
 const { RegisterBrandSchema } = require("../../../FormValidationSchema");
-
 import { AtomComponents, Layout, Hooks } from "../../../Exports/index";
 
 const Register_Brand = ({ navigation }) => {
@@ -27,10 +26,10 @@ const Register_Brand = ({ navigation }) => {
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
           <Center>
-            <View style={{ padding: 5, width: "80%" }}>
-              <View style={styles.logoContainer}>
+            <Box p={5} w="80%">
+              <Box mt={5} alignItems="center">
                 <Logo />
-              </View>
+              </Box>
               <Formik
                 initialValues={{
                   brand_name: "",
@@ -52,8 +51,10 @@ const Register_Brand = ({ navigation }) => {
                   errors,
                 }) => (
                   <View>
-                    <View style={styles.bodyContainer}>
-                      <Text style={styles.EmailPw}>Brand Name</Text>
+                    <View>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Brand Name
+                      </Text>
                       <Input
                         placeholder="Brand Name"
                         onChangeText={handleChange("brand_name")}
@@ -62,7 +63,9 @@ const Register_Brand = ({ navigation }) => {
                         status={errors.brand_name ? "danger" : "normal"}
                       />
 
-                      <Text style={styles.EmailPw}>Email</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Email
+                      </Text>
                       {registerData.email ? (
                         <Input value={registerData.email} editable={false} />
                       ) : (
@@ -74,7 +77,9 @@ const Register_Brand = ({ navigation }) => {
                           status={errors.email ? "danger" : "normal"}
                         />
                       )}
-                      <Text style={styles.EmailPw}>Phone Number</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Phone Number
+                      </Text>
                       <Input
                         placeholder="Phone Number"
                         onChangeText={handleChange("number")}
@@ -82,7 +87,9 @@ const Register_Brand = ({ navigation }) => {
                         onBlur={handleBlur("number")}
                         status={errors.number ? "danger" : "normal"}
                       />
-                      <Text style={styles.EmailPw}>Location</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Location
+                      </Text>
                       <Input
                         placeholder="Location"
                         onChangeText={handleChange("address")}
@@ -96,7 +103,9 @@ const Register_Brand = ({ navigation }) => {
                     status={errors.address ? "danger" : "normal"}
                     onValueChange={handleChange("address")}
                   /> */}
-                      <Text style={styles.EmailPw}>Password</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Password
+                      </Text>
                       <InputPassword
                         placeholder="Password"
                         onChangeText={handleChange("password")}
@@ -106,7 +115,12 @@ const Register_Brand = ({ navigation }) => {
                       />
                     </View>
                     <View>
-                      <Text style={styles.agrementText}>
+                      <Text
+                        color="#fff"
+                        fontWeight={"800"}
+                        fontSize={12}
+                        textAlign="center"
+                      >
                         By continuing, you agree to our{" "}
                         <Text color="buttonDark"> Terms of Services</Text> and
                         <Text color="buttonDark"> Privacy Policy</Text>
@@ -116,7 +130,7 @@ const Register_Brand = ({ navigation }) => {
                   </View>
                 )}
               </Formik>
-            </View>
+            </Box>
           </Center>
         </BackLayout>
       </LoginLayout>
@@ -125,34 +139,3 @@ const Register_Brand = ({ navigation }) => {
 };
 
 export default Register_Brand;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  center: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  logo: {
-    height: 100,
-    width: 100,
-  },
-
-  bodyContainer: {},
-  EmailPw: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "800",
-  },
-
-  agrementText: {
-    color: "#fff",
-    fontWeight: "800",
-    fontSize: 12,
-    textAlign: "center",
-  },
-});

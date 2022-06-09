@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, Center, View } from "native-base";
-import { StyleSheet } from "react-native";
+import { Text, Center, View, Box } from "native-base";
 const { RegisterSchema } = require("../../../FormValidationSchema");
 import { Formik } from "formik";
 import { AtomComponents, Modal, Layout, Hooks } from "../../../Exports/index";
@@ -27,10 +26,10 @@ const Register = ({ navigation }) => {
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
           <Center>
-            <View style={{ padding: 5, width: "80%" }}>
-              <View style={styles.logoContainer}>
+            <Box w="80%" p={5}>
+              <Box alignItems={"center"} mb={5}>
                 <Logo />
-              </View>
+              </Box>
               <Formik
                 initialValues={{
                   firstName: "",
@@ -53,23 +52,28 @@ const Register = ({ navigation }) => {
                   errors,
                 }) => (
                   <View>
-                    <View style={styles.bodyContainer}>
-                      <Text style={styles.EmailPw}>First Name</Text>
-
+                    <View>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        First Name
+                      </Text>
                       <Input
                         onChangeText={handleChange("firstName")}
                         status={errors.firstName ? "danger" : "normal"}
                         value={values.firstName}
                         onBlur={handleBlur("firstName")}
                       />
-                      <Text style={styles.EmailPw}>Last Name</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Last Name
+                      </Text>
                       <Input
                         onChangeText={handleChange("lastName")}
                         value={values.lastName}
                         onBlur={handleBlur("lastName")}
                         status={errors.lastName ? "danger" : "normal"}
                       />
-                      <Text style={styles.EmailPw}>Email</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Email
+                      </Text>
                       {registerData.email ? (
                         <Input value={registerData.email} editable={false} />
                       ) : (
@@ -80,14 +84,18 @@ const Register = ({ navigation }) => {
                           status={errors.email ? "danger" : "normal"}
                         />
                       )}
-                      <Text style={styles.EmailPw}>Phone Number</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Phone Number
+                      </Text>
                       <Input
                         onChangeText={handleChange("number")}
                         value={values.number}
                         onBlur={handleBlur("number")}
                         status={errors.number ? "danger" : "normal"}
                       />
-                      <Text style={styles.EmailPw}>Location</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Location
+                      </Text>
                       <Input
                         placeholder="Location"
                         onChangeText={handleChange("address")}
@@ -101,7 +109,9 @@ const Register = ({ navigation }) => {
                     status={errors.address ? "danger" : "normal"}
                     onValueChange={handleChange("address")}
                   /> */}
-                      <Text style={styles.EmailPw}>Password</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Password
+                      </Text>
                       <InputPassword
                         onChangeText={handleChange("password")}
                         value={values.password}
@@ -110,7 +120,12 @@ const Register = ({ navigation }) => {
                       />
                     </View>
                     <View>
-                      <Text style={styles.agrementText}>
+                      <Text
+                        color="#fff"
+                        fontWeight={"800"}
+                        fontSize={12}
+                        textAlign="center"
+                      >
                         By continuing, you agree to our{" "}
                         <Text color="buttonDark"> Terms of Services</Text> and
                         <Text color="buttonDark"> Privacy Policy</Text>
@@ -120,7 +135,7 @@ const Register = ({ navigation }) => {
                   </View>
                 )}
               </Formik>
-            </View>
+            </Box>
           </Center>
         </BackLayout>
       </LoginLayout>
@@ -129,34 +144,3 @@ const Register = ({ navigation }) => {
 };
 
 export default Register;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  center: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  logo: {
-    height: 100,
-    width: 100,
-  },
-
-  bodyContainer: {},
-  EmailPw: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "800",
-  },
-
-  agrementText: {
-    color: "#fff",
-    fontWeight: "800",
-    fontSize: 12,
-    textAlign: "center",
-  },
-});

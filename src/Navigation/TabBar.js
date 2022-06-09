@@ -98,7 +98,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
     <View
       style={styles.container}
       h={70}
-      bg="theme.bg"
+      bg="#fff"
       zIndex={showTabBar ? 1 : -1}
     >
       {state.routes.map((route, index) => {

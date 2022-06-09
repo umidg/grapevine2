@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { View, Text, Flex, Center } from "native-base";
-import { Box } from "native-base";
+import { View, Text, Flex, Center, Box } from "native-base";
 import { AtomComponents, Layout, Hooks } from "../../../Exports/index";
 
 const IntrestsCreator = ({ navigation }) => {
   const { ButtonDark, InputIntrests, Logo } = AtomComponents;
   const { LayoutFrame, BackLayout, LoginLayout } = Layout;
   const { registerData, setRegisterData } = Hooks.ContextHook();
-
   const [showInput, setShowInput] = useState(false);
   const [inputData, setInputData] = useState("");
 
@@ -26,18 +23,24 @@ const IntrestsCreator = ({ navigation }) => {
     <LayoutFrame>
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
-          <Box style={styles.contaienr}>
+          <Box pt={"15%"} px="2%" justifyContent={"space-between"} pb={30}>
             <View>
-              <View style={styles.logoContainer}>
+              <Box w="100%" alignItems={"center"}>
                 <Logo />
-                <Text style={styles.headerText}>
+                <Text
+                  fontSize={17}
+                  color="#fff"
+                  fontWeight={"800"}
+                  textAlign="center"
+                  mt={10}
+                >
                   Which categories are you interested in?
                 </Text>
-                <Text style={styles.headerText2}>
+                <Text fontSize={13} fontWeight="300" color="#fff" mt={5}>
                   We’ll personalise your expreience based on your answers
                 </Text>
-              </View>
-              <View style={styles.body}>
+              </Box>
+              <View my={10} alignItems="center">
                 <Flex direction="row" justifyContent="space-around" w="100%">
                   <ButtonDark
                     h={10}
@@ -50,7 +53,9 @@ const IntrestsCreator = ({ navigation }) => {
                         : "light"
                     }
                   >
-                    <Text style={styles.buttonText}>Fashion</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Fashion
+                    </Text>
                   </ButtonDark>
                   <ButtonDark
                     h={10}
@@ -63,7 +68,9 @@ const IntrestsCreator = ({ navigation }) => {
                         : "light"
                     }
                   >
-                    <Text style={styles.buttonText}>Beauty</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Beauty
+                    </Text>
                   </ButtonDark>
                   <ButtonDark
                     h={10}
@@ -76,7 +83,9 @@ const IntrestsCreator = ({ navigation }) => {
                         : "light"
                     }
                   >
-                    <Text style={styles.buttonText}>Fitness</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Fitness
+                    </Text>
                   </ButtonDark>
                 </Flex>
                 <Flex direction="row" justifyContent="center" w="100%" mt="5">
@@ -91,7 +100,9 @@ const IntrestsCreator = ({ navigation }) => {
                         : "light"
                     }
                   >
-                    <Text style={styles.buttonText}>Entertaintment</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Entertaintment
+                    </Text>
                   </ButtonDark>
                   <View w="5%"></View>
                   <ButtonDark
@@ -105,7 +116,9 @@ const IntrestsCreator = ({ navigation }) => {
                         : "light"
                     }
                   >
-                    <Text style={styles.buttonText}>Lifestyle</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Lifestyle
+                    </Text>
                   </ButtonDark>
                 </Flex>
                 <Flex
@@ -119,7 +132,9 @@ const IntrestsCreator = ({ navigation }) => {
                     w="30%"
                     onPress={() => setShowInput(!showInput)}
                   >
-                    <Text style={styles.buttonText}>Other</Text>
+                    <Text fontSize={11} color="#fff" fontWeight={"800"}>
+                      Other
+                    </Text>
                   </ButtonDark>
                 </Flex>
 
@@ -160,42 +175,3 @@ const IntrestsCreator = ({ navigation }) => {
 };
 
 export default IntrestsCreator;
-
-const styles = StyleSheet.create({
-  contaienr: {
-    paddingTop: "15%",
-    paddingLeft: "2%",
-    paddingRight: "2%",
-    justifyContent: "space-between",
-    paddingBottom: 30,
-  },
-  logoContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-  headerText: {
-    fontSize: 17,
-    color: "#fff",
-    fontWeight: "800",
-    textAlign: "center",
-    marginTop: 10,
-  },
-  headerText2: {
-    fontSize: 13,
-    fontWeight: "300",
-    color: "#fff",
-    marginTop: 20,
-  },
-  body: {
-    marginTop: 40,
-    marginBottom: 40,
-    alignItems: "center",
-  },
-
-  buttonText: {
-    fontSize: 11,
-    color: "#fff",
-    // fontFamily: "Gilroy",
-    fontWeight: "800",
-  },
-});

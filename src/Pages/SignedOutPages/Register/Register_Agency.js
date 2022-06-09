@@ -1,6 +1,5 @@
-import { StyleSheet } from "react-native";
 import React from "react";
-import { Text, Center, View } from "native-base";
+import { Text, Center, View, Box } from "native-base";
 import { Formik } from "formik";
 const { RegisterAgencySchema } = require("../../../FormValidationSchema");
 import { AtomComponents, Modal, Layout, Hooks } from "../../../Exports/index";
@@ -26,10 +25,10 @@ const Register_Agency = ({ navigation }) => {
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
           <Center>
-            <View style={{ padding: 5, width: "80%" }}>
-              <View style={styles.logoContainer}>
+            <Box p={5} w="80%">
+              <Box mb={5} alignItems="center">
                 <Logo />
-              </View>
+              </Box>
               <Formik
                 initialValues={{
                   agency_name: "",
@@ -51,8 +50,10 @@ const Register_Agency = ({ navigation }) => {
                   errors,
                 }) => (
                   <View>
-                    <View style={styles.bodyContainer}>
-                      <Text style={styles.EmailPw}>Agency Name</Text>
+                    <View>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Agency Name
+                      </Text>
                       <Input
                         placeholder="Agency Name"
                         onChangeText={handleChange("agency_name")}
@@ -61,7 +62,9 @@ const Register_Agency = ({ navigation }) => {
                         status={errors.agency_name ? "danger" : "normal"}
                       />
 
-                      <Text style={styles.EmailPw}>Email</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Email
+                      </Text>
                       {registerData.email ? (
                         <Input value={registerData.email} editable={false} />
                       ) : (
@@ -73,7 +76,9 @@ const Register_Agency = ({ navigation }) => {
                           status={errors.email ? "danger" : "normal"}
                         />
                       )}
-                      <Text style={styles.EmailPw}>Phone Number</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Phone Number
+                      </Text>
                       <Input
                         placeholder="Phone Number"
                         onChangeText={handleChange("number")}
@@ -81,7 +86,9 @@ const Register_Agency = ({ navigation }) => {
                         onBlur={handleBlur("number")}
                         status={errors.number ? "danger" : "normal"}
                       />
-                      <Text style={styles.EmailPw}>Location</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Location
+                      </Text>
                       <Input
                         placeholder="Location"
                         onChangeText={handleChange("address")}
@@ -95,7 +102,9 @@ const Register_Agency = ({ navigation }) => {
                     status={errors.address ? "danger" : "normal"}
                     onValueChange={handleChange("address")}
                   /> */}
-                      <Text style={styles.EmailPw}>Password</Text>
+                      <Text color={"#fff"} fontSize={12} fontWeight="800">
+                        Password
+                      </Text>
                       <InputPassword
                         placeholder="Password"
                         onChangeText={handleChange("password")}
@@ -105,7 +114,12 @@ const Register_Agency = ({ navigation }) => {
                       />
                     </View>
                     <View>
-                      <Text style={styles.agrementText}>
+                      <Text
+                        color={"#fff"}
+                        fontSize={12}
+                        fontWeight="800"
+                        textAlign={"center"}
+                      >
                         By continuing, you agree to our{" "}
                         <Text color="buttonDark"> Terms of Services</Text> and
                         <Text color="buttonDark"> Privacy Policy</Text>
@@ -115,7 +129,7 @@ const Register_Agency = ({ navigation }) => {
                   </View>
                 )}
               </Formik>
-            </View>
+            </Box>
           </Center>
         </BackLayout>
       </LoginLayout>
@@ -124,34 +138,3 @@ const Register_Agency = ({ navigation }) => {
 };
 
 export default Register_Agency;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  center: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  logo: {
-    height: 100,
-    width: 100,
-  },
-
-  bodyContainer: {},
-  EmailPw: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "800",
-  },
-
-  agrementText: {
-    color: "#fff",
-    fontWeight: "800",
-    fontSize: 12,
-    textAlign: "center",
-  },
-});

@@ -9,6 +9,7 @@ import {
   MolecularComponents,
   Layout,
   PageComponent,
+  Hooks,
 } from "../../Exports/index";
 
 const ExplorePage = ({ navigation }) => {
@@ -21,8 +22,7 @@ const ExplorePage = ({ navigation }) => {
 
   const [users, setUsers] = useState([]);
   const [showUsers, setShowUsers] = useState(false);
-  const { hasUser, setUserDetails } = userHook();
-  const user = hasUser();
+
   const searchUser = async (name) => {
     console.log("name", name);
     grapevineBackend("/auth/search", { name: name }, "POST")
