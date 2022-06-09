@@ -1,4 +1,4 @@
-import { View, Text, Flex, Pressable, Image } from "native-base";
+import { View, Text, Flex, Pressable, Image, Center, Box } from "native-base";
 import React, { useState, useRef, useEffect } from "react";
 import { WebView } from "react-native-webview";
 import axios from "axios";
@@ -84,10 +84,7 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
     if (url && url.startsWith(redirectUrl) && key < 1) {
       setKey(key + 1);
       // refactor the url to get the code only
-      let code = url.split(redirectUrl + "?code=");
-      code = code[1];
-      code = code.split("#_");
-      code = code[0];
+      let code = url.split(redirectUrl + "?code=")[1].split("#_")[0];
       console.log("code", code);
       // now fetch token with code
       const res = await getToken(code);
@@ -110,43 +107,30 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
     return <View></View>;
   }
   return (
-    <Flex
+    <Center
       h="100%"
       w="100%"
       bg="rgba(0,0,0,0.2)"
-      justifyContent={"center"}
-      alignItems="center"
       position={"absolute"}
-      top={0}
+      top={100}
       left={0}
       zIndex={1000}
     >
-      <View h="50%" w="80%" bg="#fff">
-        <Flex
-          flexDirection={"row"}
-          alignItems="center"
-          justifyContent={"flex-end"}
-          borderBottomWidth={1}
-          p={5}
-        >
-          <Pressable onPress={close}>
-            <Image
-              source={{
-                uri: "https://img.icons8.com/ios-glyphs/30/000000/cancel.png",
-              }}
-              alt="Back icon"
-              h="7"
-              w="7"
-            />
-          </Pressable>
-        </Flex>
+      <Center bg="#fff" w="100%">
+        <Pressable onPress={close}>
+          <Text p={5} fontWeight={800} color="red.500">
+            Close
+          </Text>
+        </Pressable>
+      </Center>
+      <Box h="600" w="100%" bg="#fff">
         <WebView
           ref={webViewRef}
           source={{ uri: uri }}
           onNavigationStateChange={changeWebViewstate}
         />
-      </View>
-    </Flex>
+      </Box>
+    </Center>
   );
 };
 

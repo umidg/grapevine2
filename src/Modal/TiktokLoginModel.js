@@ -11,12 +11,6 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
   const appId = "awyowg81mowgtks0";
   const appSecret = "426f3d47bb5f6f295fda4f7ded27be5c";
   const csrfState = Math.random().toString(36).substring(2);
-  // let url = "https://open-api.tiktok.com/platform/oauth/connect/";
-  // url += `?client_key=${appId}`;
-  // url += "&scope=user.info.basic,video.list";
-  // url += "&response_type=code";
-  // url += `&redirect_uri=${redirectUrl}`;
-  // url += "&state=" + csrfState;
   let url = "https://www.tiktok.com/auth/authorize/";
   url += `?client_key=${appId}`;
   url += "&scope=user.info.basic,video.list,video.upload";
@@ -110,15 +104,14 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
     const { url } = state;
     if (url && url.startsWith(redirectUrl) && key < 1) {
       setKey(key + 1);
-      let code = url.split(redirectUrl + "?code=");
-      code = code[1].split("&");
-      code = code[0];
+      let code = url
+        .split(redirectUrl + "?code=")[1]
+        .split("&")[0]
+        .split("#_")[0];
       if (!code) {
         close();
         return;
       }
-      code = code.split("#_");
-      code = code[0];
       // now fetch token with code
       const data = await getToken(code);
       if (data.token) {
@@ -136,7 +129,7 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
   };
 
   if (!show) {
-    return <View></View>;
+    return <></>;
   }
   return (
     <Center
@@ -148,19 +141,19 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
       left={0}
       zIndex={1000}
     >
+      <Center bg="#fff" w="100%">
+        <Pressable onPress={close}>
+          <Text p={5} fontWeight={800} color="red.500">
+            Close
+          </Text>
+        </Pressable>
+      </Center>
       <Box h="600" w="100%" bg="#fff">
         <WebView
           ref={webViewRef}
           source={{ uri: url }}
           onNavigationStateChange={changeWebViewstate}
         />
-        <Center>
-          <Pressable onPress={close}>
-            <Text p={5} fontWeight={800} color="red.500">
-              Close
-            </Text>
-          </Pressable>
-        </Center>
       </Box>
     </Center>
   );
