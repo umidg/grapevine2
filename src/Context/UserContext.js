@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 export const UserValue = React.createContext(null);
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserContext = (props) => {
   const [user, setUser] = useState({
     data: false,
   });
-  useEffect(async () => {
-    var temp = { data: true };
-    try {
-      let loggedUser = JSON.parse(await AsyncStorage.getItem("user"));
-      if (loggedUser) {
-        temp = { ...temp, ...loggedUser };
+  useEffect(() => {
+    const getUser = async () => {
+      var temp = { data: true };
+      try {
+        const loggedUser = JSON.parse(await AsyncStorage.getItem('user'));
+        if (loggedUser) {
+          temp = { ...temp, ...loggedUser };
+        }
+      } catch (err) {
+        console.log(err, 'error');
       }
-    } catch (err) {}
-    setUser({ ...temp });
+      setUser({ ...temp });
+    };
+    getUser();
   }, []);
 
   return (

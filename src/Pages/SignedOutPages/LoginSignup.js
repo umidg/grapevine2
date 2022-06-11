@@ -1,32 +1,36 @@
-import React from "react";
-import { Text, View } from "native-base";
-import { AtomComponents, Layout } from "../../Exports/index";
+import React from 'react';
+import { Text, View } from 'native-base';
+import { AtomComponents, Layout } from '../../Exports/index';
 
 const LoginSignup = ({ navigation }) => {
   const { Logo, ButtonDark, ButtonLight } = AtomComponents;
-  const { LayoutFrame } = Layout;
+  const { SignoutLayout } = Layout;
   return (
-    <LayoutFrame>
-      <View alignItems={"center"}>
+    <SignoutLayout>
+      <View alignItems={'center'}>
         <Logo />
         <Text
-          fontSize={"16px"}
-          fontWeight="300"
-          textAlign={"center"}
-          color="#fff"
-          mt={5}
-          mb={5}
+          fontSize='16px'
+          fontWeight='300'
+          textAlign={'center'}
+          color='#fff'
+          my='5'
         >
           Create, Collaborate, Connect
         </Text>
       </View>
-      <ButtonDark w="70%" onPress={() => navigation.navigate("Login")}>
+      <ButtonDark w='70%' onPress={() => navigation.navigate('Login')}>
         Login
       </ButtonDark>
-      <ButtonLight w="70%" onPress={() => navigation.navigate("ContinueWith")}>
+      <ButtonLight
+        w='70%'
+        onPress={() => navigation.navigate('ContinueWith')}
+        borderWidth='2'
+        borderColor='dark'
+      >
         Sign Up
       </ButtonLight>
-    </LayoutFrame>
+    </SignoutLayout>
   );
 };
 

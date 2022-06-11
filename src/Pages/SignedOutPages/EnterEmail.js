@@ -1,15 +1,15 @@
-import React, { useState, useContext } from "react";
-import { ActivityIndicator } from "react-native";
-import { Text, View, Box, Center } from "native-base";
-import { grapevineBackend } from "../../API";
-import Toast from "react-native-root-toast";
+import React, { useState, useContext } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { Text, View, Box, Center } from 'native-base';
+import { grapevineBackend } from '../../API';
+import Toast from 'react-native-root-toast';
 
-import { AtomComponents, Layout, Hooks } from "../../Exports/index";
+import { AtomComponents, Layout, Hooks } from '../../Exports/index';
 
 const EnterEmail = ({ navigation }) => {
   const { ButtonLight, InputText, Logo } = AtomComponents;
-  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
-  const [email, setEmail] = useState("");
+  const { SignoutLayout, BackLayout, LoginLayout } = Layout;
+  const [email, setEmail] = useState('');
   const { registerData, setRegisterData } = Hooks.ContextHook();
 
   const [loading, setLoading] = useState(false);
@@ -17,17 +17,17 @@ const EnterEmail = ({ navigation }) => {
     if (email.length > 0) {
       setLoading(true);
       grapevineBackend(
-        "/auth/emailIsValid",
+        '/auth/emailIsValid',
         {
           email: email.toLowerCase(),
         },
-        "POST"
+        'POST'
       )
         .then(async (response) => {
           if (response.data.status) {
             setRegisterData({ ...registerData, email: email });
-            navigation.navigate("EnterCode", {
-              code: response.data.data.code + "1",
+            navigation.navigate('EnterCode', {
+              code: response.data.data.code + '1',
             });
           } else {
             Toast.show(response.data.message, {
@@ -37,52 +37,52 @@ const EnterEmail = ({ navigation }) => {
           setLoading(false);
         })
         .catch((err) => {
-          console.log("Err", err);
+          console.log('Err', err);
           setLoading(false);
         });
     }
   };
 
   return (
-    <LayoutFrame>
+    <SignoutLayout>
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
-          <Box pt="15%" px={5} pb="30">
+          <Box pt='15%' px={5} pb='30'>
             <View>
-              <View w="100%" alignItems="center">
+              <View w='100%' alignItems='center'>
                 <Logo />
                 <Text
                   fontSize={17}
-                  color="#fff"
-                  fontWeight={"800"}
-                  textAlign="center"
-                  mt="5"
+                  color='#fff'
+                  fontWeight={'800'}
+                  textAlign='center'
+                  mt='5'
                 >
                   We’ll send you a verification code
                 </Text>
               </View>
               <View mt={15}>
-                <Text fontSize={12} color="#f5f4ff" fontWeight={"800"}>
-                  Your Email{" "}
+                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'}>
+                  Your Email{' '}
                 </Text>
                 <Center>
                   <InputText
-                    placeholder="Email"
+                    placeholder='Email'
                     value={email}
                     onChangeText={(text) => setEmail(text)}
                   />
                 </Center>
-                <View mt="5">
+                <View mt='5'>
                   {loading ? (
                     <ButtonLight>
-                      <ActivityIndicator size="small" color="#ffffff" />
+                      <ActivityIndicator size='small' color='#ffffff' />
                     </ButtonLight>
                   ) : (
                     <ButtonLight onPress={SendCode}>
                       <Text
                         fontSize={14}
-                        color="#fff"
-                        fontWeight={"800"}
+                        color='#fff'
+                        fontWeight={'800'}
                         italic
                       >
                         Send Code
@@ -95,7 +95,7 @@ const EnterEmail = ({ navigation }) => {
           </Box>
         </BackLayout>
       </LoginLayout>
-    </LayoutFrame>
+    </SignoutLayout>
   );
 };
 

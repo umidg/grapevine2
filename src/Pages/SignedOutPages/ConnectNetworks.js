@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react";
-import { Box, View, Flex, Center, Text, Pressable } from "native-base";
-import { Alert } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import React, { useState, useContext } from 'react';
+import { Box, View, Flex, Center, Text, Pressable } from 'native-base';
+import { Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
-import { AtomComponents, Modal, Layout, Hooks } from "../../Exports/index";
+import { AtomComponents, Modal, Layout, Hooks } from '../../Exports/index';
 
 const ConnectNetworks = ({ navigation }) => {
   const { ButtonDark, ColorWrapper, RegularImage, Logo } = AtomComponents;
-  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { SignoutLayout, BackLayout, LoginLayout } = Layout;
   const { TiktokLoginModel, InstagramLoginModel } = Modal;
   const [showInstaModal, setShowInstaModal] = useState(false);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
@@ -24,10 +24,10 @@ const ConnectNetworks = ({ navigation }) => {
     });
   };
   return (
-    <LayoutFrame>
+    <SignoutLayout>
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
-          <Box pt="15%" px={5} pb="30">
+          <Box pt='15%' px={5} pb='30'>
             <Box>
               <InstagramLoginModel
                 show={showInstaModal}
@@ -40,64 +40,64 @@ const ConnectNetworks = ({ navigation }) => {
                 loginSuccess={(d) => tiktokLoginSuccess(d)}
               />
               <View>
-                <View w="100%" alignItems="center">
+                <View w='100%' alignItems='center'>
                   <Logo />
                   <Text
-                    fontSize="17"
-                    color="#fff"
-                    fontWeight="800"
-                    textAlign="center"
-                    mt="2"
+                    fontSize='17'
+                    color='#fff'
+                    fontWeight='800'
+                    textAlign='center'
+                    mt='2'
                   >
                     Connect your network
                   </Text>
                 </View>
                 <Center>
-                  <Center mt={19} w="80%">
+                  <Center mt={19} w='80%'>
                     <Flex
-                      flexDirection="row"
-                      justifyContent="space-around"
-                      w="70%"
-                      mb="10"
+                      flexDirection='row'
+                      justifyContent='space-around'
+                      w='70%'
+                      mb='10'
                     >
                       <Pressable onPress={() => setShowInstaModal(true)}>
                         <ColorWrapper>
                           <RegularImage
                             h={30}
                             w={30}
-                            image={require("../../../assets/Icons/Instagram_light.png")}
+                            image={require('../../../assets/Icons/Instagram_light.png')}
                           />
                         </ColorWrapper>
                         {registerData.instagramToken && (
                           <Center>
                             <AntDesign
-                              name="check"
+                              name='check'
                               size={18}
-                              color="#00ff00"
-                              p="2"
+                              color='#00ff00'
+                              p='2'
                             />
                           </Center>
                         )}
                       </Pressable>
                       <Pressable
                         onPress={() =>
-                          Alert.alert("Error", "This feature is comming soon")
+                          Alert.alert('Error', 'This feature is comming soon')
                         }
                       >
                         <ColorWrapper>
                           <RegularImage
                             h={30}
                             w={30}
-                            image={require("../../../assets/Icons/Youtube_light.png")}
+                            image={require('../../../assets/Icons/Youtube_light.png')}
                           />
                         </ColorWrapper>
                         {registerData.googleToken && (
                           <Center>
                             <AntDesign
-                              name="check"
+                              name='check'
                               size={18}
-                              color="#00ff00"
-                              p="2"
+                              color='#00ff00'
+                              p='2'
                             />
                           </Center>
                         )}
@@ -107,30 +107,30 @@ const ConnectNetworks = ({ navigation }) => {
                           <RegularImage
                             h={30}
                             w={30}
-                            image={require("../../../assets/Icons/TikTok_light.png")}
+                            image={require('../../../assets/Icons/TikTok_light.png')}
                           />
                         </ColorWrapper>
                         {registerData.tiktokToken && (
                           <Center>
                             <AntDesign
-                              name="check"
+                              name='check'
                               size={18}
-                              color="#00ff00"
-                              p="2"
+                              color='#00ff00'
+                              p='2'
                             />
                           </Center>
                         )}
                       </Pressable>
                     </Flex>
                     <ButtonDark
-                      onPress={() => navigation.navigate("EnterUsername")}
+                      onPress={() => navigation.navigate('EnterUsername')}
                     >
-                      <Text fontSize={14} color="#fff" fontWeight={"800"}>
+                      <Text fontSize={14} color='#fff' fontWeight={'800'}>
                         Next
                       </Text>
                     </ButtonDark>
-                    <Box onPress={() => navigation.navigate("EnterUsername")}>
-                      <Text fontSize="14" color="#fff" fontWeight="300" mt="5">
+                    <Box onPress={() => navigation.navigate('EnterUsername')}>
+                      <Text fontSize='14' color='#fff' fontWeight='300' mt='5'>
                         Skip
                       </Text>
                     </Box>
@@ -141,7 +141,7 @@ const ConnectNetworks = ({ navigation }) => {
           </Box>
         </BackLayout>
       </LoginLayout>
-    </LayoutFrame>
+    </SignoutLayout>
   );
 };
 

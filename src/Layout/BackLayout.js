@@ -1,26 +1,28 @@
-import React from "react";
-import { Box } from "native-base";
-import { TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import React from 'react';
+import { Box } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 const BackLayout = (props) => {
-  const { navigate = "pop", navigation, children } = props;
+  const { navigate, navigation, children } = props;
   const onPress = () => {
+    console.log('Pressed');
     switch (navigate) {
-      case "pop": {
+      case undefined: {
         navigation.pop();
         break;
       }
       default: {
-        navigation.navigate(navigate);
+        navigation.pop();
+        break;
       }
     }
   };
 
   return (
     <>
-      <Box position="absolute" top="7%" left="5%" zIndex={1000}>
+      <Box position='absolute' top='7%' left='5%' zIndex={1000}>
         <TouchableOpacity onPress={onPress}>
-          <AntDesign name="arrowleft" size={28} color="#fff" p="2" />
+          <AntDesign name='arrowleft' size={28} color='#fff' p='2' />
         </TouchableOpacity>
       </Box>
       {children}

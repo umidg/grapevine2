@@ -1,54 +1,54 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Box, Text, View } from "native-base";
-import { grapevineBackend } from "../../API/ci.axios";
-import { ActivityIndicator, Alert } from "react-native";
-import Toast from "react-native-root-toast";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AtomComponents, Layout, Hooks } from "../../Exports/index";
+import React, { useState, useContext, useEffect } from 'react';
+import { Box, Text, View } from 'native-base';
+import { grapevineBackend } from '../../API/ci.axios';
+import { ActivityIndicator, Alert } from 'react-native';
+import Toast from 'react-native-root-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AtomComponents, Layout, Hooks } from '../../Exports/index';
 const EnterUsername = ({ navigation }) => {
   const { Logo, ButtonLight, InputUsername } = AtomComponents;
-  const { LayoutFrame, BackLayout, LoginLayout } = Layout;
+  const { SignoutLayout, BackLayout, LoginLayout } = Layout;
   const { registerData, setRegisterData, user, setUser } = Hooks.ContextHook();
-  const [state, setState] = useState("initial");
+  const [state, setState] = useState('initial');
   const [loading, setLoading] = useState(false);
   const validateUsername = (username) => {
-    setState("loading");
+    setState('loading');
     setRegisterData({ ...registerData, username: username });
     grapevineBackend(
-      "/auth/usernameIsValid",
+      '/auth/usernameIsValid',
       { username: username },
-      "POST",
-      "",
-      ""
+      'POST',
+      '',
+      ''
     )
       .then((response) => {
         if (response.data.data.valid) {
-          setState("valid");
+          setState('valid');
         } else {
-          setState("invalid");
+          setState('invalid');
         }
       })
       .catch((err) => console.log(err));
   };
 
   const reg = () => {
-    if (!loading && state == "valid") {
+    if (!loading && state == 'valid') {
       setLoading(true);
       grapevineBackend(
-        "/auth/register",
+        '/auth/register',
         {
           ...registerData,
           passwordConfirm: registerData.password,
           intrests: registerData.intrests,
         },
-        "POST"
+        'POST'
       )
         .then(async ({ data }) => {
           if (data.code == 200) {
-            Toast.show("Registered Succssfully", {
+            Toast.show('Registered Succssfully', {
               duration: Toast.durations.LONG,
             });
-            await AsyncStorage.setItem("user", JSON.stringify(data.data));
+            await AsyncStorage.setItem('user', JSON.stringify(data.data));
             setUser({
               ...data.data,
               ...user,
@@ -62,45 +62,45 @@ const EnterUsername = ({ navigation }) => {
         })
         .catch((err) => {
           console.log(err);
-          Alert.alert("", "Something Went Wrong");
+          Alert.alert('', 'Something Went Wrong');
         });
     }
   };
 
   return (
-    <LayoutFrame>
+    <SignoutLayout>
       <LoginLayout navigation={navigation}>
         <BackLayout navigation={navigation}>
-          <Box pt="15%" px="2%" pb="30">
+          <Box pt='15%' px='2%' pb='30'>
             <View>
-              <View w="100%" alignItems="center">
+              <View w='100%' alignItems='center'>
                 <Logo />
                 <Text
-                  fontSize="17"
-                  color="#fff"
-                  fontWeight="800"
-                  textAlign="center"
-                  mt="5"
+                  fontSize='17'
+                  color='#fff'
+                  fontWeight='800'
+                  textAlign='center'
+                  mt='5'
                 >
                   Select your username
                 </Text>
               </View>
               <View mt={15}>
-                <Text fontSize={12} color="#f5f4ff" fontWeight={"800"} italic>
+                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'} italic>
                   Username
                 </Text>
                 <InputUsername
-                  placeholder="Username"
+                  placeholder='Username'
                   value={registerData.username}
                   onChangeText={(text) => validateUsername(text)}
                   state={state}
                 />
-                {state == "valid" && (
+                {state == 'valid' && (
                   <Text
                     fontSize={12}
-                    color="#f5f4ff"
-                    fontWeight={"800"}
-                    textAlign="center"
+                    color='#f5f4ff'
+                    fontWeight={'800'}
+                    textAlign='center'
                     italic
                   >
                     This username is available!
@@ -110,9 +110,9 @@ const EnterUsername = ({ navigation }) => {
                 <View style={{ margin: 30 }}>
                   <ButtonLight onPress={reg}>
                     {loading ? (
-                      <ActivityIndicator size="small" color="#0000ff" />
+                      <ActivityIndicator size='small' color='#0000ff' />
                     ) : (
-                      <Text fontSize={14} color="#fff" fontWeight={"800"}>
+                      <Text fontSize={14} color='#fff' fontWeight={'800'}>
                         Confirm
                       </Text>
                     )}
@@ -123,7 +123,7 @@ const EnterUsername = ({ navigation }) => {
           </Box>
         </BackLayout>
       </LoginLayout>
-    </LayoutFrame>
+    </SignoutLayout>
   );
 };
 
