@@ -4,6 +4,7 @@ import { ActivityIndicator } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
+
 import { MolecularComponents, Layout } from "../../Exports/index";
 const Home = ({ navigation }) => {
   const { PostContainer } = MolecularComponents;
@@ -61,6 +62,7 @@ const Home = ({ navigation }) => {
           // backgroundColor: "red",
         }}
       />
+
       <Flex
         direction="row"
         justifyContent="center"

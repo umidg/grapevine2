@@ -1,7 +1,8 @@
-import { StyleSheet, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import React from "react";
-import { Center, Modal, Button } from "native-base";
-import ButtonDark from "../AtomComponents/Buttons/ButtonDark";
+import { ButtonDark } from "../AtomComponents/index";
+import { Text, Modal, Center } from "native-base";
+
 const LoadingMessageModal = ({
   showModal,
   setShowModal,
@@ -10,7 +11,7 @@ const LoadingMessageModal = ({
   setMessage,
 }) => {
   return (
-    <Center>
+    <Center zIndex={5000} h="100%" w="100%">
       <Modal
         isOpen={showModal}
         onClose={() => {

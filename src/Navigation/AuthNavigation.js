@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SignedInStack from "./SignedInStack";
 import SignedOutStack from "./SignedOutStack";
 import { UserValue } from "../Context/UserContext";
-import { Text, View } from "react-native";
 import Splash from "../Pages/Splash";
 const AuthNavigation = () => {
   const [user, setUser] = useContext(UserValue);
-  return <SignedOutStack />;
-  // return <SignedInStack />;
+
+  return <SignedInStack />;
   return (
     <>
       {user.data ? (
