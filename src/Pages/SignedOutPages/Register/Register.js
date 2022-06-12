@@ -34,6 +34,7 @@ const Register = ({ navigation }) => {
     },
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
+      console.log('submitted');
       setRegisterData({ ...registerData, values });
       navigation.navigate('EnterDob');
     },

@@ -31,7 +31,7 @@ const AccountType = ({ navigation }) => {
               : 'Register_Agency')
           }
           next
-          nextDisabled={registerData.account_type}
+          nextDisabled={registerData.account_type ? false : true}
         >
           <Box pt='10%' px={5}>
             <View>
@@ -56,7 +56,7 @@ const AccountType = ({ navigation }) => {
                     setShowDropDown(false);
                     SetAccountType('User');
                   }}
-                  bg={registerData.account_type == 'User' ? 'light' : 'dark'}
+                  bg={registerData.account_type == 'User' ? 'dark' : 'light'}
                 >
                   <Text fontSize={14} color='#fff' fontWeight={'800'}>
                     User Account
@@ -65,7 +65,7 @@ const AccountType = ({ navigation }) => {
                 <ButtonDark
                   w='50%'
                   h={10}
-                  bg={showDropDown ? 'light' : 'dark'}
+                  bg={showDropDown ? 'dark' : 'light'}
                   onPress={() => {
                     SetAccountType('');
                     setShowDropDown(!showDropDown);

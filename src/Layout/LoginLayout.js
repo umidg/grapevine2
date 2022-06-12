@@ -25,7 +25,7 @@ const LoginLayout = (props) => {
           <Center>
             <ButtonDark
               w='80%'
-              bg={nextDisabled ? 'light' : 'dark'}
+              bg={!nextDisabled ? 'dark' : 'light'}
               onPress={() => !nextDisabled && (onPress ? onPress() : onNext())}
             >
               <Text fontSize={14} color='#fff' fontWeight={'800'}>
