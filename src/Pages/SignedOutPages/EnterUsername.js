@@ -86,7 +86,7 @@ const EnterUsername = ({ navigation }) => {
                 </Text>
               </View>
               <View mt={15}>
-                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'} italic>
+                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'}>
                   Username
                 </Text>
                 <InputUsername

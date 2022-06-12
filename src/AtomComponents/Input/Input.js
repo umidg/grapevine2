@@ -1,32 +1,34 @@
-import { Text, TextInput } from "react-native";
-import React from "react";
+// import { Text, TextInput } from 'react-native';
+import { Input } from 'native-base';
+import React from 'react';
 
-const Input = ({
+const InputBase = ({
   value,
   onChangeText,
   placeholder,
   w,
   h,
   editable = true,
-  status = "normal",
+  status = 'normal',
 }) => {
   return (
-    <TextInput
-      style={{
-        width: w ? w : "100%",
-        height: h ? h : 25,
-        color: "#fff",
-        borderBottomColor: status == "normal" ? "rgba(61,54,130,0.7)" : "red",
-        borderBottomWidth: 2,
-        fontSize: 12,
-        marginBottom: 20,
-      }}
+    <Input
+      borderWidth={0}
+      width={w ? w : 'full'}
+      height={h ? h : '8'}
+      color='#fff'
+      borderBottomWidth='2'
+      fontSize='sm'
+      mb='5'
+      p='0'
+      borderBottomColor={status == 'normal' ? 'light' : 'red.500'}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
       editable={editable}
+      _focus={{ bg: 'none' }}
     />
   );
 };
 
-export default Input;
+export default InputBase;

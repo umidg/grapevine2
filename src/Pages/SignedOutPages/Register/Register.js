@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, Center, View, Box } from 'native-base';
-const { RegisterSchema } = require('../../../FormValidationSchema');
-import { Formik } from 'formik';
+import { Text, Center, View, Box, Button } from 'native-base';
+// const { RegisterSchema } = require('../../../FormValidationSchema');
+import { RegisterSchema } from '../../../FormValidationSchema';
+import { Formik, useFormik } from 'formik';
 import { AtomComponents, Modal, Layout, Hooks } from '../../../Exports/index';
 
 const Register = ({ navigation }) => {
@@ -9,136 +10,132 @@ const Register = ({ navigation }) => {
   const { SignoutLayout, BackLayout, LoginLayout } = Layout;
   const { registerData, setRegisterData } = Hooks.ContextHook();
 
-  const reg = (info) => {
-    setRegisterData({
-      ...registerData,
-      fname: info.firstName,
-      lname: info.lastName,
-      number: info.number,
-      password: info.password,
-      email: info.email,
-      address: info.address,
-    });
-    navigation.navigate('EnterDob');
-  };
+  // const reg = (info) => {
+  //   setRegisterData({
+  //     ...registerData,
+  //     fname: info.firstName,
+  //     lname: info.lastName,
+  //     number: info.number,
+  //     password: info.password,
+  //     email: info.email,
+  //     address: info.address,
+  //   });
+  //   navigation.navigate('EnterDob');
+  // };
+
+  const formik = useFormik({
+    initialValues: {
+      fname: '',
+      lname: '',
+      number: '',
+      password: '',
+      email: registerData.email,
+      address: '',
+    },
+    validationSchema: RegisterSchema,
+    onSubmit: (values) => {
+      setRegisterData({ ...registerData, values });
+      navigation.navigate('EnterDob');
+    },
+  });
+
+  console.log(formik.errors ? formik.errors : 'no error', 'error');
+
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation} next onPress={formik.handleSubmit}>
           <Center>
             <Box w='80%' p={5}>
               <Box alignItems={'center'} mb={5}>
                 <Logo />
               </Box>
-              <Formik
-                initialValues={{
-                  firstName: '',
-                  lastName: '',
-                  number: '',
-                  address: '',
-                  email: registerData.email,
-                  password: '',
-                }}
-                onSubmit={reg}
-                validationSchema={RegisterSchema}
-                validateOnChange={false}
-                validateOnBlur={false}
-              >
-                {({
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  values,
-                  errors,
-                }) => (
-                  <View>
-                    <View>
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        First Name
-                      </Text>
-                      <Input
-                        onChangeText={handleChange('firstName')}
-                        status={errors.firstName ? 'danger' : 'normal'}
-                        value={values.firstName}
-                        onBlur={handleBlur('firstName')}
-                      />
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        Last Name
-                      </Text>
-                      <Input
-                        onChangeText={handleChange('lastName')}
-                        value={values.lastName}
-                        onBlur={handleBlur('lastName')}
-                        status={errors.lastName ? 'danger' : 'normal'}
-                      />
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        Email
-                      </Text>
-                      {registerData.email ? (
-                        <Input value={registerData.email} editable={false} />
-                      ) : (
-                        <Input
-                          onChangeText={handleChange('email')}
-                          value={values.email}
-                          onBlur={handleBlur('email')}
-                          status={errors.email ? 'danger' : 'normal'}
-                        />
-                      )}
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        Phone Number
-                      </Text>
-                      <Input
-                        onChangeText={handleChange('number')}
-                        value={values.number}
-                        onBlur={handleBlur('number')}
-                        status={errors.number ? 'danger' : 'normal'}
-                      />
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        Location
-                      </Text>
-                      <Input
-                        placeholder='Location'
-                        onChangeText={handleChange('address')}
-                        value={values.address}
-                        onBlur={handleBlur('address')}
-                        status={errors.address ? 'danger' : 'normal'}
-                      />
-                      {/* <SelectCountry
-                    value={values.address}
-                    onBlur={handleBlur("address")}
-                    status={errors.address ? "danger" : "normal"}
-                    onValueChange={handleChange("address")}
-                  /> */}
-                      <Text color={'#fff'} fontSize={12} fontWeight='800'>
-                        Password
-                      </Text>
-                      <InputPassword
-                        onChangeText={handleChange('password')}
-                        value={values.password}
-                        onBlur={handleBlur('password')}
-                        status={errors.password ? 'danger' : 'normal'}
-                      />
-                    </View>
-                    <View>
-                      <Text
-                        color='#fff'
-                        fontWeight={'800'}
-                        fontSize={12}
-                        textAlign='center'
-                      >
-                        By continuing, you agree to our{' '}
-                        <Text color='buttonDark'> Terms of Services</Text> and
-                        <Text color='buttonDark'> Privacy Policy</Text>
-                      </Text>
-                    </View>
-                    <ButtonDark onPress={handleSubmit}>Next</ButtonDark>
-                  </View>
-                )}
-              </Formik>
+
+              <View>
+                <View>
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    First Name
+                  </Text>
+                  <Input
+                    id='fname'
+                    onChangeText={formik.handleChange('fname')}
+                    status={formik.errors.fname ? 'danger' : 'normal'}
+                    value={formik.values.fname}
+                    onBlur={formik.handleBlur('fname')}
+                  />
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    Last Name
+                  </Text>
+                  <Input
+                    id='lname'
+                    onChangeText={formik.handleChange('lname')}
+                    value={formik.values.lname}
+                    onBlur={formik.handleBlur('lname')}
+                    status={formik.errors.lname ? 'danger' : 'normal'}
+                  />
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    Email
+                  </Text>
+                  {registerData.email ? (
+                    <Input value={registerData.email} editable={false} />
+                  ) : (
+                    <Input
+                      id='email'
+                      onChangeText={formik.handleChange('email')}
+                      value={formik.values.email}
+                      onBlur={formik.handleBlur('email')}
+                      status={formik.errors.email ? 'danger' : 'normal'}
+                    />
+                  )}
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    Phone Number
+                  </Text>
+                  <Input
+                    id='number'
+                    onChangeText={formik.handleChange('number')}
+                    value={formik.values.number}
+                    onBlur={formik.handleBlur('number')}
+                    status={formik.errors.number ? 'danger' : 'normal'}
+                  />
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    Location
+                  </Text>
+                  <Input
+                    id='address'
+                    onChangeText={formik.handleChange('address')}
+                    value={formik.values.address}
+                    onBlur={formik.handleBlur('address')}
+                    status={formik.errors.address ? 'danger' : 'normal'}
+                  />
+                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                    Password
+                  </Text>
+                  <InputPassword
+                    id='password'
+                    onChangeText={formik.handleChange('password')}
+                    value={formik.values.password}
+                    onBlur={formik.handleBlur('password')}
+                    status={formik.errors.password ? 'danger' : 'normal'}
+                  />
+                </View>
+                <View>
+                  <Text
+                    color='#fff'
+                    fontWeight={'500'}
+                    fontSize={12}
+                    textAlign='center'
+                  >
+                    By continuing, you agree to our{' '}
+                    <Text color='dark'> Terms of Services</Text> and
+                    <Text color='dark'> Privacy Policy</Text>
+                  </Text>
+                </View>
+                {/* <ButtonDark onPress={handleSubmit}>Next</ButtonDark> */}
+              </View>
             </Box>
           </Center>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

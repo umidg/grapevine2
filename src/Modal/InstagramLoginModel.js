@@ -1,14 +1,14 @@
-import { View, Text, Flex, Pressable, Image, Center, Box } from "native-base";
-import React, { useState, useRef, useEffect } from "react";
-import { WebView } from "react-native-webview";
-import axios from "axios";
-const qs = require("qs");
-const InstagramLoginModel = ({ show, close, loginSuccess }) => {
+import { View, Text, Flex, Pressable, Image, Center, Box } from 'native-base';
+import React, { useState, useRef, useEffect } from 'react';
+import { WebView } from 'react-native-webview';
+import axios from 'axios';
+const qs = require('qs');
+const InstagramLoginModel = ({ show, close, loginSuccess, top }) => {
   const [key, setKey] = useState(0);
   const webViewRef = useRef(null);
-  const redirectUrl = "https://github.com/";
-  const appId = "1817113448678856";
-  const appSecret = "13e787b8903c5a5b4cc84164a37fee00";
+  const redirectUrl = 'https://github.com/';
+  const appId = '1817113448678856';
+  const appSecret = '13e787b8903c5a5b4cc84164a37fee00';
   const uri = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${redirectUrl}&scope=user_profile,user_media&response_type=code`;
 
   const fetchAdditionalInfo = async (access_token) => {
@@ -39,7 +39,7 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
           });
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
     // fetch the user information, ie username
     fetch(
@@ -56,22 +56,22 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
 
   const getToken = async (code) => {
     let res = await axios({
-      method: "post",
-      url: "https://api.instagram.com/oauth/access_token",
+      method: 'post',
+      url: 'https://api.instagram.com/oauth/access_token',
       data: qs.stringify({
         client_id: appId,
         client_secret: appSecret,
-        grant_type: "authorization_code",
+        grant_type: 'authorization_code',
         redirect_uri: redirectUrl,
         code: code,
       }),
       headers: {
-        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     })
       .then(({ data }) => data)
       .catch((err) => {
-        console.log("Error instagram", err);
+        console.log('Error instagram', err);
         return false;
       });
     return res.access_token;
@@ -84,8 +84,7 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
     if (url && url.startsWith(redirectUrl) && key < 1) {
       setKey(key + 1);
       // refactor the url to get the code only
-      let code = url.split(redirectUrl + "?code=")[1].split("#_")[0];
-      console.log("code", code);
+      let code = url.split(redirectUrl + '?code=')[1].split('#_')[0];
       // now fetch token with code
       const res = await getToken(code);
       if (res) {
@@ -95,7 +94,7 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
         close();
       } else {
         setKey(0);
-        loginSuccess("Error Occured");
+        loginSuccess('Error Occured');
         close();
       }
     } else {
@@ -108,27 +107,34 @@ const InstagramLoginModel = ({ show, close, loginSuccess }) => {
   }
   return (
     <Center
-      h="100%"
-      w="100%"
-      bg="rgba(0,0,0,0.2)"
-      position={"absolute"}
+      h='100%'
+      w='100%'
+      position='absolute'
       top={100}
       left={0}
       zIndex={1000}
     >
-      <Center bg="#fff" w="100%">
-        <Pressable onPress={close}>
-          <Text p={5} fontWeight={800} color="red.500">
-            Close
-          </Text>
-        </Pressable>
-      </Center>
-      <Box h="600" w="100%" bg="#fff">
+      <Box
+        h='full'
+        w='100%'
+        mb='5'
+        bg='white'
+        borderBottomWidth={2}
+        borderBottomColor='gray.300'
+      >
         <WebView
           ref={webViewRef}
           source={{ uri: uri }}
           onNavigationStateChange={changeWebViewstate}
+          style={{ height: '50%' }}
         />
+        <Center bg='#fff' w='100%'>
+          <Pressable onPress={close}>
+            <Text p={5} fontWeight={800} color='red.500'>
+              Close
+            </Text>
+          </Pressable>
+        </Center>
       </Box>
     </Center>
   );

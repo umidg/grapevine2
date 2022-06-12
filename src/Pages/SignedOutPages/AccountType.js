@@ -20,8 +20,20 @@ const AccountType = ({ navigation }) => {
   return (
     <SignoutLayout>
       <BackLayout navigation={navigation}>
-        <LoginLayout navigation={navigation}>
-          <Box pt='15%' px={5}>
+        <LoginLayout
+          navigation={navigation}
+          navigate={
+            registerData.account_type &&
+            (registerData.account_type == 'User'
+              ? 'Register'
+              : registerData.account_type == 'Brand'
+              ? 'Register_Brand'
+              : 'Register_Agency')
+          }
+          next
+          nextDisabled={registerData.account_type}
+        >
+          <Box pt='10%' px={5}>
             <View>
               <View w='100%' alignItems={'center'}>
                 <Logo />
@@ -31,26 +43,33 @@ const AccountType = ({ navigation }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt='2'
-                  italic
+                  mb='10'
                 >
-                  Account Type
+                  What brings you here
                 </Text>
               </View>
               <Center mt='15'>
                 <ButtonDark
-                  w='70%'
+                  w='50%'
                   h={10}
-                  onPress={() => SetAccountType('User')}
-                  bg={registerData.account_type == 'User' ? 'dark' : 'light'}
+                  onPress={() => {
+                    setShowDropDown(false);
+                    SetAccountType('User');
+                  }}
+                  bg={registerData.account_type == 'User' ? 'light' : 'dark'}
                 >
                   <Text fontSize={14} color='#fff' fontWeight={'800'}>
                     User Account
                   </Text>
                 </ButtonDark>
                 <ButtonDark
-                  w='70%'
+                  w='50%'
                   h={10}
-                  onPress={() => setShowDropDown(!showDropDown)}
+                  bg={showDropDown ? 'light' : 'dark'}
+                  onPress={() => {
+                    SetAccountType('');
+                    setShowDropDown(!showDropDown);
+                  }}
                 >
                   <Text fontSize={14} color='#fff' fontWeight={'800'}>
                     Business Account
@@ -59,7 +78,7 @@ const AccountType = ({ navigation }) => {
                 {showDropDown && (
                   <Center>
                     <Select
-                      bg='rgba(61,54,130,0.6705882352941176)'
+                      bg='dark'
                       borderRadius={'md'}
                       height='10'
                       width='70%'
@@ -74,8 +93,12 @@ const AccountType = ({ navigation }) => {
                       accessibilityLabel='Choose '
                       placeholder='Choose '
                       _selectedItem={{
-                        bg: 'teal.600',
-                        endIcon: <CheckIcon size='5' />,
+                        bg: 'primary',
+                        endIcon: <CheckIcon size='5' color='white' />,
+                        color: 'white',
+                        _text: {
+                          color: 'white',
+                        },
                       }}
                       borderWidth='0'
                       mt={1}
@@ -89,7 +112,7 @@ const AccountType = ({ navigation }) => {
                 )}
               </Center>
             </View>
-            <Center>
+            {/* <Center>
               {registerData.account_type ? (
                 <ButtonDark
                   w='80%'
@@ -113,7 +136,7 @@ const AccountType = ({ navigation }) => {
                   </Text>
                 </ButtonDark>
               )}
-            </Center>
+            </Center> */}
           </Box>
         </LoginLayout>
       </BackLayout>

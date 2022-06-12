@@ -25,20 +25,20 @@ const ConnectNetworks = ({ navigation }) => {
   };
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
+          <InstagramLoginModel
+            show={showInstaModal}
+            close={() => setShowInstaModal(false)}
+            loginSuccess={(d) => instagramLoginSuccess(d)}
+          />
+          <TiktokLoginModel
+            show={showTiktokModal}
+            close={() => setShowTiktokModal(false)}
+            loginSuccess={(d) => tiktokLoginSuccess(d)}
+          />
           <Box pt='15%' px={5} pb='30'>
             <Box>
-              <InstagramLoginModel
-                show={showInstaModal}
-                close={() => setShowInstaModal(false)}
-                loginSuccess={(d) => instagramLoginSuccess(d)}
-              />
-              <TiktokLoginModel
-                show={showTiktokModal}
-                close={() => setShowTiktokModal(false)}
-                loginSuccess={(d) => tiktokLoginSuccess(d)}
-              />
               <View>
                 <View w='100%' alignItems='center'>
                   <Logo />
@@ -139,8 +139,8 @@ const ConnectNetworks = ({ navigation }) => {
               </View>
             </Box>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

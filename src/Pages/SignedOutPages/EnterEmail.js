@@ -45,8 +45,8 @@ const EnterEmail = ({ navigation }) => {
 
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
           <Box pt='15%' px={5} pb='30'>
             <View>
               <View w='100%' alignItems='center'>
@@ -62,7 +62,7 @@ const EnterEmail = ({ navigation }) => {
                 </Text>
               </View>
               <View mt={15}>
-                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'}>
+                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'} mb='2'>
                   Your Email{' '}
                 </Text>
                 <Center>
@@ -78,13 +78,8 @@ const EnterEmail = ({ navigation }) => {
                       <ActivityIndicator size='small' color='#ffffff' />
                     </ButtonLight>
                   ) : (
-                    <ButtonLight onPress={SendCode}>
-                      <Text
-                        fontSize={14}
-                        color='#fff'
-                        fontWeight={'800'}
-                        italic
-                      >
+                    <ButtonLight rounded='2xl' onPress={SendCode}>
+                      <Text fontSize={14} color='#fff' fontWeight={'800'}>
                         Send Code
                       </Text>
                     </ButtonLight>
@@ -93,8 +88,8 @@ const EnterEmail = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

@@ -18,8 +18,8 @@ const EnterCode = ({ navigation, route }) => {
   };
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
           <Box pt='15%' px={5}>
             <View>
               <View w='100%' alignItems={'center'}>
@@ -30,7 +30,6 @@ const EnterCode = ({ navigation, route }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt='2'
-                  italic
                 >
                   Enter Code
                 </Text>
@@ -44,7 +43,7 @@ const EnterCode = ({ navigation, route }) => {
                   />
                 </Center>
                 <View mt='2'>
-                  <ButtonLight onPress={compareCode}>
+                  <ButtonLight rounded='2xl' onPress={compareCode}>
                     <Text fontSize={14} color='#fff' fontWeight={'800'}>
                       Verify
                     </Text>
@@ -55,17 +54,16 @@ const EnterCode = ({ navigation, route }) => {
                     color='#fff'
                     fontWeight={'800'}
                     mt='2'
-                    italic
                   >
                     Didn’t recieve your code?
-                    <Text color='dark'>Resend</Text>
+                    <Text color='dark'>&nbsp;Resend</Text>
                   </Text>
                 </View>
               </View>
             </View>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

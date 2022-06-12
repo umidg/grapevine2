@@ -16,9 +16,9 @@ const BrandCreator = ({ navigation }) => {
   };
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
-          <Box pt='15%' px={5}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
+          <Box px={5}>
             <View>
               <View w='100%' alignItems={'center'}>
                 <Logo />
@@ -28,7 +28,6 @@ const BrandCreator = ({ navigation }) => {
                   fontWeight='800'
                   textAlign='center'
                   mt='2'
-                  italic
                 >
                   Would you like to collaborate with brands?
                 </Text>
@@ -56,8 +55,8 @@ const BrandCreator = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

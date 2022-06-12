@@ -21,8 +21,13 @@ const IntrestsCreator = ({ navigation }) => {
   };
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout
+          navigation={navigation}
+          navigate='ConnectNetworks'
+          next
+          nextDisabled={registerData.intrests.length <= 0}
+        >
           <Box pt={'15%'} px='2%' justifyContent={'space-between'} pb={30}>
             <View>
               <Box w='100%' alignItems={'center'}>
@@ -59,7 +64,7 @@ const IntrestsCreator = ({ navigation }) => {
                   </ButtonDark>
                   <ButtonDark
                     h={10}
-                    w='30%'
+                    w='35%'
                     onPress={() => select('Beauty')}
                     bg={
                       registerData.intrests &&
@@ -69,7 +74,7 @@ const IntrestsCreator = ({ navigation }) => {
                     }
                   >
                     <Text fontSize={11} color='#fff' fontWeight={'800'}>
-                      Beauty
+                      Beauty & Wellness
                     </Text>
                   </ButtonDark>
                   <ButtonDark
@@ -131,6 +136,7 @@ const IntrestsCreator = ({ navigation }) => {
                     h={10}
                     w='30%'
                     onPress={() => setShowInput(!showInput)}
+                    bg={showInput ? 'dark' : 'light'}
                   >
                     <Text fontSize={11} color='#fff' fontWeight={'800'}>
                       Other
@@ -149,7 +155,7 @@ const IntrestsCreator = ({ navigation }) => {
                 )}
               </View>
             </View>
-            <Center w='100%'>
+            {/* <Center w='100%'>
               {registerData.intrests && registerData.intrests.length > 0 ? (
                 <ButtonDark
                   w='80%'
@@ -166,10 +172,10 @@ const IntrestsCreator = ({ navigation }) => {
                   </Text>
                 </ButtonDark>
               )}
-            </Center>
+            </Center> */}
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

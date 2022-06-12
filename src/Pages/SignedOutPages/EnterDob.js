@@ -71,89 +71,91 @@ const EnterDob = ({ navigation }) => {
 
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation} next onPress={validate}>
           <Box pt='15%' px='5' pb='30'>
             <View>
               <View w='100%' alignItems='center'>
                 <Logo />
               </View>
               <Center mt='15'>
-                <Text
-                  color='#fff'
-                  fontWeight={'800'}
-                  m='3'
-                  fontSize={14}
-                  italic
-                >
+                <Text color='#fff' fontWeight={'800'} m='3' fontSize={14}>
                   Date Of Birth
                 </Text>
                 <Flex direction='row'>
-                  <ButtonLight w={70} h={10} m={1} p={0}>
-                    <Input
-                      borderWidth='0'
-                      w='100%'
-                      h='100%'
-                      color='#fff'
-                      placeholder='dd'
-                      fontWeight={'800'}
-                      bg='red.400'
-                      fontSize={14}
-                      p={0}
-                      zIndex={1000}
-                      keyboardType='number-pad'
-                      maxLength={2}
-                      value={registerData.dob ? registerData.dob.day : null}
-                      onChangeText={(text) =>
-                        setRegisterData({
-                          ...registerData,
-                          dob: { ...registerData.dob, day: text },
-                        })
-                      }
-                    />
-                  </ButtonLight>
-                  <ButtonLight w={70} h={10} m={1} p={0}>
-                    <Input
-                      borderWidth='0'
-                      w='100%'
-                      h='100%'
-                      color='#fff'
-                      placeholder='mm'
-                      fontWeight={'800'}
-                      fontSize={14}
-                      p={0}
-                      keyboardType='number-pad'
-                      maxLength={2}
-                      value={registerData.dob ? registerData.dob.month : null}
-                      onChangeText={(text) =>
-                        setRegisterData({
-                          ...registerData,
-                          dob: { ...registerData.dob, month: text },
-                        })
-                      }
-                    />
-                  </ButtonLight>
-                  <ButtonLight w={70} h={10} m={1} p={0}>
-                    <Input
-                      borderWidth='0'
-                      w='100%'
-                      h='100%'
-                      color='#fff'
-                      placeholder='yy'
-                      fontWeight={'800'}
-                      fontSize={14}
-                      p={0}
-                      keyboardType='number-pad'
-                      maxLength={4}
-                      value={registerData.dob ? registerData.dob.year : null}
-                      onChangeText={(text) =>
-                        setRegisterData({
-                          ...registerData,
-                          dob: { ...registerData.dob, year: text },
-                        })
-                      }
-                    />
-                  </ButtonLight>
+                  {/* <ButtonLight w={70} h={10} m={1} p={0}> */}
+                  <Input
+                    borderWidth='2'
+                    borderColor='dark'
+                    w='70'
+                    h='10'
+                    color='#fff'
+                    placeholder='dd'
+                    fontWeight={'800'}
+                    fontSize={14}
+                    p={0}
+                    type='number'
+                    keyboardType='number-pad'
+                    maxLength={2}
+                    textAlign='center'
+                    value={registerData.dob ? registerData.dob.day : null}
+                    onChangeText={(text) =>
+                      setRegisterData({
+                        ...registerData,
+                        dob: { ...registerData.dob, day: text },
+                      })
+                    }
+                    mr='2'
+                  />
+                  {/* </ButtonLight> */}
+                  {/* <ButtonLight w={70} h={10} m={1} p={0}> */}
+                  <Input
+                    borderWidth='2'
+                    borderColor='dark'
+                    w='70'
+                    h='10'
+                    color='#fff'
+                    placeholder='mm'
+                    fontWeight={'800'}
+                    fontSize={14}
+                    p={0}
+                    type='number'
+                    keyboardType='number-pad'
+                    maxLength={2}
+                    textAlign='center'
+                    value={registerData.dob ? registerData.dob.month : null}
+                    onChangeText={(text) =>
+                      setRegisterData({
+                        ...registerData,
+                        dob: { ...registerData.dob, month: text },
+                      })
+                    }
+                    mr='2'
+                  />
+                  {/* </ButtonLight> */}
+                  {/* <ButtonLight w={70} h={10} m={1} p={0}> */}
+                  <Input
+                    borderWidth='2'
+                    borderColor='dark'
+                    w={70}
+                    h={10}
+                    color='#fff'
+                    placeholder='yyyy'
+                    fontWeight={'800'}
+                    fontSize={14}
+                    p={0}
+                    keyboardType='number-pad'
+                    maxLength={4}
+                    textAlign='center'
+                    value={registerData.dob ? registerData.dob.year : null}
+                    onChangeText={(text) =>
+                      setRegisterData({
+                        ...registerData,
+                        dob: { ...registerData.dob, year: text },
+                      })
+                    }
+                  />
+                  {/* </ButtonLight> */}
                 </Flex>
                 <Text
                   color='#fff'
@@ -161,7 +163,6 @@ const EnterDob = ({ navigation }) => {
                   mt='5'
                   mb='3'
                   fontSize={14}
-                  italic
                 >
                   Gender
                 </Text>
@@ -213,13 +214,12 @@ const EnterDob = ({ navigation }) => {
                   mt='5'
                   mb='3'
                   fontSize={14}
-                  italic
                 >
                   Ethnicity
                 </Text>
                 <Center>
                   <Select
-                    bg='rgba(61,54,130,0.6705882352941176)'
+                    bg='dark'
                     borderRadius={'md'}
                     height='10'
                     width={'70%'}
@@ -230,7 +230,8 @@ const EnterDob = ({ navigation }) => {
                     accessibilityLabel='Choose '
                     placeholder='Choose '
                     _selectedItem={{
-                      bg: 'teal.600',
+                      bg: 'primary',
+                      _text: { color: 'white' },
                       // endIcon: <CheckIcon size="5" />,
                     }}
                     borderWidth='0'
@@ -266,16 +267,9 @@ const EnterDob = ({ navigation }) => {
                 </Center>
               </Center>
             </View>
-            <Center w='100%' mt='10'>
-              <ButtonDark w='80%' onPress={validate}>
-                <Text fontSize='14' color='#fff' fontWeight='800'>
-                  Next
-                </Text>
-              </ButtonDark>
-            </Center>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };
