@@ -14,18 +14,15 @@ import { grapevineBackend } from "../../API";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
-import { AtomComponents, Modal, PageComponent } from "../../Exports/index";
+import { AtomComponents, PageComponent } from "../../Exports/index";
 const PostPage = ({ navigation }) => {
   const { RoundImage, Tiktokvideo } = AtomComponents;
   const {
     Post: { TiktokVideoConteiner },
   } = PageComponent;
 
-  const { LoadingMessageModal } = Modal;
   const [user, setUser] = useContext(UserValue);
   const [post, setPost] = useState("");
-  const [modalMessage, setModalMessage] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [type, setType] = useState("text");
   const [tiktokVideo, setTiktokVideo] = useState(null);
   const uploadPost = () => {
@@ -59,14 +56,22 @@ const PostPage = ({ navigation }) => {
         return;
       }
     }
-    setShowModal(true);
+    Toast.show("Posting", {
+      duration: Toast.durations.SHORT,
+    });
     grapevineBackend("/post/create", data, "POST")
       .then(async ({ data }) => {
         setPost("");
         navigation.navigate("Home");
-        setModalMessage(data.message);
+        Toast.show(data.message, {
+          duration: Toast.durations.SHORT,
+        });
       })
-      .catch((err) => setModalMessage("Something Went Wrong"));
+      .catch((err) => {
+        Toast.show("Something Went Wrong", {
+          duration: Toast.durations.SHORT,
+        });
+      });
   };
 
   const layout = useMemo(() => {
@@ -121,13 +126,6 @@ const PostPage = ({ navigation }) => {
 
   return (
     <Box h="100%" w="100%">
-      <LoadingMessageModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        title="Post"
-        message={modalMessage}
-        setMessage={setModalMessage}
-      />
       <Flex
         direction="row"
         justifyContent="space-between"
@@ -142,11 +140,11 @@ const PostPage = ({ navigation }) => {
 
         <Pressable onPress={uploadPost}>
           <Box
-            bg="buttonPrimaryColor"
+            bg="primary"
             p="1"
             pr="3"
             pl="3"
-            borderRadius={"full"}
+            borderRadius={"md"}
             _text={{
               fontWeight: "800",
             }}

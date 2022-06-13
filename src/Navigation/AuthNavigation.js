@@ -5,7 +5,7 @@ import { UserValue } from "../Context/UserContext";
 import Splash from "../Pages/Splash";
 const AuthNavigation = () => {
   const [user, setUser] = useContext(UserValue);
-  return <SignedOutStack />;
+  // return <SignedOutStack />;
   return (
     <>
       {user.data ? (

@@ -22,7 +22,8 @@ const EnterUsername = ({ navigation }) => {
       ""
     )
       .then((response) => {
-        if (response.data.data.valid) {
+        console.log(response.data);
+        if (response.data?.data?.valid) {
           setState("valid");
         } else {
           setState("invalid");
