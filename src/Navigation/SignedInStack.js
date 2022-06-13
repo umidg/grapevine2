@@ -13,34 +13,13 @@ const Stack = createNativeStackNavigator();
 export const SignedInStack = () => {
   return (
     <NavigationContainer>
-      {/* <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: false,
-        }}
-        tabBar={(props) => {
-          return <TabBar {...props} />;
-        }}
-      >
-        {signedInRoutes.map((route) => {
-          return (
-            <Tab.Screen
-              key={route.routeName}
-              name={route.routeName}
-              component={route.component}
-              options={{
-                unmountOnBlur: route.routeName == "Chatroom" ? true : false,
-              }}
-            />
-          );
-        })}
-      </Tab.Navigator> */}
       <Stack.Navigator
         initialRouteName="Tab"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen key="Tab" name="Tab" component={TabNavigation} />
         {signedInRoutes.map((route) => {
+          console.log("route", route);
           return (
             <Stack.Screen
               key={route.routeName}

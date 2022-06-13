@@ -63,7 +63,7 @@ const EnterUsername = ({ navigation }) => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err, "error while sending data");
           Alert.alert("", "Something Went Wrong");
         });
     }
@@ -71,8 +71,8 @@ const EnterUsername = ({ navigation }) => {
 
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout navigation={navigation}>
           <Box pt="15%" px="2%" pb="30">
             <View>
               <View w="100%" alignItems="center">
@@ -123,8 +123,8 @@ const EnterUsername = ({ navigation }) => {
               </View>
             </View>
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };
