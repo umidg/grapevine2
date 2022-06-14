@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from "react";
 
-import { Box, Button, Switch, Text } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
-import { grapevineBackend } from '../../../API';
-import { UserValue } from '../../../Context/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Box, Button, Switch, Text } from "native-base";
+import { AntDesign } from "@expo/vector-icons";
+import { grapevineBackend } from "../../../API";
+import { UserValue } from "../../../Context/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import SlideShow from "../../../Components/Profile/SlideShow";
-import { Layout, PageComponent } from '../../../Exports/index';
+import { Layout, PageComponent } from "../../../Exports/index";
 
 const OwnProfile = ({ navigation }) => {
   const {
-    Profile: { HeaderContainer, TabContainer, NetworkContainer },
+    Profile_Own: { HeaderContainer, TabContainer, NetworkContainer },
   } = PageComponent;
   const { SignInLayout } = Layout;
 
@@ -19,16 +19,16 @@ const OwnProfile = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   // const [show, setShow] = useState(true);
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      grapevineBackend('/post/userposts', { uuid: user.uuid }, 'POST')
+    const unsubscribe = navigation.addListener("focus", () => {
+      grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
         .then(({ data }) => {
           if (data.status) {
             let textPost_temp = [];
             let tikTokPost_temp = [];
-            data.data.forEach((post) => {
-              if (post.post_type == 'text') {
+            data.data.result.forEach((post) => {
+              if (post.post_type == "text") {
                 textPost_temp.push({ ...post, username: user.username });
-              } else if (post.post_type == 'tiktok') {
+              } else if (post.post_type == "tiktok") {
                 tikTokPost_temp.push({ ...post, username: user.username });
               }
             });
@@ -41,18 +41,19 @@ const OwnProfile = ({ navigation }) => {
     return unsubscribe;
   }, []);
   const logout = async () => {
-    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem("user");
     setUser({ ...{ data: true } });
   };
 
   return (
     <SignInLayout>
-      <Box w='100%' h='100%'>
-        <Button onPress={logout} bg='primary'>
-          Logout
-        </Button>
-        <Box w='100%' h='100%'>
-          <HeaderContainer navigation={navigation} user={user} />
+      <Box w="100%" h="100%">
+        <Box w="100%" h="100%">
+          <HeaderContainer
+            navigation={navigation}
+            user={user}
+            logout={logout}
+          />
           <NetworkContainer />
           <TabContainer
             tiktokPost={tiktokPost}

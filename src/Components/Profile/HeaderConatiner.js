@@ -1,9 +1,10 @@
-import { Box, Text, Avatar, Divider, Button } from 'native-base';
-import { Alert } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { grapevineBackend } from '../../API';
-import { useState, useEffect, useContext } from 'react';
-import { UserValue } from '../../Context/UserContext';
+import { Box, Text, Avatar, Divider, Button } from "native-base";
+import { Alert } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { grapevineBackend } from "../../API";
+import { useState, useEffect, useContext } from "react";
+import { UserValue } from "../../Context/UserContext";
 const HeaderContainer = (props) => {
   const [user, setUser] = useContext(UserValue);
   const [friend, setFriend] = useState(null);
@@ -25,12 +26,12 @@ const HeaderContainer = (props) => {
 
   const sendRequest = async () => {
     grapevineBackend(
-      '/friendship/sendfriendrequest',
+      "/friendship/sendfriendrequest",
       {
         user_request: user.uuid,
         user_accept: uuid,
       },
-      'POST'
+      "POST"
     )
       .then(({ data }) => {
         if (data.status) {
@@ -49,22 +50,22 @@ const HeaderContainer = (props) => {
           });
           setFriend({ ...friendShip });
         } else {
-          Alert.alert('', data.data.message);
+          Alert.alert("", data.data.message);
         }
       })
       .catch((err) => {
-        console.log('err', err);
+        console.log("err", err);
       });
   };
 
   const acceptFriendRequest = async () => {
     grapevineBackend(
-      '/friendship/acceptfriendrequest',
+      "/friendship/acceptfriendrequest",
       {
         friendship_uuid: friend.uuid,
         user_accept: user.uuid,
       },
-      'POST'
+      "POST"
     )
       .then(({ data }) => {
         if (data.status) {
@@ -83,7 +84,7 @@ const HeaderContainer = (props) => {
             friends: [...updatedFriends],
           });
         } else {
-          Alert.alert('', 'something went wrong');
+          Alert.alert("", "something went wrong");
         }
       })
       .catch((err) => console.log(err));
@@ -99,96 +100,103 @@ const HeaderContainer = (props) => {
   }, [user]);
 
   return (
-    <Box w='full' p='5'>
-      <Box flex='1' flexDir='row'>
+    <Box w="full" p="5">
+      <Box flex="1" flexDir="row">
         <Box
-          alignSelf='center'
-          justifyContent='center'
-          mr='5'
-          alignContent='center'
+          alignSelf="center"
+          justifyContent="center"
+          mr="5"
+          alignContent="center"
         >
           <Avatar
-            alignSelf='center'
-            justifyContent='center'
+            alignSelf="center"
+            justifyContent="center"
             source={{
               uri: image
                 ? image
-                : 'https://wallpaperaccess.com/full/317501.jpg',
+                : "https://wallpaperaccess.com/full/317501.jpg",
             }}
-            size='20'
+            size="20"
           />
-          <Text textAlign='center'>
+          <Text
+            textAlign="center"
+            bg="primary"
+            color="#fff"
+            borderRadius={"md"}
+            mt="2"
+          >
             {/* TODO bipul  colors*/}
-            {engagement_type == 'User' ? 'Creator' : 'Brand'}
+            {engagement_type == "User" ? "Creator" : "Brand"}{" "}
+            <AntDesign name="check" size={12} color="white" />
           </Text>
           <Text
-            fontWeight='bold'
-            fontSize='12'
-            mt='2'
-            textAlign='center'
+            fontWeight="bold"
+            fontSize="12"
+            mt="2"
+            textAlign="center"
           >{`${fname} ${lname}`}</Text>
         </Box>
-        <Box flex='0.70'>
-          <Text fontWeight='bold' mb='2'>
+        <Box flex="0.70">
+          <Text fontWeight="bold" mb="2">
             @{username}
           </Text>
-          <Box flex='1' flexDir='row'>
-            <Box flexDir='column' alignItems='center'>
-              <Text fontSize='xl' fontWeight='bold'>
-                {posts?.length > 0 ? `${posts.length}` : '2K'}
+          <Box flex="1" flexDir="row">
+            <Box flexDir="column" alignItems="center">
+              <Text fontSize="xl" fontWeight="bold">
+                {posts?.length > 0 ? `${posts.length}` : "2K"}
               </Text>
-              <Text fontSize='10'>Posts</Text>
+              <Text fontSize="10">Posts</Text>
             </Box>
-            <Divider h='8' bg='gray.200' orientation='vertical' m='auto' />
-            <Box flexDir='column' alignItems='center'>
-              <Text fontSize='xl' fontWeight='bold'>
-                {follwers ?? '4M'}
+            <Divider h="8" bg="gray.200" orientation="vertical" m="auto" />
+            <Box flexDir="column" alignItems="center">
+              <Text fontSize="xl" fontWeight="bold">
+                {follwers ?? "4M"}
               </Text>
-              <Text fontSize='10'>Followers</Text>
+              <Text fontSize="10">Followers</Text>
             </Box>
-            <Divider h='8' bg='gray.200' orientation='vertical' m='auto' />
-            <Box flexDir='column' alignItems='center'>
-              <Text fontSize='xl' fontWeight='bold'>
-                {connections ?? '100+'}
+            <Divider h="8" bg="gray.200" orientation="vertical" m="auto" />
+            <Box flexDir="column" alignItems="center">
+              <Text fontSize="xl" fontWeight="bold">
+                {connections ?? "100+"}
               </Text>
-              <Text fontSize='10'>Connections</Text>
+              <Text fontSize="10">Connections</Text>
             </Box>
           </Box>
-          <Box mt='2'>
-            <Text fontSize='10' fontWeight='bold' mb='1'>
+          <Box mt="2">
+            <Text fontSize="10" fontWeight="bold" mb="1">
               Top 5.8% of all creators
             </Text>
             {user?.uuid != uuid && (
-              <Box flexDir='row' justifyContent='space-between'>
+              <Box flexDir="row" justifyContent="space-between">
                 {/* check if userId is in friends array */}
                 {friend ? (
                   friend.accepted ? (
                     <Button
-                      h='7'
-                      pt='0'
-                      pb='0'
-                      bg='buttonPrimaryColor'
-                      flex='0.45'
+                      h="7"
+                      pt="0"
+                      pb="0"
+                      bg="buttonPrimaryColor"
+                      flex="0.45"
                     >
                       Friends
                     </Button>
                   ) : friend?.hasRequested ? (
                     <Button
-                      h='7'
-                      pt='0'
-                      pb='0'
-                      bg='buttonPrimaryColor'
-                      flex='0.45'
+                      h="7"
+                      pt="0"
+                      pb="0"
+                      bg="buttonPrimaryColor"
+                      flex="0.45"
                     >
                       Req Sent
                     </Button>
                   ) : (
                     <Button
-                      h='7'
-                      pt='0'
-                      pb='0'
-                      bg='buttonPrimaryColor'
-                      flex='0.45'
+                      h="7"
+                      pt="0"
+                      pb="0"
+                      bg="buttonPrimaryColor"
+                      flex="0.45"
                       onPress={acceptFriendRequest}
                     >
                       Accept
@@ -197,58 +205,58 @@ const HeaderContainer = (props) => {
                 ) : (
                   <Button
                     onPress={() => sendRequest()} //TODO send request + edit userDetail
-                    h='7'
-                    pt='0'
-                    pb='0'
-                    bg='buttonPrimaryColor'
-                    flex='0.45'
+                    h="7"
+                    pt="0"
+                    pb="0"
+                    bg="buttonPrimaryColor"
+                    flex="0.45"
                   >
-                    {user?.engagement_type == 'User' &&
-                    engagement_type == 'User'
-                      ? 'Connect'
-                      : 'Collab'}
+                    {user?.engagement_type == "User" &&
+                    engagement_type == "User"
+                      ? "Connect"
+                      : "Collab"}
                   </Button>
                 )}
                 {friend?.accepted ? (
                   <Button
                     onPress={() =>
-                      navigation.navigate('Chatroom', {
+                      navigation.navigate("Chatroom", {
                         friend_uuid: uuid,
                         username: username,
                         friendship_uuid: friend.uuid,
                       })
                     }
-                    h='7'
-                    pt='0'
-                    pb='0'
-                    bg='buttonPrimaryColor'
-                    flex='0.45'
+                    h="7"
+                    pt="0"
+                    pb="0"
+                    bg="buttonPrimaryColor"
+                    flex="0.45"
                   >
                     Message
                   </Button>
                 ) : (
                   <Button
                     onPress={() =>
-                      Alert.alert('', 'You need to be friend to send message')
+                      Alert.alert("", "You need to be friend to send message")
                     }
-                    h='7'
-                    pt='0'
-                    pb='0'
-                    bg='buttonPrimaryColor'
-                    flex='0.45'
+                    h="7"
+                    pt="0"
+                    pb="0"
+                    bg="buttonPrimaryColor"
+                    flex="0.45"
                   >
                     Message
                   </Button>
                 )}
 
-                <Feather name='more-vertical' size={24} color='black' />
+                <Feather name="more-vertical" size={24} color="black" />
               </Box>
             )}
           </Box>
         </Box>
       </Box>
       <Box>
-        <Text fontSize='12' color='gray.500' pt='2'>
+        <Text fontSize="12" color="gray.500" pt="2">
           is simply dummy text of the printing and typesetting industry. Lorem
           Ipsum has been the industrycenturies, but also the leap into
           electronic typesetting, has been the industrycenturies, but als has
