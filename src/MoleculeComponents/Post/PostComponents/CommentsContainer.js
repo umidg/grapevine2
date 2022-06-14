@@ -9,7 +9,7 @@ const CommentsContainer = ({ comments }) => {
         return (
           <Flex direction="row" key={d.uuid} m="2px">
             <Text fontSize="9px" fontWeight="800">
-              {d.username}
+              {d.user.username}
             </Text>
             <Text fontSize="9px" fontWeight="300">
               {d.comment_text}
