@@ -14,12 +14,21 @@ const OtherProfile = ({ navigation, user_uuid }) => {
   const [tiktokPost, setTiktokPost] = useState([]);
   const [textPost, setTextPost] = useState([]);
   const [user, setUser] = useState(null);
+  const [activities, setActivities] = useState([]);
+
   // const [show, setShow] = useState(true);
   useEffect(() => {
     grapevineBackend(`/auth/getuserInfo/${user_uuid}`, {}, "POST")
       .then(({ data }) => {
         if (data.status) {
           setUser({ ...data.data });
+        }
+      })
+      .catch((err) => console.log(err));
+    grapevineBackend("/activity/get/myActivity", { uuid: user_uuid }, "POST")
+      .then(({ data }) => {
+        if (data.status) {
+          setActivities([...data.data.result]);
         }
       })
       .catch((err) => console.log(err));
@@ -66,6 +75,8 @@ const OtherProfile = ({ navigation, user_uuid }) => {
               tiktokPost={tiktokPost}
               textPost={textPost}
               user={user}
+              activities={activities}
+              navigation={navigation}
             />
           </Box>
         </Box>
