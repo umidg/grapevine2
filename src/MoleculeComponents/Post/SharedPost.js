@@ -40,12 +40,13 @@ const SharedPost = ({ data, user, navigation }) => {
       });
   }, [data]);
   return (
-    <Box w='100%' bg='theme.bg'>
+    <Box w='100%' mb='10'>
       <Box>
         <PostHeader
           username={data.username}
           user_uuid={data.user_uuid}
           navigation={navigation}
+          address={user.address}
         />
       </Box>
       <Box w='100%'>

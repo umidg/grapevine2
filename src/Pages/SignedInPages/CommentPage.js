@@ -39,7 +39,7 @@ const CommentPage = ({ navigation, route }) => {
     }
   };
   return (
-    <BackLayout navigation={navigation} color='#000'>
+    <BackLayout navigation={navigation} color='#000' safeArea>
       <SignInLayout>
         <Box h='100%' w='100%' p='10%'>
           <Text

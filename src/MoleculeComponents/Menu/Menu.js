@@ -1,5 +1,6 @@
-import { Text, Box, Pressable, Menu } from "native-base";
-import React, { useState } from "react";
+import { Text, Box, Pressable, Menu } from 'native-base';
+import React, { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 const DropDownMenu = ({ icon, options, textStyle }) => {
   const [shouldOverlapWithTrigger] = useState(false);
   return (
@@ -17,17 +18,29 @@ const DropDownMenu = ({ icon, options, textStyle }) => {
         options.map(({ text, onPress }) => {
           return (
             <Menu.Item onPress={onPress} key={text} p={0}>
-              <Text
-                fontWeight={"800"}
-                fontSize={16}
-                textAlign="center"
-                color="primary"
-                mx={5}
-                my={0}
-                {...textStyle}
+              <Box
+                flex='1'
+                flexDir='row'
+                justifyContent='flex-start'
+                mx='5'
+                alignItems='center'
               >
-                {text}
-              </Text>
+                <Ionicons
+                  name='information-circle-outline'
+                  size={16}
+                  color='gray'
+                />
+                <Text
+                  fontWeight={'500'}
+                  fontSize={12}
+                  textAlign='center'
+                  color='gray.500'
+                  my={0}
+                  {...textStyle}
+                >
+                  {text}
+                </Text>
+              </Box>
             </Menu.Item>
           );
         })}

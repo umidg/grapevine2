@@ -4,19 +4,19 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { StyleSheet, TouchableOpacity, Image } from "react-native";
-import { View } from "native-base";
-const HomeIcon = require("../../assets/NavIcons/Home.png");
-const NetworkIcon = require("../../assets/NavIcons/Network.png");
-const SearchIcon = require("../../assets/NavIcons/Search.png");
-const AddIcon = require("../../assets/NavIcons/Add.png");
-const ProfileIcon = require("../../assets/NavIcons/ProfilepIC.png");
-const HomeIconLight = require("../../assets/NavIcons/Home_light.png");
-const NetworkIconLight = require("../../assets/NavIcons/Network_light.png");
-const SearchIconLight = require("../../assets/NavIcons/Search_light.png");
-const Heart = require("../../assets/Icons/Vouches.png");
-import { ThemeValue } from "../Context/ThemeContext";
+} from 'react';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View } from 'native-base';
+const HomeIcon = require('../../assets/NavIcons/Home.png');
+const NetworkIcon = require('../../assets/NavIcons/Network.png');
+const SearchIcon = require('../../assets/NavIcons/Search.png');
+const AddIcon = require('../../assets/NavIcons/Add.png');
+const ProfileIcon = require('../../assets/NavIcons/ProfilepIC.png');
+const HomeIconLight = require('../../assets/NavIcons/Home_light.png');
+const NetworkIconLight = require('../../assets/NavIcons/Network_light.png');
+const SearchIconLight = require('../../assets/NavIcons/Search_light.png');
+const Heart = require('../../assets/Icons/Vouches.png');
+import { ThemeValue } from '../Context/ThemeContext';
 const TabBar = ({ state, descriptors, navigation }) => {
   const [theme, setTheme] = useContext(ThemeValue);
   const [showTabBar, setShowTabBar] = useState(true);
@@ -25,57 +25,57 @@ const TabBar = ({ state, descriptors, navigation }) => {
     (lable) => {
       let ans = null;
       switch (lable) {
-        case "Home":
+        case 'Home':
           ans = (
             <View style={styles.IconContainer}>
               <Image
-                source={theme == "light" ? HomeIcon : HomeIconLight}
+                source={theme == 'light' ? HomeIcon : HomeIconLight}
                 style={styles.icon}
-                resizeMethod="scale"
+                resizeMethod='scale'
               />
             </View>
           );
           break;
-        case "Activity":
+        case 'Activity':
           ans = (
             <View style={styles.IconContainer}>
               <Image
-                source={theme == "light" ? Heart : Heart}
+                source={theme == 'light' ? Heart : Heart}
                 style={styles.icon}
-                resizeMethod="scale"
+                resizeMethod='scale'
               />
             </View>
           );
           break;
-        case "Search":
+        case 'Search':
           ans = (
             <View style={styles.IconContainer}>
               <Image
-                source={theme == "light" ? SearchIcon : SearchIconLight}
+                source={theme == 'light' ? SearchIcon : SearchIconLight}
                 style={styles.icon}
-                resizeMethod="scale"
+                resizeMethod='scale'
               />
             </View>
           );
           break;
-        case "Add":
+        case 'Add':
           ans = (
-            <View style={styles.addIconContainer} borderRadius="full">
+            <View style={styles.addIconContainer} borderRadius='full'>
               <Image
                 source={AddIcon}
                 style={styles.addIcon}
-                resizeMethod="scale"
+                resizeMethod='scale'
               />
             </View>
           );
           break;
-        case "Profile":
+        case 'Profile':
           ans = (
             <View style={styles.IconContainer}>
               <Image
                 source={ProfileIcon}
                 style={styles.icon}
-                resizeMethod="scale"
+                resizeMethod='scale'
               />
             </View>
           );
@@ -87,7 +87,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
     [theme]
   );
   useEffect(() => {
-    const TabLessPages = ["Chatroom", "Messages"];
+    const TabLessPages = ['Chatroom', 'Messages'];
     if (TabLessPages.includes(state.routeNames[state.index])) {
       setShowTabBar(false);
     } else {
@@ -97,8 +97,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
   return (
     <View
       style={styles.container}
-      h={70}
-      bg="#fff"
+      h='20'
+      bg='#fff'
       zIndex={showTabBar ? 1 : -1}
     >
       {state.routes.map((route, index) => {
@@ -112,7 +112,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
         const isFocused = state.index === index;
         const onPress = () => {
           const event = navigation.emit({
-            type: "tabPress",
+            type: 'tabPress',
             target: route.key,
             canPreventDefault: true,
           });
@@ -122,21 +122,10 @@ const TabBar = ({ state, descriptors, navigation }) => {
         };
 
         if (!Icon(label)) return null;
-        // if (
-        //   label == "Messages" ||
-        //   label == "Chatroom" ||
-        //   label == "FriendProfile"
-        // ) {
-        //   return;
-        // }
-
-        // if (label == "Add") {
-        //   return <Test key={route.name} />;
-        // }
 
         return (
           <TouchableOpacity
-            accessibilityRole="button"
+            accessibilityRole='button'
             testID={options.tabBarTestID}
             onPress={onPress}
             key={route.name}
@@ -156,49 +145,56 @@ export default memo(TabBar);
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-    padding: 20,
-    position: "absolute",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    padding: 24,
+    position: 'absolute',
     bottom: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    shadowOpacity: 0.2,
+    elevation: 1,
+    paddingBottom: 10,
   },
   touchable: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
+    mb: 5,
   },
   dot: {
     height: 5,
     width: 5,
     borderRadius: 50,
     backgroundColor:
-      "linear-gradient(90deg, rgba(81, 98, 241,1) 0%, rgba(121, 73, 231,1) 100%)",
+      'linear-gradient(90deg, rgba(81, 98, 241,1) 0%, rgba(121, 73, 231,1) 100%)',
   },
   icon: {
     height: 25,
     width: 25,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
     // borderRadius: 50,
-    borderColor: "red",
+    borderColor: 'red',
     marginBottom: 5,
   },
   IconContainer: {
     height: 25,
     width: 25,
     // borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 5,
   },
   addIconContainer: {
     height: 20,
     width: 20,
     backgroundColor:
-      "linear-gradient(90deg, rgba(81, 98, 241,1) 0%, #7949e7 100%);",
-    justifyContent: "center",
-    alignItems: "center",
+      'linear-gradient(90deg, rgba(81, 98, 241,1) 0%, #7949e7 100%);',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 5,
   },
   addIcon: {
