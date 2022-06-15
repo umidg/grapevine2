@@ -19,7 +19,7 @@ import IntrestsCreator from "../Pages/SignedOutPages/Interests/IntrestsCreator";
 import InterestsAgency from "../Pages/SignedOutPages/Interests/IntrestsAgency";
 import AccountType from "../Pages/SignedOutPages/AccountType";
 import EnterDob from "../Pages/SignedOutPages/EnterDob";
-import PostPage from "../Pages/SignedInPages/Post";
+import UploadPostPage from "../Pages/SignedInPages/Post";
 import ChatRoom from "../Pages/SignedInPages/ChatRoom";
 import Register_Brand from "../Pages/SignedOutPages/Register/Register_Brand";
 import Register_Agency from "../Pages/SignedOutPages/Register/Register_Agency";
@@ -32,6 +32,7 @@ import OwnProfile from "../Pages/SignedInPages/Profile/OwnProfile";
 import Activity from "../Pages/SignedInPages/Activity";
 import CommentPage from "../Pages/SignedInPages/CommentPage";
 import EditProfile from "../Pages/SignedInPages/Profile/EditProfile";
+import PostPage from "../Pages/SignedInPages/PostPage";
 export const signedInRoutes = [
   {
     routeName: "Notification",
@@ -44,6 +45,10 @@ export const signedInRoutes = [
   {
     routeName: "CommentPage",
     component: CommentPage,
+  },
+  {
+    routeName: "PostPage",
+    component: PostPage,
   },
   {
     routeName: "FriendRequest",
@@ -78,7 +83,7 @@ export const TabRoutes = [
   },
   {
     routeName: "Add",
-    component: PostPage,
+    component: UploadPostPage,
   },
   {
     routeName: "Activity",

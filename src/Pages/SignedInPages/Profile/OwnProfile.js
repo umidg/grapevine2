@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { Box, Button, Switch, Text } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
+import { Box } from "native-base";
 import { grapevineBackend } from "../../../API";
 import { UserValue } from "../../../Context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,6 +15,7 @@ const OwnProfile = ({ navigation }) => {
 
   const [tiktokPost, setTiktokPost] = useState([]);
   const [textPost, setTextPost] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [user, setUser] = useContext(UserValue);
   // const [show, setShow] = useState(true);
   useEffect(() => {
@@ -34,6 +34,13 @@ const OwnProfile = ({ navigation }) => {
             });
             setTextPost([...textPost_temp]);
             setTiktokPost([...tikTokPost_temp]);
+          }
+        })
+        .catch((err) => console.log(err));
+      grapevineBackend("/activity/get/myActivity", { uuid: user.uuid }, "POST")
+        .then(({ data }) => {
+          if (data.status) {
+            setActivities([...data.data.result]);
           }
         })
         .catch((err) => console.log(err));
@@ -59,6 +66,8 @@ const OwnProfile = ({ navigation }) => {
             tiktokPost={tiktokPost}
             textPost={textPost}
             user={user}
+            activities={activities}
+            navigation={navigation}
           />
         </Box>
       </Box>
