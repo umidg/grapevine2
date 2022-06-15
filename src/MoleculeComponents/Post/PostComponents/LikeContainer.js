@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
-import { Box, Flex, Pressable, Text, View } from "native-base";
-import RegularImage from "../../../AtomComponents/Image/RegularImage";
-import { grapevineBackend } from "../../../API";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import Toast from "react-native-root-toast";
+import React, { memo, useEffect, useMemo, useState } from 'react';
+import { Box, Flex, Pressable, Text, View } from 'native-base';
+import RegularImage from '../../../AtomComponents/Image/RegularImage';
+import { grapevineBackend } from '../../../API';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
+import Toast from 'react-native-root-toast';
 
 const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   const [liked, setLiked] = useState(false);
@@ -12,12 +12,12 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
     if (liked) {
       setLiked(false);
       grapevineBackend(
-        "/likes/dislike",
+        '/likes/dislike',
         {
           post_uuid: post_uuid,
           user_uuid: user.uuid,
         },
-        "POST"
+        'POST'
       )
         .then(({ data }) => {
           if (data.status) {
@@ -31,12 +31,12 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
     } else {
       setLiked(true);
       grapevineBackend(
-        "/likes/create",
+        '/likes/create',
         {
           post_uuid: post_uuid,
           user_uuid: user.uuid,
         },
-        "POST"
+        'POST'
       )
         .then(({ data }) => {
           if (data.status) {
@@ -51,21 +51,21 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   };
 
   const handleShare = () => {
-    Toast.show("Sharing", {
+    Toast.show('Sharing', {
       duration: Toast.durations.LONG,
     });
     grapevineBackend(
-      "/post/share",
+      '/post/share',
       {
         post_uuid: post_uuid,
         user_uuid: user.uuid,
         username: user.username,
         keys: user.intrests,
       },
-      "POST"
+      'POST'
     )
       .then(({ data }) => {
-        Toast.show("Post Shared", {
+        Toast.show('Post Shared', {
           duration: Toast.durations.LONG,
         });
       })
@@ -85,33 +85,38 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   }, []);
   return (
     <Flex
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      w="100%"
-      mt="10px"
+      direction='row'
+      justifyContent='space-between'
+      alignItems='center'
+      w='100%'
+      mt='10px'
+      borderTopWidth='1'
+      borderBottomWidth='1'
+      borderColor='gray.200'
+      px='3'
+      py='2'
     >
       <Box>
-        <Flex direction="row">
+        <Flex direction='row'>
           <Pressable onPress={handleLike}>
             {liked ? (
-              <AntDesign name="heart" size={18} color="#ff0000" p="2" />
+              <AntDesign name='heart' size={18} color='#ff0000' p='2' />
             ) : (
-              <AntDesign name="hearto" size={18} color="#000" p="2" />
+              <AntDesign name='hearto' size={18} color='#000' p='2' />
             )}
           </Pressable>
           <View ml={2}>
-            <FontAwesome5 name="comment" size={18} color="#000" p="2" />
+            <FontAwesome5 name='comment' size={18} color='#000' p='2' />
           </View>
           <Pressable onPress={handleShare} ml={2}>
-            <FontAwesome5 name="share" size={18} color="#000" />
+            <FontAwesome5 name='share' size={18} color='#000' />
           </Pressable>
         </Flex>
-        <Text fontSize="12px" fontWeight="800" textAlign="center">
+        <Text fontSize='12px' fontWeight='800'>
           {likeCount} Likes
         </Text>
       </Box>
-      <Text fontSize="10px" fontWeight="800">
+      <Text fontSize='10px' fontWeight='800'>
         {timeStamp}
       </Text>
     </Flex>
