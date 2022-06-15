@@ -3,6 +3,8 @@ import React, { useContext, useState } from "react";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { AtomComponents, Layout } from "../../Exports/index";
+import Toast from "react-native-root-toast";
+
 const CommentPage = ({ navigation, route }) => {
   const { RoundImage } = AtomComponents;
   const { SignInLayout, BackLayout } = Layout;
@@ -28,9 +30,12 @@ const CommentPage = ({ navigation, route }) => {
           if (data.status) {
             _setComments([..._comments, data.data]);
           }
-          console.log(data);
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) =>
+          Toast.show("Something Went Wrong", {
+            duration: Toast.durations.SHORT,
+          })
+        );
     }
   };
   return (
@@ -49,7 +54,7 @@ const CommentPage = ({ navigation, route }) => {
             return (
               <Flex
                 direction="row"
-                key={d.uuid}
+                key={comment.uuid}
                 my="10px"
                 alignItems={"center"}
               >
