@@ -10,6 +10,7 @@ const PostV2 = ({
   navigation,
   showLike = true,
   showComment = true,
+  shared,
 }) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
@@ -36,6 +37,7 @@ const PostV2 = ({
           user_uuid={data.user_uuid}
           navigation={navigation}
           address={user.address}
+          shared={shared}
         />
       </Box>
       <Box w='100%' pl='2' pr='5' mb={data.post.length < 100 ? '20' : '5'}>

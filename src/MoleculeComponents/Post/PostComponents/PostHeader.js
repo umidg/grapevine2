@@ -5,7 +5,7 @@ import RegularImage from '../../../AtomComponents/Image/RegularImage';
 import RoundImage from '../../../AtomComponents/Image/RoundImage';
 import { Entypo } from '@expo/vector-icons';
 
-const PostHeader = ({ username, user_uuid, navigation, address }) => {
+const PostHeader = ({ username, user_uuid, navigation, address, shared }) => {
   const [showReport, setShowReport] = useState(false);
   return (
     <Flex
@@ -55,7 +55,9 @@ const PostHeader = ({ username, user_uuid, navigation, address }) => {
         </Box>
       )}
       <Pressable onPress={() => setShowReport(!showReport)}>
-        <Entypo name='dots-three-horizontal' size={16} color='black' />
+        {!shared && (
+          <Entypo name='dots-three-horizontal' size={16} color='black' />
+        )}
       </Pressable>
     </Flex>
   );
