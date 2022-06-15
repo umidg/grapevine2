@@ -181,6 +181,7 @@ const PostPage = ({ navigation }) => {
         <Pressable onPress={() => setType('tiktok')} p='1'>
           {type == 'tiktok' ? (
             <Image
+              alt='image'
               source={require('../../../assets/Icons/TikTok_light.png')}
               h='6'
               w='5'
@@ -189,6 +190,7 @@ const PostPage = ({ navigation }) => {
             />
           ) : (
             <Image
+              alt='image'
               source={require('../../../assets/Icons/tiktok_gray.png')}
               h='6'
               w='5'

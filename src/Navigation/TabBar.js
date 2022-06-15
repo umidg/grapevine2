@@ -29,6 +29,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
           ans = (
             <View style={styles.IconContainer}>
               <Image
+                alt='image'
                 source={theme == 'light' ? HomeIcon : HomeIconLight}
                 style={styles.icon}
                 resizeMethod='scale'
@@ -40,6 +41,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
           ans = (
             <View style={styles.IconContainer}>
               <Image
+                alt='image'
                 source={theme == 'light' ? Heart : Heart}
                 style={styles.icon}
                 resizeMethod='scale'
@@ -51,6 +53,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
           ans = (
             <View style={styles.IconContainer}>
               <Image
+                alt='image'
                 source={theme == 'light' ? SearchIcon : SearchIconLight}
                 style={styles.icon}
                 resizeMethod='scale'
@@ -62,6 +65,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
           ans = (
             <View style={styles.addIconContainer} borderRadius='full'>
               <Image
+                alt='image'
                 source={AddIcon}
                 style={styles.addIcon}
                 resizeMethod='scale'
@@ -73,6 +77,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
           ans = (
             <View style={styles.IconContainer}>
               <Image
+                alt='image'
                 source={ProfileIcon}
                 style={styles.icon}
                 resizeMethod='scale'

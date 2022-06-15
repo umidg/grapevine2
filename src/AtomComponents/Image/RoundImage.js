@@ -3,6 +3,7 @@ import { Image } from 'native-base';
 const RoundImage = ({ size, image, ...props }) => {
   return (
     <Image
+      alt='image'
       // style={{
       //   width: size ? size : 150,
       //   height: size ? size : 100,
