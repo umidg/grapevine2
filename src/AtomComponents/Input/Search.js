@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput, Image } from 'react-native';
-import { View, Text, Input } from 'native-base';
-import { EvilIcons } from '@expo/vector-icons';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, TextInput, Image } from "react-native";
+import { View, Text, Input } from "native-base";
+import { EvilIcons } from "@expo/vector-icons";
 
 const Search = ({ onSearch, onFocus }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [borderWidth, setBorderWidth] = useState(0);
   const searchFocused = () => {
     setBorderWidth(2);
@@ -14,6 +14,10 @@ const Search = ({ onSearch, onFocus }) => {
       onSearch(text);
     }
   };
+  useEffect(() => {
+    onSearch(text);
+  }, [text]);
+
   return (
     <View>
       <View style={[styles.inputContainer, { borderWidth: borderWidth }]}>
@@ -25,14 +29,14 @@ const Search = ({ onSearch, onFocus }) => {
         {/* <EvilIcons name='search' size={24} color='black' /> */}
         <Input
           style={styles.input}
-          placeholder='Search'
+          placeholder="Search"
           onFocus={searchFocused}
           onSubmitEditing={onSubmit}
           onChangeText={(text) => setText(text)}
           value={text}
-          type='text'
-          InputLeftElement={<EvilIcons name='search' size={24} color='black' />}
-          _focus={{ bg: 'white', borderWidth: 'none' }}
+          type="text"
+          InputLeftElement={<EvilIcons name="search" size={24} color="black" />}
+          _focus={{ bg: "white", borderWidth: 0 }}
           onPressIn={onFocus}
         />
       </View>
@@ -46,15 +50,15 @@ const styles = StyleSheet.create({
   container: {},
   inputContainer: {
     height: 39,
-    backgroundColor: 'rgba(216,216,216,0.0392156862745098)',
+    backgroundColor: "rgba(216,216,216,0.0392156862745098)",
     borderRadius: 10,
     borderColor:
-      'linear-gradient(90deg, rgba(81,98,241,1) 0%, rgba(121,73,231,1) 100%)',
-    flexDirection: 'row',
-    alignItems: 'center',
+      "linear-gradient(90deg, rgba(81,98,241,1) 0%, rgba(121,73,231,1) 100%)",
+    flexDirection: "row",
+    alignItems: "center",
     padding: 3,
     paddingLeft: 5,
-    width: '100%',
+    width: "100%",
   },
   icon: {
     height: 20,
@@ -63,10 +67,10 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 12,
-    color: 'black',
-    fontWeight: '300',
+    color: "black",
+    fontWeight: "300",
 
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
 });

@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { View, Flex, Pressable, Slide, Box } from 'native-base';
-import { grapevineBackend } from '../../API';
-import { userHook } from '../../Hooks';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import { View, Flex, Pressable, Slide, Box } from "native-base";
+import { grapevineBackend } from "../../API";
+import { userHook } from "../../Hooks";
+import { AntDesign } from "@expo/vector-icons";
 import {
   AtomComponents,
   MolecularComponents,
   Layout,
   PageComponent,
-  Hooks,
-} from '../../Exports/index';
+} from "../../Exports/index";
 
 const ExplorePage = ({ navigation }) => {
   const {
@@ -19,18 +18,14 @@ const ExplorePage = ({ navigation }) => {
   const { Search } = AtomComponents;
   const { Notification } = MolecularComponents;
   const { SignInLayout } = Layout;
-
   const [users, setUsers] = useState([]);
-  const [showUsers, setShowUsers] = useState(false);
-
   const [focus, setFocus] = useState(false);
 
   const searchUser = async (name) => {
-    console.log('name', name);
-    grapevineBackend('/auth/search', { name: name }, 'POST')
+    console.log("name", name);
+    grapevineBackend("/auth/search", { name: name }, "POST")
       .then(async ({ data }) => {
         setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
-        setShowUsers(true);
       })
       .catch((err) => console.log(err));
   };
@@ -57,26 +52,35 @@ const ExplorePage = ({ navigation }) => {
   //       console.log(err);
   //     });
   // };
-
+  useEffect(() => {
+    return () => setFocus(false);
+  }, []);
   return (
     <SignInLayout>
-      <Box h='100%' w='100%'>
-        <ScrollView style={{ height: '100%' }}>
-          <View h='100%'>
+      <Box h="100%" w="100%">
+        <ScrollView style={{ height: "100%" }}>
+          <View h="100%">
             <View style={styles.searchContainer}>
-              <Search onSearch={searchUser} onFocus={()=>setFocus(true)} />
+              <Search onSearch={searchUser} onFocus={() => setFocus(true)} />
             </View>
             {focus ? (
               <View>
-                <Slide in={showUsers} height='100%' bg='#fff'>
-                  <View flex={1} h='100%' w='100%' p={2} py={10}>
+                <Slide
+                  in={focus}
+                  h="80%"
+                  w="100%"
+                  bg="#fff"
+                  position={"absolute"}
+                  bottom={0}
+                >
+                  <View flex={1} h="100%" w="100%" p={2} py={10}>
                     <Flex
-                      flexDirection='row'
-                      justifyContent={'flex-end'}
-                      alignItems='center'
+                      flexDirection="row"
+                      justifyContent={"flex-end"}
+                      alignItems="center"
                     >
-                      <Pressable onPress={() => setShowUsers(false)}>
-                        <AntDesign name='closesquare' size={24} color='blue' />
+                      <Pressable onPress={() => setFocus(false)}>
+                        <AntDesign name="closesquare" size={24} color="blue" />
                       </Pressable>
                     </Flex>
                     <View>
@@ -84,16 +88,15 @@ const ExplorePage = ({ navigation }) => {
                         return (
                           <Notification
                             onPress={() => {
-                              setShowUsers(false);
-
-                              navigation.navigate('FriendProfile', {
+                              setFocus(false);
+                              navigation.navigate("FriendProfile", {
                                 user_uuid: person.uuid,
                               });
                             }}
                             key={person.id}
-                            profileImage={require('../../../assets/Images/3.png')}
+                            profileImage={require("../../../assets/Images/3.png")}
                             // message={`Connect With ${person.username}`}
-                            time=''
+                            time=""
                             username={person.username}
                           />
                         );
@@ -103,7 +106,7 @@ const ExplorePage = ({ navigation }) => {
                 </Slide>
               </View>
             ) : (
-              <Box>Hello</Box>
+              <></>
             )}
 
             <View>
