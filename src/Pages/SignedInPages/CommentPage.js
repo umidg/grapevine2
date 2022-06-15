@@ -45,7 +45,7 @@ const CommentPage = ({ navigation, route }) => {
           >
             Comments
           </Text>
-          {_comments.map((d) => {
+          {_comments.map((comment) => {
             return (
               <Flex
                 direction="row"
@@ -58,10 +58,10 @@ const CommentPage = ({ navigation, route }) => {
                   size={30}
                 />
                 <Text fontSize="9px" fontWeight="800">
-                  {d.user.username}
+                  {comment.user.username}
                 </Text>
                 <Text fontSize="9px" fontWeight="300">
-                  {d.comment_text}
+                  {comment.comment_text}
                 </Text>
               </Flex>
             );
