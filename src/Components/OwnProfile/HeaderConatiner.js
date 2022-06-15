@@ -1,13 +1,16 @@
-import { Box, Text, Avatar, Divider, Button, Flex } from "native-base";
-import { Alert, Pressable } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { grapevineBackend } from "../../API";
-import { useState, useEffect, useContext } from "react";
-import { UserValue } from "../../Context/UserContext";
+import {
+  Box,
+  Text,
+  Avatar,
+  Divider,
+  Button,
+  Flex,
+  Pressable,
+} from "native-base";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import { MolecularComponents } from "../../Exports/index";
 const HeaderContainer = (props) => {
-  const [user, setUser] = useContext(UserValue);
-  const [showOptions, setShowOptions] = useState(false);
+  const { DropDownMenu } = MolecularComponents;
   const {
     user: {
       username,
@@ -110,32 +113,11 @@ const HeaderContainer = (props) => {
             >
               Edit Profile
             </Button>
-            <Pressable onPress={() => setShowOptions(!showOptions)}>
-              <Feather name="more-vertical" size={24} color="black" />
-            </Pressable>
-            {showOptions && (
-              <Box
-                position={"absolute"}
-                top={8}
-                w="100%"
-                p={1}
-                bg="#fff"
-                zIndex={50000}
-                borderWidth={1}
-                borderColor="#d3d3d3"
-              >
-                <Pressable onPress={logout}>
-                  <Text
-                    fontWeight={"800"}
-                    fontSize={16}
-                    textAlign="center"
-                    color="primary"
-                  >
-                    Logout
-                  </Text>
-                </Pressable>
-              </Box>
-            )}
+
+            <DropDownMenu
+              icon={<Feather name="more-vertical" size={24} color="black" />}
+              options={[{ text: "Logout", onPress: logout }]}
+            />
           </Flex>
         </Box>
       </Box>

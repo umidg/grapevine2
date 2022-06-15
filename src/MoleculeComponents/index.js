@@ -19,6 +19,8 @@ import {
   TiktokPost,
   PostContainer,
 } from "./Post/index";
+
+import { DropDownMenu } from "./Menu/index";
 export {
   AllCreators,
   CollectionBox,
@@ -35,4 +37,5 @@ export {
   SharedPost,
   TiktokPost,
   PostContainer,
+  DropDownMenu,
 };
