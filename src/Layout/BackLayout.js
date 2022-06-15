@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box } from 'native-base';
-import { TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React from "react";
+import { Box } from "native-base";
+import { TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 const BackLayout = (props) => {
   const { navigate, navigation, children, color } = props;
   const onPress = () => {
@@ -19,13 +19,13 @@ const BackLayout = (props) => {
 
   return (
     <>
-      <Box position='absolute' left='5%' zIndex={11000}>
+      <Box position="absolute" left="5%" top="7%" zIndex={11000}>
         <TouchableOpacity onPress={onPress}>
           <AntDesign
-            name='arrowleft'
+            name="arrowleft"
             size={28}
-            color={color ? color : '#fff'}
-            p='2'
+            color={color ? color : "#fff"}
+            p="2"
           />
         </TouchableOpacity>
       </Box>

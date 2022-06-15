@@ -90,7 +90,7 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   }, []);
 
   return (
-    <>
+    <Box>
       <Flex
         direction="row"
         justifyContent="space-between"
@@ -134,7 +134,7 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
           <Modal.Header>Share</Modal.Header>
           <Modal.Body>Do you want to share this post?</Modal.Body>
           <Modal.Footer>
-            <Box flex flexDir="row" justifyContent="flex-end">
+            <Box display={"flex"} flexDir="row" justifyContent="flex-end">
               <Button onPress={handleShare} bg="primary" mr="2">
                 Yes
               </Button>
@@ -145,7 +145,7 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-    </>
+    </Box>
   );
 };
 

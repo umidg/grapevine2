@@ -8,7 +8,6 @@ const LoginLayout = (props) => {
     navigation.navigate(navigate);
   };
 
-  console.log(nextDisabled, 'dis');
 
   return (
     <Flex

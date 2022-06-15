@@ -1,5 +1,5 @@
 import { Text, Box, Pressable, Menu } from "native-base";
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
 const DropDownMenu = ({ icon, options, textStyle }) => {
   const [shouldOverlapWithTrigger] = useState(false);
   return (
