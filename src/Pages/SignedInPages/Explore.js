@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { View, Flex, Pressable, Slide, Box } from "native-base";
+import { View, Flex, Pressable, Slide, Box, Text } from "native-base";
 import { grapevineBackend } from "../../API";
 import { userHook } from "../../Hooks";
 import { AntDesign } from "@expo/vector-icons";
@@ -25,7 +25,9 @@ const ExplorePage = ({ navigation }) => {
     console.log("name", name);
     grapevineBackend("/auth/search", { name: name }, "POST")
       .then(async ({ data }) => {
-        setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
+        if (data.status) {
+          setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -60,29 +62,22 @@ const ExplorePage = ({ navigation }) => {
       <Box h="100%" w="100%">
         <ScrollView style={{ height: "100%" }}>
           <View h="100%">
-            <View style={styles.searchContainer}>
+            <Flex
+              style={styles.searchContainer}
+              direction="row"
+              justifyContent={"space-between"}
+            >
               <Search onSearch={searchUser} onFocus={() => setFocus(true)} />
-            </View>
+              {focus && (
+                <Pressable onPress={() => setFocus(false)}>
+                  <Text>Cancle</Text>
+                </Pressable>
+              )}
+            </Flex>
             {focus ? (
-              <View>
-                <Slide
-                  in={focus}
-                  h="80%"
-                  w="100%"
-                  bg="#fff"
-                  position={"absolute"}
-                  bottom={0}
-                >
+              <View w="100%" h="87%" bg="#fff" bottom={0}>
+                <View>
                   <View flex={1} h="100%" w="100%" p={2} py={10}>
-                    <Flex
-                      flexDirection="row"
-                      justifyContent={"flex-end"}
-                      alignItems="center"
-                    >
-                      <Pressable onPress={() => setFocus(false)}>
-                        <AntDesign name="closesquare" size={24} color="blue" />
-                      </Pressable>
-                    </Flex>
                     <View>
                       {users?.map((person) => {
                         return (
@@ -103,12 +98,11 @@ const ExplorePage = ({ navigation }) => {
                       })}
                     </View>
                   </View>
-                </Slide>
+                </View>
               </View>
             ) : (
               <></>
             )}
-
             <View>
               <View style={styles.featureContainer}>
                 <Features />

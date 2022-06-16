@@ -44,12 +44,7 @@ const NotificationPage = ({ navigation }) => {
             position="absolute"
             left={10}
           >
-            <AntDesign
-              name="arrowleft"
-              size={30}
-              color="black"
-              onPress={() => navigation.pop()}
-            />
+            <AntDesign name="arrowleft" size={30} color="black" />
           </Pressable>
 
           <Text

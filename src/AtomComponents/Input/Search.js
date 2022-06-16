@@ -8,6 +8,9 @@ const Search = ({ onSearch, onFocus }) => {
   const [borderWidth, setBorderWidth] = useState(0);
   const searchFocused = () => {
     setBorderWidth(2);
+    if (onSearch) {
+      onSearch(text ? text : "*");
+    }
   };
   const onSubmit = () => {
     if (onSearch) {
@@ -15,7 +18,11 @@ const Search = ({ onSearch, onFocus }) => {
     }
   };
   useEffect(() => {
-    onSearch(text);
+    if (text == "") {
+      onSearch("*");
+    } else {
+      onSearch(text);
+    }
   }, [text]);
 
   return (
@@ -36,7 +43,7 @@ const Search = ({ onSearch, onFocus }) => {
           value={text}
           type="text"
           InputLeftElement={<EvilIcons name="search" size={24} color="black" />}
-          _focus={{ bg: "white", borderWidth: 0 }}
+          _focus={{ bg: "white", borderWidth: 2, borderColor: "primary" }}
           onPressIn={onFocus}
         />
       </View>

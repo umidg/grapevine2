@@ -13,17 +13,17 @@ const Notification = ({
     <Pressable onPress={onPress && onPress}>
       <Flex direction="row" alignItems="center" p="2px" mb="10px">
         <Box>
-          <RoundImage size={40} image={profileImage} />
+          <RoundImage size={10} image={profileImage} />
         </Box>
         <Flex direction="row" alignItems="center" pl="10px" pr="10px">
           <Box flex={5}>
             {username && (
-              <Text fontSize="14px" fontWeight="800" mt="0px">
+              <Text fontSize="14px" fontWeight="800" mt="0px" color={"#000"}>
                 {username}
               </Text>
             )}
             <Text fontSize="13px" fontWeight="300" ml="5px">
-              {message}{" "}
+              {message}
               <Text fontSize="12px" color="gray.500">
                 {time}
               </Text>

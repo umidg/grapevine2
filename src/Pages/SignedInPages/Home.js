@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Box, Center, Text, Flex, Pressable, Image } from 'native-base';
-import { ActivityIndicator } from 'react-native';
-import { grapevineBackend } from '../../API';
-import { UserValue } from '../../Context/UserContext';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState, useEffect, useContext } from "react";
+import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
+import { ActivityIndicator } from "react-native";
+import { grapevineBackend } from "../../API";
+import { UserValue } from "../../Context/UserContext";
+import { LinearGradient } from "expo-linear-gradient";
 
-import { MolecularComponents, Layout } from '../../Exports/index';
+import { MolecularComponents, Layout } from "../../Exports/index";
 const Home = ({ navigation }) => {
   const { PostContainer } = MolecularComponents;
   const { SignInLayout } = Layout;
 
   const [post, setPost] = useState(null);
-  const [postType, setPostType] = useState('connected');
+  const [postType, setPostType] = useState("connected");
   const [error, setError] = useState(false);
   const [user, setUser] = useContext(UserValue);
   const [forYouPost, setForYouPost] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      grapevineBackend('/post/getAllPost?page=1&limit=10', {}, 'POST')
+    const unsubscribe = navigation.addListener("focus", () => {
+      grapevineBackend("/post/getAllPost?page=1&limit=10", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
@@ -26,18 +26,19 @@ const Home = ({ navigation }) => {
           }
         })
         .catch((err) => {
-          console.log('Err', err);
+          console.log("Err", err);
           setError(true);
         });
-      grapevineBackend('/post/forYouPost', {}, 'POST')
+      grapevineBackend("/post/forYouPost", {}, "POST")
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
+            console.log(data);
             setForYouPost([...data.data.result]);
           }
         })
         .catch((err) => {
-          console.log('Err', err);
+          console.log("Err", err);
           setError(true);
         });
     });
@@ -46,63 +47,63 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <Box h='100%' w='100%'>
+    <Box h="100%" w="100%">
       <LinearGradient
         colors={[
-          'rgba(255,255,255,1)',
-          'rgba(255,255,255,0.9)',
-          'rgba(255,255,255,0)',
-          'transparent',
+          "rgba(255,255,255,1)",
+          "rgba(255,255,255,0.9)",
+          "rgba(255,255,255,0)",
+          "transparent",
         ]}
         style={{
           height: 100,
-          width: '100%',
-          position: 'absolute',
+          width: "100%",
+          position: "absolute",
           zIndex: 10,
         }}
       />
 
       <Flex
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
-        h='70'
-        w='100%'
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        h="70"
+        w="100%"
         top={0}
         zIndex={200}
-        position={'absolute'}
+        position={"absolute"}
       >
-        <Pressable onPress={() => setPostType('foryou')}>
+        <Pressable onPress={() => setPostType("foryou")}>
           <Text
-            fontWeight={postType == 'foryou' ? '800' : '400'}
+            fontWeight={postType == "foryou" ? "800" : "400"}
             mx={1}
-            shadow='1'
+            shadow="1"
           >
             For You
           </Text>
         </Pressable>
         <Text>|</Text>
-        <Pressable onPress={() => setPostType('connected')}>
+        <Pressable onPress={() => setPostType("connected")}>
           <Text
-            fontWeight={postType == 'connected' ? '800' : '400'}
+            fontWeight={postType == "connected" ? "800" : "400"}
             mx={1}
-            shadow='1'
+            shadow="1"
           >
             Connected
           </Text>
         </Pressable>
       </Flex>
       <SignInLayout>
-        <Box h='100%' w='100%' mt='5'>
+        <Box h="100%" w="100%" mt="5">
           {error ? (
-            <Center h='100%' w='100%'>
-              <Text fontWeight={'800'}>Error occured</Text>
+            <Center h="100%" w="100%">
+              <Text fontWeight={"800"}>Error occured</Text>
             </Center>
-          ) : postType == 'connected' ? (
+          ) : postType == "connected" ? (
             <>
               {post ? (
                 <>
-                  <Box pb='70' p={2} mt={35}>
+                  <Box pb="70" p={2} mt={35}>
                     {post.map((d) => {
                       return (
                         <PostContainer
@@ -116,8 +117,8 @@ const Home = ({ navigation }) => {
                   </Box>
                 </>
               ) : (
-                <Center h='100%' w='100%'>
-                  <ActivityIndicator size='small' color='#0000ff' />
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
                 </Center>
               )}
             </>
@@ -126,7 +127,7 @@ const Home = ({ navigation }) => {
               {forYouPost ? (
                 <>
                   {forYouPost.length > 0 ? (
-                    <Box pb='70' py={2}>
+                    <Box pb="70" py={2}>
                       {forYouPost.map((d) => {
                         return (
                           <PostContainer
@@ -139,14 +140,14 @@ const Home = ({ navigation }) => {
                       })}
                     </Box>
                   ) : (
-                    <Center h='100%' w='100%'>
+                    <Center h="100%" w="100%">
                       <Text>No Post To Show</Text>
                     </Center>
                   )}
                 </>
               ) : (
-                <Center h='100%' w='100%'>
-                  <ActivityIndicator size='small' color='#0000ff' />
+                <Center h="100%" w="100%">
+                  <ActivityIndicator size="small" color="#0000ff" />
                 </Center>
               )}
             </>
