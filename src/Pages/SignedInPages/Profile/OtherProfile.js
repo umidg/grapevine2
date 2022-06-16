@@ -25,7 +25,11 @@ const OtherProfile = ({ navigation, user_uuid }) => {
         }
       })
       .catch((err) => console.log(err));
-    grapevineBackend("/activity/get/myActivity", { uuid: user_uuid }, "POST")
+    grapevineBackend(
+      "/activity/get/myActivity",
+      { user_uuid: user_uuid },
+      "POST"
+    )
       .then(({ data }) => {
         if (data.status) {
           setActivities([...data.data.result]);

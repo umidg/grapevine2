@@ -13,8 +13,8 @@ const ForYouPost = ({ user, navigation }) => {
       "POST"
     )
       .then(async ({ data }) => {
-        setError(false);
         if (data.status == true) {
+          setError(false);
           setParams({ ...data.data.next });
           setPosts([...posts, ...data.data.result]);
         }
@@ -69,7 +69,7 @@ const ForYouPost = ({ user, navigation }) => {
         </>
       ) : (
         <Center h="100%" w="100%">
-          <Spinner accessibilityLabel="Loading" />
+          <Spinner accessibilityLabel="Loading" color="primary" />
         </Center>
       )}
     </>

@@ -21,6 +21,7 @@ import {
 } from "./Post/index";
 
 import { DropDownMenu } from "./Menu/index";
+import ActivityPost from "./ActivityPost/ActivityPost";
 export {
   AllCreators,
   CollectionBox,
@@ -38,4 +39,5 @@ export {
   TiktokPost,
   PostContainer,
   DropDownMenu,
+  ActivityPost,
 };

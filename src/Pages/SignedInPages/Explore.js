@@ -90,7 +90,6 @@ const ExplorePage = ({ navigation }) => {
                             }}
                             key={person.id}
                             profileImage={require("../../../assets/Images/3.png")}
-                            // message={`Connect With ${person.username}`}
                             time=""
                             username={person.username}
                           />

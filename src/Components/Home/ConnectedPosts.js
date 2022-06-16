@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { PostContainer } from "../../MoleculeComponents/index";
-import { Spinner, Center, Box } from "native-base";
+import { Spinner, Center, Box, Text, ScrollView } from "native-base";
 import { grapevineBackend } from "../../API";
 const ConnectedPosts = ({ user, navigation }) => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
   const [params, setParams] = useState({ page: 1, limit: 5 });
 
   const fetchPosts = () => {
     grapevineBackend(
-      `/post/forYouPost?page=${params.page}&limit=${params.limit}`,
+      `/post/getAllPost?page=${params.page}&limit=${params.limit}`,
       {},
       "POST"
     )
       .then(async ({ data }) => {
-        setError(false);
+        console.log(data);
         if (data.status == true) {
+          setError(false);
           setParams({ ...data.data.next });
           setPosts([...posts, ...data.data.result]);
         }
       })
       .catch((err) => {
+        console.log(err);
         setError(true);
       });
   };
@@ -46,7 +48,7 @@ const ConnectedPosts = ({ user, navigation }) => {
             Error
           </Text>
         </Center>
-      ) : posts ? (
+      ) : posts.length > 0 ? (
         <>
           <Box pb="70" p={2} mt={35}>
             <ScrollView
@@ -70,7 +72,7 @@ const ConnectedPosts = ({ user, navigation }) => {
         </>
       ) : (
         <Center h="100%" w="100%">
-          <Spinner accessibilityLabel="Loading" />
+          <Spinner accessibilityLabel="Loading" color="primary" />
         </Center>
       )}
     </>
