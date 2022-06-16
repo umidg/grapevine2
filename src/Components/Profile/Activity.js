@@ -1,9 +1,10 @@
 import { View, Text, Flex, Image, Box, Center, Pressable } from "native-base";
 import React from "react";
+import { ActivityPost } from "../../MoleculeComponents/index";
 
 const Activity = (props) => {
   const {
-    user: { about },
+    user: { about, intrests },
     activities,
     navigation,
   } = props;
@@ -26,9 +27,7 @@ const Activity = (props) => {
               borderWidth={0.5}
               borderColor="#d3d3d3"
             >
-              <Text fontSize={12} fontWeight="800" color="#000" mt={1} mb={1}>
-                {activity.message}
-              </Text>
+              <ActivityPost activity={activity} />
             </Pressable>
           );
         })}
@@ -75,6 +74,17 @@ const Activity = (props) => {
         <Text fontSize={14} fontWeight="800" color="#000">
           Intrests
         </Text>
+        <Flex direction="row" justifyContent={"flex-start"} alignItems="center">
+          {intrests.map((intrest) => {
+            return (
+              <Box key={intrest} bg="primary" m={2} p={2} borderRadius="md">
+                <Text color="#fff" fontSize={12} fontWeight="800">
+                  {intrest}
+                </Text>
+              </Box>
+            );
+          })}
+        </Flex>
       </Box>
     </View>
   );

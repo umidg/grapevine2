@@ -21,7 +21,6 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, SetLikeCount] = useState(likes.length);
   const [openModal, setOpenModal] = useState(false);
-
   const handleLike = async () => {
     if (liked) {
       setLiked(false);

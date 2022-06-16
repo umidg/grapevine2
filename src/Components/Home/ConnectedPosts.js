@@ -3,13 +3,13 @@ import { PostContainer } from '../../MoleculeComponents/index';
 import { Spinner, Center, Box, Text } from 'native-base';
 import { grapevineBackend } from '../../API';
 const ConnectedPosts = ({ user, navigation }) => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
   const [params, setParams] = useState({ page: 1, limit: 5 });
 
   const fetchPosts = () => {
     grapevineBackend(
-      `/post/forYouPost?page=${params.page}&limit=${params.limit}`,
+      `/post/getAllPost?page=${params.page}&limit=${params.limit}`,
       {},
       'POST'
     )
@@ -48,7 +48,7 @@ const ConnectedPosts = ({ user, navigation }) => {
             No posts yet.
           </Text>
         </Center>
-      ) : posts ? (
+      ) : posts.length > 0 ? (
         <>
           <Box pb='70' p={2} mt={35}>
             <ScrollView

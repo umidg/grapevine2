@@ -1,24 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Spinner } from "native-base";
+import { grapevineBackend } from "../../../API";
 import { FeatureBoxSecondary } from "../../../MoleculeComponents/index";
 const Features = () => {
-  const tempData1 = [1, 2, 3, 4, 5, 6];
+  const [features, setFeatures] = useState(null);
+  useEffect(() => {
+    grapevineBackend("/user/getFeatured", {}, "POST")
+      .then(({ data }) => {
+        if (data.status) {
+          setFeatures(data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Features</Text>
       <Text style={styles.secondaryText}>Creators</Text>
-
-      <View style={{ marginTop: 10 }}>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-        >
-          {tempData1.map((data) => (
-            <FeatureBoxSecondary key={data} />
-          ))}
-        </ScrollView>
-      </View>
+      {features ? (
+        <View style={{ marginTop: 10 }}>
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          >
+            {features.map((user) => (
+              <FeatureBoxSecondary key={user.uuid} user={user} />
+            ))}
+          </ScrollView>
+        </View>
+      ) : (
+        <Spinner accessibilityLabel="Loading" color="primary" />
+      )}
     </View>
   );
 };

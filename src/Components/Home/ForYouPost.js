@@ -13,8 +13,8 @@ const ForYouPost = ({ user, navigation }) => {
       'POST'
     )
       .then(async ({ data }) => {
-        setError(false);
         if (data.status == true) {
+          setError(false);
           setParams({ ...data.data.next });
           setPosts([...posts, ...data.data.result]);
         }

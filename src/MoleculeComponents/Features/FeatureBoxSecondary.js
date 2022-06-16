@@ -3,7 +3,10 @@ import React from "react";
 import { View, Text } from "native-base";
 import RoundImage from "../../AtomComponents/Image/RoundImage";
 import { Button } from "native-base";
-const FeatureBoxSecondary = () => {
+const FeatureBoxSecondary = (props) => {
+  const {
+    user: { username },
+  } = props;
   return (
     <View
       w="120"
@@ -18,7 +21,7 @@ const FeatureBoxSecondary = () => {
       p="2"
     >
       <RoundImage size={30} image={require("../../../assets/Images/1.png")} />
-      <Text style={styles.name}>Molly-Mae</Text>
+      <Text style={styles.name}>{username}</Text>
       <Text style={styles.number}>65 +</Text>
       <Text style={styles.collab}>Collabs</Text>
       <Text style={styles.number}>500 +</Text>
