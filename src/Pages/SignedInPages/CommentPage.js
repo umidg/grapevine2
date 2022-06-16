@@ -1,9 +1,10 @@
-import { View, Text, Flex, Box, Input, Button } from 'native-base';
+import { View, Text, Flex, Box, Input, TextArea, Button } from 'native-base';
 import React, { useContext, useState } from 'react';
 import { grapevineBackend } from '../../API';
 import { UserValue } from '../../Context/UserContext';
 import { AtomComponents, Layout } from '../../Exports/index';
 import Toast from 'react-native-root-toast';
+import { color } from 'react-native-elements/dist/helpers';
 
 const CommentPage = ({ navigation, route }) => {
   const { RoundImage } = AtomComponents;
@@ -15,8 +16,10 @@ const CommentPage = ({ navigation, route }) => {
   const [commentText, setCommentText] = useState('');
   const [user, setUser] = useContext(UserValue);
   const [_comments, _setComments] = useState(comments);
+  const [loading, setLoading] = useState(false);
   const comment = () => {
-    if (commentText.length > 0) {
+    if (!loading && commentText.length > 0) {
+      setLoading(true);
       grapevineBackend(
         '/comment/create',
         {
@@ -29,70 +32,88 @@ const CommentPage = ({ navigation, route }) => {
         .then(({ data }) => {
           if (data.status) {
             _setComments([..._comments, data.data]);
+            setLoading(false);
+            setCommentText('');
           }
         })
-        .catch((err) =>
+        .catch((err) => {
           Toast.show('Something Went Wrong', {
             duration: Toast.durations.SHORT,
-          })
-        );
+          });
+          setLoading(false);
+        });
     }
   };
   return (
-    <BackLayout navigation={navigation} color='#000' safeArea>
+    <BackLayout navigation={navigation} color='black' safeArea>
       <SignInLayout>
-        <Box h='100%' w='100%' p='10%'>
+        <Box h='full' w='full' p='2'>
           <Text
-            color={'primary'}
-            fontWeight='800'
-            fontSize={22}
+            color='primary'
+            fontWeight='600'
+            fontSize={24}
             textAlign='center'
           >
             Comments
           </Text>
           {_comments.map((comment) => {
             return (
-              <Flex
-                direction='row'
-                key={comment.uuid}
-                my='10px'
-                alignItems={'center'}
-              >
+              <Flex direction='row' key={comment.uuid} my='10px' w='full'>
                 <RoundImage
                   image={require('../../../assets/Images/1.png')}
                   size={30}
                 />
-                <Text fontSize='9px' fontWeight='800'>
-                  {comment.user.username}
-                </Text>
-                <Text fontSize='9px' fontWeight='300'>
-                  {comment.comment_text}
-                </Text>
+                <Box ml='2' flex='1' flexDir='row' alignItems='center'>
+                  <Text fontSize='md' fontWeight='600'>
+                    {comment.user.username}{' '}
+                  </Text>
+                  <Text fontSize='xs' fontWeight='300'>
+                    {comment.comment_text}
+                  </Text>
+                </Box>
               </Flex>
             );
           })}
 
-          <Flex
-            direction='row'
-            alignItems={'center'}
-            justifyContent='space-between'
+          <Box
+            w='full'
+            flex='1'
+            flexDir='col'
+            borderTopWidth='1'
+            pt='2'
+            borderColor='gray.200'
           >
-            <Input
-              fontSize='9px'
-              fontWeight='300'
+            <TextArea
+              fontSize='sm'
+              fontWeight='400'
               placeholder='Comment here...'
-              color='#000'
+              color='black'
               borderWidth={2}
-              height={10}
-              width='70%'
-              borderRadius={'md'}
+              h='16'
+              borderColor='gray.400'
+              borderRadius='xl'
               value={commentText}
               onChangeText={(text) => setCommentText(text)}
+              _focus={{
+                bg: 'white',
+              }}
+              mb='1'
             />
-            <Button flex={1} height='90%' p={0} onPress={comment} bg='primary'>
-              Comment
-            </Button>
-          </Flex>
+            <Box w='full' display='flex' flexDir='col' justifyContent='center'>
+              <Button
+                h='10'
+                p={0}
+                onPress={comment}
+                bg={loading ? 'primary:alpha.50' : 'primary'}
+                _text={{
+                  fontWeight: 'bold',
+                  fontSize: '16',
+                }}
+              >
+                Comment
+              </Button>
+            </Box>
+          </Box>
         </Box>
       </SignInLayout>
     </BackLayout>

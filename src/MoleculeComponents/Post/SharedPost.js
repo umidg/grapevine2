@@ -40,7 +40,7 @@ const SharedPost = ({ data, user, navigation }) => {
       });
   }, [data]);
   return (
-    <Box w='100%' mb='10'>
+    <Box w='100%' mb='16'>
       <Box>
         <PostHeader
           username={data.username}
@@ -49,7 +49,7 @@ const SharedPost = ({ data, user, navigation }) => {
           address={user.address}
         />
       </Box>
-      <Box w='100%'>
+      <Box w='100%' pl='5'>
         {post && (
           <PostV2
             showLike={false}

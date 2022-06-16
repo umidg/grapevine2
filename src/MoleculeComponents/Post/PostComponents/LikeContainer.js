@@ -1,9 +1,21 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
-import { Box, Flex, Pressable, Text, View, Modal, Button } from 'native-base';
+import {
+  Box,
+  Flex,
+  Pressable,
+  Text,
+  View,
+  Modal,
+  Button,
+  Center,
+} from 'native-base';
 import RegularImage from '../../../AtomComponents/Image/RegularImage';
 import { grapevineBackend } from '../../../API';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import Toast from 'react-native-root-toast';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   const [liked, setLiked] = useState(false);
@@ -103,30 +115,57 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
         px='3'
         py='2'
       >
-        <Box>
-          <Flex direction='row'>
-            <Pressable onPress={handleLike}>
+        <Box w='3/4'>
+          <Box
+            display='flex'
+            flexDir={'row'}
+            justifyContent='space-between'
+            w='full'
+          >
+            <Pressable onPress={handleLike} alignItems='center'>
               {liked ? (
                 <AntDesign name='heart' size={20} color='#ff0000' p='2' />
               ) : (
                 <AntDesign name='hearto' size={20} color='#000' p='2' />
               )}
+              <Text fontSize='8'>Like</Text>
             </Pressable>
-            <View ml={2}>
+            <Center>
               <FontAwesome5 name='comment' size={20} color='#000' p='2' />
-            </View>
-
-            <Pressable onPress={() => setOpenModal(true)} ml={2}>
-              <FontAwesome5 name='share' size={20} color='#000' />
+              <Text fontSize='8'>Interaction</Text>
+            </Center>
+            <Center>
+              <Ionicons name='people-outline' size={20} color='black' />
+              <Text fontSize='8'>People</Text>
+            </Center>
+            <Center>
+              <MaterialCommunityIcons
+                name='shopping-outline'
+                size={20}
+                color='black'
+              />
+              <Text fontSize='8'>Products</Text>
+            </Center>
+            <Center>
+              <FontAwesome name='lightbulb-o' size={20} color='black' />
+              <Text fontSize='8'>Inspo</Text>
+            </Center>
+            <Pressable onPress={() => setOpenModal(true)} alignItems='center'>
+              <MaterialCommunityIcons
+                name='share-outline'
+                size={20}
+                color='black'
+              />
+              <Text fontSize='8'>Share</Text>
             </Pressable>
-          </Flex>
+          </Box>
         </Box>
       </Flex>
-      <Box flex='1' flexDir='row' justifyContent='space-between' px='2'>
+      <Box flex='1' flexDir='row' justifyContent='space-between' px='2' pt='2'>
         <Text fontSize='12' fontWeight='800'>
-          {likeCount} Likes
+          {`${likeCount} Like${likeCount > 1 ? 's' : ''}`}
         </Text>
-        <Text fontSize='12' fontWeight='500' color='gray.500'>
+        <Text fontSize='12' color='black'>
           {timeStamp}
         </Text>
       </Box>

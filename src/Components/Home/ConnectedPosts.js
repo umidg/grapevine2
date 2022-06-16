@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { PostContainer } from "../../MoleculeComponents/index";
-import { Spinner, Center, Box } from "native-base";
-import { grapevineBackend } from "../../API";
+import React, { useEffect, useState } from 'react';
+import { PostContainer } from '../../MoleculeComponents/index';
+import { Spinner, Center, Box, Text } from 'native-base';
+import { grapevineBackend } from '../../API';
 const ConnectedPosts = ({ user, navigation }) => {
   const [posts, setPosts] = useState(null);
   const [error, setError] = useState(false);
@@ -11,16 +11,18 @@ const ConnectedPosts = ({ user, navigation }) => {
     grapevineBackend(
       `/post/forYouPost?page=${params.page}&limit=${params.limit}`,
       {},
-      "POST"
+      'POST'
     )
       .then(async ({ data }) => {
+        console.log(data.data.result);
         setError(false);
-        if (data.status == true) {
+        if (data.status == true && data.data.result.length > 0) {
           setParams({ ...data.data.next });
           setPosts([...posts, ...data.data.result]);
         }
       })
       .catch((err) => {
+        console.log(err, 'err');
         setError(true);
       });
   };
@@ -41,16 +43,16 @@ const ConnectedPosts = ({ user, navigation }) => {
   return (
     <>
       {error ? (
-        <Center h="100%" w="100%">
-          <Text fontSize="20" fontWidth="800" color="primary">
-            Error
+        <Center h='100%' w='100%'>
+          <Text fontSize='16' fontWidth='800' color='primary'>
+            No posts yet.
           </Text>
         </Center>
       ) : posts ? (
         <>
-          <Box pb="70" p={2} mt={35}>
+          <Box pb='70' p={2} mt={35}>
             <ScrollView
-              h="100%"
+              h='100%'
               onScroll={({ nativeEvent }) => {
                 onScroll(nativeEvent);
               }}
@@ -69,8 +71,8 @@ const ConnectedPosts = ({ user, navigation }) => {
           </Box>
         </>
       ) : (
-        <Center h="100%" w="100%">
-          <Spinner accessibilityLabel="Loading" />
+        <Center h='100%' w='100%'>
+          <Spinner accessibilityLabel='Loading' />
         </Center>
       )}
     </>

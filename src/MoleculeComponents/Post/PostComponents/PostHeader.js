@@ -30,15 +30,15 @@ const PostHeader = ({ username, user_uuid, navigation, address, shared }) => {
           }}
         >
           <RoundImage
-            size={30}
+            size='35'
             image={require('../../../../assets/Images/1.png')}
           />
         </Pressable>
         <Box ml='2'>
-          <Text fontSize='md' fontWeight='600'>
-            @{username ? username : 'mollymae'}
+          <Text fontSize='md' fontWeight='800'>
+            {username && username}
           </Text>
-          <Text fontSize='10' fontWeight='300'>
+          <Text fontSize='10' fontWeight='400'>
             {address}
           </Text>
         </Box>

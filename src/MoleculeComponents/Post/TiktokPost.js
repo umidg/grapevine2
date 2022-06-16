@@ -31,7 +31,7 @@ const TiktokPost = ({
     return diffInDays + ' days ago';
   }, [data]);
   return (
-    <Box w='100%' mt='2px'>
+    <Box w='100%' mt='16'>
       <Box p='2'>
         <PostHeader
           username={data.username}
@@ -50,7 +50,6 @@ const TiktokPost = ({
             <Image
               alt='image'
               source={require('../../../assets/Icons/TikTok_light.png')}
-              alt='logo'
               h={3}
               w={3}
             />

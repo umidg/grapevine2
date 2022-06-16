@@ -26,11 +26,11 @@ const PostV2 = ({
     if (diffInMin < 1) return 'few moments ago';
     else if (diffInMin < 60) return diffInMin + ' min ago';
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
-    return diffInDays + ' days ago';
+    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
   }, [data]);
 
   return (
-    <Box w='100%' bg='theme.bg' mt='15' borderRadius='md'>
+    <Box w='100%' mb={shared ? '0' : '16'} borderRadius='md'>
       <Box py='2'>
         <PostHeader
           username={data.username}
@@ -40,7 +40,7 @@ const PostV2 = ({
           shared={shared}
         />
       </Box>
-      <Box w='100%' pl='2' pr='5' mb={data.post.length < 100 ? '20' : '5'}>
+      <Box w='100%' px='5' mb={data.post.length < 100 ? '20' : '5'}>
         <Text fontSize='md' fontWeight='300'>
           "{data.post}"
         </Text>
