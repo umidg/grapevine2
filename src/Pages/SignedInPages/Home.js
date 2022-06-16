@@ -1,50 +1,50 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
-import { ActivityIndicator } from "react-native";
-import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { MolecularComponents, Layout } from "../../Exports/index";
+import {
+  MolecularComponents,
+  Layout,
+  PageComponent,
+} from "../../Exports/index";
 const Home = ({ navigation }) => {
-  const { PostContainer } = MolecularComponents;
   const { SignInLayout } = Layout;
-
-  const [post, setPost] = useState(null);
+  const {
+    Home: { ConnectedPosts, ForYouPost },
+  } = PageComponent;
   const [postType, setPostType] = useState("connected");
   const [error, setError] = useState(false);
   const [user, setUser] = useContext(UserValue);
-  const [forYouPost, setForYouPost] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/post/getAllPost?page=1&limit=10", {}, "POST")
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            setPost([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          console.log("Err", err);
-          setError(true);
-        });
-      grapevineBackend("/post/forYouPost", {}, "POST")
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            console.log(data);
-            setForYouPost([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          console.log("Err", err);
-          setError(true);
-        });
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("focus", () => {
+  //     grapevineBackend("/post/getAllPost?page=1&limit=10", {}, "POST")
+  //       .then(async ({ data }) => {
+  //         setError(false);
+  //         if (data.status == true) {
+  //           setPost([...data.data.result]);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("Err", err);
+  //         setError(true);
+  //       });
+  //     grapevineBackend("/post/forYouPost", {}, "POST")
+  //       .then(async ({ data }) => {
+  //         setError(false);
+  //         if (data.status == true) {
+  //           setForYouPost([...data.data.result]);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("Err", err);
+  //         setError(true);
+  //       });
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
 
   return (
     <Box h="100%" w="100%">
@@ -93,67 +93,17 @@ const Home = ({ navigation }) => {
           </Text>
         </Pressable>
       </Flex>
-      <SignInLayout>
-        <Box h="100%" w="100%" mt="5">
-          {error ? (
-            <Center h="100%" w="100%">
-              <Text fontWeight={"800"}>Error occured</Text>
-            </Center>
-          ) : postType == "connected" ? (
-            <>
-              {post ? (
-                <>
-                  <Box pb="70" p={2} mt={35}>
-                    {post.map((d) => {
-                      return (
-                        <PostContainer
-                          post={d}
-                          key={d.uuid}
-                          user={user}
-                          navigation={navigation}
-                        />
-                      );
-                    })}
-                  </Box>
-                </>
-              ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
-                </Center>
-              )}
-            </>
-          ) : (
-            <>
-              {forYouPost ? (
-                <>
-                  {forYouPost.length > 0 ? (
-                    <Box pb="70" py={2}>
-                      {forYouPost.map((d) => {
-                        return (
-                          <PostContainer
-                            post={d}
-                            key={d.uuid}
-                            user={user}
-                            navigation={navigation}
-                          />
-                        );
-                      })}
-                    </Box>
-                  ) : (
-                    <Center h="100%" w="100%">
-                      <Text>No Post To Show</Text>
-                    </Center>
-                  )}
-                </>
-              ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
-                </Center>
-              )}
-            </>
-          )}
-        </Box>
-      </SignInLayout>
+      <Box h="100%" w="100%" mt="5">
+        {error ? (
+          <Center h="100%" w="100%">
+            <Text fontWeight={"800"}>Error occured</Text>
+          </Center>
+        ) : postType == "connected" ? (
+          <ConnectedPosts user={user} navigation={navigation} />
+        ) : (
+          <ForYouPost user={user} navigation={navigation} />
+        )}
+      </Box>
     </Box>
   );
 };
