@@ -19,7 +19,7 @@ const ExplorePage = ({ navigation }) => {
   const { Notification } = MolecularComponents;
   const [users, setUsers] = useState(null);
   const [focus, setFocus] = useState(false);
-  const [history, setHistory] = useState(null);
+  const [history, setHistory] = useState([]);
   const searchUser = async (name) => {
     if (name.length > 2) {
       grapevineBackend("/auth/search", { name: name }, "POST")
@@ -33,9 +33,7 @@ const ExplorePage = ({ navigation }) => {
       setUsers(null);
     }
   };
-
-  const profileClick = (username, user_uuid) => {
-    setFocus(false);
+  const createHistory = (username) => {
     grapevineBackend("/history/create", { username: username }, "POST")
       .then(({ data }) => {
         if (data.status) {
@@ -43,6 +41,10 @@ const ExplorePage = ({ navigation }) => {
         }
       })
       .catch((err) => console.log(err));
+  };
+  const profileClick = (username, user_uuid) => {
+    setFocus(false);
+    createHistory(username);
     navigation.navigate("FriendProfile", {
       user_uuid: user_uuid,
     });
@@ -61,7 +63,12 @@ const ExplorePage = ({ navigation }) => {
   return (
     <Box h="100%" w="100%" bg="white">
       <Box display="flex" flexDir="row" justifyContent="space-between" p="3">
-        <Search flex={1} onSearch={searchUser} onFocus={() => setFocus(true)} />
+        <Search
+          flex={1}
+          onSearch={searchUser}
+          onFocus={() => setFocus(true)}
+          createHistory={createHistory}
+        />
         {focus && (
           <Pressable onPress={() => setFocus(false)} alignSelf="center">
             <Text textAlign="center" fontSize="sm" pl="2">
@@ -91,17 +98,18 @@ const ExplorePage = ({ navigation }) => {
                 : history.map((_history) => {
                     console.log(_history);
                     return (
-                      <Notification
-                        onPress={() =>
-                          navigation.navigate("FriendProfile", {
-                            user_uuid: _history.user_uuid,
-                          })
-                        }
-                        key={_history.uuid}
-                        profileImage={require("../../../assets/Images/3.png")}
-                        time=""
-                        username={_history.username}
-                      />
+                      <Text key={_history.uuid}>{_history.username}</Text>
+                      // <Notification
+                      //   onPress={() =>
+                      //     navigation.navigate("FriendProfile", {
+                      //       user_uuid: _history.user_uuid,
+                      //     })
+                      //   }
+                      //   key={_history.uuid}
+                      //   profileImage={require("../../../assets/Images/3.png")}
+                      //   time=""
+                      //   username={_history.username}
+                      // />
                     );
                   })}
             </View>

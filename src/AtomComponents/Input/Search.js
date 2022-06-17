@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Image } from "react-native";
 import { View, Text, Input } from "native-base";
 import { EvilIcons } from "@expo/vector-icons";
 
-const Search = ({ onSearch, onFocus, ...rest }) => {
+const Search = ({ onSearch, onFocus, createHistory, ...rest }) => {
   const [text, setText] = useState("");
   const [borderWidth, setBorderWidth] = useState(0);
   const searchFocused = () => {
@@ -13,8 +13,8 @@ const Search = ({ onSearch, onFocus, ...rest }) => {
     }
   };
   const onSubmit = () => {
-    if (onSearch) {
-      onSearch(text);
+    if (createHistory) {
+      createHistory(text);
     }
   };
   useEffect(() => {
