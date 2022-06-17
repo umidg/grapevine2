@@ -30,7 +30,7 @@ const PostV2 = ({
   }, [data]);
 
   return (
-    <Box w='100%' mb={shared ? '0' : '16'} borderRadius='md'>
+    <Box w='100%' mb={shared ? '0' : '12'} borderRadius='md'>
       <Box py='2'>
         <PostHeader
           username={data.username}

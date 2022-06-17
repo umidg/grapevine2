@@ -123,9 +123,9 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
           >
             <Pressable onPress={handleLike} alignItems='center'>
               {liked ? (
-                <AntDesign name='heart' size={20} color='#ff0000' p='2' />
+                <AntDesign name='heart' size={20} color='red' p='2' />
               ) : (
-                <AntDesign name='hearto' size={20} color='#000' p='2' />
+                <AntDesign name='hearto' size={20} color='black' p='2' />
               )}
               <Text fontSize='8'>Like</Text>
             </Pressable>

@@ -25,12 +25,22 @@ const ForYouPost = ({ user, navigation }) => {
   };
 
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    const paddingToBottom = 50;
+    const paddingToBottom = 500;
     if (
       layoutMeasurement.height + contentOffset.y >=
         contentSize.height - paddingToBottom &&
       params.page
     ) {
+      console.log(
+        layoutMeasurement,
+        contentOffset,
+        contentSize,
+        layoutMeasurement.height,
+        contentOffset.y,
+        contentSize.height,
+        paddingToBottom,
+        params.page
+      );
       fetchPosts();
     }
   };

@@ -44,30 +44,32 @@ const CommentPage = ({ navigation, route }) => {
         });
     }
   };
+
   return (
     <BackLayout navigation={navigation} color='black' safeArea>
-      <SignInLayout>
-        <Box h='full' w='full' p='2'>
-          <Text
-            color='primary'
-            fontWeight='600'
-            fontSize={24}
-            textAlign='center'
-          >
-            Comments
-          </Text>
+      <Box h='full' w='full' bg='white'>
+        <Text fontWeight='600' fontSize={24} textAlign='center'>
+          Comments
+        </Text>
+        <SignInLayout>
           {_comments.map((comment) => {
             return (
-              <Flex direction='row' key={comment.uuid} my='10px' w='full'>
+              <Flex
+                direction='row'
+                key={comment.uuid}
+                my='10px'
+                w='full'
+                px='2'
+              >
                 <RoundImage
                   image={require('../../../assets/Images/1.png')}
                   size={30}
                 />
-                <Box ml='2' flex='1' flexDir='row' alignItems='center'>
-                  <Text fontSize='md' fontWeight='600'>
+                <Box ml='2' flex='1' flexDir='row' pr='5'>
+                  <Text fontSize='sm' fontWeight='700'>
                     {comment.user.username}{' '}
                   </Text>
-                  <Text fontSize='xs' fontWeight='300'>
+                  <Text fontSize='sm' fontWeight='300' textAlign='left'>
                     {comment.comment_text}
                   </Text>
                 </Box>
@@ -80,7 +82,7 @@ const CommentPage = ({ navigation, route }) => {
             flex='1'
             flexDir='col'
             borderTopWidth='1'
-            pt='2'
+            p='2'
             borderColor='gray.200'
           >
             <TextArea
@@ -109,13 +111,15 @@ const CommentPage = ({ navigation, route }) => {
                   fontWeight: 'bold',
                   fontSize: '16',
                 }}
+                borderRadius='full'
+                mb='5'
               >
                 Comment
               </Button>
             </Box>
           </Box>
-        </Box>
-      </SignInLayout>
+        </SignInLayout>
+      </Box>
     </BackLayout>
   );
 };

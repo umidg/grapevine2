@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import { View, Flex, Pressable, Slide, Box, Text } from "native-base";
-import { grapevineBackend } from "../../API";
-import { userHook } from "../../Hooks";
-import { AntDesign } from "@expo/vector-icons";
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { View, Flex, Pressable, Slide, Box, Text } from 'native-base';
+import { grapevineBackend } from '../../API';
+import { userHook } from '../../Hooks';
+import { AntDesign } from '@expo/vector-icons';
 import {
   AtomComponents,
   MolecularComponents,
   Layout,
   PageComponent,
-} from "../../Exports/index";
+} from '../../Exports/index';
 
 const ExplorePage = ({ navigation }) => {
   const {
@@ -22,14 +22,17 @@ const ExplorePage = ({ navigation }) => {
   const [focus, setFocus] = useState(false);
 
   const searchUser = async (name) => {
-    console.log("name", name);
-    grapevineBackend("/auth/search", { name: name }, "POST")
-      .then(async ({ data }) => {
-        if (data.status) {
-          setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
-        }
-      })
-      .catch((err) => console.log(err));
+    if (name.length > 2) {
+      grapevineBackend('/auth/search', { name: name }, 'POST')
+        .then(async ({ data }) => {
+          if (data.status) {
+            setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setUsers([]);
+    }
   };
 
   const profileClick = () => {};
@@ -58,63 +61,52 @@ const ExplorePage = ({ navigation }) => {
     return () => setFocus(false);
   }, []);
   return (
-    <SignInLayout>
-      <Box h="100%" w="100%">
-        <ScrollView style={{ height: "100%" }}>
-          <View h="100%">
-            <Flex
-              style={styles.searchContainer}
-              direction="row"
-              justifyContent={"space-between"}
-            >
-              <Search onSearch={searchUser} onFocus={() => setFocus(true)} />
-              {focus && (
-                <Pressable onPress={() => setFocus(false)}>
-                  <Text>Cancle</Text>
-                </Pressable>
-              )}
-            </Flex>
-            {focus ? (
-              <View w="100%" h="87%" bg="#fff" bottom={0}>
-                <View>
-                  <View flex={1} h="100%" w="100%" p={2} py={10}>
-                    <View>
-                      {users?.map((person) => {
-                        return (
-                          <Notification
-                            onPress={() => {
-                              setFocus(false);
-                              navigation.navigate("FriendProfile", {
-                                user_uuid: person.uuid,
-                              });
-                            }}
-                            key={person.id}
-                            profileImage={require("../../../assets/Images/3.png")}
-                            time=""
-                            username={person.username}
-                          />
-                        );
-                      })}
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ) : (
-              <></>
-            )}
+    <Box h='100%' w='100%' bg='white'>
+      <Box display='flex' flexDir='row' justifyContent='space-between' p='3'>
+        <Search flex={1} onSearch={searchUser} onFocus={() => setFocus(true)} />
+        {focus && (
+          <Pressable onPress={() => setFocus(false)} alignSelf='center'>
+            <Text textAlign='center' fontSize='sm' pl='2'>
+              Cancel
+            </Text>
+          </Pressable>
+        )}
+      </Box>
+      <ScrollView style={{ height: '100%' }}>
+        {focus ? (
+          <View w='100%' h='87%' bg='white'>
             <View>
-              <View style={styles.featureContainer}>
-                <Features />
-              </View>
-
-              <View style={styles.collectionContainer}>
-                <Collection />
-              </View>
+              {users?.map((person) => {
+                return (
+                  <Notification
+                    onPress={() => {
+                      setFocus(false);
+                      navigation.navigate('FriendProfile', {
+                        user_uuid: person.uuid,
+                      });
+                    }}
+                    key={person.id}
+                    profileImage={require('../../../assets/Images/3.png')}
+                    time=''
+                    username={person.username}
+                  />
+                );
+              })}
             </View>
           </View>
-        </ScrollView>
-      </Box>
-    </SignInLayout>
+        ) : (
+          <>
+            <View style={styles.featureContainer}>
+              <Features />
+            </View>
+
+            <View style={styles.collectionContainer}>
+              <Collection />
+            </View>
+          </>
+        )}
+      </ScrollView>
+    </Box>
   );
 };
 

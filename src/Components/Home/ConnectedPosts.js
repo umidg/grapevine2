@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PostContainer } from '../../MoleculeComponents/index';
-import { Spinner, Center, Box, Text } from 'native-base';
+import { Spinner, Center, Box, Text, Image } from 'native-base';
 import { grapevineBackend } from '../../API';
 const ConnectedPosts = ({ user, navigation }) => {
   const [posts, setPosts] = useState([]);
@@ -14,7 +14,7 @@ const ConnectedPosts = ({ user, navigation }) => {
       'POST'
     )
       .then(async ({ data }) => {
-        console.log(data.data.result);
+        console.log(data.data.result, 'results');
         setError(false);
         if (data.status == true && data.data.result.length > 0) {
           setParams({ ...data.data.next });
@@ -42,10 +42,16 @@ const ConnectedPosts = ({ user, navigation }) => {
   }, []);
   return (
     <>
-      {error ? (
+      {posts.length == 0 ? (
         <Center h='100%' w='100%'>
-          <Text fontSize='16' fontWidth='800' color='primary'>
-            No posts yet.
+          <Image
+            source={require('../../../assets/Logo/Logo.png')}
+            size={100}
+            resizeMode='contain'
+            p='5'
+          />
+          <Text fontSize='16' fontWidth='800' color='primary' mt='10'>
+            Sorry, no posts yet.
           </Text>
         </Center>
       ) : posts.length > 0 ? (
