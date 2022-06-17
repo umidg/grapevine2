@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Box, Center, Flex, Text } from "native-base";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { Pressable, TouchableOpacity } from "react-native";
-import { grapevineBackend } from "../../API";
-import { MolecularComponents, Layout } from "../../Exports/index";
+import React, { useEffect, useState } from 'react';
+import { Box, Center, Flex, ScrollView, Text } from 'native-base';
+import { FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
+import { Pressable, TouchableOpacity } from 'react-native';
+import { grapevineBackend } from '../../API';
+import { MolecularComponents, Layout } from '../../Exports/index';
 const Activity = ({ navigation }) => {
   const { NotificationContainer } = MolecularComponents;
   const { SignInLayout } = Layout;
 
-  const [component, setComponent] = useState("foryou");
+  const [component, setComponent] = useState('foryou');
   const [forYouActicity, setForYouActivity] = useState([]);
   const [connectedcticity, setConnectedActivity] = useState([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/activity/get/foryou", {}, "POST")
+    const unsubscribe = navigation.addListener('focus', () => {
+      grapevineBackend('/activity/get/foryou', {}, 'POST')
         .then(async ({ data }) => {
+          console.log(data.data.result, 'data');
           setError(false);
           if (data.status == true) {
             setForYouActivity([...data.data.result]);
@@ -24,9 +25,9 @@ const Activity = ({ navigation }) => {
         })
         .catch((err) => {
           setError(true);
-          console.log("Err", err);
+          console.log('Err', err);
         });
-      grapevineBackend("/activity/get/connected", {}, "POST")
+      grapevineBackend('/activity/get/connected', {}, 'POST')
         .then(async ({ data }) => {
           setError(false);
           if (data.status == true) {
@@ -35,7 +36,7 @@ const Activity = ({ navigation }) => {
         })
         .catch((err) => {
           setError(true);
-          console.log("Err", err);
+          console.log('Err', err);
         });
     });
 
@@ -43,62 +44,72 @@ const Activity = ({ navigation }) => {
   }, []);
 
   return (
-    <SignInLayout>
-      <Box h="100%" w="100%">
+    <Box h='100%' w='100%' bg='white'>
+      <Box>
+        <Text fontWeight='800' fontSize={16} textAlign='center'>
+          Activity
+        </Text>
         <Flex
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          m="20px"
+          direction='row'
+          alignItems='center'
+          justifyContent='center'
+          position='absolute'
+          right='5'
         >
-          <Pressable onPress={() => setComponent("foryou")}>
-            <Text fontWeight={component == "foryou" ? "800" : "600"} mx={1}>
-              For You
-            </Text>
-          </Pressable>
-          <Pressable onPress={() => setComponent("connected")}>
-            <Text fontWeight={component == "connected" ? "800" : "600"} mx={1}>
-              Connected
-            </Text>
-          </Pressable>
-
-          <Flex
-            direction="row"
-            alignItems={"center"}
-            justifyContent="center"
-            position="absolute"
-            right="10px"
-          >
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Notification")}
-            >
-              <Ionicons name="notifications-outline" color="#000" size={26} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
-              <FontAwesome5 name="location-arrow" color="#000" size={22} />
-            </TouchableOpacity>
-          </Flex>
+          <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+            <Ionicons name='notifications-outline' color='black' size={24} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Messages')}>
+            <Feather name='send' size={24} color='black' />
+          </TouchableOpacity>
         </Flex>
+      </Box>
 
-        <Box h="100%" w="100%">
+      <Flex
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
+        m='20px'
+      >
+        <Pressable onPress={() => setComponent('foryou')}>
+          <Text
+            fontWeight={component == 'foryou' ? '800' : '400'}
+            mx={1}
+            shadow='1'
+          >
+            For You
+          </Text>
+        </Pressable>
+        <Text>|</Text>
+        <Pressable onPress={() => setComponent('connected')}>
+          <Text
+            fontWeight={component == 'connected' ? '800' : '400'}
+            mx={1}
+            shadow='1'
+          >
+            Connected
+          </Text>
+        </Pressable>
+      </Flex>
+
+      <ScrollView>
+        <Box h='100%' w='100%'>
           {error ? (
-            <Center h="100%" w="100%">
-              <Text fontWeight={"800"}>Error occured</Text>
+            <Center h='100%' w='100%'>
+              <Text fontWeight={'800'}>Error occured</Text>
             </Center>
-          ) : component == "connected" ? (
+          ) : component == 'connected' ? (
             <>
               {connectedcticity ? (
-                <>
-                  <Box pb="70" p={2}>
-                    <NotificationContainer
-                      time="New"
-                      notifications={connectedcticity}
-                    />
-                  </Box>
-                </>
+                <Box pb='70' p={2}>
+                  <NotificationContainer
+                    time='New'
+                    notifications={connectedcticity}
+                  />
+                </Box>
               ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
+                <Center h='100%' w='100%'>
+                  <ActivityIndicator size='small' color='#0000ff' />
                 </Center>
               )}
             </>
@@ -107,35 +118,28 @@ const Activity = ({ navigation }) => {
               {forYouActicity ? (
                 <>
                   {forYouActicity.length > 0 ? (
-                    <Box pb="70" p={2}>
+                    <Box pb='70' p={2}>
                       <NotificationContainer
-                        time="New"
+                        time='New'
                         notifications={forYouActicity}
                       />
                     </Box>
                   ) : (
-                    <Center h="100%" w="100%">
+                    <Center h='100%' w='100%'>
                       <Text>No Post To Show</Text>
                     </Center>
                   )}
                 </>
               ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
+                <Center h='100%' w='100%'>
+                  <ActivityIndicator size='small' color='#0000ff' />
                 </Center>
               )}
             </>
           )}
         </Box>
-
-        {/* 
-        <Box pl="5%" pr="5%">
-          <NotificationContainer time="New" notifications={data} />
-          <NotificationContainer time="Yesterday" notifications={data} />
-          <NotificationContainer time="This Week" notifications={data} />
-        </Box> */}
-      </Box>
-    </SignInLayout>
+      </ScrollView>
+    </Box>
   );
 };
 

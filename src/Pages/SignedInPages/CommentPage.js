@@ -48,7 +48,7 @@ const CommentPage = ({ navigation, route }) => {
   return (
     <BackLayout navigation={navigation} color='black' safeArea>
       <Box h='full' w='full' bg='white'>
-        <Text fontWeight='600' fontSize={24} textAlign='center'>
+        <Text fontWeight='800' fontSize={16} textAlign='center' mb='2'>
           Comments
         </Text>
         <SignInLayout>

@@ -25,7 +25,7 @@ const ForYouPost = ({ user, navigation }) => {
   };
 
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    const paddingToBottom = 500;
+    const paddingToBottom = 0;
     if (
       layoutMeasurement.height + contentOffset.y >=
         contentSize.height - paddingToBottom &&
