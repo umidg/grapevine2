@@ -5,7 +5,8 @@ import InputNumber from "./InputNumber";
 import InputText from "./InputText";
 import InputUsername from "./InputUsername";
 import Search from "./Search";
-import InputPassword from "./InputPassword";
+// import InputPassword from "./InputPassword";
+import InputPassword from "./inputPassword";
 export {
   Input,
   InputCode,

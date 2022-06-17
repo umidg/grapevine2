@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { PostContainer } from '../../MoleculeComponents/index';
-import { Spinner, Center, Box, ScrollView } from 'native-base';
-import { grapevineBackend } from '../../API';
+import React, { useEffect, useState } from "react";
+import { PostContainer } from "../../MoleculeComponents/index";
+import { Spinner, Center, Box, ScrollView } from "native-base";
+import { grapevineBackend } from "../../API";
 const ForYouPost = ({ user, navigation }) => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
@@ -10,7 +10,7 @@ const ForYouPost = ({ user, navigation }) => {
     grapevineBackend(
       `/post/forYouPost?page=${params.page}&limit=${params.limit}`,
       {},
-      'POST'
+      "POST"
     )
       .then(async ({ data }) => {
         if (data.status == true) {
@@ -50,16 +50,16 @@ const ForYouPost = ({ user, navigation }) => {
   return (
     <>
       {error ? (
-        <Center h='100%' w='100%'>
-          <Text fontSize='20' fontWidth='800' color='primary'>
+        <Center h="100%" w="100%">
+          <Text fontSize="20" fontWidth="800" color="primary">
             Error
           </Text>
         </Center>
       ) : posts.length > 0 ? (
         <>
-          <Box pb='70' mt={35}>
+          <Box pb="70" h="100%">
             <ScrollView
-              h='100%'
+              h="100%"
               onScroll={({ nativeEvent }) => {
                 onScroll(nativeEvent);
               }}
@@ -78,8 +78,8 @@ const ForYouPost = ({ user, navigation }) => {
           </Box>
         </>
       ) : (
-        <Center h='100%' w='100%'>
-          <Spinner accessibilityLabel='Loading' />
+        <Center h="100%" w="100%">
+          <Spinner accessibilityLabel="Loading" />
         </Center>
       )}
     </>
