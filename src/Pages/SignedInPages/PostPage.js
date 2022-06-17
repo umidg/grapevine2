@@ -7,6 +7,7 @@ const PostPage = ({ navigation, route }) => {
   const {
     params: { post_uuid },
   } = route;
+  console.log(post_uuid, "post_uuid");
   const { PostContainer } = MolecularComponents;
   const [post, setPost] = useState(null);
   const [user, setUser] = useContext(UserValue);

@@ -17,9 +17,9 @@ const NotificationContainer = ({ time, notifications }) => {
                 <Notification
                   key={_notification.uuid}
                   profileImage={require("../../../assets/Images/1.png")}
-                  message={_notification.message}
+                  message={_notification.type}
                   time="2h"
-                  username={_notification.username}
+                  username={_notification.user.username}
                 />
               );
             })}

@@ -19,7 +19,7 @@ const Activity = (props) => {
               key={activity.uuid}
               onPress={() =>
                 navigation.navigate("PostPage", {
-                  post_uuid: activity.post_uuid,
+                  post_uuid: activity.action_uuid,
                 })
               }
               p={2}

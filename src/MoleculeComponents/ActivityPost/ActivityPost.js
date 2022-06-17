@@ -8,7 +8,7 @@ const ActivityPost = ({ activity }) => {
   useEffect(() => {
     grapevineBackend(
       "/post/getPostByUuid",
-      { post_uuid: activity.post_uuid },
+      { post_uuid: activity.action_uuid },
       "POST"
     )
       .then(({ data }) => {
@@ -23,7 +23,7 @@ const ActivityPost = ({ activity }) => {
   return (
     <Box>
       <Text fontSize={12} fontWeight="800" color="#000" mt={1} mb={1}>
-        {activity.message}
+        {activity.type}
       </Text>
       {post ? (
         <>
