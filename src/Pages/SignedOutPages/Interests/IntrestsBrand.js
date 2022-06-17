@@ -23,8 +23,13 @@ const InterestsBrand = ({ navigation }) => {
 
   return (
     <SignoutLayout>
-      <LoginLayout navigation={navigation}>
-        <BackLayout navigation={navigation}>
+      <BackLayout navigation={navigation}>
+        <LoginLayout
+          navigation={navigation}
+          navigate='ConnectNetworks'
+          next
+          nextDisabled={registerData.intrests.length <= 0}
+        >
           <Box pt={'15%'} px='2%' justifyContent={'space-between'} pb={30}>
             <View>
               <Box w='100%' alignItems={'center'}>
@@ -61,7 +66,7 @@ const InterestsBrand = ({ navigation }) => {
                   </ButtonDark>
                   <ButtonDark
                     h={10}
-                    w='30%'
+                    w='35%'
                     onPress={() => select('Beauty')}
                     bg={
                       registerData.intrests &&
@@ -71,7 +76,7 @@ const InterestsBrand = ({ navigation }) => {
                     }
                   >
                     <Text fontSize={11} color='#fff' fontWeight={'800'}>
-                      Beauty
+                      Beauty & Wellness
                     </Text>
                   </ButtonDark>
                   <ButtonDark
@@ -114,8 +119,8 @@ const InterestsBrand = ({ navigation }) => {
                     bg={
                       registerData.intrests &&
                       registerData.intrests.indexOf('Lifestyle') != -1
-                        ? 'buttonDarkClick'
-                        : 'buttonDark'
+                        ? 'dark'
+                        : 'light'
                     }
                   >
                     <Text fontSize={11} color='#fff' fontWeight={'800'}>
@@ -133,6 +138,7 @@ const InterestsBrand = ({ navigation }) => {
                     h={10}
                     w='30%'
                     onPress={() => setShowInput(!showInput)}
+                    bg={showInput ? 'dark' : 'light'}
                   >
                     <Text fontSize={11} color='#fff' fontWeight={'800'}>
                       Other
@@ -151,7 +157,7 @@ const InterestsBrand = ({ navigation }) => {
                 )}
               </Box>
             </View>
-            <Center w='100%'>
+            {/* <Center w='100%'>
               {registerData.brand_type && registerData.brand_type.length > 0 ? (
                 <ButtonDark
                   w='80%'
@@ -169,10 +175,10 @@ const InterestsBrand = ({ navigation }) => {
                   </Text>
                 </ButtonDark>
               )}
-            </Center>
+            </Center> */}
           </Box>
-        </BackLayout>
-      </LoginLayout>
+        </LoginLayout>
+      </BackLayout>
     </SignoutLayout>
   );
 };

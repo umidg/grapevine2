@@ -185,7 +185,6 @@ const PostPage = ({ navigation }) => {
               source={require('../../../assets/Icons/TikTok_light.png')}
               h='6'
               w='5'
-              alt='tiktok_light'
               m='2'
             />
           ) : (
@@ -194,7 +193,6 @@ const PostPage = ({ navigation }) => {
               source={require('../../../assets/Icons/tiktok_gray.png')}
               h='6'
               w='5'
-              alt='tiktok_gray'
               m='2'
             />
           )}

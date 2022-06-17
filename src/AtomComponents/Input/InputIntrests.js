@@ -7,7 +7,7 @@ const InputIntrests = ({ value, onChangeText, placeholder, w, h }) => {
       w='60%'
       bg='white'
       borderRadius='10'
-      style={{ width: w ? w : '100%', height: h ? h : 50 }}
+      style={{ width: w ? w : '100%', height: h ? h : 30 }}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}

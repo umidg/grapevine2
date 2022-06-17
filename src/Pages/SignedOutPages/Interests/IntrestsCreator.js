@@ -155,24 +155,6 @@ const IntrestsCreator = ({ navigation }) => {
                 )}
               </View>
             </View>
-            {/* <Center w='100%'>
-              {registerData.intrests && registerData.intrests.length > 0 ? (
-                <ButtonDark
-                  w='80%'
-                  onPress={() => navigation.navigate('ConnectNetworks')}
-                >
-                  <Text fontSize='14' color='#fff' fontWeight='800'>
-                    Next
-                  </Text>
-                </ButtonDark>
-              ) : (
-                <ButtonDark w='80%' bg='buttonDarkClick'>
-                  <Text fontSize='14' color='#fff' fontWeight='800'>
-                    Next
-                  </Text>
-                </ButtonDark>
-              )}
-            </Center> */}
           </Box>
         </LoginLayout>
       </BackLayout>

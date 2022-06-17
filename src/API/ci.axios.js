@@ -1,31 +1,31 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // server
-// const baseUrl = "https://admin.grapevine-app.co/api";
+const baseUrl = 'https://admin.grapevine-app.co/api';
 // localhost
-const baseUrl = "http://192.168.1.70:4000/api";
+// const baseUrl = "http://192.168.1.70:4000/api";
 export const grapevineBackend = async (
   url,
   data,
   method,
-  headers = "",
-  params = ""
+  headers = '',
+  params = ''
 ) => {
   let access_token = null;
   try {
-    let loggedUser = JSON.parse(await AsyncStorage.getItem("user"));
+    let loggedUser = JSON.parse(await AsyncStorage.getItem('user'));
     if (loggedUser) {
       access_token = loggedUser.token;
     }
   } catch (err) {}
   console.log(`${baseUrl}${url}`, data, method);
   const config = {
-    method: method || "GET",
+    method: method || 'GET',
     url: `${baseUrl}${url}`,
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      Authorization: access_token !== null ? `Bearer ${access_token}` : "",
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: access_token !== null ? `Bearer ${access_token}` : '',
       ...headers,
     },
     data,
@@ -33,6 +33,6 @@ export const grapevineBackend = async (
   };
 
   return axios(config).catch((err) => {
-    throw Error(err.message + "Network Problem");
+    throw Error(err.message + 'Network Problem');
   });
 };
