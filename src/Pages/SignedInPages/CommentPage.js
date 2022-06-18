@@ -1,5 +1,5 @@
 import { View, Text, Flex, Box, Input, TextArea, Button } from 'native-base';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { grapevineBackend } from '../../API';
 import { UserValue } from '../../Context/UserContext';
 import { AtomComponents, Layout } from '../../Exports/index';
@@ -15,8 +15,13 @@ const CommentPage = ({ navigation, route }) => {
 
   const [commentText, setCommentText] = useState('');
   const [user, setUser] = useContext(UserValue);
-  const [_comments, _setComments] = useState(comments);
+  const [_comments, _setComments] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    _setComments([...comments]);
+  }, []);
+
   const comment = () => {
     if (!loading && commentText.length > 0) {
       setLoading(true);

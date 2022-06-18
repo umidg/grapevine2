@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'native-base';
+import { Text, View, Center } from 'native-base';
 import { AtomComponents, Layout } from '../../Exports/index';
 
 const LoginSignup = ({ navigation }) => {
@@ -7,7 +7,7 @@ const LoginSignup = ({ navigation }) => {
   const { SignoutLayout } = Layout;
   return (
     <SignoutLayout>
-      <View alignItems={'center'}>
+      <Center>
         <Logo />
         <Text
           fontSize='16px'
@@ -18,7 +18,7 @@ const LoginSignup = ({ navigation }) => {
         >
           Create, Collaborate, Connect
         </Text>
-      </View>
+      </Center>
       <ButtonDark w='70%' onPress={() => navigation.navigate('Login')}>
         Login
       </ButtonDark>
