@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { PostContainer } from '../../MoleculeComponents/index';
-import { Spinner, Center, Box, Text, Image } from 'native-base';
-import { grapevineBackend } from '../../API';
+import React, { useEffect, useState } from "react";
+import { PostContainer } from "../../MoleculeComponents/index";
+import { Spinner, Center, Box, Text, Image } from "native-base";
+import { grapevineBackend } from "../../API";
 const ConnectedPosts = ({ user, navigation }) => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
@@ -9,12 +9,12 @@ const ConnectedPosts = ({ user, navigation }) => {
 
   const fetchPosts = () => {
     grapevineBackend(
-      `/post/getAllPost?page=${params.page}&limit=${params.limit}`,
+      `/post/connectedPost?page=${params.page}&limit=${params.limit}`,
       {},
-      'POST'
+      "POST"
     )
       .then(async ({ data }) => {
-        console.log(data.data.result, 'results');
+        console.log(data.data.result, "results");
         setError(false);
         if (data.status == true && data.data.result.length > 0) {
           setParams({ ...data.data.next });
@@ -22,7 +22,7 @@ const ConnectedPosts = ({ user, navigation }) => {
         }
       })
       .catch((err) => {
-        console.log(err, 'err');
+        console.log(err, "err");
         setError(true);
       });
   };
@@ -43,22 +43,22 @@ const ConnectedPosts = ({ user, navigation }) => {
   return (
     <>
       {posts.length == 0 ? (
-        <Center h='100%' w='100%'>
+        <Center h="100%" w="100%">
           <Image
-            source={require('../../../assets/Logo/Logo.png')}
+            source={require("../../../assets/Logo/Logo.png")}
             size={100}
-            resizeMode='contain'
-            p='5'
+            resizeMode="contain"
+            p="5"
           />
-          <Text fontSize='16' fontWidth='800' color='primary' mt='10'>
+          <Text fontSize="16" fontWidth="800" color="primary" mt="10">
             Sorry, no posts yet.
           </Text>
         </Center>
       ) : posts.length > 0 ? (
         <>
-          <Box pb='70' p={2} mt={35}>
+          <Box pb="70" p={2} mt={35}>
             <ScrollView
-              h='100%'
+              h="100%"
               onScroll={({ nativeEvent }) => {
                 onScroll(nativeEvent);
               }}
@@ -77,8 +77,8 @@ const ConnectedPosts = ({ user, navigation }) => {
           </Box>
         </>
       ) : (
-        <Center h='100%' w='100%'>
-          <Spinner accessibilityLabel='Loading' />
+        <Center h="100%" w="100%">
+          <Spinner accessibilityLabel="Loading" />
         </Center>
       )}
     </>
