@@ -8,8 +8,9 @@ const Features = () => {
   useEffect(() => {
     grapevineBackend("/user/getFeatured", {}, "POST")
       .then(({ data }) => {
+        console.log(data);
         if (data.status) {
-          setFeatures(data.data);
+          setFeatures([...data.data.result]);
         }
       })
       .catch((err) => {

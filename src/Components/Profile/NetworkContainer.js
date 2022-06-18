@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Box } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { RegularImage } from "../../AtomComponents/index";
-const NetworkContainer = () => {
+const NetworkContainer = ({ user }) => {
   return (
     <Box>
       <Text textAlign="center" fontWeight="bold" italic>
@@ -14,21 +14,27 @@ const NetworkContainer = () => {
           w={20}
           image={require("../../../assets/Logo/logo(1).png")}
         />
-        <RegularImage
-          h={20}
-          w={20}
-          image={require("../../../assets/Icons/instagram_color.png")}
-        />
-        <RegularImage
-          h={20}
-          w={20}
-          image={require("../../../assets/Icons/TikTok.png")}
-        />
-        <RegularImage
-          h={20}
-          w={20}
-          image={require("../../../assets/Icons/youtube_color.png")}
-        />
+        {user?.instagram && (
+          <RegularImage
+            h={20}
+            w={20}
+            image={require("../../../assets/Icons/instagram_color.png")}
+          />
+        )}
+        {user?.tiktok && (
+          <RegularImage
+            h={20}
+            w={20}
+            image={require("../../../assets/Icons/TikTok.png")}
+          />
+        )}
+        {user?.youtube && (
+          <RegularImage
+            h={20}
+            w={20}
+            image={require("../../../assets/Icons/youtube_color.png")}
+          />
+        )}
       </Box>
 
       <Box>

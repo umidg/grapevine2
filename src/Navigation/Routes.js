@@ -63,7 +63,7 @@ export const signedInRoutes = [
     component: ChatRoom,
   },
   {
-    routeName: "Post_Instagram_Yiktok_Youtube",
+    routeName: "Post_Instagram_Tiktok_Youtube",
     component: Post_Instagram_Tiktok_Youtube,
   },
   {
