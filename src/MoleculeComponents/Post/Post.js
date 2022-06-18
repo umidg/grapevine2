@@ -29,14 +29,12 @@ const Post = () => {
               h={18}
               w={18}
               source={require('../../../assets/Icons/Instagram_light.png')}
-              alt='Insta Icon'
             />
           </ColorWrapper>
         </Flex>
         <Image
           alt='image'
           w={'100%'}
-          alt='Post Image'
           source={require('../../../assets/Images/2.png')}
         />
       </Box>

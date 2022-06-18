@@ -1,6 +1,7 @@
-import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
-import Theme from "./src/Theme/Theme";
-import { Context } from "./src/Exports/index";
+// import { StyleSheet, Platform, StatusBar } from 'react-native';
+
+import Theme from './src/Theme/Theme';
+import { Context } from './src/Exports/index';
 export default function App() {
   const { ThemeContext, UserContext, ExpoToastContext } = Context;
   return (
@@ -16,11 +17,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-  text: {
-    color: "red",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+//   },
+//   text: {
+//     color: 'red',
+//   },
+// });

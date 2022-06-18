@@ -14,12 +14,8 @@ const CommentPage = ({ navigation, route }) => {
 
   const [commentText, setCommentText] = useState('');
   const [user, setUser] = useContext(UserValue);
-  const [_comments, _setComments] = useState([]);
+  const [_comments, _setComments] = useState(comments);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    _setComments([...comments]);
-  }, []);
 
   const comment = () => {
     if (!loading && commentText.length > 0) {

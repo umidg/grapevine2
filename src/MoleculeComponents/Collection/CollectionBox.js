@@ -6,7 +6,6 @@ const CollectionBox = ({ data }) => {
     <View h='100' w='160' ml='2' borderRadius={'md'}>
       <Image
         alt='image'
-        alt='Image'
         source={require('../../../assets/Images/4.png')}
         h='100%'
         w='100%'

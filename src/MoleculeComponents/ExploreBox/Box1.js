@@ -24,21 +24,18 @@ const Box1 = () => {
             width={'30%'}
             height={50}
             source={require('../../../assets/Images/1.png')}
-            alt='image'
           />
           <Image
             alt='image'
             width={'30%'}
             height={50}
             source={require('../../../assets/Images/2.png')}
-            alt='image'
           />
           <Image
             alt='image'
             width={'30%'}
             height={50}
             source={require('../../../assets/Images/3.png')}
-            alt='image'
           />
         </Flex>
         <Flex direction='row' justifyContent={'space-around'} width='100%'>

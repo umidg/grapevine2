@@ -19,7 +19,6 @@ const Message = ({ onPress, username }) => {
             alt='image'
             source={require('../../../../assets/Images/1.png')}
             borderRadius='full'
-            alt='Profile Image'
             h={60}
             w={60}
           />

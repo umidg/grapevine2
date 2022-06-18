@@ -22,7 +22,6 @@ const Header = ({ goBack }) => {
       <Image
         alt='image'
         source={require('../../../../assets/Icons/add_dark.png')}
-        alt='add'
         h='5'
         w='5'
       />
