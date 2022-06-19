@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, View, Image } from 'native-base';
 const AllCreators = ({ w }) => {
   return (
-    <View borderRadius='md'>
+    <Box borderRadius='md' h='100%'>
       <Image
         alt='image'
         height='100%'
@@ -28,7 +28,7 @@ const AllCreators = ({ w }) => {
           All Creators
         </Text>
       </Box>
-    </View>
+    </Box>
   );
 };
 

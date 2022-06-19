@@ -1,17 +1,15 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   CollectionContainer,
   AllCreators,
-} from "../../../MoleculeComponents/index";
+} from '../../../MoleculeComponents/index';
 const Collection = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Collections</Text>
       <CollectionContainer />
-      <View style={styles.CollectionContainer}>
-        <AllCreators />
-      </View>
+      <AllCreators />
     </View>
   );
 };
@@ -24,17 +22,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 21,
-    color: "#000",
+    color: '#000',
     // fontFamily: "Gilroy",
-    fontWeight: "800",
+    fontWeight: '800',
     marginLeft: 10,
-  },
-  CollectionContainer: {
-    width: "100%",
-    justifyContent: "center",
-    paddingLeft: 40,
-    paddingRight: 40,
-    marginTop: 10,
-    marginBottom: 20,
   },
 });

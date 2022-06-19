@@ -12,6 +12,7 @@ const SignInLayout = (props) => {
         }}
         h='100%'
         w='100%'
+        nestedScrollEnabled
       >
         <Box h='100%' w='100%'>
           {props.children}

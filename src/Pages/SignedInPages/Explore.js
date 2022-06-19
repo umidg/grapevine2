@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { View, Flex, Pressable, Slide, Box, Text } from 'native-base';
 import { grapevineBackend } from '../../API';
-import { userHook } from '../../Hooks';
-import { AntDesign } from '@expo/vector-icons';
-import { EvilIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   AtomComponents,
   MolecularComponents,
@@ -111,12 +109,22 @@ const ExplorePage = ({ navigation }) => {
                   return (
                     <Box
                       key={_history.uuid}
-                      display='flex'
+                      flex='1'
                       flexDir='row'
-                      width='100%'
+                      justifyContent='flex-start'
                     >
-                      <EvilIcons name='search' size={24} color='black' />
-                      <Text>{_history.username}</Text>
+                      <Box
+                        borderWidth='1'
+                        borderColor='gray.300'
+                        rounded='full'
+                        m='2'
+                        p='3'
+                      >
+                        <FontAwesome name='search' size={20} color='gray' />
+                      </Box>
+                      <Box alignContent='center' alignItems='center' my='auto'>
+                        <Text textAlign='center'>{_history.username}</Text>
+                      </Box>
                     </Box>
                   );
                 })}

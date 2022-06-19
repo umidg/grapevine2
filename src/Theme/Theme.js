@@ -28,9 +28,9 @@ const Theme = () => {
   };
   return (
     <NativeBaseProvider theme={customTheme} config={config}>
-      <Box flex={1}>
-        <AuthNavigation />
-      </Box>
+      {/* <Box flex={1}> */}
+      <AuthNavigation />
+      {/* </Box> */}
     </NativeBaseProvider>
   );
 };

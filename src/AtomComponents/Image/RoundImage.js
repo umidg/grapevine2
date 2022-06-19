@@ -17,7 +17,7 @@ const RoundImage = ({ size, image, ...props }) => {
           // {...props}
           borderRadius='full'
           width={size ? size : 150}
-          height={size ? size : 100}
+          height={size ? size : 150}
           source={image}
           resizeMethod='resize'
           resizeMode='contain'
