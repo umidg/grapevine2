@@ -22,7 +22,6 @@ const Messages = ({ navigation }) => {
         "POST"
       )
         .then(async ({ data }) => {
-          console.log("friends", data, "friends");
           setFriends([...data.data]);
         })
         .catch((err) => console.log(err));

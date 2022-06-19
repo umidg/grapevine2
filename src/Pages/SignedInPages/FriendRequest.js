@@ -14,7 +14,7 @@ import {
 const data = [1, 3, 4, 6];
 const FriendRequest = ({ navigation }) => {
   const { Box1, Notification } = MolecularComponents;
-  const { Search } = AtomComponents;
+  const { Search, RoundImage } = AtomComponents;
   const { LoadingMessageModal } = Modal;
   const { SignInLayout } = Layout;
 
@@ -22,15 +22,29 @@ const FriendRequest = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const acceptRequest = (id) => {
+  const acceptRequest = (uuid) => {
     setShowModal(true);
     grapevineBackend(
       "/friendship/acceptfriendrequest",
-      { friendship_uuid: id, user_accept: user.uuid },
+      { friendship_uuid: uuid, user_accept: user.uuid },
       "POST"
     )
       .then(async ({ data }) => {
         setModalMessage(data.message);
+        const updatedFriends = user?.friends.map((friend, i) => {
+          if (friend.uuid === data.data.uuid) {
+            let f = friend;
+            f.accepted = true;
+            setFriend({ ...f });
+            return f;
+          } else {
+            return friend;
+          }
+        });
+        setUser({
+          ...user,
+          friends: [...updatedFriends],
+        });
       })
       .catch((err) => {
         setModalMessage("Something Went Wrong");
@@ -98,28 +112,41 @@ const FriendRequest = ({ navigation }) => {
         </View>
         <View mt={5} w="90%">
           {friendRequest.length > 0 ? (
-            friendRequest.map((d) => (
-              <Notification
-                key={d.id}
-                profileImage={require("../../../assets/Images/1.png")}
-                message={"Sent You Friend Request"}
-                time="2h"
-                username={d.username}
-                component={
-                  <Center>
+            friendRequest.map((friend_request) => {
+              console.log(friend_request, "friend requests");
+              return (
+                <Box key={friend_request.uuid} px={5}>
+                  <Flex
+                    direction="row"
+                    justifyContent={"space-between"}
+                    alignItems="center"
+                  >
+                    <Flex
+                      direction="row"
+                      justifyContent={"flex-start"}
+                      alignItems="center"
+                    >
+                      <RoundImage
+                        image={require("../../../assets/Images/1.png")}
+                        size={8}
+                      />
+                      <Text fontSize={18} fontWeight="600" ml={2}>
+                        {"@" + friend_request.username}
+                      </Text>
+                    </Flex>
                     <Button
-                      onPress={() => acceptRequest(d.uuid)}
+                      onPress={() => acceptRequest(friend_request.uuid)}
                       h="7"
                       pt="0"
                       pb="0"
-                      bg="buttonPrimaryColor"
+                      bg="primary"
                     >
                       Accept
                     </Button>
-                  </Center>
-                }
-              />
-            ))
+                  </Flex>
+                </Box>
+              );
+            })
           ) : (
             <Text textAlign={"center"}>No friendRequest</Text>
           )}

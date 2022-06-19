@@ -50,7 +50,7 @@ const HeaderContainer = (props) => {
           });
           setFriend({ ...friendShip });
         } else {
-          Alert.alert("", data.data.message);
+          Alert.alert("", data.message);
         }
       })
       .catch((err) => {
@@ -62,7 +62,7 @@ const HeaderContainer = (props) => {
     grapevineBackend(
       "/friendship/acceptfriendrequest",
       {
-        friendship_uuid: friend.uuid,
+        friendship_uuid: friend.friendship_uuid,
         user_accept: user.uuid,
       },
       "POST"
@@ -92,7 +92,7 @@ const HeaderContainer = (props) => {
 
   useEffect(() => {
     user?.friends.some((friend) => {
-      if (friend.friendId === uuid) {
+      if (friend.user_uuid === uuid) {
         setFriend({ ...friend });
         return true;
       }
@@ -166,92 +166,78 @@ const HeaderContainer = (props) => {
             <Text fontSize="10" fontWeight="bold" mb="1">
               Top 5.8% of all creators
             </Text>
-            {user?.uuid != uuid && (
-              <Box flexDir="row" justifyContent="space-between">
-                {/* check if userId is in friends array */}
-                {friend ? (
-                  friend.accepted ? (
-                    <Button
-                      h="7"
-                      pt="0"
-                      pb="0"
-                      bg="buttonPrimaryColor"
-                      flex="0.45"
-                    >
-                      Friends
-                    </Button>
-                  ) : friend?.hasRequested ? (
-                    <Button
-                      h="7"
-                      pt="0"
-                      pb="0"
-                      bg="buttonPrimaryColor"
-                      flex="0.45"
-                    >
-                      Req Sent
-                    </Button>
-                  ) : (
-                    <Button
-                      h="7"
-                      pt="0"
-                      pb="0"
-                      bg="buttonPrimaryColor"
-                      flex="0.45"
-                      onPress={acceptFriendRequest}
-                    >
-                      Accept
-                    </Button>
-                  )
-                ) : (
-                  <Button
-                    onPress={() => sendRequest()} //TODO send request + edit userDetail
-                    h="7"
-                    pt="0"
-                    pb="0"
-                    bg="buttonPrimaryColor"
-                    flex="0.45"
-                  >
-                    {user?.engagement_type == "User" &&
-                    engagement_type == "User"
-                      ? "Connect"
-                      : "Collab"}
-                  </Button>
-                )}
-                {friend?.accepted ? (
-                  <Button
-                    onPress={() =>
-                      navigation.navigate("Chatroom", {
-                        friend_uuid: uuid,
-                        username: username,
-                        friendship_uuid: friend.uuid,
-                      })
-                    }
-                    h="7"
-                    pt="0"
-                    pb="0"
-                    bg="buttonPrimaryColor"
-                    flex="0.45"
-                  >
-                    Message
-                  </Button>
-                ) : (
-                  <Button
-                    onPress={() =>
-                      Alert.alert("", "You need to be friend to send message")
-                    }
-                    h="7"
-                    pt="0"
-                    pb="0"
-                    bg="buttonPrimaryColor"
-                    flex="0.45"
-                  >
-                    Message
-                  </Button>
-                )}
 
-                <Feather name="more-vertical" size={24} color="black" />
-              </Box>
-            )}
+            <Box flexDir="row" justifyContent="space-between">
+              {/* check if userId is in friends array */}
+              {friend ? (
+                friend.accepted ? (
+                  <Button
+                    h="7"
+                    pt="0"
+                    pb="0"
+                    bg="buttonPrimaryColor"
+                    flex="0.45"
+                  >
+                    Friends
+                  </Button>
+                ) : (
+                  <Button
+                    h="7"
+                    pt="0"
+                    pb="0"
+                    bg="buttonPrimaryColor"
+                    flex="0.45"
+                  >
+                    Req Sent
+                  </Button>
+                )
+              ) : (
+                <Button
+                  onPress={() => sendRequest()} //TODO send request + edit userDetail
+                  h="7"
+                  pt="0"
+                  pb="0"
+                  bg="primary"
+                  flex="0.45"
+                >
+                  {/* {user?.engagement_type == "User" && engagement_type == "User"
+                    ? "Connect"
+                    : "Collab"} */}
+                  Connect
+                </Button>
+              )}
+              {friend?.accepted ? (
+                <Button
+                  onPress={() =>
+                    navigation.navigate("Chatroom", {
+                      friend_uuid: uuid,
+                      username: username,
+                      friendship_uuid: friend.uuid,
+                    })
+                  }
+                  h="7"
+                  pt="0"
+                  pb="0"
+                  bg="primary"
+                  flex="0.45"
+                >
+                  Message
+                </Button>
+              ) : (
+                <Button
+                  onPress={() =>
+                    Alert.alert("", "You need to be friend to send message")
+                  }
+                  h="7"
+                  pt="0"
+                  pb="0"
+                  bg="primary"
+                  flex="0.45"
+                >
+                  Message
+                </Button>
+              )}
+            </Box>
           </Box>
         </Box>
       </Box>
