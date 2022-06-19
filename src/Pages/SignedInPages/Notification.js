@@ -6,7 +6,7 @@ import { UserValue } from "../../Context/UserContext";
 
 import { MolecularComponents, Layout } from "../../Exports/index";
 const NotificationPage = ({ navigation }) => {
-  const { NotificationContainer } = MolecularComponents;
+  const { Notification } = MolecularComponents;
   const { SignInLayout } = Layout;
 
   const [user, setUser] = useContext(UserValue);
@@ -79,8 +79,17 @@ const NotificationPage = ({ navigation }) => {
 
         <Box pl="5%" pr="5%">
           {notifications?.length > 0 ? (
-            <NotificationContainer time="New" notifications={notifications} />
+            notifications.map((notification) => {
+              return (
+                <Notification
+                  key={notification.uuid}
+                  notification={notification}
+                  navigation={navigation}
+                />
+              );
+            })
           ) : (
+            // <NotificationContainer time="New" notifications={notifications} />
             <Text>No Notification</Text>
           )}
           {/* <NotificationContainer time="Yesterday" />

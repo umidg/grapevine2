@@ -12,4 +12,4 @@ const PostContainer = ({ post, navigation, user }) => {
   return <TiktokPost data={post} user={user} navigation={navigation} />;
 };
 
-export default PostContainer;
+export default React.memo(PostContainer);

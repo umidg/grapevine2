@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Box, Center, Flex, Text, Image, Button, Pressable } from "native-base";
-import RoundImage from "../../AtomComponents/Image/RoundImage";
+import { Text, Box, Flex, Spinner, Pressable } from "native-base";
+import React, { useEffect, useState, useMemo } from "react";
 import { grapevineBackend } from "../../API";
-const Notification = ({ notification, navigation }) => {
+import { FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { RoundImage } from "../../AtomComponents/index";
+const Activity = ({ activity, navigation }) => {
   const [post, setPost] = useState(null);
   useEffect(() => {
     if (
-      notification.type == "like" ||
-      notification.type == "comment" ||
-      notification.type == "share"
+      activity.type == "like" ||
+      activity.type == "comment" ||
+      activity.type == "share"
     ) {
       grapevineBackend(
         "/post/getPostByUuid",
-        { post_uuid: notification.action_uuid },
+        { post_uuid: activity.action_uuid },
         "POST"
       )
         .then(({ data }) => {
@@ -24,10 +25,10 @@ const Notification = ({ notification, navigation }) => {
           console.log(err);
         });
     }
-  }, [notification]);
+  }, [activity]);
 
   const time = useMemo(() => {
-    const date1 = new Date(notification.created_at);
+    const date1 = new Date(activity.created_at);
     const date2 = new Date();
     const oneDay = 1000 * 60 * 60 * 24;
     // Calculating the time difference between two dates
@@ -40,15 +41,54 @@ const Notification = ({ notification, navigation }) => {
     else if (diffInMin < 60) return diffInMin + " m";
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " h";
     return `${diffInDays} d `;
-  }, [notification]);
+  }, [activity]);
 
-  switch (notification.type) {
+  switch (activity.type) {
+    case "post":
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("PostPage", {
+              post_uuid: activity.action_uuid,
+            })
+          }
+          py={2}
+          px={5}
+        >
+          <Flex
+            direction="row"
+            justifyContent={"flex-start"}
+            alignItems="center"
+          >
+            <Box flex={1}>
+              <RoundImage
+                size={10}
+                image={require("../../../assets/Images/1.png")}
+              />
+            </Box>
+            <Box h="100%" flex={7} pl={2}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: activity.user_uuid,
+                  })
+                }
+              >
+                <Text fontSize={16} fontWeight="800">
+                  {activity.user.username}
+                </Text>
+              </Pressable>
+              <Text ml={2}>uploaded a new post {time}</Text>
+            </Box>
+          </Flex>
+        </Pressable>
+      );
     case "like":
       return (
         <Pressable
           onPress={() =>
             navigation.navigate("PostPage", {
-              post_uuid: notification.action_uuid,
+              post_uuid: activity.action_uuid,
             })
           }
           py={2}
@@ -70,12 +110,12 @@ const Notification = ({ notification, navigation }) => {
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
-                      user_uuid: notification.from_user_uuid,
+                      user_uuid: activity.user_uuid,
                     })
                   }
                 >
                   <Text fontSize={16} fontWeight="800">
-                    {notification.from_user_username}
+                    {activity.user.username}
                   </Text>
                 </Pressable>
                 <Box
@@ -85,7 +125,21 @@ const Notification = ({ notification, navigation }) => {
                   justifyContent="flex-start"
                   alignItems={"center"}
                 >
-                  liked your post.
+                  liked
+                  <Box>
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate("FriendProfile", {
+                          user_uuid: post.user_uuid,
+                        })
+                      }
+                    >
+                      <Text fontWeight={"800"}>
+                        {" " + post.username + "'s "}
+                      </Text>
+                    </Pressable>
+                  </Box>
+                  post
                   {time}
                 </Box>
               </Box>
@@ -98,7 +152,7 @@ const Notification = ({ notification, navigation }) => {
         <Pressable
           onPress={() =>
             navigation.navigate("PostPage", {
-              post_uuid: notification.action_uuid,
+              post_uuid: activity.action_uuid,
             })
           }
           py={2}
@@ -120,12 +174,12 @@ const Notification = ({ notification, navigation }) => {
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
-                      user_uuid: notification.from_user_uuid,
+                      user_uuid: activity.user_uuid,
                     })
                   }
                 >
                   <Text fontSize={16} fontWeight="800">
-                    {notification.from_user_username}
+                    {activity.user.username}
                   </Text>
                 </Pressable>
                 <Box
@@ -135,7 +189,21 @@ const Notification = ({ notification, navigation }) => {
                   justifyContent="flex-start"
                   alignItems={"center"}
                 >
-                  commented on your post
+                  commented on
+                  <Box>
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate("FriendProfile", {
+                          user_uuid: post.user_uuid,
+                        })
+                      }
+                    >
+                      <Text fontWeight={"800"}>
+                        {" " + post.username + "'s "}
+                      </Text>
+                    </Pressable>
+                  </Box>
+                  post
                   {time}
                 </Box>
               </Box>
@@ -148,7 +216,7 @@ const Notification = ({ notification, navigation }) => {
         <Pressable
           onPress={() =>
             navigation.navigate("PostPage", {
-              post_uuid: notification.action_uuid,
+              post_uuid: activity.action_uuid,
             })
           }
           py={2}
@@ -170,12 +238,12 @@ const Notification = ({ notification, navigation }) => {
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
-                      user_uuid: notification.from_user_uuid,
+                      user_uuid: activity.user_uuid,
                     })
                   }
                 >
                   <Text fontSize={16} fontWeight="800">
-                    {notification.from_user_username}
+                    {activity.user.username}
                   </Text>
                 </Pressable>
                 <Box
@@ -185,8 +253,22 @@ const Notification = ({ notification, navigation }) => {
                   justifyContent="flex-start"
                   alignItems={"center"}
                 >
-                  shared your post
-                  {time}
+                  shared
+                  <Box>
+                    <Pressable
+                      onPress={() =>
+                        navigation.navigate("FriendProfile", {
+                          user_uuid: post.user_uuid,
+                        })
+                      }
+                    >
+                      <Text fontWeight={"800"}>
+                        {" " + post.username + "'s "}
+                      </Text>
+                    </Pressable>
+                  </Box>
+                  post
+                  {" " + time}
                 </Box>
               </Box>
             </Flex>
@@ -198,4 +280,4 @@ const Notification = ({ notification, navigation }) => {
   }
 };
 
-export default Notification;
+export default Activity;

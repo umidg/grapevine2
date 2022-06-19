@@ -1,6 +1,6 @@
 import { View, Text, Flex, Image, Box, Center, Pressable } from "native-base";
 import React from "react";
-import { ActivityPost } from "../../MoleculeComponents/index";
+import { ActivityProfile } from "../../MoleculeComponents/index";
 
 const Activity = (props) => {
   const {
@@ -10,25 +10,17 @@ const Activity = (props) => {
   } = props;
   return (
     <View p={5}>
-      <Box borderBottomWidth={0.5} pb="10%" borderBottomColor={"#a7a7a7"}>
+      <Box pb="10%">
         <Text fontSize={14} fontWeight="800" color="#000">
           Activity
         </Text>
         {activities.map((activity) => {
           return (
-            <Pressable
+            <ActivityProfile
+              activity={activity}
+              navigation={navigation}
               key={activity.uuid}
-              onPress={() =>
-                navigation.navigate("PostPage", {
-                  post_uuid: activity.action_uuid,
-                })
-              }
-              p={2}
-              borderWidth={0.5}
-              borderColor="#d3d3d3"
-            >
-              <ActivityPost activity={activity} />
-            </Pressable>
+            />
           );
         })}
       </Box>

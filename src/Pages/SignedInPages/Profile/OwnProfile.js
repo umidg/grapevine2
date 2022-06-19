@@ -36,8 +36,6 @@ const OwnProfile = ({ navigation }) => {
       "POST"
     )
       .then(({ data }) => {
-        console.log(data);
-
         if (data.status) {
           setUser({ ...user, ...data.data });
         } else {
@@ -73,7 +71,7 @@ const OwnProfile = ({ navigation }) => {
         })
         .catch((err) => console.log(err));
       grapevineBackend(
-        "/activity/get/myActivity",
+        "/activity/get/myActivity?limit=2",
         { user_uuid: user.uuid },
         "POST"
       )

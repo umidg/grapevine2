@@ -29,7 +29,7 @@ import Explore4 from "../Pages/SignedInPages/Explore4";
 import FriendRequest from "../Pages/SignedInPages/FriendRequest";
 import AuthProfile from "../Pages/SignedInPages/Profile/AuthProfile";
 import OwnProfile from "../Pages/SignedInPages/Profile/OwnProfile";
-import Activity from "../Pages/SignedInPages/Activity";
+import ActivityPage from "../Pages/SignedInPages/ActivityPage";
 import CommentPage from "../Pages/SignedInPages/CommentPage";
 import EditProfile from "../Pages/SignedInPages/Profile/EditProfile";
 import PostPage from "../Pages/SignedInPages/PostPage";
@@ -87,7 +87,7 @@ export const TabRoutes = [
   },
   {
     routeName: "Activity",
-    component: Activity,
+    component: ActivityPage,
   },
   { routeName: "Profile", component: OwnProfile },
 ];
