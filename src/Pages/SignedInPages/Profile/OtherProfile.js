@@ -74,7 +74,7 @@ const OtherProfile = ({ navigation, user_uuid }) => {
         /> */}
           <Box w="100%" h="100%" bg="theme.bg">
             <HeaderContainer navigation={navigation} user={user} />
-            <NetworkContainer />
+            <NetworkContainer user={user} />
             <TabContainer
               tiktokPost={tiktokPost}
               textPost={textPost}

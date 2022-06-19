@@ -1,14 +1,14 @@
-import { Center, View } from "native-base";
+import { Center, View, Text } from "native-base";
 import React from "react";
 import WebView from "react-native-webview";
 
 const Tiktokvideo = ({ uri, h, w }) => {
+  console.log(uri);
   const script = `var value = document.getElementsByClassName('_embed_player_video-wrapper')[0];
      value.style.height='100%';
      value.style.width='auto';
      document.body.innerHTML='';
      document.body.appendChild(value);`;
-
   return (
     <View w={w ? w : "100%"} h={h ? h : 200}>
       <WebView
@@ -27,4 +27,4 @@ const Tiktokvideo = ({ uri, h, w }) => {
   );
 };
 
-export default Tiktokvideo;
+export default React.memo(Tiktokvideo);

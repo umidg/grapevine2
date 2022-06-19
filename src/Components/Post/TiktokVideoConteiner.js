@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "native-base";
+import { View, Text, ScrollView, Center, Box } from "native-base";
 import React, { useEffect, useContext, useState } from "react";
 import { Pressable } from "react-native";
 import { grapevineBackend } from "../../API";
@@ -9,12 +9,11 @@ import { Tiktokvideo } from "../../AtomComponents/index";
 const TiktokVideoConteiner = ({ onPress, selectedId }) => {
   const [videos, setVideos] = useState([]);
   const [user, setUser] = useContext(UserValue);
-  const [err, setErr] = useState(false);
   useEffect(() => {
     grapevineBackend(
       "/post/userTikTokVideos",
       {
-        user_id: user.id,
+        user_uuid: user.uuid,
       },
       "POST"
     )
@@ -22,20 +21,20 @@ const TiktokVideoConteiner = ({ onPress, selectedId }) => {
         if (data.status) {
           setVideos([...data.data]);
         } else {
-          setErr(true);
+          console.log(data);
         }
       })
       .catch((err) => {
-        setErr(true);
+        console.log(err);
       });
   }, []);
 
   return (
     <View h="100%" w="100%">
-      <ScrollView>
-        {videos.length > 0 &&
-          videos.map((v) => (
-            <View h={200} position="relative" key={v.id}>
+      {videos.length > 0 ? (
+        videos.map((v) => (
+          <ScrollView key={v.uuid}>
+            <View h={200} position="relative">
               <Pressable
                 onPress={() => {
                   onPress(v);
@@ -51,8 +50,21 @@ const TiktokVideoConteiner = ({ onPress, selectedId }) => {
                 <Tiktokvideo uri={v.embed_link} h={"100%"} />
               </Pressable>
             </View>
-          ))}
-      </ScrollView>
+          </ScrollView>
+        ))
+      ) : (
+        <Box h="100%">
+          <Text
+            color="primary"
+            fontWeight={"800"}
+            fontSize={20}
+            textAlign="center"
+            mt={10}
+          >
+            No TikTokVideos
+          </Text>
+        </Box>
+      )}
     </View>
   );
 };
