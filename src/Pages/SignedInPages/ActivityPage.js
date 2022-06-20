@@ -17,7 +17,6 @@ const ActivityPage = ({ navigation }) => {
     const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend("/activity/get/foryou", {}, "POST")
         .then(async ({ data }) => {
-          console.log(data.data.result, "data");
           setError(false);
           if (data.status == true) {
             setForYouActivity([...data.data.result]);

@@ -14,13 +14,13 @@ import { Alert } from "react-native";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
 import { AtomComponents } from "../../Exports/index";
-
+import { EvilIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const { io } = require("socket.io-client");
 const ChatRoom = ({ navigation, route }) => {
   const { ButtonDark, RegularImage, RoundImage } = AtomComponents;
 
-  const { friend_uuid, username, friendship_uuid, chatroom_uuid, valid_room } =
-    route.params;
+  const { friend_uuid, username, chatroom_uuid, valid_room } = route.params;
   const [message, setMessage] = useState("");
   const [user, setUser] = useContext(UserValue);
   const [messages, setMessages] = useState([]);
@@ -57,7 +57,7 @@ const ChatRoom = ({ navigation, route }) => {
 
   useEffect(() => {
     socket.current = io(
-      `"https://admin.grapevine-app.co/?chatRoomid=${chatroom_uuid}`
+      `https://admin.grapevine-app.co/?chatRoomid=${chatroom_uuid}`
     );
     grapevineBackend(`/chat/getRoomChats/${chatroom_uuid}`, {}, "POST")
       .then(({ data }) => {
@@ -81,75 +81,100 @@ const ChatRoom = ({ navigation, route }) => {
   }, [messages]);
 
   return (
-    <Box h="100%" w="100%">
+    <Box h="100%" w="100%" pb={5}>
       <Flex
         direction="row"
         justifyContent={"space-between"}
         alignItems="center"
         bg="gray.100"
-        borderWidth={1}
-        borderColor="buttonPrimaryColor"
-        h="10%"
-        pl="5"
-        pr="5"
+        borderBottomWidth={1}
+        borderColor="#d3d3d3"
+        px="5"
+        py="2"
       >
-        <Flex direction="row" alignItems={"center"}>
-          <Pressable onPress={() => navigation.pop()}>
-            <Image
-              alt="image"
-              source={require("../../../assets/Icons/back_dark.png")}
-              h="5"
-              w="5"
-              m="2"
-            />
-          </Pressable>
+        <Pressable onPress={() => navigation.pop()}>
+          <Image
+            alt="image"
+            source={require("../../../assets/Icons/back_dark.png")}
+            h="8"
+            w="8"
+            m="2"
+          />
+        </Pressable>
+        <Box>
           <RoundImage
             image={require("../../../assets/Images/1.png")}
-            size={30}
+            size={9}
           />
-          <Text color={"buttonPrimaryColor"}>@{username}</Text>
-        </Flex>
+          <Text
+            color={"primary"}
+            fontWeight="800"
+            textAlign={"center"}
+            fontSize={18}
+          >
+            {username}
+          </Text>
+        </Box>
         <RegularImage
           image={require("../../../assets/Icons/Options.png")}
-          h={10}
-          w={10}
+          h={12}
+          w={12}
         />
       </Flex>
       {valid ? (
         <>
-          <Box w="100%" h="80%">
+          <Box w="100%" flex={9}>
             <ScrollView
               ref={scrollViewref}
               onContentSizeChange={() => {
                 scrollViewref.current.scrollToEnd({ animated: true });
               }}
             >
-              {messages.map((m) => {
-                if (m.from_user == user.id) {
+              {messages.map((msg) => {
+                if (msg.from_user == user.uuid) {
                   return (
                     <Flex
-                      key={m.id}
-                      p="2"
+                      key={msg.uuid}
                       direction="row"
                       justifyContent={"flex-end"}
                     >
-                      <Text bg="blue.800" color="#fff" w="50%" p="5">
-                        {m.content}
-                      </Text>
+                      <View
+                        key={msg.uuid}
+                        bg="#e6e6e6"
+                        w="60%"
+                        borderRadius={"md"}
+                        px={5}
+                        py={2}
+                        m={1}
+                      >
+                        <Text color="#000">{msg.content}</Text>
+                      </View>
                     </Flex>
                   );
                 }
                 return (
-                  <View key={m.id} p="2">
-                    <Text bg="red.800" color="#fff" w="50%" p="5">
-                      {m.content}
-                    </Text>
-                  </View>
+                  <Flex
+                    key={msg.uuid}
+                    direction="row"
+                    justifyContent={"flex-start"}
+                  >
+                    <View
+                      borderWidth={1}
+                      borderColor="#e6e6e6"
+                      maxW="70%"
+                      borderRadius={"md"}
+                      px={5}
+                      py={2}
+                      m={1}
+                    >
+                      <Text color="#000">{msg.content}</Text>
+                    </View>
+                  </Flex>
                 );
               })}
             </ScrollView>
           </Box>
-          <Box w="100%" h="10%">
+          <Box w="100%" h={10}>
             <Flex
               direction="row"
               justifyContent={"space-between"}
@@ -158,16 +183,30 @@ const ChatRoom = ({ navigation, route }) => {
               h="100%"
             >
               <Input
-                bg="#fff"
                 borderWidth={0.5}
-                width="80%"
+                width="100%"
                 value={message}
                 onChangeText={(t) => setMessage(t)}
                 h="100%"
+                borderRadius={"full"}
+                bg="#fff"
+                px={10}
+                onSubmitEditing={sendMessage}
+                placeholder="Message"
+                InputRightElement={
+                  <MaterialCommunityIcons
+                    name="message-reply-outline"
+                    size={24}
+                    color="black"
+                    style={{
+                      marginRight: 20,
+                    }}
+                  />
+                }
               />
-              <Button w="20%" bg="primary" onPress={sendMessage} h="100%">
+              {/* <Button w="20%" bg="primary" onPress={sendMessage} h="100%">
                 Send
-              </Button>
+              </Button> */}
             </Flex>
           </Box>
         </>
