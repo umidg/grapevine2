@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import { Box, Center, Text, Image, Flex, Pressable } from "native-base";
-import PostHeader from "./PostComponents/PostHeader";
-import CommentsContainer from "./PostComponents/CommentsContainer";
-import LikeContainer from "./PostComponents/LikeContainer";
+import React, { useMemo } from 'react';
+import { Box, Center, Text, Image, Flex, Pressable } from 'native-base';
+import PostHeader from './PostComponents/PostHeader';
+import CommentsContainer from './PostComponents/CommentsContainer';
+import LikeContainer from './PostComponents/LikeContainer';
 
-import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
-import ColorWrapper from "../../AtomComponents/ColorWrapper/ColorWrapper";
+import Tiktokvideo from '../../AtomComponents/TiktokWebview/Tiktokvideo';
+import ColorWrapper from '../../AtomComponents/ColorWrapper/ColorWrapper';
 const TiktokPost = ({
   data,
   user,
@@ -25,14 +25,14 @@ const TiktokPost = ({
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return "few moments ago";
-    else if (diffInMin < 60) return diffInMin + " min ago";
-    else if (diffInMin < 1140) return diffInMin / 60 + " hour ago";
-    return diffInDays + " days ago";
+    if (diffInMin < 1) return 'few moments ago';
+    else if (diffInMin < 60) return diffInMin + ' min ago';
+    else if (diffInMin < 1140) return diffInMin / 60 + ' hour ago';
+    return diffInDays + ' days ago';
   }, [data]);
   return (
-    <Box w="100%" mt="16">
-      <Box p="2">
+    <Box w='100%' mb='12'>
+      <Box py='2'>
         <PostHeader
           username={data.username}
           navigation={navigation}
@@ -40,16 +40,18 @@ const TiktokPost = ({
         />
       </Box>
       {data?.post && (
-        <Text mb={3} ml={3} italic>
-          {data.post}
+        <Text Box w='100%' px='5' mb={'5'}>
+          <Text fontSize='md' fontWeight='300'>
+            "{data?.post}"
+          </Text>
         </Text>
       )}
-      <Box w="100%">
-        <Box position="absolute" right={5} top={2} zIndex={1000}>
+      <Box w='100%'>
+        <Box position='absolute' right={5} top={2} zIndex={1000}>
           <ColorWrapper>
             <Image
-              alt="image"
-              source={require("../../../assets/Icons/TikTok_light.png")}
+              alt='image'
+              source={require('../../../assets/Icons/TikTok_light.png')}
               h={3}
               w={3}
             />
@@ -58,27 +60,25 @@ const TiktokPost = ({
         <Tiktokvideo uri={data.video_url} />
       </Box>
       {showLike && (
-        <Box pl={1} pr="3">
-          <LikeContainer
-            likes={data.likes}
-            post_uuid={data.uuid}
-            user={user}
-            timeStamp={time}
-          />
-        </Box>
+        <LikeContainer
+          likes={data.likes}
+          post_uuid={data.uuid}
+          user={user}
+          timeStamp={time}
+        />
       )}
       {showComment && (
         <Pressable
           onPress={() => {
             if (navigation) {
-              navigation.navigate("CommentPage", {
+              navigation.navigate('CommentPage', {
                 comments: data.comments,
                 post_uuid: data.uuid,
               });
             }
           }}
         >
-          <Box p="2">
+          <Box p='2'>
             <CommentsContainer comments={data.comments} user={user} />
           </Box>
         </Pressable>

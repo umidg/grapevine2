@@ -134,19 +134,19 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
               <Text fontSize='8'>Interaction</Text>
             </Center>
             <Center>
-              <Ionicons name='people-outline' size={20} color='black' />
+              <Ionicons name='people-outline' size={20} color='gray' />
               <Text fontSize='8'>People</Text>
             </Center>
             <Center>
               <MaterialCommunityIcons
                 name='shopping-outline'
                 size={20}
-                color='black'
+                color='gray'
               />
               <Text fontSize='8'>Products</Text>
             </Center>
             <Center>
-              <FontAwesome name='lightbulb-o' size={20} color='black' />
+              <FontAwesome name='lightbulb-o' size={20} color='gray' />
               <Text fontSize='8'>Inspo</Text>
             </Center>
             <Pressable onPress={() => setOpenModal(true)} alignItems='center'>

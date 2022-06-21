@@ -77,14 +77,16 @@ const ForYouPost = ({ user, navigation }) => {
               onScroll(nativeEvent);
             }}
           >
-            {posts.map((post) => {
+            {posts.map((post, index) => {
               return (
-                <PostContainer
-                  post={post}
-                  key={post.uuid}
-                  user={user}
-                  navigation={navigation}
-                />
+                <Box mt={index === 0 && '12'}>
+                  <PostContainer
+                    post={post}
+                    key={post.uuid}
+                    user={user}
+                    navigation={navigation}
+                  />
+                </Box>
               );
             })}
           </ScrollView>

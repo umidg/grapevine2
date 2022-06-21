@@ -9,7 +9,7 @@ const Features = () => {
     grapevineBackend(
       '/user/getFeatured?page=1&limit=5',
       {
-        type: 'Brand',
+        type: 'User',
       },
       'POST'
     )
