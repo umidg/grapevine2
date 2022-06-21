@@ -14,7 +14,6 @@ const Features = () => {
       'POST'
     )
       .then(({ data }) => {
-        console.log(data);
         if (data.status) {
           setFeatures([...data.data.result]);
         }
@@ -24,7 +23,6 @@ const Features = () => {
       });
   }, []);
 
-  console.log(features, 'fe');
   return (
     <Box style={styles.container}>
       <Text style={styles.headerText}>Featured</Text>

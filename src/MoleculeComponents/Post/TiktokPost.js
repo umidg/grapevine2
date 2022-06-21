@@ -6,6 +6,7 @@ import LikeContainer from './PostComponents/LikeContainer';
 
 import Tiktokvideo from '../../AtomComponents/TiktokWebview/Tiktokvideo';
 import ColorWrapper from '../../AtomComponents/ColorWrapper/ColorWrapper';
+import { FontAwesome5 } from '@expo/vector-icons';
 const TiktokPost = ({
   data,
   user,
@@ -49,12 +50,12 @@ const TiktokPost = ({
       <Box w='100%'>
         <Box position='absolute' right={5} top={2} zIndex={1000}>
           <ColorWrapper>
-            <Image
+            {/* <Image
               alt='image'
               source={require('../../../assets/Icons/TikTok_light.png')}
-              h={3}
-              w={3}
-            />
+              size='5'
+            /> */}
+            <FontAwesome5 name='tiktok' size={20} color='white' />
           </ColorWrapper>
         </Box>
         <Tiktokvideo uri={data.video_url} />

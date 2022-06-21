@@ -7,7 +7,7 @@ import Boohoo from '../../AtomComponents/Text/Boohoo';
 import ColorWrapper from '../../AtomComponents/ColorWrapper/ColorWrapper';
 const Post = () => {
   return (
-    <Box w='100%' mt='2px'>
+    <Box w='100%'>
       <Box p='2'>
         <PostHeader />
       </Box>
@@ -38,7 +38,7 @@ const Post = () => {
           source={require('../../../assets/Images/2.png')}
         />
       </Box>
-      <Box pl='3' pr='3'>
+      <Box>
         <LikeContainer />
       </Box>
       <Box p='2'>

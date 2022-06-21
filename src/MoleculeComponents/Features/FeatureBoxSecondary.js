@@ -19,7 +19,7 @@ const FeatureBoxSecondary = (props) => {
     >
       <RoundImage size='20' image={require('../../../assets/Images/1.png')} />
       <Text fontSize='md' fontWeight='bold'>
-        {user.brand_name || user.agency_name || `${user.fname} ${user.lanme}`}
+        {user.brand_name || user.agency_name || `${user.fname} ${user.lname}`}
       </Text>
       <Box
         display='flex'

@@ -3,12 +3,16 @@ import React, { useRef } from 'react';
 import WebView from 'react-native-webview';
 
 const Tiktokvideo = ({ uri, h, w }) => {
+  console.log(uri);
   const webref = useRef(null);
   const script = `(function(){
     var videoelement = document.querySelectorAll('div.embed-video-container > * > *')[0];
     var removable = document.querySelector('div.embed-video-container > *');
     removable.innerHTML = "";
     removable.appendChild(videoelement);
+
+    var sideElement = document.querySelector("div.css-troimg");
+    sideElement.innerHTML = "";
 
     var border = document.querySelectorAll('div.embed-video-container > div')[0];
     border.style.height = "200px";
@@ -18,8 +22,6 @@ const Tiktokvideo = ({ uri, h, w }) => {
   })()`;
 
   const contentLoaded = () => {
-    console.log('content Loaded');
-
     webref.current.injectJavaScript(script);
   };
 
@@ -36,9 +38,9 @@ const Tiktokvideo = ({ uri, h, w }) => {
           uri: uri,
         }}
         onMessage={(message) => console.log(message)}
-        // javaScriptEnabledAndroid={true}
-        // injectedJavaScript={script}
-        // injectedJavaScriptBeforeContentLoaded={script}
+        javaScriptEnabledAndroid={true}
+        injectedJavaScript={script}
+        injectedJavaScriptBeforeContentLoaded={script}
       />
     </View>
   );
