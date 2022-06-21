@@ -5,6 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { grapevineBackend } from "../../API";
 import { useState, useEffect, useContext } from "react";
 import { UserValue } from "../../Context/UserContext";
+import { useMemo } from "react";
 const HeaderContainer = (props) => {
   const [user, setUser] = useContext(UserValue);
   const [friend, setFriend] = useState(null);
@@ -18,8 +19,8 @@ const HeaderContainer = (props) => {
       engagement_type,
       fname,
       lname,
-      id,
       uuid,
+      friendship_status,
     },
     navigation,
   } = props;
@@ -35,20 +36,11 @@ const HeaderContainer = (props) => {
     )
       .then(({ data }) => {
         if (data.status) {
-          const friendShip = {
-            id: data.data.id,
-            type: data.data.type,
-            accepted: data.data.accepted,
-            blocked: data.data.blocked,
-            blocked_by: data.data.blocked_by,
-            friendId: data.data.user_accept,
-            hasRequested: true,
-          };
-          setUser({
-            ...user,
-            ...user.friends.push(friendShip),
+          setFriend({
+            friendship_uuid: data.data.uuid,
+            status: "pending",
+            action: "wait",
           });
-          setFriend({ ...friendShip });
         } else {
           Alert.alert("", data.message);
         }
@@ -69,19 +61,10 @@ const HeaderContainer = (props) => {
     )
       .then(({ data }) => {
         if (data.status) {
-          const updatedFriends = user?.friends.map((friend, i) => {
-            if (friend.uuid === data.data.uuid) {
-              let f = friend;
-              f.accepted = true;
-              setFriend({ ...f });
-              return f;
-            } else {
-              return friend;
-            }
-          });
-          setUser({
-            ...user,
-            friends: [...updatedFriends],
+          setFriend({
+            ...friend,
+            status: "accepted",
+            action: "none",
           });
         } else {
           Alert.alert("", "something went wrong");
@@ -89,15 +72,31 @@ const HeaderContainer = (props) => {
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
-    user?.friends.some((friend) => {
-      if (friend.user_uuid === uuid) {
-        setFriend({ ...friend });
-        return true;
+    if (friendship_status) {
+      if (friendship_status.accepted) {
+        setFriend({
+          friendship_uuid: friendship_status.uuid,
+          status: "accepted",
+          action: "none",
+        });
+      } else {
+        if (friendship_status.user_accept == user.uuid) {
+          setFriend({
+            friendship_uuid: friendship_status.uuid,
+            status: "pending",
+            action: "accept",
+          });
+        } else {
+          setFriend({
+            friendship_uuid: friendship_status.uuid,
+            status: "pending",
+            action: "wait",
+          });
+        }
       }
-    });
-  }, [user]);
+    }
+  }, [friendship_status]);
 
   return (
     <Box w="full" p="5">
@@ -170,24 +169,23 @@ const HeaderContainer = (props) => {
             <Box flexDir="row" justifyContent="space-between">
               {/* check if userId is in friends array */}
               {friend ? (
-                friend.accepted ? (
-                  <Button
-                    h="7"
-                    pt="0"
-                    pb="0"
-                    bg="buttonPrimaryColor"
-                    flex="0.45"
-                  >
+                friend.status == "accepted" ? (
+                  <Button h="7" pt="0" pb="0" bg="primary" flex="0.45">
                     Friends
                   </Button>
-                ) : (
+                ) : friend.action == "accept" ? (
                   <Button
                     h="7"
                     pt="0"
                     pb="0"
-                    bg="buttonPrimaryColor"
+                    bg="primary"
                     flex="0.45"
+                    onPress={acceptFriendRequest}
                   >
+                    Accept
+                  </Button>
+                ) : (
+                  <Button h="7" pt="0" pb="0" bg="primary" flex="0.45">
                     Req Sent
                   </Button>
                 )
@@ -200,19 +198,18 @@ const HeaderContainer = (props) => {
                   bg="primary"
                   flex="0.45"
                 >
-                  {/* {user?.engagement_type == "User" && engagement_type == "User"
-                    ? "Connect"
-                    : "Collab"} */}
                   Connect
                 </Button>
               )}
-              {friend?.accepted ? (
+              {friendship_status?.chatroom ? (
                 <Button
                   onPress={() =>
                     navigation.navigate("Chatroom", {
                       friend_uuid: uuid,
                       username: username,
                       friendship_uuid: friend.uuid,
+                      chatroom_uuid: friendship_status.chatroom.uuid,
+                      valid_room: friendship_status.chatroom.valid_room,
                     })
                   }
                   h="7"

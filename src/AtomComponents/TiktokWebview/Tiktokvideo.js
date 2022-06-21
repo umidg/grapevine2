@@ -3,7 +3,6 @@ import React from "react";
 import WebView from "react-native-webview";
 
 const Tiktokvideo = ({ uri, h, w }) => {
-  console.log(uri);
   const script = `var value = document.getElementsByClassName('_embed_player_video-wrapper')[0];
      value.style.height='100%';
      value.style.width='auto';
