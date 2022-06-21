@@ -3,8 +3,6 @@ import React, { useRef } from 'react';
 import WebView from 'react-native-webview';
 
 const Tiktokvideo = ({ uri, h, w }) => {
-  console.log(uri, 'uri');
-
   const webref = useRef(null);
   const script = `(function(){
     var videoelement = document.querySelectorAll('div.embed-video-container > * > *')[0];

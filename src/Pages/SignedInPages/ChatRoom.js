@@ -19,7 +19,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const { io } = require("socket.io-client");
 const ChatRoom = ({ navigation, route }) => {
   const { ButtonDark, RegularImage, RoundImage } = AtomComponents;
-
   const { friend_uuid, username, chatroom_uuid, valid_room } = route.params;
   const [message, setMessage] = useState("");
   const [user, setUser] = useContext(UserValue);
@@ -61,7 +60,6 @@ const ChatRoom = ({ navigation, route }) => {
     );
     grapevineBackend(`/chat/getRoomChats/${chatroom_uuid}`, {}, "POST")
       .then(({ data }) => {
-        console.log(data);
         if (data.status) setMessages([...data.data]);
       })
       .catch((err) => console.log(err));
@@ -81,7 +79,7 @@ const ChatRoom = ({ navigation, route }) => {
   }, [messages]);
 
   return (
-    <Box h="100%" w="100%" pb={5}>
+    <Box h="100%" w="100%" pb={5} bg="#fff">
       <Flex
         direction="row"
         justifyContent={"space-between"}

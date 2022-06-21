@@ -22,7 +22,9 @@ const Messages = ({ navigation }) => {
         "POST"
       )
         .then(async ({ data }) => {
-          setFriends([...data.data]);
+          if (data.status) {
+            setFriends([...data.data]);
+          }
         })
         .catch((err) => console.log(err));
     });
@@ -39,18 +41,18 @@ const Messages = ({ navigation }) => {
         </View>
 
         <View>
-          {friends.map((d) => {
+          {friends.map((friend) => {
             return (
-              <View key={d.uuid}>
+              <View key={friend.uuid}>
                 <Message
-                  username={d.username}
+                  username={friend.username}
                   onPress={() =>
                     navigation.navigate("Chatroom", {
-                      friend_uuid: d.user_uuid,
-                      username: d.username,
-                      friendship_uuid: d.friendship_uuid,
-                      chatroom_uuid: d.chatroom_uuid,
-                      valid_room: d.valid_room,
+                      friend_uuid: friend.user_uuid,
+                      username: friend.username,
+                      friendship_uuid: friend.friendship_uuid,
+                      chatroom_uuid: friend.chatroom_uuid,
+                      valid_room: friend.valid_room,
                     })
                   }
                 />
