@@ -1,102 +1,88 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Box, Flex, Text, Pressable } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
-import { grapevineBackend } from "../../API";
-import { UserValue } from "../../Context/UserContext";
+import React, { useEffect, useState, useContext } from 'react';
+import { Box, Flex, Text, Pressable, Center, Image } from 'native-base';
+import { AntDesign } from '@expo/vector-icons';
+import { grapevineBackend } from '../../API';
+import { UserValue } from '../../Context/UserContext';
 
-import { MolecularComponents, Layout } from "../../Exports/index";
+import { MolecularComponents, Layout } from '../../Exports/index';
 const NotificationPage = ({ navigation }) => {
   const { Notification } = MolecularComponents;
-  const { SignInLayout } = Layout;
+  const { SignInLayout, BackLayout } = Layout;
 
   const [user, setUser] = useContext(UserValue);
   const [notifications, setnotification] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/notification/get", {}, "POST")
+    const unsubscribe = navigation.addListener('focus', () => {
+      grapevineBackend('/notification/get', {}, 'POST')
         .then(async ({ data }) => {
           if (data.code == 200) {
             setnotification([...data.data.result]);
           } else {
-            console.log("Err: Friend Request", data);
+            console.log('Err: Friend Request', data);
           }
         })
-        .catch((err) => console.log("err", err.message));
+        .catch((err) => console.log('err', err.message));
     });
     return unsubscribe;
   }, []);
-  return (
-    <SignInLayout>
-      <Box h="100%" w="100%">
-        <Box
-          flexDirection={"row"}
-          justifyContent="center"
-          alignItems={"center"}
-          mt="20px"
-          pt={3}
-          pb={3}
-          pl={5}
-          pr={5}
-        >
-          <Pressable
-            onPress={() => navigation.goBack()}
-            position="absolute"
-            left={10}
-          >
-            <AntDesign name="arrowleft" size={30} color="black" />
-          </Pressable>
 
-          <Text
-            fontSize="18px"
-            fontWeight="800"
-            pr="2px"
-            color="#000"
-            textAlign={"center"}
-          >
-            Notification
-          </Text>
-        </Box>
-        <Pressable onPress={() => navigation.navigate("FriendRequest")}>
+  return (
+    <BackLayout navigation={navigation} color='#000' safeArea>
+      <Box h='100%' w='100%' bg='white'>
+        <Text fontWeight='800' fontSize={16} textAlign='center' mb='5'>
+          Notifications
+        </Text>
+        <Pressable onPress={() => navigation.navigate('FriendRequest')}>
           <Flex
-            flexDirection={"row"}
-            justifyContent="space-between"
-            alignItems={"center"}
-            mb="20px"
-            bg="#3d368218"
-            pt={3}
-            pb={3}
-            pl={5}
-            pr={5}
+            flexDirection={'row'}
+            justifyContent='space-between'
+            alignItems={'center'}
+            bg='#3d368218'
+            py={3}
+            px={5}
           >
-            <Text fontSize="15px" fontWeight="800" pr="2px" color="#000">
+            <Text fontSize='16' fontWeight='800' color='#000'>
               Connection Requests
             </Text>
 
-            <AntDesign name="caretright" size={18} color="#000" p="2" />
+            <AntDesign name='caretright' size={12} color='#000' />
           </Flex>
         </Pressable>
-
-        <Box pl="5%" pr="5%">
-          {notifications?.length > 0 ? (
-            notifications.map((notification) => {
-              return (
-                <Notification
-                  key={notification.uuid}
-                  notification={notification}
-                  navigation={navigation}
+        <SignInLayout>
+          <Box h='100%' w='100%' p='2'>
+            {/* <Box h='full' w='full'> */}
+            {notifications?.length > 0 ? (
+              notifications.map((notification) => {
+                return (
+                  <Notification
+                    key={notification.uuid}
+                    notification={notification}
+                    navigation={navigation}
+                  />
+                );
+              })
+            ) : (
+              <Center h='100%' w='100%'>
+                <Image
+                  source={require('../../../assets/Logo/Logo.png')}
+                  size={100}
+                  resizeMode='contain'
+                  p='5'
+                  alt='Image'
                 />
-              );
-            })
-          ) : (
-            // <NotificationContainer time="New" notifications={notifications} />
-            <Text>No Notification</Text>
-          )}
-          {/* <NotificationContainer time="Yesterday" />
+                <Text fontSize='16' fontWidth='800' color='primary' mt='10'>
+                  Sorry, no notifications.
+                </Text>
+              </Center>
+            )}
+            {/* <NotificationContainer time="Yesterday" />
           <NotificationContainer time="This Week" /> */}
-        </Box>
+            {/* </Box> */}
+          </Box>
+        </SignInLayout>
       </Box>
-    </SignInLayout>
+    </BackLayout>
   );
 };
 
