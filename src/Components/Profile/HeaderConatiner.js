@@ -8,7 +8,7 @@ import { UserValue } from "../../Context/UserContext";
 import { useMemo } from "react";
 const HeaderContainer = (props) => {
   const [user, setUser] = useContext(UserValue);
-  const [friend, setFriend] = useState(null);
+  const [friendship, setFriendship] = useState(null);
   const {
     user: {
       username,
@@ -36,7 +36,8 @@ const HeaderContainer = (props) => {
     )
       .then(({ data }) => {
         if (data.status) {
-          setFriend({
+          setFriendship({
+            ...friendship,
             friendship_uuid: data.data.uuid,
             status: "pending",
             action: "wait",
@@ -54,15 +55,16 @@ const HeaderContainer = (props) => {
     grapevineBackend(
       "/friendship/acceptfriendrequest",
       {
-        friendship_uuid: friend.friendship_uuid,
+        friendship_uuid: friendship.uuid,
         user_accept: user.uuid,
       },
       "POST"
     )
       .then(({ data }) => {
         if (data.status) {
-          setFriend({
-            ...friend,
+          console.log(data.data, "response data");
+          setFriendship({
+            ...data.data,
             status: "accepted",
             action: "none",
           });
@@ -74,21 +76,25 @@ const HeaderContainer = (props) => {
   };
   useEffect(() => {
     if (friendship_status) {
+      setFriendship({ ...friendship_status });
       if (friendship_status.accepted) {
-        setFriend({
+        setFriendship({
+          ...friendship_status,
           friendship_uuid: friendship_status.uuid,
           status: "accepted",
           action: "none",
         });
       } else {
         if (friendship_status.user_accept == user.uuid) {
-          setFriend({
+          setFriendship({
+            ...friendship_status,
             friendship_uuid: friendship_status.uuid,
             status: "pending",
             action: "accept",
           });
         } else {
-          setFriend({
+          setFriendship({
+            ...friendship_status,
             friendship_uuid: friendship_status.uuid,
             status: "pending",
             action: "wait",
@@ -97,6 +103,10 @@ const HeaderContainer = (props) => {
       }
     }
   }, [friendship_status]);
+
+  useEffect(() => {
+    console.log(friendship, "friend");
+  }, [friendship]);
 
   return (
     <Box w="full" p="5">
@@ -168,12 +178,12 @@ const HeaderContainer = (props) => {
 
             <Box flexDir="row" justifyContent="space-between">
               {/* check if userId is in friends array */}
-              {friend ? (
-                friend.status == "accepted" ? (
+              {friendship ? (
+                friendship.status == "accepted" ? (
                   <Button h="7" pt="0" pb="0" bg="primary" flex="0.45">
                     Friends
                   </Button>
-                ) : friend.action == "accept" ? (
+                ) : friendship.action == "accept" ? (
                   <Button
                     h="7"
                     pt="0"
@@ -201,15 +211,15 @@ const HeaderContainer = (props) => {
                   Connect
                 </Button>
               )}
-              {friendship_status?.chatroom ? (
+              {friendship?.chatroom ? (
                 <Button
                   onPress={() =>
                     navigation.navigate("Chatroom", {
                       friend_uuid: uuid,
                       username: username,
-                      friendship_uuid: friend.uuid,
-                      chatroom_uuid: friendship_status.chatroom.uuid,
-                      valid_room: friendship_status.chatroom.valid_room,
+                      friendship_uuid: friendship.uuid,
+                      chatroom_uuid: friendship.chatroom.uuid,
+                      valid_room: friendship.chatroom.valid_room,
                     })
                   }
                   h="7"
