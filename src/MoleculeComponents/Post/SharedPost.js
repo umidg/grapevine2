@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Center, Text, Image, Flex } from 'native-base';
-import PostHeader from './PostComponents/PostHeader';
-import CommentsContainer from './PostComponents/CommentsContainer';
-import LikeContainer from './PostComponents/LikeContainer';
-import { grapevineBackend } from '../../API';
-import PostV2 from './PostV2';
+import React, { useState, useEffect, useMemo } from "react";
+import { Box, Center, Text, Image, Flex } from "native-base";
+import PostHeader from "./PostComponents/PostHeader";
+import CommentsContainer from "./PostComponents/CommentsContainer";
+import LikeContainer from "./PostComponents/LikeContainer";
+import { grapevineBackend } from "../../API";
+import PostV2 from "./PostV2";
 const SharedPost = ({ data, user, navigation }) => {
   const [post, setPost] = useState(null);
   const time = useMemo(() => {
@@ -15,20 +15,20 @@ const SharedPost = ({ data, user, navigation }) => {
     // Calculating the time difference between two dates
     const diffInTime = date2.getTime() - date1.getTime();
     // Calculating the no. of days between two dates
-    const diffInDays = Math.round(diffInTime / oneDay);
+    const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return 'few moments ago';
-    else if (diffInMin < 60) return diffInMin + ' min ago';
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
-    return diffInDays + ' days ago';
+    if (diffInMin < 1) return "few moments ago";
+    else if (diffInMin < 60) return diffInMin + " min ago";
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
+    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   }, [data]);
 
   useEffect(() => {
     grapevineBackend(
-      '/post/getPostByUuid',
+      "/post/getPostByUuid",
       { post_uuid: data.shared_post_uuid },
-      'POST'
+      "POST"
     )
       .then(({ data }) => {
         if (data.status) {
@@ -40,8 +40,8 @@ const SharedPost = ({ data, user, navigation }) => {
       });
   }, [data]);
   return (
-    <Box w='100%' mb='12'>
-      <Box py='2'>
+    <Box w="100%" mb="12">
+      <Box py="2">
         <PostHeader
           username={data.username}
           user_uuid={data.user_uuid}
@@ -49,7 +49,7 @@ const SharedPost = ({ data, user, navigation }) => {
           address={user.address}
         />
       </Box>
-      <Box w='100%' pl='5'>
+      <Box w="100%" pl="5">
         {post && (
           <PostV2
             showLike={false}
@@ -69,7 +69,7 @@ const SharedPost = ({ data, user, navigation }) => {
           timeStamp={time}
         />
       </Box>
-      <Box p='2'>
+      <Box p="2">
         <CommentsContainer comments={data.comments} user={user} />
       </Box>
     </Box>

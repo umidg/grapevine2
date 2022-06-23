@@ -33,7 +33,7 @@ const Notification = ({ notification, navigation }) => {
     // Calculating the time difference between two dates
     const diffInTime = date2.getTime() - date1.getTime();
     // Calculating the no. of days between two dates
-    const diffInDays = Math.round(diffInTime / oneDay);
+    const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
     if (diffInMin < 1) return "0 m";

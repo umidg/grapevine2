@@ -14,7 +14,6 @@ const Features = () => {
       "POST"
     )
       .then(({ data }) => {
-        console.log(data);
         if (data.status) {
           setFeatures([...data.data.result]);
         }

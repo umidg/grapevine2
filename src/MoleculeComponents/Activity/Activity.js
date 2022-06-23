@@ -34,7 +34,7 @@ const Activity = ({ activity, navigation }) => {
     // Calculating the time difference between two dates
     const diffInTime = date2.getTime() - date1.getTime();
     // Calculating the no. of days between two dates
-    const diffInDays = Math.round(diffInTime / oneDay);
+    const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
     if (diffInMin < 1) return "0 m";
@@ -42,7 +42,7 @@ const Activity = ({ activity, navigation }) => {
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + "h";
     return `${diffInDays}d `;
   }, [activity]);
-
+  if (activity.type == "share") return <Text>Activity</Text>;
   switch (activity.type) {
     case "post":
       return (
@@ -56,7 +56,7 @@ const Activity = ({ activity, navigation }) => {
         >
           <Box
             flex="1"
-            flexDir="row"
+            flexDirection={"row"}
             justifyContent={"flex-start"}
             alignItems="center"
           >
@@ -65,7 +65,7 @@ const Activity = ({ activity, navigation }) => {
               image={require("../../../assets/Images/1.png")}
             />
 
-            <Box pl={2} flex="1" flexDir="col">
+            <Box pl={2} flex="1" flexDirection={"column"}>
               <Pressable
                 onPress={() =>
                   navigation.navigate("FriendProfile", {
@@ -79,7 +79,7 @@ const Activity = ({ activity, navigation }) => {
               </Pressable>
               <Box
                 flex="1"
-                flexDir="row"
+                flexDirection="row"
                 justifyContent="space-between"
                 width="100%"
               >
@@ -113,7 +113,7 @@ const Activity = ({ activity, navigation }) => {
                 image={require("../../../assets/Images/1.png")}
               />
 
-              <Box pl={2} display="flex" flexDir="col" flex="1">
+              <Box pl={2} display="flex" flexDirection={"column"} flex="1">
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
@@ -125,8 +125,12 @@ const Activity = ({ activity, navigation }) => {
                     {activity.user.username}
                   </Text>
                 </Pressable>
-                <Box flex="1" flexDir={"row"} justifyContent="space-between">
-                  <Box display="flex" flexDir="row">
+                <Box
+                  flex="1"
+                  flexDirection={"row"}
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" flexDirection={"row"}>
                     <Text>liked</Text>
                     <Pressable
                       onPress={() =>
@@ -169,7 +173,7 @@ const Activity = ({ activity, navigation }) => {
                 image={require("../../../assets/Images/1.png")}
               />
 
-              <Box pl={2} display="flex" flexDir="col" flex="1">
+              <Box pl={2} display="flex" flexDirection="column" flex="1">
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
@@ -181,8 +185,12 @@ const Activity = ({ activity, navigation }) => {
                     {activity.user.username}
                   </Text>
                 </Pressable>
-                <Box flex="1" flexDir={"row"} justifyContent="space-between">
-                  <Box display="flex" flexDir="row">
+                <Box
+                  flex="1"
+                  flexDirection={"row"}
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" flexDirection="row">
                     <Text>commented on</Text>
                     <Pressable
                       onPress={() =>
@@ -200,45 +208,6 @@ const Activity = ({ activity, navigation }) => {
                   <Text color="gray.500">{time}</Text>
                 </Box>
               </Box>
-
-              {/* <Box h='100%' flex={7} pl={2}>
-                <Pressable
-                  onPress={() =>
-                    navigation.navigate('FriendProfile', {
-                      user_uuid: activity.user_uuid,
-                    })
-                  }
-                >
-                  <Text fontSize={16} fontWeight='800'>
-                    {activity.user.username}
-                  </Text>
-                </Pressable> */}
-
-              {/* <Box
-                  ml={2}
-                  display='flex'
-                  flexDirection={'row'}
-                  justifyContent='flex-start'
-                  alignItems={'center'}
-                >
-                  commented on
-                  <Box>
-                    <Pressable
-                      onPress={() =>
-                        navigation.navigate('FriendProfile', {
-                          user_uuid: post.user_uuid,
-                        })
-                      }
-                    >
-                      <Text fontWeight={'800'}>
-                        {' ' + post.username + "'s "}
-                      </Text>
-                    </Pressable>
-                  </Box>
-                  post
-                  {time}
-                </Box> */}
-              {/* </Box> */}
             </Flex>
           )}
         </Pressable>
@@ -265,7 +234,7 @@ const Activity = ({ activity, navigation }) => {
                 image={require("../../../assets/Images/1.png")}
               />
 
-              <Box pl={2} display="flex" flexDir="col" flex="1">
+              <Box pl={2} display="flex" flexDirection="column" flex="1">
                 <Pressable
                   onPress={() =>
                     navigation.navigate("FriendProfile", {
@@ -277,8 +246,12 @@ const Activity = ({ activity, navigation }) => {
                     {activity.user.username}
                   </Text>
                 </Pressable>
-                <Box flex="1" flexDir={"row"} justifyContent="space-between">
-                  <Box display="flex" flexDir="row">
+                <Box
+                  flex="1"
+                  flexDirection={"row"}
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" flexDirection="row">
                     <Text> shared</Text>
                     <Pressable
                       onPress={() =>
@@ -296,44 +269,6 @@ const Activity = ({ activity, navigation }) => {
                   <Text color="gray.500">{time}</Text>
                 </Box>
               </Box>
-
-              {/* <Box h='100%' flex={7} pl={2}>
-                <Pressable
-                  onPress={() =>
-                    navigation.navigate('FriendProfile', {
-                      user_uuid: activity.user_uuid,
-                    })
-                  }
-                >
-                  <Text fontSize={16} fontWeight='800'>
-                    {activity.user.username}
-                  </Text>
-                </Pressable>
-                <Box
-                  ml={2}
-                  display='flex'
-                  flexDirection={'row'}
-                  justifyContent='flex-start'
-                  alignItems={'center'}
-                >
-                  shared
-                  <Box>
-                    <Pressable
-                      onPress={() =>
-                        navigation.navigate('FriendProfile', {
-                          user_uuid: post.user_uuid,
-                        })
-                      }
-                    >
-                      <Text fontWeight={'800'}>
-                        {' ' + post.username + "'s "}
-                      </Text>
-                    </Pressable>
-                  </Box>
-                  post.
-                  {' ' + time}
-                </Box>
-              </Box> */}
             </Flex>
           )}
         </Pressable>

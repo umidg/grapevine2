@@ -3,11 +3,7 @@ import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
 import { UserValue } from "../../Context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
 
-import {
-  MolecularComponents,
-  Layout,
-  PageComponent,
-} from "../../Exports/index";
+import { Layout, PageComponent } from "../../Exports/index";
 import { grapevineBackend } from "../../API";
 const Home = ({ navigation }) => {
   const { SignInLayout } = Layout;
@@ -69,12 +65,12 @@ const Home = ({ navigation }) => {
     }
   };
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      fetchConnectedPosts();
-      fetchForYouPosts();
-    });
+    // const unsubscribe = navigation.addListener("focus", () => {
+    fetchConnectedPosts();
+    fetchForYouPosts();
+    // });
 
-    return unsubscribe;
+    // return unsubscribe;
   }, []);
 
   return (

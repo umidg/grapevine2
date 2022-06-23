@@ -101,6 +101,8 @@ const ActivityPage = ({ navigation }) => {
               {connectedactivity ? (
                 <Box pb="70">
                   {connectedactivity.map((activity) => (
+                    // <Text key={activity.uuid}>hello</Text>
+
                     <Activity
                       activity={activity}
                       navigation={navigation}
@@ -121,6 +123,7 @@ const ActivityPage = ({ navigation }) => {
                   {forYouActicity.length > 0 ? (
                     <Box pb="70" p={2}>
                       {forYouActicity.map((activity) => (
+                        // <Text key={activity.uuid}>hello</Text>
                         <Activity
                           activity={activity}
                           navigation={navigation}
