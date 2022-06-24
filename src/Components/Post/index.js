@@ -1,2 +1,2 @@
-import TiktokVideoConteiner from "./TiktokVideoConteiner";
-export { TiktokVideoConteiner };
+import TiktokVideoContainer from './TiktokVideoContainer';
+export { TiktokVideoContainer };

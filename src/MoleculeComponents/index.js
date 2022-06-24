@@ -2,15 +2,15 @@ import {
   AllCreators,
   CollectionBox,
   CollectionContainer,
-} from "./Collection/index";
+} from './Collection/index';
 
-import CommunityPosts from "./CommunityPost/CommunityPosts";
+import CommunityPosts from './CommunityPost/CommunityPosts';
 
-import { Box1, Box2 } from "./ExploreBox/index";
+import { Box1, Box2 } from './ExploreBox/index';
 
-import { FeatureBoxPrimary, FeatureBoxSecondary } from "./Features/index";
+import { FeatureBoxPrimary, FeatureBoxSecondary } from './Features/index';
 
-import { Notification, NotificationContainer } from "./Notifications/index";
+import { Notification, NotificationContainer } from './Notifications/index';
 
 import {
   Post,
@@ -18,10 +18,11 @@ import {
   SharedPost,
   TiktokPost,
   PostContainer,
-} from "./Post/index";
+} from './Post/index';
 
-import { DropDownMenu } from "./Menu/index";
-import { ActivityProfile, Activity } from "./Activity/index";
+import { DropDownMenu } from './Menu/index';
+import { ActivityProfile, Activity } from './Activity/index';
+import ResourcesBox from './Resources';
 export {
   AllCreators,
   CollectionBox,
@@ -41,4 +42,5 @@ export {
   DropDownMenu,
   ActivityProfile,
   Activity,
+  ResourcesBox,
 };

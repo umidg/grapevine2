@@ -2,7 +2,7 @@ import { Center, View, Text } from 'native-base';
 import React, { useRef } from 'react';
 import WebView from 'react-native-webview';
 
-const Tiktokvideo = ({ uri, h, w }) => {
+const Tiktokvideo = ({ uri, h, w, size }) => {
   console.log(uri);
   const webref = useRef(null);
   const script = `(function(){
@@ -15,10 +15,10 @@ const Tiktokvideo = ({ uri, h, w }) => {
     sideElement.innerHTML = "";
 
     var border = document.querySelectorAll('div.embed-video-container > div')[0];
-    border.style.height = "200px";
+    border.style.height = "${size || 200}px";
 
     var videoSize = document.querySelectorAll('div.embed-video-container > div > div > div > div > div')[0];
-    videoSize.style.height = "200px";
+    videoSize.style.height = "${size || 200}px";
   })()`;
 
   const contentLoaded = () => {
@@ -41,6 +41,7 @@ const Tiktokvideo = ({ uri, h, w }) => {
         javaScriptEnabledAndroid={true}
         injectedJavaScript={script}
         injectedJavaScriptBeforeContentLoaded={script}
+        scrollEnabled={false}
       />
     </View>
   );
