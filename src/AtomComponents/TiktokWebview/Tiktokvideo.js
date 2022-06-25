@@ -1,6 +1,6 @@
-import { Center, View, Text } from 'native-base';
-import React, { useRef } from 'react';
-import WebView from 'react-native-webview';
+import { Center, View, Text } from "native-base";
+import React, { useRef } from "react";
+import WebView from "react-native-webview";
 
 const Tiktokvideo = ({ uri, h, w, size }) => {
   console.log(uri);
@@ -26,12 +26,12 @@ const Tiktokvideo = ({ uri, h, w, size }) => {
   };
 
   return (
-    <View w={w ? w : '100%'} h={h ? h : 200}>
+    <View w={w ? w : "100%"} h={h ? h : 200}>
       <WebView
         ref={webref}
         style={{
-          height: '100%',
-          width: '100%',
+          height: "100%",
+          width: "100%",
         }}
         onLoadEnd={contentLoaded}
         source={{
@@ -39,8 +39,12 @@ const Tiktokvideo = ({ uri, h, w, size }) => {
         }}
         onMessage={(message) => console.log(message)}
         javaScriptEnabledAndroid={true}
-        injectedJavaScript={script}
-        injectedJavaScriptBeforeContentLoaded={script}
+        useWebView2={true}
+        cacheEnabled={false}
+        useWebkit={true}
+        androidLayerType="hardware"
+        // injectedJavaScript={script}
+        // injectedJavaScriptBeforeContentLoaded={script}
         scrollEnabled={false}
       />
     </View>

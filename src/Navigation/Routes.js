@@ -33,6 +33,7 @@ import ActivityPage from "../Pages/SignedInPages/ActivityPage";
 import CommentPage from "../Pages/SignedInPages/CommentPage";
 import EditProfile from "../Pages/SignedInPages/Profile/EditProfile";
 import PostPage from "../Pages/SignedInPages/PostPage";
+import AllCreatorPage from "../Pages/SignedInPages/AllCreatorPage";
 export const signedInRoutes = [
   {
     routeName: "Notification",
@@ -69,6 +70,10 @@ export const signedInRoutes = [
   {
     routeName: "Edit_Profile",
     component: EditProfile,
+  },
+  {
+    routeName: "AllCreatorPage",
+    component: AllCreatorPage,
   },
 ];
 

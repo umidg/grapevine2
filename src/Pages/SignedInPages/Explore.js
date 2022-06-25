@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { View, Flex, Pressable, Slide, Box, Text } from "native-base";
 import { grapevineBackend } from "../../API";
@@ -9,7 +9,8 @@ import {
   Layout,
   PageComponent,
 } from "../../Exports/index";
-import { RoundImage } from "../../AtomComponents";
+import { ButtonDark, RoundImage } from "../../AtomComponents";
+import { UserValue } from "../../Context/UserContext";
 
 const ExplorePage = ({ navigation }) => {
   const {
@@ -20,6 +21,7 @@ const ExplorePage = ({ navigation }) => {
   const [users, setUsers] = useState(null);
   const [focus, setFocus] = useState(false);
   const [history, setHistory] = useState([]);
+  const [user, setUser] = useContext(UserValue);
   const searchUser = async (name) => {
     if (name.length > 2) {
       grapevineBackend("/auth/search", { name: name }, "POST")
@@ -40,6 +42,7 @@ const ExplorePage = ({ navigation }) => {
       "POST"
     )
       .then(({ data }) => {
+        console.log(data, "histpry");
         if (data.status) {
           setHistory([data.data, ...history]);
         }
@@ -182,9 +185,15 @@ const ExplorePage = ({ navigation }) => {
           </View>
         )}
         <Box height={focus ? "0" : "auto"} mb="24">
+          {user.engagement_type == "Brand" && (
+            <ButtonDark onPress={() => navigation.navigate("AllCreatorPage")}>
+              All Creator
+            </ButtonDark>
+          )}
           <View style={styles.featureContainer}>
             <Features type="User" />
           </View>
+
           <Resources />
           <Features type="Brand" />
 

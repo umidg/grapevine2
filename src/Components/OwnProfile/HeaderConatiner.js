@@ -9,6 +9,8 @@ import {
 } from "native-base";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { DropDownMenu } from "../../MoleculeComponents";
+import { Ionicons } from "@expo/vector-icons";
+
 const HeaderContainer = (props) => {
   const {
     user: {
@@ -116,7 +118,19 @@ const HeaderContainer = (props) => {
 
             <DropDownMenu
               icon={<Feather name="more-vertical" size={24} color="black" />}
-              options={[{ text: "Logout", onPress: logout }]}
+              options={[
+                {
+                  text: "Logout",
+                  onPress: logout,
+                  icon: (
+                    <Ionicons
+                      name="information-circle-outline"
+                      size={16}
+                      color="gray"
+                    />
+                  ),
+                },
+              ]}
             />
           </Flex>
         </Box>
