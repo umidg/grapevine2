@@ -190,12 +190,15 @@ const ExplorePage = ({ navigation }) => {
               All Creator
             </ButtonDark>
           )}
+          <ButtonDark onPress={() => navigation.navigate("AllCreatorPage")}>
+            All Creator
+          </ButtonDark>
           <View style={styles.featureContainer}>
-            <Features type="User" />
+            <Features type="User" navigation={navigation} />
           </View>
 
           <Resources />
-          <Features type="Brand" />
+          <Features type="Brand" navigation={navigation} />
 
           {/* 
           <View style={styles.collectionContainer}>

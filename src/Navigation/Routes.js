@@ -34,6 +34,7 @@ import CommentPage from "../Pages/SignedInPages/CommentPage";
 import EditProfile from "../Pages/SignedInPages/Profile/EditProfile";
 import PostPage from "../Pages/SignedInPages/PostPage";
 import AllCreatorPage from "../Pages/SignedInPages/AllCreatorPage";
+import AllFeaturesUserPage from "../Pages/SignedInPages/AllFeaturesUserPage";
 export const signedInRoutes = [
   {
     routeName: "Notification",
@@ -74,6 +75,10 @@ export const signedInRoutes = [
   {
     routeName: "AllCreatorPage",
     component: AllCreatorPage,
+  },
+  {
+    routeName: "AllFeaturesUserPage",
+    component: AllFeaturesUserPage,
   },
 ];
 

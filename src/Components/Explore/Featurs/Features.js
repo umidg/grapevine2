@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { Spinner, Box } from 'native-base';
-import { grapevineBackend } from '../../../API';
-import { Text } from 'native-base';
-import { FeatureBoxSecondary } from '../../../MoleculeComponents/index';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { Spinner, Box, Pressable } from "native-base";
+import { grapevineBackend } from "../../../API";
+import { Text } from "native-base";
+import { FeatureBoxSecondary } from "../../../MoleculeComponents/index";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 const Features = (props) => {
   const [features, setFeatures] = useState({
     user: [],
     activeIndex: 0,
   });
-  const { type } = props;
+  const { type, navigation } = props;
   useEffect(() => {
     grapevineBackend(
-      '/user/getFeatured?page=1&limit=5',
+      "/user/getFeatured?page=1&limit=5",
       {
         type: type,
       },
-      'POST'
+      "POST"
     )
       .then(({ data }) => {
         if (data.status) {
@@ -36,7 +36,7 @@ const Features = (props) => {
   }, []);
 
   return (
-    <Box style={styles.container} mb='5'>
+    <Box style={styles.container} mb="5">
       <Text style={styles.headerText}>Featured</Text>
       {/* <Text style={styles.secondaryText}>Creators</Text> */}
       {features ? (
@@ -60,18 +60,20 @@ const Features = (props) => {
               width: 8,
               height: 8,
               borderRadius: 5,
-              backgroundColor: '#7949E7',
+              backgroundColor: "#7949E7",
             }}
             inactiveDotStyle={{}}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
           />
-          <Text textAlign='center' underline fontSize='12' color='primary'>
-            See all
-          </Text>
+          <Pressable onPress={() => navigation.navigate("AllFeaturesUserPage")}>
+            <Text textAlign="center" underline fontSize="12" color="primary">
+              See all
+            </Text>
+          </Pressable>
         </View>
       ) : (
-        <Spinner accessibilityLabel='Loading' color='primary' />
+        <Spinner accessibilityLabel="Loading" color="primary" />
       )}
     </Box>
   );
@@ -83,14 +85,14 @@ const styles = StyleSheet.create({
   container: {},
   headerText: {
     fontSize: 21,
-    color: '#000',
+    color: "#000",
     // fontFamily: "Gilroy",
-    fontWeight: '800',
+    fontWeight: "800",
     marginLeft: 10,
   },
   secondaryText: {
     fontSize: 16,
-    fontWeight: '300',
+    fontWeight: "300",
     marginLeft: 20,
   },
 });

@@ -17,17 +17,18 @@ import {
   AtomComponents,
 } from "../../Exports/index";
 import { Pressable } from "react-native";
-export default function AllCreatorPage({ navigation }) {
-  const [creators, setCreators] = useState(null);
+export default function AllFeaturesUserPage({ navigation }) {
+  const [featuredUser, setFeaturedUser] = useState(null);
   const [filter, setShowFilter] = useState(false);
   const { SignInLayout, BackLayout } = Layout;
   const { RoundImage } = AtomComponents;
   const { DropDownMenu } = MolecularComponents;
   useEffect(() => {
-    grapevineBackend("/user/getCreators?limit=20", {}, "POST")
+    grapevineBackend("/user/getFeatured?page=1&limit=20", {}, "POST")
       .then(({ data }) => {
+        console.log(data, "featured");
         if (data.status) {
-          setCreators([...data.data.result]);
+          setFeaturedUser([...data.data.result]);
         }
       })
       .catch((err) => {
@@ -137,7 +138,7 @@ export default function AllCreatorPage({ navigation }) {
                     fontWeight: "800",
                   }}
                 >
-                  {"See " + creators.length + " Creators"}
+                  {"See " + featuredUser.length + " Creators"}
                 </Button>
               </Box>
             </Flex>
@@ -188,20 +189,20 @@ export default function AllCreatorPage({ navigation }) {
           </Box>
         </Flex>
 
-        {creators ? (
+        {featuredUser ? (
           <>
-            {creators.length > 0 ? (
+            {featuredUser.length > 0 ? (
               <Box width={"100%"}>
                 <Text my={3} fontWeight="800" textAlign={"center"}>
-                  {creators.length} creator found
+                  {featuredUser.length} Features found
                 </Text>
-                {creators.map((creator) => {
+                {featuredUser.map((_user) => {
                   return (
                     <Flex
                       direction="row"
                       // alignItems={"center"}
                       justifyContent="space-between"
-                      key={creator.uuid}
+                      key={_user.uuid}
                       m={2}
                     >
                       <Flex
@@ -214,8 +215,8 @@ export default function AllCreatorPage({ navigation }) {
                           size={10}
                         />
                         <Box px={2}>
-                          <Text fontWeight={"800"}>{creator.username}</Text>
-                          <Text>{creator.fname + " " + creator.lname}</Text>
+                          <Text fontWeight={"800"}>{_user.username}</Text>
+                          <Text>{_user.fname + " " + _user.lname}</Text>
                         </Box>
                       </Flex>
                       <Flex
@@ -242,7 +243,7 @@ export default function AllCreatorPage({ navigation }) {
                   alt="Image"
                 />
                 <Text fontSize="16" fontWidth="800" color="primary" mt="10">
-                  Sorry, Creator Found.
+                  Sorry, Users Found.
                 </Text>
               </Center>
             )}
