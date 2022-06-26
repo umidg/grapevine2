@@ -2,13 +2,7 @@ import React, { memo } from 'react';
 import { Image, Box, Avatar } from 'native-base';
 const RoundImage = ({ size, image, boxClass, ...props }) => {
   return (
-    <Box
-      borderWidth='2'
-      borderColor='primary'
-      p='0.5'
-      borderRadius='full'
-      {...boxClass}
-    >
+    <Box borderWidth='2' borderColor='primary' p='0.5' borderRadius='full'>
       <Image
         alt='image'
         // style={{
