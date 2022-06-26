@@ -2,6 +2,10 @@
 
 import Theme from './src/Theme/Theme';
 import { Context } from './src/Exports/index';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['ViewPropTypes will be removed']);
+
 export default function App() {
   const { ThemeContext, UserContext, ExpoToastContext } = Context;
   return (

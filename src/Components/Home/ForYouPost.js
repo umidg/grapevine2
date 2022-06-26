@@ -37,7 +37,7 @@ const ForYouPost = ({ user, navigation, forYouPosts, loadNextPage }) => {
           >
             {forYouPosts.map((post, index) => {
               return (
-                <Box mt={index === 0 ? '12' : '0'} key={post.uuid}>
+                <Box mt={index === 0 ? '0' : '0'} key={post.uuid}>
                   <PostContainer
                     post={post}
                     user={user}
