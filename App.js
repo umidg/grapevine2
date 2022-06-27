@@ -14,11 +14,11 @@ export default function App() {
     <ThemeContext>
       <QueryClientProvider client={queryClient}>
         <UserContext>
-          <PostContext>
-            <ExpoToastContext>
-              <Theme />
-            </ExpoToastContext>
-          </PostContext>
+          {/* <PostContext> */}
+          <ExpoToastContext>
+            <Theme />
+          </ExpoToastContext>
+          {/* </PostContext> */}
         </UserContext>
       </QueryClientProvider>
     </ThemeContext>

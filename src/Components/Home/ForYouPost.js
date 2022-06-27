@@ -13,9 +13,11 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
   };
 
   if (forYouPosts.isLoading) {
-    <Center h="100%" w="100%">
-      <Spinner accessibilityLabel="Loading" />
-    </Center>;
+    return (
+      <Center h="100%" w="100%">
+        <Spinner accessibilityLabel="Loading" />
+      </Center>
+    );
   }
   if (!forYouPosts.data?.pages[0]?.result.length > 0 || forYouPosts.isError) {
     return (
