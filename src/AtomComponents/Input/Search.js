@@ -21,6 +21,10 @@ const Search = ({ onSearch, onFocus, createHistory, clearText, ...rest }) => {
     if (onSearch) onSearch(text);
   }, [text]);
 
+  useEffect(() => {
+    setText("");
+  }, [clearText]);
+
   return (
     <Input
       placeholder="Search"

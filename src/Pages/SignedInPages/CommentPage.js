@@ -1,6 +1,7 @@
 import { View, Text, Flex, Box, Input, TextArea, Button } from 'native-base';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { grapevineBackend } from '../../API';
+import { Keyboard } from 'react-native';
 import { UserValue } from '../../Context/UserContext';
 import { AtomComponents, Layout } from '../../Exports/index';
 import Toast from 'react-native-root-toast';
@@ -16,6 +17,29 @@ const CommentPage = ({ navigation, route }) => {
   const [user, setUser] = useContext(UserValue);
   const [_comments, _setComments] = useState(comments);
   const [loading, setLoading] = useState(false);
+
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
+  const onKeyboardShow = (event) =>
+    setKeyboardOffset(event.endCoordinates.height);
+  const onKeyboardHide = () => setKeyboardOffset(0);
+  const keyboardDidShowListener = useRef();
+  const keyboardDidHideListener = useRef();
+
+  useEffect(() => {
+    keyboardDidShowListener.current = Keyboard.addListener(
+      'keyboardWillShow',
+      onKeyboardShow
+    );
+    keyboardDidHideListener.current = Keyboard.addListener(
+      'keyboardWillHide',
+      onKeyboardHide
+    );
+
+    return () => {
+      keyboardDidShowListener.current.remove();
+      keyboardDidHideListener.current.remove();
+    };
+  }, []);
 
   const comment = () => {
     if (!loading && commentText.length > 0) {
@@ -82,57 +106,58 @@ const CommentPage = ({ navigation, route }) => {
               No comments yet.
             </Box>
           )}
-
-          <Box
-            w='full'
-            display='flex'
-            flexDirection='row'
-            borderTopWidth='1'
-            borderColor='gray.200'
+        </SignInLayout>
+        <Box
+          w='full'
+          display='flex'
+          flexDirection='row'
+          borderTopWidth='1'
+          borderColor='gray.200'
+          alignItems='center'
+          p='1'
+          position='absolute'
+          bottom={keyboardOffset}
+        >
+          <RoundImage
+            boxClass={{
+              mr: '1',
+              borderColor: 'white',
+              mt: '5',
+            }}
+            size='10'
+            image={require('../../../assets/Images/1.png')}
+          />
+          <TextArea
+            autoFocus
+            fontSize='sm'
+            fontWeight='400'
+            placeholder={`Add a comment as ${user.username}`}
+            color='black'
+            borderWidth={1}
+            h='auto'
+            flex='1'
+            borderColor='gray.400'
+            borderRadius='3xl'
+            value={commentText}
+            onChangeText={(text) => setCommentText(text)}
+            _focus={{
+              bg: 'white',
+            }}
             alignItems='center'
-            p='1'
-          >
-            <RoundImage
-              boxClass={{
-                mt: '5',
-                mr: '1',
-                borderColor: 'white',
-              }}
-              flex='0.2'
-              alignSelf='center'
-              size='36'
-              image={require('../../../assets/Images/1.png')}
-            />
-            <TextArea
-              autoFocus
-              fontSize='sm'
-              fontWeight='400'
-              placeholder={`Add a comment as ${user.username}`}
-              color='black'
-              borderWidth={1}
-              h='12'
-              flex='1'
-              borderColor='gray.400'
-              borderRadius='3xl'
-              value={commentText}
-              onChangeText={(text) => setCommentText(text)}
-              _focus={{
-                bg: 'white',
-              }}
-              alignItems='center'
-              m='1'
-              mt='5'
-              InputRightElement={
-                <Button
-                  _text={{
-                    color: 'primary',
-                  }}
-                >
-                  Post
-                </Button>
-              }
-            />
-            {/* <Box
+            m='1'
+            // mt='5'
+            InputRightElement={
+              <Button
+                _text={{
+                  color: 'primary',
+                }}
+                onPress={comment}
+              >
+                Post
+              </Button>
+            }
+          />
+          {/* <Box
               w='full'
               display='flex'
               flexDirection='column'
@@ -153,8 +178,7 @@ const CommentPage = ({ navigation, route }) => {
                 Comment
               </Button>
             </Box> */}
-          </Box>
-        </SignInLayout>
+        </Box>
       </Box>
     </BackLayout>
   );

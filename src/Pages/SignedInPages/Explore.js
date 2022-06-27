@@ -100,7 +100,8 @@ const ExplorePage = ({ navigation }) => {
                       direction="row"
                       justifyContent={"flex-start"}
                       alignItems="center"
-                      px={5}
+                      px="2"
+                      my="2"
                     >
                       <RoundImage
                         image={require("../../../assets/Images/3.png")}
@@ -140,7 +141,8 @@ const ExplorePage = ({ navigation }) => {
                           direction="row"
                           justifyContent={"flex-start"}
                           alignItems="center"
-                          p="3"
+                          px="2"
+                          my="2"
                         >
                           <RoundImage
                             image={require("../../../assets/Images/3.png")}
@@ -201,7 +203,7 @@ const ExplorePage = ({ navigation }) => {
             )}
           </Box>
           <View style={styles.featureContainer}>
-            <Features type="User" navigation={navigation} />
+            <Features type="User" />
           </View>
 
           <Resources />

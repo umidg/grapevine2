@@ -1,13 +1,19 @@
 import { StyleSheet } from 'react-native';
 import React from 'react';
-import { View, Text } from 'native-base';
+import { View, Text, Pressable } from 'native-base';
 import RoundImage from '../../AtomComponents/Image/RoundImage';
 import { Button, Box } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+
 const FeatureBoxSecondary = (props) => {
-  const { item } = props;
+  const {
+    item: { item },
+  } = props;
   const interest = item?.intrests[0];
+  const navigation = useNavigation();
+
   return (
-    <View
+    <Pressable
       w='200'
       m='2'
       p='5'
@@ -15,6 +21,12 @@ const FeatureBoxSecondary = (props) => {
       bg='#fff'
       shadow='3'
       borderRadius='xl'
+      key={item.uuid}
+      onPress={() =>
+        navigation.navigate('FriendProfile', {
+          user_uuid: item.uuid,
+        })
+      }
     >
       <RoundImage size='16' image={require('../../../assets/Images/1.png')} />
       <Text fontSize='md' fontWeight='bold'>
@@ -69,7 +81,7 @@ const FeatureBoxSecondary = (props) => {
       >
         Connect
       </Button>
-    </View>
+    </Pressable>
   );
 };
 
