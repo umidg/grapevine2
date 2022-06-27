@@ -1,6 +1,6 @@
 import React from "react";
 import { PostContainer } from "../../MoleculeComponents/index";
-import { Center, Box, ScrollView, Image, Text } from "native-base";
+import { Center, Box, ScrollView, Image, Text, Spinner } from "native-base";
 const ForYouPost = ({ user, navigation, forYouPosts }) => {
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 20;
@@ -17,7 +17,7 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
       <Spinner accessibilityLabel="Loading" />
     </Center>;
   }
-  if (!forYouPosts.data.pages[0].result.length > 0 || forYouPosts.isError) {
+  if (!forYouPosts.data?.pages[0]?.result.length > 0 || forYouPosts.isError) {
     return (
       <Center h="100%" w="100%">
         <Image
