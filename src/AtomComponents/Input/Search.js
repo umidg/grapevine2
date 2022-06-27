@@ -27,7 +27,7 @@ const Search = ({ onSearch, onFocus, createHistory, clearText, ...rest }) => {
       onFocus={searchFocused}
       onSubmitEditing={onSubmit}
       onChangeText={(text) => setText(text)}
-      value={clearText ? text : ""}
+      value={clearText ? "" : text}
       type="text"
       InputLeftElement={<EvilIcons name="search" size={24} color="black" />}
       _focus={{ bg: "white", borderWidth: 1, borderColor: "primary" }}

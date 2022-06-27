@@ -13,7 +13,17 @@ const Messages = ({ navigation }) => {
   const { SignInLayout } = Layout;
 
   const [friends, setFriends] = useState([]);
+  const [showFriends, setShowFriends] = useState([]);
   const [user, setUser] = useContext(UserValue);
+
+  const filterUser = (text) => {
+    let searchText = text.toLowerCase();
+    setShowFriends(
+      friends.filter(
+        (friend) => friend.username.toLowerCase().indexOf(searchText) == 0
+      )
+    );
+  };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend(
@@ -24,6 +34,7 @@ const Messages = ({ navigation }) => {
         .then(async ({ data }) => {
           if (data.status) {
             setFriends([...data.data]);
+            setShowFriends([...data.data]);
           }
         })
         .catch((err) => console.log(err));
@@ -37,11 +48,11 @@ const Messages = ({ navigation }) => {
       <Box h="100%" w="100%" pt="5">
         <Header goBack={() => navigation.goBack()} />
         <View pr="5%" pl="5%" mt="5">
-          <Search />
+          <Search onSearch={filterUser} />
         </View>
 
         <View>
-          {friends.map((friend) => {
+          {showFriends.map((friend) => {
             return (
               <View key={friend.uuid}>
                 <Message
