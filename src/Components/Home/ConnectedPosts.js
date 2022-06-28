@@ -13,11 +13,13 @@ const ConnectedPosts = ({ user, navigation, connectedPosts }) => {
   };
 
   if (connectedPosts.isLoading) {
-    <Center h='100%' w='100%'>
-      <Spinner accessibilityLabel='Loading' />
-    </Center>;
+    return (
+      <Center h='100%' w='100%'>
+        <Spinner accessibilityLabel='Loading' />
+      </Center>
+    );
   }
-  if (!connectedPosts?.data?.pages[0].result.length > 0) {
+  if (!connectedPosts.data?.pages[0].result.length > 0) {
     return (
       <Center h='100%' w='100%'>
         <Image

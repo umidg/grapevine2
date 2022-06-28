@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
 import { UserValue } from "../../Context/UserContext";
-import { Posts } from "../../Context/PostContext";
 import { useWindowDimensions } from "react-native";
 import { TabView } from "react-native-tab-view";
 import { Layout, PageComponent } from "../../Exports/index";
+import GetPost from "../../Hooks/Posts/getPosts";
 const Home = ({ navigation }) => {
   const {
     Home: { ConnectedPosts, ForYouPost },
   } = PageComponent;
   const [user, setUser] = useContext(UserValue);
-  const { forYouPosts, connectedPosts } = useContext(Posts);
+  const { forYouPosts, connectedPosts } = GetPost();
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -86,6 +86,7 @@ const Home = ({ navigation }) => {
     );
   };
 
+  // return <Text>hello</Text>;
   return (
     <Box h="100%" w="100%">
       <Box>

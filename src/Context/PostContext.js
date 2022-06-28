@@ -23,14 +23,9 @@ const PostContext = (props) => {
     }
   );
 
-  if (forYouPosts.isError) {
-    return <Text>Error</Text>;
-  }
-
   return (
     <Posts.Provider value={{ forYouPosts, connectedPosts }}>
       {props.children}
-      {/* <Text>hell</Text> */}
     </Posts.Provider>
   );
 };
