@@ -47,10 +47,11 @@ const PostV2 = ({
       {showLike && (
         <Box>
           <LikeContainer
-            likes={data.likes}
+            liked={data.liked}
             post_uuid={data.uuid}
             user={user}
             timeStamp={time}
+            count={data.like_count}
           />
         </Box>
       )}

@@ -9,8 +9,6 @@ import {
   Button,
   Center,
 } from "native-base";
-import RegularImage from "../../../AtomComponents/Image/RegularImage";
-import { grapevineBackend } from "../../../API";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import Toast from "react-native-root-toast";
 import { Ionicons } from "@expo/vector-icons";
@@ -20,36 +18,20 @@ import SharePost from "../../../Hooks/Posts/sharePost";
 import LikePost from "../../../Hooks/Like/likePost";
 import UnLikePost from "../../../Hooks/Like/unLikePost";
 
-const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, SetLikeCount] = useState(likes.length);
+const LikeContainer = ({ liked, user, post_uuid, timeStamp, count }) => {
   const [openModal, setOpenModal] = useState(false);
   const share = SharePost(() => setOpenModal(false));
-  const likePost = LikePost(
-    () => {
-      SetLikeCount(likeCount + 1);
-      setLiked(true);
-    },
-    () => setLiked(false)
-  );
-  const unlikePost = UnLikePost(
-    () => {
-      SetLikeCount(likeCount - 1);
-      setLiked(false);
-    },
-    () => {
-      setLiked(true);
-    }
-  );
+  const likePost = LikePost();
+  const unlikePost = UnLikePost();
   const handleLike = async () => {
     if (liked) {
-      setLiked(false);
+      // setLiked(false);
       unlikePost.mutate({
         post_uuid: post_uuid,
         user_uuid: user.uuid,
       });
     } else {
-      setLiked(true);
+      // setLiked(true);
 
       likePost.mutate({
         post_uuid: post_uuid,
@@ -69,18 +51,18 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
       keys: user.intrests,
     });
   };
-  useEffect(() => {
-    let likeLength = 0;
-    likes.forEach((element) => {
-      if (!element.disliked) {
-        likeLength++;
-        if (element.user_uuid == user.uuid) {
-          setLiked(true);
-        }
-      }
-    });
-    SetLikeCount(likeLength);
-  }, []);
+  // useEffect(() => {
+  //   let likeLength = 0;
+  //   likes.forEach((element) => {
+  //     if (!element.disliked) {
+  //       likeLength++;
+  //       if (element.user_uuid == user.uuid) {
+  //         setLiked(true);
+  //       }
+  //     }
+  //   });
+  //   SetLikeCount(likeLength);
+  // }, []);
 
   return (
     <Box>
@@ -144,7 +126,7 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
       </Flex>
       <Box flex="1" flexDir="row" justifyContent="space-between" px="2" pt="2">
         <Text fontSize="12" fontWeight="800">
-          {`${likeCount} Like${likeCount > 1 ? "s" : ""}`}
+          {`${count} Like${count > 1 ? "s" : ""}`}
         </Text>
         <Text fontSize="12" color="black">
           {timeStamp}

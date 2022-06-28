@@ -11,12 +11,13 @@ const PostContainer = ({ post, navigation, user }) => {
   if (_post.isLoading) {
     return <Spinner accessibilityLabel="Loading" />;
   }
-  if (_post.isError) {
+
+  if (_post.isError || !_post.data) {
     return <Text>error</Text>;
   }
-  if (post.shared_post_uuid) {
+  if (_post.data.shared_post_uuid) {
     return <SharedPost data={_post.data} navigation={navigation} user={user} />;
-  } else if (post.post_type == "text")
+  } else if (_post.data.post_type == "text")
     return <PostV2 data={_post.data} user={user} navigation={navigation} />;
   return <TiktokPost data={_post.data} user={user} navigation={navigation} />;
 };

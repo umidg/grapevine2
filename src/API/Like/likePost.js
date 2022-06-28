@@ -1,7 +1,7 @@
 import { grapevineBackend } from "../ci.axios";
 
-export const likePost = async (data) => {
-  const data = await grapevineBackend("/likes/create", data, "POST")
+export const likePost = async (likeData) => {
+  const data = await grapevineBackend("/likes/create", likeData, "POST")
     .then(async ({ data }) => {
       if (data.status) {
         return data.data;
