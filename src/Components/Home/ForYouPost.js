@@ -1,6 +1,6 @@
-import React from "react";
-import { PostContainer } from "../../MoleculeComponents/index";
-import { Center, Box, ScrollView, Image, Text, Spinner } from "native-base";
+import React from 'react';
+import { PostContainer } from '../../MoleculeComponents/index';
+import { Center, Box, ScrollView, Image, Text, Spinner } from 'native-base';
 const ForYouPost = ({ user, navigation, forYouPosts }) => {
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 20;
@@ -13,22 +13,22 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
   };
   if (forYouPosts.isLoading) {
     return (
-      <Center h="100%" w="100%">
-        <Spinner accessibilityLabel="Loading" />
+      <Center h='100%' w='100%'>
+        <Spinner accessibilityLabel='Loading' />
       </Center>
     );
   }
   if (!forYouPosts.data?.pages[0]?.result.length > 0 || forYouPosts.isError) {
     return (
-      <Center h="100%" w="100%">
+      <Center h='100%' w='100%'>
         <Image
-          source={require("../../../assets/Logo/Logo.png")}
+          source={require('../../../assets/Logo/Logo.png')}
           size={100}
-          resizeMode="contain"
-          p="5"
-          alt="Image"
+          resizeMode='contain'
+          p='5'
+          alt='Image'
         />
-        <Text fontSize="16" fontWidth="800" color="primary" mt="10">
+        <Text fontSize='16' fontWidth='800' color='primary' mt='10'>
           Sorry, no posts yet.
         </Text>
       </Center>
@@ -37,15 +37,16 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
   return (
     <>
       <ScrollView
-        h="100%"
+        h='100%'
         onScroll={({ nativeEvent }) => {
           onScroll(nativeEvent);
         }}
+        mb='16'
       >
         {forYouPosts.data?.pages.map((page) =>
           page.result.map((post, index) => {
             return (
-              <Box mt={index === 0 ? "0" : "0"} key={post.uuid}>
+              <Box mt={index === 0 ? '0' : '0'} key={post.uuid}>
                 <PostContainer
                   post={post}
                   user={user}
@@ -62,29 +63,29 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
   return (
     <>
       {forYouPosts.length === 0 ? (
-        <Center h="100%" w="100%">
+        <Center h='100%' w='100%'>
           <Image
-            source={require("../../../assets/Logo/Logo.png")}
+            source={require('../../../assets/Logo/Logo.png')}
             size={100}
-            resizeMode="contain"
-            p="5"
-            alt="Image"
+            resizeMode='contain'
+            p='5'
+            alt='Image'
           />
-          <Text fontSize="16" fontWidth="800" color="primary" mt="10">
+          <Text fontSize='16' fontWidth='800' color='primary' mt='10'>
             Sorry, no posts yet.
           </Text>
         </Center>
       ) : (
-        <Box pb="70" h="100%">
+        <Box pb='70' h='100%'>
           <ScrollView
-            h="100%"
+            h='100%'
             onScroll={({ nativeEvent }) => {
               onScroll(nativeEvent);
             }}
           >
             {forYouPosts.map((post, index) => {
               return (
-                <Box mt={index === 0 ? "0" : "0"} key={post.uuid}>
+                <Box mt={index === 0 ? '0' : '0'} key={post.uuid}>
                   <PostContainer
                     post={post}
                     user={user}
