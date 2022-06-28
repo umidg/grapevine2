@@ -28,7 +28,6 @@ const PostV2 = ({
     else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
     return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   }, [data]);
-
   return (
     <Box w="100%" mb={"12"} borderRadius="md">
       <Box py="2">

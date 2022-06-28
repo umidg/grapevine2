@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Box, Center, Text, Image, Flex } from "native-base";
+import { Box, Center, Text, Image, Flex, Spinner } from "native-base";
 import PostHeader from "./PostComponents/PostHeader";
 import CommentsContainer from "./PostComponents/CommentsContainer";
 import LikeContainer from "./PostComponents/LikeContainer";
 import { grapevineBackend } from "../../API";
 import PostV2 from "./PostV2";
+import GetPost from "../../Hooks/Posts/getPost";
 const SharedPost = ({ data, user, navigation }) => {
-  const [post, setPost] = useState(null);
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
     const date2 = new Date();
@@ -24,26 +24,19 @@ const SharedPost = ({ data, user, navigation }) => {
     return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   }, [data]);
 
-  useEffect(() => {
-    grapevineBackend(
-      "/post/getPostByUuid",
-      { post_uuid: data.shared_post_uuid },
-      "POST"
-    )
-      .then(({ data }) => {
-        if (data.status) {
-          setPost({ ...data.data });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [data]);
+  const post = GetPost(data.shared_post_uuid);
+  if (post.isLoading) {
+    return <Spinner accessibilityLabel="Loading" />;
+  }
+  if (post.isError) {
+    return <Text>error</Text>;
+  }
+
   return (
     <Box w="100%" mb="12">
       <Box py="2">
         <PostHeader
-          username={data.username}
+          username={post.data?.username}
           user_uuid={data.user_uuid}
           navigation={navigation}
           address={user.address}
@@ -54,7 +47,7 @@ const SharedPost = ({ data, user, navigation }) => {
           <PostV2
             showLike={false}
             showComment={false}
-            data={post}
+            data={post.data}
             user={user}
             navigation={navigation}
             shared
@@ -63,14 +56,14 @@ const SharedPost = ({ data, user, navigation }) => {
       </Box>
       <Box>
         <LikeContainer
-          likes={data.likes}
-          post_uuid={data.uuid}
+          likes={post.data?.likes}
+          post_uuid={post.data.uuid}
           user={user}
           timeStamp={time}
         />
       </Box>
       <Box p="2">
-        <CommentsContainer comments={data.comments} user={user} />
+        <CommentsContainer comments={post.data?.comments} user={user} />
       </Box>
     </Box>
   );

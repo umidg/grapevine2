@@ -11,7 +11,6 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
       forYouPosts.fetchNextPage();
     }
   };
-
   if (forYouPosts.isLoading) {
     return (
       <Center h="100%" w="100%">

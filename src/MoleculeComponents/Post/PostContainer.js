@@ -3,13 +3,22 @@ import React from "react";
 import PostV2 from "./PostV2";
 import TiktokPost from "./TiktokPost";
 import SharedPost from "./SharedPost";
+import GetPost from "../../Hooks/Posts/getPost";
+import { Spinner } from "native-base";
 
 const PostContainer = ({ post, navigation, user }) => {
+  const _post = GetPost(post.uuid);
+  if (_post.isLoading) {
+    return <Spinner accessibilityLabel="Loading" />;
+  }
+  if (_post.isError) {
+    return <Text>error</Text>;
+  }
   if (post.shared_post_uuid) {
-    return <SharedPost data={post} navigation={navigation} user={user} />;
+    return <SharedPost data={_post.data} navigation={navigation} user={user} />;
   } else if (post.post_type == "text")
-    return <PostV2 data={post} user={user} navigation={navigation} />;
-  return <TiktokPost data={post} user={user} navigation={navigation} />;
+    return <PostV2 data={_post.data} user={user} navigation={navigation} />;
+  return <TiktokPost data={_post.data} user={user} navigation={navigation} />;
 };
 
 export default React.memo(PostContainer);

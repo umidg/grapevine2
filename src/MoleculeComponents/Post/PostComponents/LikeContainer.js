@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   Box,
   Flex,
@@ -8,84 +8,66 @@ import {
   Modal,
   Button,
   Center,
-} from 'native-base';
-import RegularImage from '../../../AtomComponents/Image/RegularImage';
-import { grapevineBackend } from '../../../API';
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
-import Toast from 'react-native-root-toast';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+} from "native-base";
+import RegularImage from "../../../AtomComponents/Image/RegularImage";
+import { grapevineBackend } from "../../../API";
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import Toast from "react-native-root-toast";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import SharePost from "../../../Hooks/Posts/sharePost";
+import LikePost from "../../../Hooks/Like/likePost";
+import UnLikePost from "../../../Hooks/Like/unLikePost";
 
 const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   const [liked, setLiked] = useState(false);
   const [likeCount, SetLikeCount] = useState(likes.length);
   const [openModal, setOpenModal] = useState(false);
+  const share = SharePost(() => setOpenModal(false));
+  const likePost = LikePost(
+    () => {
+      SetLikeCount(likeCount + 1);
+      setLiked(true);
+    },
+    () => setLiked(false)
+  );
+  const unlikePost = UnLikePost(
+    () => {
+      SetLikeCount(likeCount - 1);
+      setLiked(false);
+    },
+    () => {
+      setLiked(true);
+    }
+  );
   const handleLike = async () => {
     if (liked) {
       setLiked(false);
-      grapevineBackend(
-        '/likes/dislike',
-        {
-          post_uuid: post_uuid,
-          user_uuid: user.uuid,
-        },
-        'POST'
-      )
-        .then(({ data }) => {
-          if (data.status) {
-            SetLikeCount(likeCount - 1);
-            setLiked(false);
-          } else {
-            setLiked(true);
-          }
-        })
-        .catch((err) => setLiked(true));
+      unlikePost.mutate({
+        post_uuid: post_uuid,
+        user_uuid: user.uuid,
+      });
     } else {
       setLiked(true);
-      grapevineBackend(
-        '/likes/create',
-        {
-          post_uuid: post_uuid,
-          user_uuid: user.uuid,
-        },
-        'POST'
-      )
-        .then(({ data }) => {
-          if (data.status) {
-            SetLikeCount(likeCount + 1);
-            setLiked(true);
-          } else {
-            setLiked(false);
-          }
-        })
-        .catch((err) => setLiked(false));
+
+      likePost.mutate({
+        post_uuid: post_uuid,
+        user_uuid: user.uuid,
+      });
     }
   };
 
   const handleShare = () => {
-    Toast.show('Sharing', {
+    Toast.show("Sharing", {
       duration: Toast.durations.LONG,
     });
-    grapevineBackend(
-      '/post/share',
-      {
-        post_uuid: post_uuid,
-        user_uuid: user.uuid,
-        username: user.username,
-        keys: user.intrests,
-      },
-      'POST'
-    )
-      .then(({ data }) => {
-        Toast.show('Post Shared', {
-          duration: Toast.durations.LONG,
-        });
-      })
-      .catch((err) => setLiked(false))
-      .finally(() => {
-        setOpenModal(false);
-      });
+    share.mutate({
+      post_uuid: post_uuid,
+      user_uuid: user.uuid,
+      username: user.username,
+      keys: user.intrests,
+    });
   };
   useEffect(() => {
     let likeLength = 0;
@@ -103,82 +85,82 @@ const LikeContainer = ({ likes, user, post_uuid, timeStamp }) => {
   return (
     <Box>
       <Flex
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
-        w='100%'
-        mt='10px'
-        borderTopWidth='1'
-        borderBottomWidth='1'
-        borderColor='gray.200'
-        px='3'
-        py='2'
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        w="100%"
+        mt="10px"
+        borderTopWidth="1"
+        borderBottomWidth="1"
+        borderColor="gray.200"
+        px="3"
+        py="2"
       >
-        <Box w='3/4'>
+        <Box w="3/4">
           <Box
-            display='flex'
-            flexDir={'row'}
-            justifyContent='space-between'
-            w='full'
+            display="flex"
+            flexDir={"row"}
+            justifyContent="space-between"
+            w="full"
           >
-            <Pressable onPress={handleLike} alignItems='center'>
+            <Pressable onPress={handleLike} alignItems="center">
               {liked ? (
-                <AntDesign name='heart' size={20} color='red' p='2' />
+                <AntDesign name="heart" size={20} color="red" p="2" />
               ) : (
-                <AntDesign name='hearto' size={20} color='black' p='2' />
+                <AntDesign name="hearto" size={20} color="black" p="2" />
               )}
-              <Text fontSize='8'>Like</Text>
+              <Text fontSize="8">Like</Text>
             </Pressable>
             <Center>
-              <FontAwesome5 name='comment' size={20} color='#000' p='2' />
-              <Text fontSize='8'>Interaction</Text>
+              <FontAwesome5 name="comment" size={20} color="#000" p="2" />
+              <Text fontSize="8">Interaction</Text>
             </Center>
             <Center>
-              <Ionicons name='people-outline' size={20} color='gray' />
-              <Text fontSize='8'>People</Text>
+              <Ionicons name="people-outline" size={20} color="gray" />
+              <Text fontSize="8">People</Text>
             </Center>
             <Center>
               <MaterialCommunityIcons
-                name='shopping-outline'
+                name="shopping-outline"
                 size={20}
-                color='gray'
+                color="gray"
               />
-              <Text fontSize='8'>Products</Text>
+              <Text fontSize="8">Products</Text>
             </Center>
             <Center>
-              <FontAwesome name='lightbulb-o' size={20} color='gray' />
-              <Text fontSize='8'>Inspo</Text>
+              <FontAwesome name="lightbulb-o" size={20} color="gray" />
+              <Text fontSize="8">Inspo</Text>
             </Center>
-            <Pressable onPress={() => setOpenModal(true)} alignItems='center'>
+            <Pressable onPress={() => setOpenModal(true)} alignItems="center">
               <MaterialCommunityIcons
-                name='share-outline'
+                name="share-outline"
                 size={20}
-                color='black'
+                color="black"
               />
-              <Text fontSize='8'>Share</Text>
+              <Text fontSize="8">Share</Text>
             </Pressable>
           </Box>
         </Box>
       </Flex>
-      <Box flex='1' flexDir='row' justifyContent='space-between' px='2' pt='2'>
-        <Text fontSize='12' fontWeight='800'>
-          {`${likeCount} Like${likeCount > 1 ? 's' : ''}`}
+      <Box flex="1" flexDir="row" justifyContent="space-between" px="2" pt="2">
+        <Text fontSize="12" fontWeight="800">
+          {`${likeCount} Like${likeCount > 1 ? "s" : ""}`}
         </Text>
-        <Text fontSize='12' color='black'>
+        <Text fontSize="12" color="black">
           {timeStamp}
         </Text>
       </Box>
       <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Content maxWidth='350'>
+        <Modal.Content maxWidth="350">
           <Modal.CloseButton />
           <Modal.Header>Share</Modal.Header>
           <Modal.Body>Do you want to share this post?</Modal.Body>
           <Modal.Footer>
-            <Box display={'flex'} flexDir='row' justifyContent='flex-end'>
-              <Button onPress={handleShare} bg='primary' mr='2'>
+            <Box display={"flex"} flexDir="row" justifyContent="flex-end">
+              <Button onPress={handleShare} bg="primary" mr="2">
                 Yes
               </Button>
-              <Button onPress={() => setOpenModal(false)} bg='primary'>
+              <Button onPress={() => setOpenModal(false)} bg="primary">
                 No
               </Button>
             </Box>
