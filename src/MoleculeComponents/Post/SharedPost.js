@@ -24,11 +24,11 @@ const SharedPost = ({ data, user, navigation }) => {
     return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   }, [data]);
 
-  const post = GetPost(data.shared_post_uuid);
-  if (post.isLoading) {
+  const sharedPost = GetPost(data.shared_post_uuid);
+  if (sharedPost.isLoading) {
     return <Spinner accessibilityLabel="Loading" />;
   }
-  if (post.isError) {
+  if (sharedPost.isError) {
     return <Text>error</Text>;
   }
 
@@ -36,18 +36,18 @@ const SharedPost = ({ data, user, navigation }) => {
     <Box w="100%" mb="12">
       <Box py="2">
         <PostHeader
-          username={post.data?.username}
+          username={data?.username}
           user_uuid={data.user_uuid}
           navigation={navigation}
           address={user.address}
         />
       </Box>
       <Box w="100%" pl="5">
-        {post && (
+        {sharedPost.data && (
           <PostV2
             showLike={false}
             showComment={false}
-            data={post.data}
+            data={sharedPost.data}
             user={user}
             navigation={navigation}
             shared
@@ -56,14 +56,15 @@ const SharedPost = ({ data, user, navigation }) => {
       </Box>
       <Box>
         <LikeContainer
-          likes={post.data?.likes}
-          post_uuid={post.data.uuid}
+          liked={data.liked}
+          post_uuid={data.uuid}
           user={user}
           timeStamp={time}
+          count={data.like_count}
         />
       </Box>
       <Box p="2">
-        <CommentsContainer comments={post.data?.comments} user={user} />
+        <CommentsContainer comments={data.comments} user={user} />
       </Box>
     </Box>
   );

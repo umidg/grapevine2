@@ -6,13 +6,15 @@ import { UserValue } from "../../Context/UserContext";
 import { grapevineBackend } from "../../API";
 import Toast from "react-native-root-toast";
 import { AtomComponents, Layout } from "../../Exports/index";
+import UploadPost from "../../Hooks/Posts/uploadPost";
+
 const Post_Instagram_Tiktok_Youtube = ({ navigation, route }) => {
   const { RegularImage, Tiktokvideo } = AtomComponents;
   const { SignInLayout } = Layout;
   const { tiktokVideo } = route.params;
   const [user, setUser] = useContext(UserValue);
   const [caption, setCaption] = useState("");
-
+  const posts = UploadPost();
   const uploadPost = () => {
     let data = {
       title: "Title",
@@ -23,24 +25,26 @@ const Post_Instagram_Tiktok_Youtube = ({ navigation, route }) => {
       keys: user.intrests,
       username: user.username,
     };
-    grapevineBackend("/post/create", data, "POST")
-      .then(async ({ data }) => {
-        if (data.status) {
-          navigation.navigate("Home");
-          Toast.show("Successfully Posted", {
-            duration: Toast.durations.SHORT,
-          });
-        } else {
-          Toast.show("Something Went Wrong", {
-            duration: Toast.durations.SHORT,
-          });
-        }
-      })
-      .catch((err) =>
-        Toast.show("Something Went Wrong", {
-          duration: Toast.durations.SHORT,
-        })
-      );
+    caption("");
+    posts.mutate(data);
+    // grapevineBackend("/post/create", data, "POST")
+    //   .then(async ({ data }) => {
+    //     if (data.status) {
+    //       navigation.navigate("Home");
+    //       Toast.show("Successfully Posted", {
+    //         duration: Toast.durations.SHORT,
+    //       });
+    //     } else {
+    //       Toast.show("Something Went Wrong", {
+    //         duration: Toast.durations.SHORT,
+    //       });
+    //     }
+    //   })
+    //   .catch((err) =>
+    //     Toast.show("Something Went Wrong", {
+    //       duration: Toast.durations.SHORT,
+    //     })
+    //   );
   };
 
   return (

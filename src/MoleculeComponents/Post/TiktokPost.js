@@ -62,10 +62,11 @@ const TiktokPost = ({
       </Box>
       {showLike && (
         <LikeContainer
-          likes={data.likes}
+          liked={data.liked}
           post_uuid={data.uuid}
           user={user}
           timeStamp={time}
+          count={data.like_count}
         />
       )}
       {showComment && (

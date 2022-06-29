@@ -41,9 +41,8 @@ const ExplorePage = ({ navigation }) => {
       "POST"
     )
       .then(({ data }) => {
-        console.log(data, "histpry");
         if (data.status) {
-          setHistory([data.data, ...history]);
+          getHistory();
         }
       })
       .catch((err) => console.log(err));
@@ -55,8 +54,7 @@ const ExplorePage = ({ navigation }) => {
       user_uuid: user_uuid,
     });
   };
-
-  useEffect(() => {
+  const getHistory = () =>
     grapevineBackend("/history/get", {}, "POST")
       .then(({ data }) => {
         if (data.status) {
@@ -64,6 +62,9 @@ const ExplorePage = ({ navigation }) => {
         }
       })
       .catch((err) => console.log(err));
+
+  useEffect(() => {
+    getHistory();
     return () => setFocus(false);
   }, []);
   return (
