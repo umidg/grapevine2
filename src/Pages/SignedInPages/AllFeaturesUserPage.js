@@ -7,34 +7,45 @@ import {
   Image,
   Spinner,
   Button,
+  Pressable,
 } from "native-base";
 import React, { useEffect, useState } from "react";
-import { grapevineBackend } from "../../API";
 import { AntDesign } from "@expo/vector-icons";
 import {
   MolecularComponents,
   Layout,
   AtomComponents,
+  PageComponent,
 } from "../../Exports/index";
-import { Pressable } from "react-native";
+import GetFeaturedUser from "../../Hooks/User/getFeaturedUser";
 export default function AllFeaturesUserPage({ navigation }) {
-  const [featuredUser, setFeaturedUser] = useState(null);
   const [filter, setShowFilter] = useState(false);
   const { SignInLayout, BackLayout } = Layout;
+  const {
+    FeaturedUser: { Filter },
+  } = PageComponent;
   const { RoundImage } = AtomComponents;
   const { DropDownMenu } = MolecularComponents;
-  useEffect(() => {
-    grapevineBackend("/user/getFeatured?page=1&limit=20", {}, "POST")
-      .then(({ data }) => {
-        if (data.status) {
-          setFeaturedUser([...data.data.result]);
-        }
-      })
-      .catch((err) => {
-        setCreators([]);
-        console.log(error);
-      });
-  }, []);
+  const [filterInformation, setFilterInformation] = useState({
+    gender: undefined,
+    intrests: undefined,
+  });
+  const featuredUsers = GetFeaturedUser({
+    page: 1,
+    limit: 10,
+    filter: { ...filterInformation },
+  });
+
+  if (featuredUsers.isLoading || featuredUsers.isRefetching) {
+    return (
+      <Center h="100%" w="100%">
+        <Spinner accessibilityLabel="Loading" />
+      </Center>
+    );
+  }
+  if (featuredUsers.isError || !featuredUsers.data) {
+    return <Text>Error</Text>;
+  }
   return (
     <BackLayout navigation={navigation} color="#000" safeArea>
       <Box w="100%" h="100%" alignItems={"center"} bg="#fff">
@@ -42,106 +53,12 @@ export default function AllFeaturesUserPage({ navigation }) {
           All Featurd Users
         </Text>
         {filter && (
-          <View w="100%" h="100%" bg="white" px={5}>
-            <Flex
-              direction="column"
-              alignItems={"center"}
-              justifyContent="space-between"
-              height={"100%"}
-            >
-              <Box w="100%">
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="flex-start"
-                >
-                  <Pressable onPress={() => setShowFilter(false)} p={2}>
-                    <AntDesign name="close" size={18} color="black" />
-                  </Pressable>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Gender
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    All
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Content Type
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    Skincare, Health & We ...
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Audience Size
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    25k-50k
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    City
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    London
-                  </Text>
-                </Flex>
-              </Box>
-              <Box width={"100%"}>
-                <Button
-                  bg="primary"
-                  width="100%"
-                  height={10}
-                  _text={{
-                    fontWeight: "800",
-                  }}
-                >
-                  {"See " + featuredUser.length + " Creators"}
-                </Button>
-              </Box>
-            </Flex>
-          </View>
+          <Filter
+            close={() => setShowFilter(false)}
+            onChange={setFilterInformation}
+            info={filterInformation}
+            applyFilter={() => featuredUsers.refetch()}
+          />
         )}
         <Flex
           direction="row"
@@ -188,70 +105,65 @@ export default function AllFeaturesUserPage({ navigation }) {
           </Box>
         </Flex>
 
-        {featuredUser ? (
-          <>
-            {featuredUser.length > 0 ? (
-              <Box width={"100%"}>
-                <Text my={3} fontWeight="800" textAlign={"center"}>
-                  {featuredUser.length} Features found
-                </Text>
-                {featuredUser.map((_user) => {
-                  return (
+        <>
+          {featuredUsers.data.length > 0 ? (
+            <Box width={"100%"}>
+              <Text my={3} fontWeight="800" textAlign={"center"}>
+                {featuredUsers.data?.length} Features found
+              </Text>
+              {featuredUsers.data.map((_user) => {
+                return (
+                  <Flex
+                    direction="row"
+                    // alignItems={"center"}
+                    justifyContent="space-between"
+                    key={_user.uuid}
+                    m={2}
+                  >
                     <Flex
                       direction="row"
-                      // alignItems={"center"}
+                      alignItems={"center"}
                       justifyContent="space-between"
-                      key={_user.uuid}
-                      m={2}
                     >
-                      <Flex
-                        direction="row"
-                        alignItems={"center"}
-                        justifyContent="space-between"
-                      >
-                        <RoundImage
-                          image={require("../../../assets/Images/3.png")}
-                          size={10}
-                        />
-                        <Box px={2}>
-                          <Text fontWeight={"800"}>{_user.username}</Text>
-                          <Text>{_user.fname + " " + _user.lname}</Text>
-                        </Box>
-                      </Flex>
-                      <Flex
-                        direction="row"
-                        alignItems={"center"}
-                        justifyContent="space-between"
-                      >
-                        <Button h="60%" pt="0" pb="0" bg="primary" mx={2}>
-                          Collaborate
-                        </Button>
-                        <AntDesign name="plussquareo" size={28} color="black" />
-                      </Flex>
+                      <RoundImage
+                        image={require("../../../assets/Images/3.png")}
+                        size={10}
+                      />
+                      <Box px={2}>
+                        <Text fontWeight={"800"}>{_user.username}</Text>
+                        <Text>{_user.fname + " " + _user.lname}</Text>
+                      </Box>
                     </Flex>
-                  );
-                })}
-              </Box>
-            ) : (
-              <Center h="100%" w="100%">
-                <Image
-                  source={require("../../../assets/Logo/Logo.png")}
-                  size={100}
-                  resizeMode="contain"
-                  p="5"
-                  alt="Image"
-                />
-                <Text fontSize="16" fontWidth="800" color="primary" mt="10">
-                  Sorry, Users Found.
-                </Text>
-              </Center>
-            )}
-          </>
-        ) : (
-          <Center h="100%" w="100%">
-            <Spinner accessibilityLabel="Loading" />
-          </Center>
-        )}
+                    <Flex
+                      direction="row"
+                      alignItems={"center"}
+                      justifyContent="space-between"
+                    >
+                      <Button h="60%" pt="0" pb="0" bg="primary" mx={2}>
+                        Connect
+                      </Button>
+                      <AntDesign name="plussquareo" size={28} color="black" />
+                    </Flex>
+                  </Flex>
+                );
+              })}
+            </Box>
+          ) : (
+            <Center h="100%" w="100%">
+              <Image
+                source={require("../../../assets/Logo/Logo.png")}
+                size={100}
+                resizeMode="contain"
+                p="5"
+                alt="Image"
+              />
+              <Text fontSize="16" fontWidth="800" color="primary" mt="10">
+                Sorry, Users Found.
+              </Text>
+            </Center>
+          )}
+        </>
+
         <Text></Text>
       </Box>
     </BackLayout>

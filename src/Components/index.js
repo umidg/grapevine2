@@ -5,4 +5,14 @@ import * as Explore from "./Explore/index";
 import * as Explore2 from "./Explore2/index";
 import * as Message from "./Messages/index";
 import * as Post from "./Post/index";
-export { Profile, Explore, Explore2, Message, Post, Profile_Own, Home };
+import * as FeaturedUser from "./FeaturedUser/index";
+export {
+  Profile,
+  Explore,
+  Explore2,
+  Message,
+  Post,
+  Profile_Own,
+  Home,
+  FeaturedUser,
+};

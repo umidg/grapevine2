@@ -1,14 +1,18 @@
 import { grapevineBackend } from "../ci.axios";
 
-export const getPost = async (post_uuid) => {
+export const getCreatorUser = async (page = 1, limit = 5, filter = {}) => {
+  let filter_data = { ...filter };
+  if (filter.intrests !== undefined) {
+    filter_data.intrests = { hasSome: [filter.intrests] };
+  }
   const data = await grapevineBackend(
-    "/post/getPostByUuid",
-    { post_uuid: post_uuid },
+    `/user/getCreators?page=${page}&limit=${limit}`,
+    filter_data,
     "POST"
   )
     .then(async ({ data }) => {
       if (data.status) {
-        return data.data;
+        return data.data.result;
       } else {
         throw new Error("Something went wrong");
       }
