@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Flex, Text, Box, Pressable, Button } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
-import { MolecularComponents } from "../../Exports";
+import { DropDownMenu } from "../../MoleculeComponents/index";
+import CountryPicker, { DARK_THEME } from "react-native-country-picker-modal";
 const Filter = ({ close, onChange, info, applyFilter }) => {
-  const { DropDownMenu } = MolecularComponents;
+  const [selectCountryVisible, setSelectCountryVisible] = useState(false);
   return (
     <View w="100%" h="100%" bg="white" px={5}>
+      <CountryPicker
+        theme={DARK_THEME}
+        {...{
+          withFilter: true,
+          withFlag: true,
+          withCountryNameButton: false,
+          withAlphaFilter: true,
+          withCallingCode: true,
+          withEmoji: true,
+          withCountryNameButton: true,
+          withCountryNameButton: true,
+          withCallingCodeButton: true,
+          withCountryNameButton: true,
+          withFlagButton: false,
+
+          onSelect: (selectData) => {
+            console.log(selectData.name, "country");
+            onChange({ ...info, address: selectData.name });
+            setSelectCountryVisible(false);
+          },
+        }}
+        visible={selectCountryVisible}
+      />
       <Flex
         direction="column"
         alignItems={"center"}
@@ -154,23 +178,26 @@ const Filter = ({ close, onChange, info, applyFilter }) => {
               25k-50k
             </Text>
           </Flex>
-          <Flex
-            direction="row"
-            alignItems={"center"}
-            justifyContent="space-between"
-            px={2}
-            py={5}
-            mt={2}
-            borderBottomColor="#d3d3d3"
-            borderBottomWidth={1}
-          >
-            <Text fontSize={16} fontWeight="800">
-              City
-            </Text>
-            <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-              London
-            </Text>
-          </Flex>
+          <Pressable onPress={() => setSelectCountryVisible(true)}>
+            <Flex
+              direction="row"
+              alignItems={"center"}
+              justifyContent="space-between"
+              px={2}
+              py={5}
+              mt={2}
+              borderBottomColor="#d3d3d3"
+              borderBottomWidth={1}
+            >
+              <Text fontSize={16} fontWeight="800">
+                City
+              </Text>
+
+              <Text fontSize={14} fontWeight="600" color="#a6a6a6">
+                {info.address}
+              </Text>
+            </Flex>
+          </Pressable>
         </Box>
         <Box width={"100%"}>
           <Button

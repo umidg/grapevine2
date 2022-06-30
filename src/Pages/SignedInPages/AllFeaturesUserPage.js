@@ -29,6 +29,7 @@ export default function AllFeaturesUserPage({ navigation }) {
   const [filterInformation, setFilterInformation] = useState({
     gender: undefined,
     intrests: undefined,
+    address: "",
   });
   const featuredUsers = GetFeaturedUser({
     page: 1,

@@ -30,6 +30,7 @@ export default function AllCreatorPage({ navigation }) {
   const [filterInformation, setFilterInformation] = useState({
     gender: undefined,
     intrests: undefined,
+    address: "",
   });
   const creatorUser = GetCreatorUser({
     page: 1,
