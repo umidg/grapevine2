@@ -23,6 +23,7 @@ import {
 import { DropDownMenu } from "./Menu/index";
 import { ActivityProfile, Activity } from "./Activity/index";
 import ResourcesBox from "./Resources";
+import UserCard from "./User/UserCard";
 export {
   AllCreators,
   CollectionBox,
@@ -43,4 +44,5 @@ export {
   ActivityProfile,
   Activity,
   ResourcesBox,
+  UserCard,
 };

@@ -23,7 +23,7 @@ export default function AllCreatorPage({ navigation }) {
   const [filter, setShowFilter] = useState(false);
   const { SignInLayout, BackLayout } = Layout;
   const { RoundImage } = AtomComponents;
-  const { DropDownMenu } = MolecularComponents;
+  const { DropDownMenu, UserCard } = MolecularComponents;
   const {
     FeaturedUser: { Filter },
   } = PageComponent;
@@ -54,112 +54,12 @@ export default function AllCreatorPage({ navigation }) {
           All Creators
         </Text>
         {filter && (
-          // <View w="100%" h="100%" bg="white" px={5}>
           <Filter
             close={() => setShowFilter(false)}
             onChange={setFilterInformation}
             info={filterInformation}
             applyFilter={() => creatorUser.refetch()}
           />
-          /* <Flex
-              direction="column"
-              alignItems={"center"}
-              justifyContent="space-between"
-              height={"100%"}
-            >
-              <Box w="100%">
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="flex-start"
-                >
-                  <Pressable onPress={() => setShowFilter(false)} p={2}>
-                    <AntDesign name="close" size={18} color="black" />
-                  </Pressable>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Gender
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    All
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Content Type
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    Skincare, Health & We ...
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    Audience Size
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    25k-50k
-                  </Text>
-                </Flex>
-                <Flex
-                  direction="row"
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  px={2}
-                  py={5}
-                  mt={2}
-                  borderBottomColor="#d3d3d3"
-                  borderBottomWidth={1}
-                >
-                  <Text fontSize={16} fontWeight="800">
-                    City
-                  </Text>
-                  <Text fontSize={14} fontWeight="600" color="#a6a6a6">
-                    London
-                  </Text>
-                </Flex>
-              </Box>
-              <Box width={"100%"}>
-                <Button
-                  bg="primary"
-                  width="100%"
-                  height={10}
-                  _text={{
-                    fontWeight: "800",
-                  }}
-                >
-                  {"See " + creatorUser.data.length + " Creators"}
-                </Button>
-              </Box>
-            </Flex> */
-          // </View>
         )}
         <Flex
           direction="row"
@@ -213,40 +113,7 @@ export default function AllCreatorPage({ navigation }) {
                 {creatorUser.data.length} creator found
               </Text>
               {creatorUser.data.map((creator) => {
-                return (
-                  <Flex
-                    direction="row"
-                    // alignItems={"center"}
-                    justifyContent="space-between"
-                    key={creator.uuid}
-                    m={2}
-                  >
-                    <Flex
-                      direction="row"
-                      alignItems={"center"}
-                      justifyContent="space-between"
-                    >
-                      <RoundImage
-                        image={require("../../../assets/Images/3.png")}
-                        size={10}
-                      />
-                      <Box px={2}>
-                        <Text fontWeight={"800"}>{creator.username}</Text>
-                        <Text>{creator.fname + " " + creator.lname}</Text>
-                      </Box>
-                    </Flex>
-                    <Flex
-                      direction="row"
-                      alignItems={"center"}
-                      justifyContent="space-between"
-                    >
-                      <Button h="60%" pt="0" pb="0" bg="primary" mx={2}>
-                        Collaborate
-                      </Button>
-                      <AntDesign name="plussquareo" size={28} color="black" />
-                    </Flex>
-                  </Flex>
-                );
+                return <UserCard key={creator.uuid} user={creator} />;
               })}
             </Box>
           ) : (

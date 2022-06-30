@@ -20,12 +20,11 @@ import {
 import GetFeaturedUser from "../../Hooks/User/getFeaturedUser";
 export default function AllFeaturesUserPage({ navigation }) {
   const [filter, setShowFilter] = useState(false);
-  const { SignInLayout, BackLayout } = Layout;
+  const { BackLayout } = Layout;
   const {
     FeaturedUser: { Filter },
   } = PageComponent;
-  const { RoundImage } = AtomComponents;
-  const { DropDownMenu } = MolecularComponents;
+  const { DropDownMenu, UserCard } = MolecularComponents;
   const [filterInformation, setFilterInformation] = useState({
     gender: undefined,
     intrests: undefined,
@@ -113,40 +112,7 @@ export default function AllFeaturesUserPage({ navigation }) {
                 {featuredUsers.data?.length} Features found
               </Text>
               {featuredUsers.data.map((_user) => {
-                return (
-                  <Flex
-                    direction="row"
-                    // alignItems={"center"}
-                    justifyContent="space-between"
-                    key={_user.uuid}
-                    m={2}
-                  >
-                    <Flex
-                      direction="row"
-                      alignItems={"center"}
-                      justifyContent="space-between"
-                    >
-                      <RoundImage
-                        image={require("../../../assets/Images/3.png")}
-                        size={10}
-                      />
-                      <Box px={2}>
-                        <Text fontWeight={"800"}>{_user.username}</Text>
-                        <Text>{_user.fname + " " + _user.lname}</Text>
-                      </Box>
-                    </Flex>
-                    <Flex
-                      direction="row"
-                      alignItems={"center"}
-                      justifyContent="space-between"
-                    >
-                      <Button h="60%" pt="0" pb="0" bg="primary" mx={2}>
-                        Connect
-                      </Button>
-                      <AntDesign name="plussquareo" size={28} color="black" />
-                    </Flex>
-                  </Flex>
-                );
+                return <UserCard key={_user.uuid} user={_user} />;
               })}
             </Box>
           ) : (

@@ -40,7 +40,7 @@ const TabContainer = ({
       case "first":
         return <PhotoContainer tiktokPost={tiktokPost} />;
       case "second":
-        return <PostContainer_Profile textPost={textPost} user={user} />;
+        return <PostContainer_Profile textPost={user.posts} user={user} />;
       case "third":
         return (
           <Activity

@@ -202,18 +202,6 @@ const ExplorePage = ({ navigation }) => {
                 All Creators
               </Button>
             )}
-            <Button
-              bg="primary"
-              onPress={() => navigation.navigate("AllCreatorPage")}
-              w="80%"
-              p="1"
-              _text={{
-                fontWeight: "extrabold",
-              }}
-              rounded="md"
-            >
-              All Creators
-            </Button>
           </Box>
           <View style={styles.featureContainer}>
             <Features type="User" />
