@@ -16,6 +16,7 @@ import Sendfriendrequest from "../../Hooks/FriendRequest/sendFriendRequest";
 import { UserValue } from "../../Context/UserContext";
 import { RoundImage } from "../../AtomComponents/index";
 import Acceptfriendrequest from "../../Hooks/FriendRequest/acceptFriendRequest";
+import ConnectButton from "./ConnectButton";
 const UserCard = ({ user: { uuid } }) => {
   const [friendship, setFriendship] = useState(null);
   const [user, setUser] = useContext(UserValue);
@@ -52,9 +53,6 @@ const UserCard = ({ user: { uuid } }) => {
       }
     }
   }, [user_info.data]);
-  // useEffect(() => {
-  //   console.log(friendship, "friendship");
-  // }, [friendship]);
 
   if (user_info.isLoading || user_info.isRefetching) {
     return (
@@ -104,7 +102,16 @@ const UserCard = ({ user: { uuid } }) => {
         alignItems={"center"}
         justifyContent="space-between"
       >
-        {friendship ? (
+        <ConnectButton
+          friendship_status={user_info.data.friendship_status}
+          user_uuid={uuid}
+          h="60%"
+          pt="0"
+          pb="0"
+          bg="primary"
+          mx={2}
+        />
+        {/* {friendship ? (
           friendship.status == "accepted" ? (
             <Button h="60%" pt="0" pb="0" bg="primary" mx={2}>
               Friends
@@ -150,7 +157,7 @@ const UserCard = ({ user: { uuid } }) => {
               "Connect"
             )}
           </Button>
-        )}
+        )} */}
 
         <AntDesign name="plussquareo" size={28} color="black" />
       </Flex>

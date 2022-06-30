@@ -1,17 +1,43 @@
 import { StyleSheet } from "react-native";
 import React from "react";
-import { View, Text, Pressable } from "native-base";
+import {
+  View,
+  Text,
+  Pressable,
+  Spinner,
+  Button,
+  Box,
+  Center,
+} from "native-base";
 import RoundImage from "../../AtomComponents/Image/RoundImage";
-import { Button, Box } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import GetUser from "../../Hooks/User/getUserInfo";
+import ConnectButton from "../User/ConnectButton";
 
 const FeatureBoxSecondary = (props) => {
   const {
     item: { item },
   } = props;
-  const interest = item?.intrests[0];
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
+  const featured_user = GetUser(item.uuid);
+  if (featured_user.isLoading || featured_user.isRefetching) {
+    return (
+      <Box p={10}>
+        <Spinner />
+      </Box>
+    );
+  }
+
+  if (featured_user.isError || !featured_user.data) {
+    return (
+      <Box p={1}>
+        <Center w="100%">
+          <Text>Error</Text>E
+        </Center>
+      </Box>
+    );
+  }
   return (
     <Pressable
       w="200"
@@ -21,16 +47,18 @@ const FeatureBoxSecondary = (props) => {
       bg="#fff"
       shadow="3"
       borderRadius="xl"
-      key={item.uuid}
+      key={featured_user.data.uuid}
       onPress={() =>
         navigation.navigate("FriendProfile", {
-          user_uuid: item.uuid,
+          user_uuid: featured_user.data.uuid,
         })
       }
     >
       <RoundImage size="16" image={require("../../../assets/Images/1.png")} />
       <Text fontSize="md" fontWeight="bold">
-        {item.brand_name || item.agency_name || `${item.fname} ${item.lname}`}
+        {featured_user.data.brand_name ||
+          featured_user.data.agency_name ||
+          `${featured_user.data.fname} ${featured_user.data.lname}`}
       </Text>
       <Box
         display="flex"
@@ -41,7 +69,7 @@ const FeatureBoxSecondary = (props) => {
       >
         <Box>
           <Text textAlign="center" fontWeight="900" fontSize="md">
-            {item._count?.posts || "0"}
+            {featured_user.data._count?.posts || "0"}
           </Text>
           <Text textAlign="center" fontSize="10">
             Posts
@@ -49,7 +77,7 @@ const FeatureBoxSecondary = (props) => {
         </Box>
         <Box>
           <Text textAlign="center" fontWeight="900" fontSize="md">
-            {item._count.connections || "0"}
+            {featured_user.data._count.connections || "0"}
           </Text>
           <Text textAlign="center" fontSize="10">
             Connections
@@ -57,7 +85,7 @@ const FeatureBoxSecondary = (props) => {
         </Box>
         <Box>
           <Text textAlign="center" fontWeight="900" fontSize="md">
-            {item._count.followers || "0"}
+            {featured_user.data._count.followers || "0"}
           </Text>
           <Text textAlign="center" fontSize="10">
             Vouches
@@ -65,9 +93,12 @@ const FeatureBoxSecondary = (props) => {
         </Box>
       </Box>
       <Text fontSize="10" my="5">
-        #1 Featured in {`${interest} & others`}
+        #1 Featured in {`${featured_user.data.intrests[0]} & others`}
       </Text>
-      <Button
+
+      <ConnectButton
+        friendship_status={featured_user.data.friendship_status}
+        user_uuid={featured_user.data.uuid}
         textAlign="center"
         bg="primary"
         w="3/4"
@@ -78,31 +109,9 @@ const FeatureBoxSecondary = (props) => {
           color: "white",
           fontWeight: "bold",
         }}
-      >
-        Connect
-      </Button>
+      />
     </Pressable>
   );
 };
 
 export default FeatureBoxSecondary;
-
-const styles = StyleSheet.create({
-  name: {
-    fontSize: 11,
-    color: "#000",
-    fontWeight: "800",
-  },
-  number: {
-    fontSize: 14,
-    fontWeight: "800",
-    textAlign: "center",
-    marginTop: 2,
-  },
-  collab: {
-    fontSize: 9,
-    fontWeight: "300",
-    textAlign: "center",
-    lineHeight: 9,
-  },
-});
