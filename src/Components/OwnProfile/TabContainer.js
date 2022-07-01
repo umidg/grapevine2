@@ -11,13 +11,7 @@ import Activity from "./Activity";
 import PhotoContainer from "./Photos/PhotosContainer";
 import PostContainer_Profile from "./PostContainer";
 
-const TabContainer = ({
-  tiktokPost,
-  textPost,
-  user,
-  activities,
-  navigation,
-}) => {
+const TabContainer = ({ tiktokPost, user, activities, navigation }) => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
@@ -40,7 +34,7 @@ const TabContainer = ({
       case "first":
         return <PhotoContainer tiktokPost={tiktokPost} />;
       case "second":
-        return <PostContainer_Profile textPost={textPost} user={user} />;
+        return <PostContainer_Profile posts={user.posts} user={user} />;
       case "third":
         return (
           <Activity

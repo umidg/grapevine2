@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Box, Center, ScrollView } from "native-base";
 import { PostContainer } from "../../MoleculeComponents/index";
 
-const PostContainer_Profile = ({ textPost, user }) => {
+const PostContainer_Profile = ({ posts, user }) => {
   return (
     <Center w="100%" bg="theme.bg">
       <Box w="90%" h="100%">
@@ -10,9 +10,9 @@ const PostContainer_Profile = ({ textPost, user }) => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          {textPost.length > 0 ? (
+          {posts.length > 0 ? (
             <Box pb="70">
-              {textPost.map((d) => {
+              {posts.map((d) => {
                 return <PostContainer post={d} key={d.uuid} user={user} />;
               })}
             </Box>

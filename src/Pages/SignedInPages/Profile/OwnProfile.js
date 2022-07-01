@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import Toast from "react-native-root-toast";
-import { Box } from "native-base";
+import { Box, Center, Spinner } from "native-base";
 import { grapevineBackend } from "../../../API";
 import { UserValue } from "../../../Context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import SlideShow from "../../../Components/Profile/SlideShow";
+
 import { Layout, PageComponent, Modal } from "../../../Exports/index";
+import GetLoginUser from "../../../Hooks/User/getLoginUser";
 
 const OwnProfile = ({ navigation }) => {
   const {
@@ -13,14 +15,12 @@ const OwnProfile = ({ navigation }) => {
   } = PageComponent;
   const { TiktokLoginModel } = Modal;
   const { SignInLayout } = Layout;
-
-  const [tiktokPost, setTiktokPost] = useState([]);
-  const [textPost, setTextPost] = useState([]);
-  const [activities, setActivities] = useState([]);
   const [user, setUser] = useContext(UserValue);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
+
+  const user_info = GetLoginUser();
+
   const tiktokLoginSuccess = ({ token, posts, refresh_token }) => {
-    console.log("connecting");
     setShowTiktokModal(false);
     Toast.show("loading", {
       duration: Toast.durations.SHORT,
@@ -50,44 +50,26 @@ const OwnProfile = ({ navigation }) => {
         })
       );
   };
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      setShowTiktokModal(false);
-      grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
-        .then(({ data }) => {
-          if (data.status) {
-            let textPost_temp = [];
-            let tikTokPost_temp = [];
-            data.data.result.forEach((post) => {
-              if (post.post_type == "text") {
-                textPost_temp.push({ ...post, username: user.username });
-              } else if (post.post_type == "tiktok") {
-                tikTokPost_temp.push({ ...post, username: user.username });
-              }
-            });
-            setTextPost([...textPost_temp]);
-            setTiktokPost([...tikTokPost_temp]);
-          }
-        })
-        .catch((err) => console.log(err));
-      grapevineBackend(
-        "/activity/get/myActivity?limit=2",
-        { user_uuid: user.uuid },
-        "POST"
-      )
-        .then(({ data }) => {
-          if (data.status) {
-            setActivities([...data.data.result]);
-          }
-        })
-        .catch((err) => console.log(err));
-    });
-    return unsubscribe;
-  }, []);
+
   const logout = async () => {
     await AsyncStorage.removeItem("user");
     setUser({ ...{ data: true } });
   };
+
+  if (user_info.isLoading || user_info.isRefetching) {
+    return (
+      <Center h="100%" w="100%">
+        <Spinner />
+      </Center>
+    );
+  }
+  if (user_info.isError || !user_info.data) {
+    return (
+      <Center h="100%" w="100%">
+        <Text>Error</Text>
+      </Center>
+    );
+  }
 
   return (
     <SignInLayout>
@@ -100,18 +82,17 @@ const OwnProfile = ({ navigation }) => {
         <Box w="100%" h="100%">
           <HeaderContainer
             navigation={navigation}
-            user={user}
+            user={user_info.data}
             logout={logout}
           />
           <NetworkContainer
             setShowTiktokModal={setShowTiktokModal}
-            user={user}
+            user={user_info.data}
           />
           <TabContainer
-            tiktokPost={tiktokPost}
-            textPost={textPost}
-            user={user}
-            activities={activities}
+            tiktokPost={[]}
+            user={user_info.data}
+            activities={user_info.data?.activities.splice(0, 3)}
             navigation={navigation}
           />
         </Box>

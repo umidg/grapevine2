@@ -6,107 +6,22 @@ import { grapevineBackend } from "../../API";
 import { useState, useEffect, useContext } from "react";
 import { UserValue } from "../../Context/UserContext";
 import { useMemo } from "react";
+import ConnectButton from "../../MoleculeComponents/User/ConnectButton";
 const HeaderContainer = (props) => {
-  const [user, setUser] = useContext(UserValue);
-  const [friendship, setFriendship] = useState(null);
   const {
     user: {
       username,
       image,
-      posts,
-      follwers,
-      connections,
       engagement_type,
       fname,
       lname,
       uuid,
       friendship_status,
+      _count,
+      description,
     },
     navigation,
   } = props;
-
-  const sendRequest = async () => {
-    grapevineBackend(
-      "/friendship/sendfriendrequest",
-      {
-        user_request: user.uuid,
-        user_accept: uuid,
-      },
-      "POST"
-    )
-      .then(({ data }) => {
-        if (data.status) {
-          setFriendship({
-            ...friendship,
-            friendship_uuid: data.data.uuid,
-            status: "pending",
-            action: "wait",
-          });
-        } else {
-          Alert.alert("", data.message);
-        }
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
-
-  const acceptFriendRequest = async () => {
-    grapevineBackend(
-      "/friendship/acceptfriendrequest",
-      {
-        friendship_uuid: friendship.uuid,
-        user_accept: user.uuid,
-      },
-      "POST"
-    )
-      .then(({ data }) => {
-        if (data.status) {
-          console.log(data.data, "response data");
-          setFriendship({
-            ...data.data,
-            status: "accepted",
-            action: "none",
-          });
-        } else {
-          Alert.alert("", "something went wrong");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    if (friendship_status) {
-      setFriendship({ ...friendship_status });
-      if (friendship_status.accepted) {
-        setFriendship({
-          ...friendship_status,
-          friendship_uuid: friendship_status.uuid,
-          status: "accepted",
-          action: "none",
-        });
-      } else {
-        if (friendship_status.user_accept == user.uuid) {
-          setFriendship({
-            ...friendship_status,
-            friendship_uuid: friendship_status.uuid,
-            status: "pending",
-            action: "accept",
-          });
-        } else {
-          setFriendship({
-            ...friendship_status,
-            friendship_uuid: friendship_status.uuid,
-            status: "pending",
-            action: "wait",
-          });
-        }
-      }
-    }
-  }, [friendship_status]);
-
-  useEffect(() => {
-    console.log(friendship, "friend");
-  }, [friendship]);
 
   return (
     <Box w="full" p="5">
@@ -152,21 +67,21 @@ const HeaderContainer = (props) => {
           <Box flex="1" flexDir="row">
             <Box flexDir="column" alignItems="center">
               <Text fontSize="xl" fontWeight="bold">
-                {posts?.length > 0 ? `${posts.length}` : "2K"}
+                {_count.posts ?? "2K"}
               </Text>
               <Text fontSize="10">Posts</Text>
             </Box>
             <Divider h="8" bg="gray.200" orientation="vertical" m="auto" />
             <Box flexDir="column" alignItems="center">
               <Text fontSize="xl" fontWeight="bold">
-                {follwers ?? "4M"}
+                {_count.followers ?? "4M"}
               </Text>
               <Text fontSize="10">Followers</Text>
             </Box>
             <Divider h="8" bg="gray.200" orientation="vertical" m="auto" />
             <Box flexDir="column" alignItems="center">
               <Text fontSize="xl" fontWeight="bold">
-                {connections ?? "100+"}
+                {_count.connections ?? "100+"}
               </Text>
               <Text fontSize="10">Connections</Text>
             </Box>
@@ -177,49 +92,24 @@ const HeaderContainer = (props) => {
             </Text>
 
             <Box flexDir="row" justifyContent="space-between">
-              {/* check if userId is in friends array */}
-              {friendship ? (
-                friendship.status == "accepted" ? (
-                  <Button h="7" pt="0" pb="0" bg="primary" flex="0.45">
-                    Friends
-                  </Button>
-                ) : friendship.action == "accept" ? (
-                  <Button
-                    h="7"
-                    pt="0"
-                    pb="0"
-                    bg="primary"
-                    flex="0.45"
-                    onPress={acceptFriendRequest}
-                  >
-                    Accept
-                  </Button>
-                ) : (
-                  <Button h="7" pt="0" pb="0" bg="primary" flex="0.45">
-                    Req Sent
-                  </Button>
-                )
-              ) : (
-                <Button
-                  onPress={() => sendRequest()} //TODO send request + edit userDetail
-                  h="7"
-                  pt="0"
-                  pb="0"
-                  bg="primary"
-                  flex="0.45"
-                >
-                  Connect
-                </Button>
-              )}
-              {friendship?.chatroom ? (
+              <ConnectButton
+                friendship_status={friendship_status}
+                user_uuid={uuid}
+                h="7"
+                pt="0"
+                pb="0"
+                bg="primary"
+                flex="0.45"
+              />
+              {friendship_status?.chatroom ? (
                 <Button
                   onPress={() =>
                     navigation.navigate("Chatroom", {
                       friend_uuid: uuid,
                       username: username,
-                      friendship_uuid: friendship.uuid,
-                      chatroom_uuid: friendship.chatroom.uuid,
-                      valid_room: friendship.chatroom.valid_room,
+                      friendship_uuid: friendship_status.uuid,
+                      chatroom_uuid: friendship_status.chatroom.uuid,
+                      valid_room: friendship_status.chatroom.valid_room,
                     })
                   }
                   h="7"
@@ -250,10 +140,7 @@ const HeaderContainer = (props) => {
       </Box>
       <Box>
         <Text fontSize="12" color="gray.500" pt="2">
-          is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industrycenturies, but also the leap into
-          electronic typesetting, has been the industrycenturies, but als has
-          been the industrycenrem …more
+          {description}
         </Text>
       </Box>
     </Box>
