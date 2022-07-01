@@ -75,7 +75,7 @@ const Activity = ({ activity, navigation }) => {
               >
                 <Text fontSize={16} fontWeight="800">
                   {activity.user.username}
-                </Text>
+                </Text> 
               </Pressable>
               <Box
                 flex="1"

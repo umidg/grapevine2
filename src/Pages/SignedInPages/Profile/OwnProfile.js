@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
-import Toast from "react-native-root-toast";
-import { Box } from "native-base";
-import { grapevineBackend } from "../../../API";
-import { UserValue } from "../../../Context/UserContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState, useContext } from 'react';
+import Toast from 'react-native-root-toast';
+import { Box } from 'native-base';
+import { grapevineBackend } from '../../../API';
+import { UserValue } from '../../../Context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import SlideShow from "../../../Components/Profile/SlideShow";
-import { Layout, PageComponent, Modal } from "../../../Exports/index";
+import { Layout, PageComponent, Modal } from '../../../Exports/index';
 
 const OwnProfile = ({ navigation }) => {
   const {
@@ -20,48 +20,48 @@ const OwnProfile = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const [showTiktokModal, setShowTiktokModal] = useState(false);
   const tiktokLoginSuccess = ({ token, posts, refresh_token }) => {
-    console.log("connecting");
-    setShowTiktokModal(false);
-    Toast.show("loading", {
-      duration: Toast.durations.SHORT,
-    });
-    grapevineBackend(
-      "/tiktok/connect",
-      {
-        user_uuid: user.uuid,
-        tiktokToken: token,
-        tiktokPost: posts,
-        tiktok_refresh: refresh_token,
-      },
-      "POST"
-    )
-      .then(({ data }) => {
-        if (data.status) {
-          setUser({ ...user, ...data.data });
-        } else {
-          Toast.show("Something Went Wrong", {
-            duration: Toast.durations.SHORT,
-          });
-        }
-      })
-      .catch((err) =>
-        Toast.show("Something Went Wrong", {
-          duration: Toast.durations.SHORT,
-        })
-      );
+    console.log(token, posts, refresh_token, 'connecting');
+    // setShowTiktokModal(false);
+    // Toast.show("loading", {
+    //   duration: Toast.durations.SHORT,
+    // });
+    // grapevineBackend(
+    //   "/tiktok/connect",
+    //   {
+    //     user_uuid: user.uuid,
+    //     tiktokToken: token,
+    //     tiktokPost: posts,
+    //     tiktok_refresh: refresh_token,
+    //   },
+    //   "POST"
+    // )
+    //   .then(({ data }) => {
+    //     if (data.status) {
+    //       setUser({ ...user, ...data.data });
+    //     } else {
+    //       Toast.show("Something Went Wrong", {
+    //         duration: Toast.durations.SHORT,
+    //       });
+    //     }
+    //   })
+    //   .catch((err) =>
+    //     Toast.show("Something Went Wrong", {
+    //       duration: Toast.durations.SHORT,
+    //     })
+    //   );
   };
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener('focus', () => {
       setShowTiktokModal(false);
-      grapevineBackend("/post/userposts", { uuid: user.uuid }, "POST")
+      grapevineBackend('/post/userposts', { uuid: user.uuid }, 'POST')
         .then(({ data }) => {
           if (data.status) {
             let textPost_temp = [];
             let tikTokPost_temp = [];
             data.data.result.forEach((post) => {
-              if (post.post_type == "text") {
+              if (post.post_type == 'text') {
                 textPost_temp.push({ ...post, username: user.username });
-              } else if (post.post_type == "tiktok") {
+              } else if (post.post_type == 'tiktok') {
                 tikTokPost_temp.push({ ...post, username: user.username });
               }
             });
@@ -71,9 +71,9 @@ const OwnProfile = ({ navigation }) => {
         })
         .catch((err) => console.log(err));
       grapevineBackend(
-        "/activity/get/myActivity?limit=2",
+        '/activity/get/myActivity?limit=2',
         { user_uuid: user.uuid },
-        "POST"
+        'POST'
       )
         .then(({ data }) => {
           if (data.status) {
@@ -85,7 +85,7 @@ const OwnProfile = ({ navigation }) => {
     return unsubscribe;
   }, []);
   const logout = async () => {
-    await AsyncStorage.removeItem("user");
+    await AsyncStorage.removeItem('user');
     setUser({ ...{ data: true } });
   };
 
@@ -96,8 +96,8 @@ const OwnProfile = ({ navigation }) => {
         close={() => setShowTiktokModal(false)}
         loginSuccess={(d) => tiktokLoginSuccess(d)}
       />
-      <Box w="100%" h="100%">
-        <Box w="100%" h="100%">
+      <Box w='100%' h='100%'>
+        <Box w='100%' h='100%'>
           <HeaderContainer
             navigation={navigation}
             user={user}

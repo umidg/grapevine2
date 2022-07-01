@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import React from "react";
+import { StyleSheet } from 'react-native';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   Button,
   Box,
   Center,
-} from "native-base";
-import RoundImage from "../../AtomComponents/Image/RoundImage";
-import { useNavigation } from "@react-navigation/native";
-import GetUser from "../../Hooks/User/getUserInfo";
-import ConnectButton from "../User/ConnectButton";
+} from 'native-base';
+import RoundImage from '../../AtomComponents/Image/RoundImage';
+import { useNavigation } from '@react-navigation/native';
+import GetUser from '../../Hooks/User/getUserInfo';
+import ConnectButton from '../User/ConnectButton';
 
 const FeatureBoxSecondary = (props) => {
   const {
@@ -32,7 +32,7 @@ const FeatureBoxSecondary = (props) => {
   if (featured_user.isError || !featured_user.data) {
     return (
       <Box p={1}>
-        <Center w="100%">
+        <Center w='100%'>
           <Text>Error</Text>E
         </Center>
       </Box>
@@ -40,74 +40,74 @@ const FeatureBoxSecondary = (props) => {
   }
   return (
     <Pressable
-      w="200"
-      m="2"
-      p="5"
-      alignItems="center"
-      bg="#fff"
-      shadow="3"
-      borderRadius="xl"
+      w='200'
+      m='2'
+      p='5'
+      alignItems='center'
+      bg='#fff'
+      shadow='3'
+      borderRadius='xl'
       key={featured_user.data.uuid}
       onPress={() =>
-        navigation.navigate("FriendProfile", {
+        navigation.navigate('FriendProfile', {
           user_uuid: featured_user.data.uuid,
         })
       }
     >
-      <RoundImage size="16" image={require("../../../assets/Images/1.png")} />
-      <Text fontSize="md" fontWeight="bold">
+      <RoundImage size='16' image={require('../../../assets/Images/1.png')} />
+      <Text fontSize='md' fontWeight='bold'>
         {featured_user.data.brand_name ||
           featured_user.data.agency_name ||
           `${featured_user.data.fname} ${featured_user.data.lname}`}
       </Text>
       <Box
-        display="flex"
-        flexDir="row"
-        justifyContent="space-evenly"
-        width="full"
-        mt="5"
+        display='flex'
+        flexDir='row'
+        justifyContent='space-evenly'
+        width='full'
+        mt='5'
       >
         <Box>
-          <Text textAlign="center" fontWeight="900" fontSize="md">
-            {featured_user.data._count?.posts || "0"}
+          <Text textAlign='center' fontWeight='900' fontSize='md'>
+            {featured_user.data._count?.posts || '0'}
           </Text>
-          <Text textAlign="center" fontSize="10">
+          <Text textAlign='center' fontSize='10'>
             Posts
           </Text>
         </Box>
         <Box>
-          <Text textAlign="center" fontWeight="900" fontSize="md">
-            {featured_user.data._count.connections || "0"}
+          <Text textAlign='center' fontWeight='900' fontSize='md'>
+            {featured_user.data._count.connections || '0'}
           </Text>
-          <Text textAlign="center" fontSize="10">
+          <Text textAlign='center' fontSize='10'>
             Connections
           </Text>
         </Box>
         <Box>
-          <Text textAlign="center" fontWeight="900" fontSize="md">
-            {featured_user.data._count.followers || "0"}
+          <Text textAlign='center' fontWeight='900' fontSize='md'>
+            {featured_user.data._count.followers || '0'}
           </Text>
-          <Text textAlign="center" fontSize="10">
+          <Text textAlign='center' fontSize='10'>
             Vouches
           </Text>
         </Box>
       </Box>
-      <Text fontSize="10" my="5">
+      <Text fontSize='10' my='5'>
         #1 Featured in {`${featured_user.data.intrests[0]} & others`}
       </Text>
 
       <ConnectButton
         friendship_status={featured_user.data.friendship_status}
         user_uuid={featured_user.data.uuid}
-        textAlign="center"
-        bg="primary"
-        w="3/4"
-        height="8"
-        p="0"
-        rounded="xl"
+        textAlign='center'
+        bg='primary'
+        w='3/4'
+        height='8'
+        p='0'
+        rounded='xl'
         _text={{
-          color: "white",
-          fontWeight: "bold",
+          color: 'white',
+          fontWeight: 'bold',
         }}
       />
     </Pressable>
