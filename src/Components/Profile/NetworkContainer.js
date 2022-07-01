@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, Box } from "native-base";
-import { Entypo } from "@expo/vector-icons";
 import { RegularImage } from "../../AtomComponents/index";
 const NetworkContainer = ({ user }) => {
+  const { fname } = user;
   return (
     <Box>
       <Text textAlign="center" fontWeight="bold" italic>
-        Molly's Networks
+        {fname}'s Networks
       </Text>
       <Box flex="1" flexDir="row" justifyContent="center">
         <RegularImage

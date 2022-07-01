@@ -5,6 +5,7 @@ import { FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { Tiktokvideo } from "../../AtomComponents/index";
 const ActivityProfile = ({ activity, navigation }) => {
   const [post, setPost] = useState(null);
+
   useEffect(() => {
     if (
       activity.type == "post" ||

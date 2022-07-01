@@ -10,7 +10,6 @@ const ConnectButton = (props) => {
   const [user, setUser] = useContext(UserValue);
   const sendFriendRequest = Sendfriendrequest();
   const acceptFriendRequest = Acceptfriendrequest();
-
   useEffect(() => {
     if (friendship_status) {
       setFriendship({ ...friendship_status });

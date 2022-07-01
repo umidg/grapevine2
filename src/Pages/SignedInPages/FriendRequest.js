@@ -89,7 +89,6 @@ const FriendRequest = ({ navigation }) => {
           <View mt={5} w="90%">
             {friendRequest.length > 0 ? (
               friendRequest.map((friend_request) => {
-                console.log(friend_request, "friend requests");
                 return (
                   <Box key={friend_request.uuid} px={5}>
                     <Flex

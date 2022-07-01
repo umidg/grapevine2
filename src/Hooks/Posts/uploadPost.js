@@ -19,6 +19,8 @@ const UploadPost = () => {
         };
       });
       queryClient.invalidateQueries("fetchForYouPost");
+      queryClient.invalidateQueries("LoginUserInfo");
+
       navigation.navigate("Home");
     },
     onError: () => {
