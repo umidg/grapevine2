@@ -18,7 +18,8 @@ const ButtonLight = ({ children, ...props }) => {
       }}
       _text={{
         fontWeight: '800',
-        fontSize: '14',
+        fontSize: 'md',
+        fontFamily: 'bold',
       }}
       {...props}
     >

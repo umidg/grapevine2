@@ -11,7 +11,7 @@ const BrandCreator = ({ navigation }) => {
     if (registerData.account_type == 'User') {
       navigation.navigate('InterestsCreator');
     } else if (registerData.account_type == 'Brand') {
-      navigation.navigate('InterestsBrand');
+      navigation.navigate('InterestsCreator');
     }
   };
   return (
@@ -28,6 +28,7 @@ const BrandCreator = ({ navigation }) => {
                   fontWeight='800'
                   textAlign='center'
                   mt='2'
+                  fontFamily='bold'
                 >
                   Would you like to collaborate with brands?
                 </Text>

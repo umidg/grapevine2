@@ -57,12 +57,19 @@ const EnterEmail = ({ navigation }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt='5'
+                  fontFamily='bold'
                 >
                   We’ll send you a verification code
                 </Text>
               </View>
               <View mt={15}>
-                <Text fontSize={12} color='#f5f4ff' fontWeight={'800'} mb='2'>
+                <Text
+                  fontSize={12}
+                  color='#f5f4ff'
+                  fontWeight={'800'}
+                  mb='2'
+                  fontFamily='bold'
+                >
                   Your Email{' '}
                 </Text>
                 <Center>
@@ -79,9 +86,7 @@ const EnterEmail = ({ navigation }) => {
                     </ButtonLight>
                   ) : (
                     <ButtonLight rounded='2xl' onPress={SendCode}>
-                      <Text fontSize={14} color='#fff' fontWeight={'800'}>
-                        Send Code
-                      </Text>
+                      Send Code
                     </ButtonLight>
                   )}
                 </View>

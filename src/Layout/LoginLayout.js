@@ -8,7 +8,6 @@ const LoginLayout = (props) => {
     navigation.navigate(navigate);
   };
 
-
   return (
     <Flex
       h='100%'
@@ -27,7 +26,12 @@ const LoginLayout = (props) => {
               bg={!nextDisabled ? 'dark' : 'light'}
               onPress={() => !nextDisabled && (onPress ? onPress() : onNext())}
             >
-              <Text fontSize={14} color='#fff' fontWeight={'800'}>
+              <Text
+                fontSize={14}
+                color='#fff'
+                fontWeight={'800'}
+                fontFamily='bold'
+              >
                 Next
               </Text>
             </ButtonDark>
@@ -40,8 +44,12 @@ const LoginLayout = (props) => {
             color='#fff'
             textAlign={'center'}
             my='2'
+            fontFamily='bold'
           >
-            Already have an account? <Text color='dark'>Login</Text>
+            Already have an account?{' '}
+            <Text color='dark' fontFamily='bold'>
+              Login
+            </Text>
           </Text>
         </TouchableOpacity>
       </Box>

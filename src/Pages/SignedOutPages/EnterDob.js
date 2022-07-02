@@ -62,7 +62,7 @@ const EnterDob = ({ navigation }) => {
       ) {
         navigation.navigate('BrandCreator');
       } else {
-        navigation.navigate('InterestsAgency');
+        navigation.navigate('InterestsCreator');
       }
     } else {
       Alert.alert('Invalid', 'Enter all values');
@@ -79,7 +79,13 @@ const EnterDob = ({ navigation }) => {
                 <Logo />
               </View>
               <Center mt='15'>
-                <Text color='#fff' fontWeight={'800'} m='3' fontSize={14}>
+                <Text
+                  color='#fff'
+                  fontWeight={'800'}
+                  m='3'
+                  fontSize={14}
+                  fontFamily='bold'
+                >
                   Date Of Birth
                 </Text>
                 <Flex direction='row'>
@@ -105,6 +111,7 @@ const EnterDob = ({ navigation }) => {
                         dob: { ...registerData.dob, day: text },
                       })
                     }
+                    fontFamily='bold'
                     mr='2'
                   />
                   {/* </ButtonLight> */}
@@ -131,6 +138,7 @@ const EnterDob = ({ navigation }) => {
                       })
                     }
                     mr='2'
+                    fontFamily='bold'
                   />
                   {/* </ButtonLight> */}
                   {/* <ButtonLight w={70} h={10} m={1} p={0}> */}
@@ -154,6 +162,7 @@ const EnterDob = ({ navigation }) => {
                         dob: { ...registerData.dob, year: text },
                       })
                     }
+                    fontFamily='bold'
                   />
                   {/* </ButtonLight> */}
                 </Flex>
@@ -163,6 +172,7 @@ const EnterDob = ({ navigation }) => {
                   mt='5'
                   mb='3'
                   fontSize={14}
+                  fontFamily='bold'
                 >
                   Gender
                 </Text>
@@ -171,12 +181,18 @@ const EnterDob = ({ navigation }) => {
                     w={'40%'}
                     h={10}
                     m={1}
+                    rounded='xl'
                     onPress={() =>
                       setRegisterData({ ...registerData, gender: 'Male' })
                     }
                     bg={registerData.gender == 'Male' ? 'dark' : 'light'}
                   >
-                    <Text fontSize={14} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={14}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Male
                     </Text>
                   </ButtonDark>
@@ -185,12 +201,18 @@ const EnterDob = ({ navigation }) => {
                     w={'40%'}
                     h={10}
                     m={1}
+                    rounded='xl'
                     onPress={() =>
                       setRegisterData({ ...registerData, gender: 'Female' })
                     }
                     bg={registerData.gender == 'Female' ? 'dark' : 'light'}
                   >
-                    <Text fontSize={14} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={14}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Female
                     </Text>
                   </ButtonDark>
@@ -203,8 +225,14 @@ const EnterDob = ({ navigation }) => {
                     setRegisterData({ ...registerData, gender: 'Other' })
                   }
                   bg={registerData.gender == 'Other' ? 'dark' : 'light'}
+                  rounded='xl'
                 >
-                  <Text fontSize={14} color='#fff' fontWeight={'800'}>
+                  <Text
+                    fontSize={14}
+                    color='#fff'
+                    fontWeight={'800'}
+                    fontFamily='bold'
+                  >
                     Prefer not to say
                   </Text>
                 </ButtonDark>
@@ -214,6 +242,7 @@ const EnterDob = ({ navigation }) => {
                   mt='5'
                   mb='3'
                   fontSize={14}
+                  fontFamily='bold'
                 >
                   Ethnicity
                 </Text>
@@ -227,11 +256,13 @@ const EnterDob = ({ navigation }) => {
                     minWidth='200'
                     color={'#fff'}
                     fontWeight='800'
+                    fontFamily='bold'
                     accessibilityLabel='Choose '
                     placeholder='Choose '
                     _selectedItem={{
                       bg: 'primary',
-                      _text: { color: 'white' },
+                      _text: { color: 'white', fontFamily: 'bold' },
+
                       // endIcon: <CheckIcon size="5" />,
                     }}
                     borderWidth='0'
@@ -254,12 +285,18 @@ const EnterDob = ({ navigation }) => {
                           }
                           value={data.value}
                           key={data.value}
+                          _text={{
+                            fontFamily: 'bold',
+                          }}
                         />
                       ) : (
                         <Select.Item
                           label={data.value}
                           value={data.value}
                           key={data.value}
+                          _text={{
+                            fontFamily: 'light',
+                          }}
                         />
                       )
                     )}

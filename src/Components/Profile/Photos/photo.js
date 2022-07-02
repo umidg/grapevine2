@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import Boohoo from '../../../AtomComponents/Text/Boohoo';
 
 const Photo = ({ index }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Boohoo fontSize={8} />
         <Image
           alt='image'
           style={styles.logo}

@@ -30,6 +30,7 @@ const EnterCode = ({ navigation, route }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt='2'
+                  fontFamily='bold'
                 >
                   Enter Code
                 </Text>
@@ -44,7 +45,12 @@ const EnterCode = ({ navigation, route }) => {
                 </Center>
                 <View mt='2'>
                   <ButtonLight rounded='2xl' onPress={compareCode}>
-                    <Text fontSize={14} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={14}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Verify
                     </Text>
                   </ButtonLight>
@@ -54,9 +60,12 @@ const EnterCode = ({ navigation, route }) => {
                     color='#fff'
                     fontWeight={'800'}
                     mt='2'
+                    fontFamily='bold'
                   >
                     Didn’t recieve your code?
-                    <Text color='dark'>&nbsp;Resend</Text>
+                    <Text color='dark' fontFamily='bold'>
+                      &nbsp;Resend
+                    </Text>
                   </Text>
                 </View>
               </View>

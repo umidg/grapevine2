@@ -14,6 +14,7 @@ const InputIntrests = ({ value, onChangeText, placeholder, w, h }) => {
       color='black'
       _focus={{
         bg: 'white',
+        fontFamily: 'bold',
       }}
     />
   );

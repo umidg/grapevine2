@@ -40,10 +40,17 @@ const InterestsBrand = ({ navigation }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt={10}
+                  fontFamily='bold'
                 >
                   What is the nature of your brand?
                 </Text>
-                <Text fontSize={13} fontWeight='300' color='#fff' mt={5}>
+                <Text
+                  fontSize={13}
+                  fontWeight='300'
+                  color='#fff'
+                  mt={5}
+                  fontFamily='bold'
+                >
                   We’ll personalise your expreience based on your answers
                 </Text>
               </Box>
@@ -60,7 +67,12 @@ const InterestsBrand = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Fashion
                     </Text>
                   </ButtonDark>

@@ -48,6 +48,7 @@ const ConnectNetworks = ({ navigation }) => {
                     fontWeight='800'
                     textAlign='center'
                     mt='2'
+                    fontFamily='bold'
                   >
                     Connect your network
                   </Text>
@@ -125,15 +126,29 @@ const ConnectNetworks = ({ navigation }) => {
                     <ButtonDark
                       onPress={() => navigation.navigate('EnterUsername')}
                     >
-                      <Text fontSize={14} color='#fff' fontWeight={'800'}>
+                      <Text
+                        fontSize={14}
+                        color='#fff'
+                        fontWeight={'800'}
+                        fontFamily='bold'
+                      >
                         Next
                       </Text>
                     </ButtonDark>
-                    <Box onPress={() => navigation.navigate('EnterUsername')}>
-                      <Text fontSize='14' color='#fff' fontWeight='300' mt='5'>
+                    <Pressable
+                      onPress={() => navigation.navigate('EnterUsername')}
+                    >
+                      <Text
+                        fontSize='14'
+                        color='#fff'
+                        fontWeight='300'
+                        mt='5'
+                        fontFamily='light'
+                        underline
+                      >
                         Skip
                       </Text>
-                    </Box>
+                    </Pressable>
                   </Center>
                 </Center>
               </View>

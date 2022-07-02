@@ -30,6 +30,7 @@ const InputNumber = ({ h, w, placeholder, value, onChangeText }) => {
           <Select
             bg='rgba(61,54,130,0.6705882352941176)'
             borderRadius={'md'}
+            fontFamily='bold'
             height='10'
             width={'80%'}
             selectedValue={dialCode}

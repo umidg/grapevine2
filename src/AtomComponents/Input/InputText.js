@@ -15,6 +15,7 @@ const InputText = ({ h, w, placeholder, value, onChangeText }) => {
       fontSize='xs'
       _focus={{
         bg: 'dark',
+        fontFamily: 'bold',
       }}
       paddingX='5'
       h={h ? h : 12}

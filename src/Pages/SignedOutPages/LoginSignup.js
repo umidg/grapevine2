@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Center } from 'native-base';
 import { AtomComponents, Layout } from '../../Exports/index';
+import { TextBold } from '../../AtomComponents';
 
 const LoginSignup = ({ navigation }) => {
   const { Logo, ButtonDark, ButtonLight } = AtomComponents;
@@ -15,6 +16,7 @@ const LoginSignup = ({ navigation }) => {
           textAlign={'center'}
           color='#fff'
           my='5'
+          fontFamily='bold'
         >
           Create, Collaborate, Connect
         </Text>

@@ -39,10 +39,17 @@ const InterestsAgency = ({ navigation }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt={10}
+                  fontFamily='bold'
                 >
                   Which categories are you interested in?
                 </Text>
-                <Text fontSize={13} fontWeight='300' color='#fff' mt={5}>
+                <Text
+                  fontSize={13}
+                  fontWeight='300'
+                  color='#fff'
+                  mt={5}
+                  fontFamily='light'
+                >
                   We’ll personalise your expreience based on your answers
                 </Text>
               </Box>
@@ -59,7 +66,12 @@ const InterestsAgency = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Fashion
                     </Text>
                   </ButtonDark>
@@ -74,7 +86,12 @@ const InterestsAgency = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Beauty & Wellness
                     </Text>
                   </ButtonDark>
@@ -89,7 +106,12 @@ const InterestsAgency = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Fitness
                     </Text>
                   </ButtonDark>
@@ -106,7 +128,12 @@ const InterestsAgency = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Entertaintment
                     </Text>
                   </ButtonDark>
@@ -122,7 +149,12 @@ const InterestsAgency = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Lifestyle
                     </Text>
                   </ButtonDark>
@@ -139,7 +171,12 @@ const InterestsAgency = ({ navigation }) => {
                     onPress={() => setShowInput(!showInput)}
                     bg={showInput ? 'dark' : 'light'}
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Other
                     </Text>
                   </ButtonDark>

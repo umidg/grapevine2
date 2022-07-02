@@ -10,6 +10,7 @@ const InputBase = ({
   h,
   editable = true,
   status = 'normal',
+  bold = true,
 }) => {
   return (
     <Input
@@ -27,6 +28,7 @@ const InputBase = ({
       onChangeText={onChangeText}
       editable={editable}
       _focus={{ bg: 'none' }}
+      fontFamily={bold ? 'bold' : 'light'}
     />
   );
 };

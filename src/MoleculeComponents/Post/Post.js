@@ -3,7 +3,7 @@ import { Box, Center, Text, Image, Flex } from 'native-base';
 import PostHeader from './PostComponents/PostHeader';
 import CommentsContainer from './PostComponents/CommentsContainer';
 import LikeContainer from './PostComponents/LikeContainer';
-import Boohoo from '../../AtomComponents/Text/Boohoo';
+
 import ColorWrapper from '../../AtomComponents/ColorWrapper/ColorWrapper';
 const Post = () => {
   return (
@@ -22,7 +22,6 @@ const Post = () => {
           pr='5'
           mt='5'
         >
-          <Boohoo fontSize={14} />
           <ColorWrapper>
             <Image
               alt='image'

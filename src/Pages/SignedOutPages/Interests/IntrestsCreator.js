@@ -38,17 +38,26 @@ const IntrestsCreator = ({ navigation }) => {
                   fontWeight={'800'}
                   textAlign='center'
                   mt={10}
+                  fontFamily='bold'
                 >
                   Which categories are you interested in?
                 </Text>
-                <Text fontSize={13} fontWeight='300' color='#fff' mt={5}>
+                <Text
+                  fontSize={13}
+                  fontWeight='300'
+                  color='#fff'
+                  mt={5}
+                  fontFamily='light'
+                >
                   We’ll personalise your expreience based on your answers
                 </Text>
               </Box>
               <View my={10} alignItems='center'>
                 <Flex direction='row' justifyContent='space-around' w='100%'>
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='30%'
                     onPress={() => select('Fashion')}
                     bg={
@@ -58,12 +67,19 @@ const IntrestsCreator = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={12}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Fashion
                     </Text>
                   </ButtonDark>
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='35%'
                     onPress={() => select('Beauty')}
                     bg={
@@ -73,12 +89,19 @@ const IntrestsCreator = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Beauty & Wellness
                     </Text>
                   </ButtonDark>
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='30%'
                     onPress={() => select('Fitness')}
                     bg={
@@ -88,14 +111,21 @@ const IntrestsCreator = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Fitness
                     </Text>
                   </ButtonDark>
                 </Flex>
                 <Flex direction='row' justifyContent='center' w='100%' mt='5'>
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='30%'
                     onPress={() => select('Entertaintment')}
                     bg={
@@ -105,13 +135,20 @@ const IntrestsCreator = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Entertaintment
                     </Text>
                   </ButtonDark>
                   <View w='5%'></View>
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='30%'
                     onPress={() => select('Lifestyle')}
                     bg={
@@ -121,7 +158,12 @@ const IntrestsCreator = ({ navigation }) => {
                         : 'light'
                     }
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Lifestyle
                     </Text>
                   </ButtonDark>
@@ -133,12 +175,19 @@ const IntrestsCreator = ({ navigation }) => {
                   mt='5'
                 >
                   <ButtonDark
-                    h={10}
+                    p='0'
+                    h='8'
+                    rounded='md'
                     w='30%'
                     onPress={() => setShowInput(!showInput)}
                     bg={showInput ? 'dark' : 'light'}
                   >
-                    <Text fontSize={11} color='#fff' fontWeight={'800'}>
+                    <Text
+                      fontSize={11}
+                      color='#fff'
+                      fontWeight={'800'}
+                      fontFamily='bold'
+                    >
                       Other
                     </Text>
                   </ButtonDark>

@@ -1,5 +1,10 @@
 import React, { useContext } from 'react';
-import { NativeBaseProvider, extendTheme, Box } from 'native-base';
+import {
+  NativeBaseProvider,
+  extendTheme,
+  Box,
+  KeyboardAvoidingView,
+} from 'native-base';
 import AuthNavigation from '../Navigation/AuthNavigation';
 import { ThemeValue } from '../Context/ThemeContext';
 const LinearGradient = require('expo-linear-gradient').LinearGradient;
@@ -28,9 +33,7 @@ const Theme = () => {
   };
   return (
     <NativeBaseProvider theme={customTheme} config={config}>
-      {/* <Box flex={1}> */}
       <AuthNavigation />
-      {/* </Box> */}
     </NativeBaseProvider>
   );
 };

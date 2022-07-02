@@ -1,12 +1,18 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Center, Text, View } from 'native-base';
+import {
+  Center,
+  Text,
+  View,
+  Pressable,
+  KeyboardAvoidingView,
+} from 'native-base';
 import { grapevineBackend } from '../../API/index';
 import { Formik } from 'formik';
 import Toast from 'react-native-root-toast';
 import { ActivityIndicator } from 'react-native';
 import { AtomComponents, Layout, Hooks, Modal } from '../../Exports/index';
+import { TextBold } from '../../AtomComponents';
 const { SignupSchema } = require('../../FormValidationSchema');
 const Login = ({ navigation }) => {
   const { ButtonDark, Input, InputPassword } = AtomComponents;
@@ -57,9 +63,8 @@ const Login = ({ navigation }) => {
   return (
     <SignoutLayout>
       <BackLayout navigation={navigation} navigate='LoginSignup'>
-        <View p='5' w='70%'>
+        <KeyboardAvoidingView enabled behavior='padding'>
           <View alignItems='center' mb='5'>
-            {/* <Logo /> */}
             <Center
               h={150}
               w={150}
@@ -72,6 +77,7 @@ const Login = ({ navigation }) => {
                 fontWeight='800'
                 position={'absolute'}
                 bottom={1}
+                fontFamily='bold'
               >
                 Face ID
               </Text>
@@ -86,7 +92,7 @@ const Login = ({ navigation }) => {
           >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
               <View>
-                <Text style={styles.EmailPw}>
+                <Text color='white' fontFamily='bold'>
                   Username, Email or Phone Number
                 </Text>
                 <Input
@@ -95,7 +101,9 @@ const Login = ({ navigation }) => {
                   onChangeText={handleChange('email')}
                   status={errors.email ? 'danger' : 'normal'}
                 />
-                <Text style={styles.EmailPw}>Password</Text>
+                <Text color='white' fontFamily='bold' pt='5'>
+                  Password
+                </Text>
 
                 <InputPassword
                   value={values.password}
@@ -104,16 +112,10 @@ const Login = ({ navigation }) => {
                   onBlur={handleBlur('password')}
                 />
 
-                <View>
-                  <Text
-                    textAlign='right'
-                    color='#fff'
-                    fontWeight={'800'}
-                    fontSize={12}
-                  >
-                    Forgot Password?
-                  </Text>
-                </View>
+                <Text color='white' fontFamily='bold' textAlign='right'>
+                  Forgot Password?
+                </Text>
+
                 <View mt='10'>
                   {loading ? (
                     <ButtonDark>
@@ -123,34 +125,32 @@ const Login = ({ navigation }) => {
                     <ButtonDark onPress={handleSubmit}>Login</ButtonDark>
                   )}
 
-                  <TouchableOpacity
+                  <Pressable
                     onPress={() => navigation.navigate('ContinueWith')}
+                    pt='5'
                   >
-                    <Text
-                      fontSize={13}
-                      fontWeight='800'
-                      color='#fff'
-                      textAlign={'center'}
-                      mt='5'
-                    >
-                      Don't have an account? <Text color='dark'>Sign Up</Text>
+                    <Text textAlign='center' color='white' fontFamily='bold'>
+                      Don't have an account?{' '}
+                      <Text color='dark' fontFamily='bold'>
+                        Sign Up
+                      </Text>
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
               </View>
             )}
           </Formik>
-        </View>
+        </KeyboardAvoidingView>
       </BackLayout>
     </SignoutLayout>
   );
 };
 
 export default Login;
-const styles = StyleSheet.create({
-  EmailPw: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '800',
-  },
-});
+// const styles = StyleSheet.create({
+//   EmailPw: {
+//     color: '#fff',
+//     fontSize: 12,
+//     fontWeight: '800',
+//   },
+// });

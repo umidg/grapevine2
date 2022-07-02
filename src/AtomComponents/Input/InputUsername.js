@@ -32,6 +32,7 @@ const InputUsername = ({ h, w, placeholder, value, onChangeText, state }) => {
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
+          fontFamily='bold'
         />
       </View>
 

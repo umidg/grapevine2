@@ -9,18 +9,6 @@ const Register_Agency = ({ navigation }) => {
   const { SignoutLayout, BackLayout, LoginLayout } = Layout;
   const { registerData, setRegisterData } = Hooks.ContextHook();
 
-  // const reg = (info) => {
-  //   setRegisterData({
-  //     ...registerData,
-  //     agency_name: info.agency_name,
-  //     number: info.number,
-  //     password: info.password,
-  //     email: info.email,
-  //     address: info.address,
-  //   });
-  //   navigation.navigate('EnterDob');
-  // };
-
   const formik = useFormik({
     initialValues: {
       agency_name: '',
@@ -46,29 +34,15 @@ const Register_Agency = ({ navigation }) => {
               <Box mb={5} alignItems='center'>
                 <Logo />
               </Box>
-              {/* <Formik
-                initialValues={{
-                  agency_name: '',
-                  number: '',
-                  address: '',
-                  email: registerData.email,
-                  password: '',
-                }}
-                onSubmit={reg}
-                validationSchema={RegisterAgencySchema}
-                validateOnChange={false}
-                validateOnBlur={false}
-              >
-                {({
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  values,
-                  errors,
-                }) => ( */}
+
               <View>
                 <View>
-                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                  <Text
+                    color={'#fff'}
+                    fontSize={12}
+                    fontWeight='800'
+                    fontFamily='bold'
+                  >
                     Agency Name
                   </Text>
                   <Input
@@ -78,7 +52,12 @@ const Register_Agency = ({ navigation }) => {
                     status={formik.errors.agency_name ? 'danger' : 'normal'}
                   />
 
-                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                  <Text
+                    color={'#fff'}
+                    fontSize={12}
+                    fontWeight='800'
+                    fontFamily='bold'
+                  >
                     Email
                   </Text>
                   {registerData.email ? (
@@ -91,7 +70,12 @@ const Register_Agency = ({ navigation }) => {
                       status={formik.errors.email ? 'danger' : 'normal'}
                     />
                   )}
-                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                  <Text
+                    color={'#fff'}
+                    fontSize={12}
+                    fontWeight='800'
+                    fontFamily='bold'
+                  >
                     Phone Number
                   </Text>
                   <Input
@@ -100,7 +84,12 @@ const Register_Agency = ({ navigation }) => {
                     onBlur={formik.handleBlur('number')}
                     status={formik.errors.number ? 'danger' : 'normal'}
                   />
-                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+                  <Text
+                    color={'#fff'}
+                    fontSize={12}
+                    fontWeight='800'
+                    fontFamily='bold'
+                  >
                     Location
                   </Text>
                   <Input
@@ -109,13 +98,13 @@ const Register_Agency = ({ navigation }) => {
                     onBlur={formik.handleBlur('address')}
                     status={formik.errors.address ? 'danger' : 'normal'}
                   />
-                  {/* <SelectCountry
-                    value={values.address}
-                    onBlur={handleBlur("address")}
-                    status={errors.address ? "danger" : "normal"}
-                    onValueChange={handleChange("address")}
-                  /> */}
-                  <Text color={'#fff'} fontSize={12} fontWeight='800'>
+
+                  <Text
+                    color={'#fff'}
+                    fontSize={12}
+                    fontWeight='800'
+                    fontFamily='bold'
+                  >
                     Password
                   </Text>
                   <InputPassword
@@ -125,22 +114,19 @@ const Register_Agency = ({ navigation }) => {
                     status={formik.errors.password ? 'danger' : 'normal'}
                   />
                 </View>
-                <View>
+                <View p='5'>
                   <Text
-                    color={'#fff'}
+                    color='#fff'
                     fontSize={12}
-                    fontWeight='800'
-                    textAlign={'center'}
+                    textAlign='center'
+                    fontFamily='light'
                   >
                     By continuing, you agree to our{' '}
-                    <Text color='buttonDark'> Terms of Services</Text> and
-                    <Text color='buttonDark'> Privacy Policy</Text>
+                    <Text color='dark'> Terms of Services</Text> and
+                    <Text color='dark'> Privacy Policy</Text>
                   </Text>
                 </View>
-                {/* <ButtonDark onPress={handleSubmit}>Next</ButtonDark> */}
               </View>
-              {/* )}
-              </Formik> */}
             </Box>
           </Center>
         </LoginLayout>

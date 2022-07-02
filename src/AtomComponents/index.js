@@ -1,11 +1,11 @@
-import BackIcon from "./BackIcon/BackIcon";
+import BackIcon from './BackIcon/BackIcon';
 import {
   ButtonDark,
   ButtonLight,
   ButtonTransparentDarkBorder,
-} from "./Buttons/index";
-import ColorWrapper from "./ColorWrapper/ColorWrapper";
-import { RegularImage, RoundImage } from "./Image/index";
+} from './Buttons/index';
+import ColorWrapper from './ColorWrapper/ColorWrapper';
+import { RegularImage, RoundImage } from './Image/index';
 import {
   Input,
   InputCode,
@@ -15,12 +15,12 @@ import {
   InputText,
   InputUsername,
   Search,
-} from "./Input/index";
-import Logo from "./Logo/Logo";
+} from './Input/index';
+import Logo from './Logo/Logo';
 // import SelectCountry from "./Select/SelectCountry";
-import Boohoo from "./Text/Boohoo";
-import Tiktokvideo from "./TiktokWebview/Tiktokvideo";
-
+import Tiktokvideo from './TiktokWebview/Tiktokvideo';
+import TextLight from './Text/TextLight';
+import TextBold from './Text/TextBold';
 export {
   BackIcon,
   ButtonDark,
@@ -39,6 +39,7 @@ export {
   Search,
   Logo,
   //   SelectCountry,
-  Boohoo,
+  TextLight,
+  TextBold,
   Tiktokvideo,
 };
