@@ -31,7 +31,6 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
     })
       .then((data) => data.json())
       .catch((err) => err);
-    // console.log("user", user);
   };
   const getUserVideos = async ({ access_token, open_id }) => {
     const video = await fetch("https://open-api.tiktok.com/video/list/", {
@@ -57,8 +56,7 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
     })
       .then((data) => data.json())
       .catch((err) => err);
-    console.log("videos", video);
-    const tiktokPost = video.data.videos.map((v) => {
+    const tiktokPost = video?.data?.videos?.map((v) => {
       return {
         embed_link: v.embed_link,
         like_count: v.like_count,
@@ -67,7 +65,8 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
         view_count: v.view_count,
       };
     });
-    return tiktokPost;
+    if (tiktokPost) return tiktokPost;
+    return [];
   };
 
   const getToken = async (code) => {
@@ -83,7 +82,6 @@ const TiktokLoginModel = ({ show, close, loginSuccess }) => {
       .then(async ({ data }) => {
         if (data.access_token) {
           const posts = await getUserVideos(data);
-
           return {
             token: data.access_token,
             posts: posts,
