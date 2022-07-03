@@ -12,7 +12,7 @@ const PostContainer_Profile = ({ posts, user }) => {
         >
           {posts.length > 0 ? (
             <Box pb="70">
-              {posts.map((d) => {
+              {posts.slice(0, 4).map((d) => {
                 return <PostContainer post={d} key={d.uuid} user={user} />;
               })}
             </Box>
