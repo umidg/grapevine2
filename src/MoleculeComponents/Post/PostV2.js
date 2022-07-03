@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
-import { Box, Center, Text, Image, Flex, Pressable } from "native-base";
-import PostHeader from "./PostComponents/PostHeader";
-import CommentsContainer from "./PostComponents/CommentsContainer";
-import LikeContainer from "./PostComponents/LikeContainer";
+import React, { useMemo } from 'react';
+import { Box, Center, Text, Image, Flex, Pressable } from 'native-base';
+import PostHeader from './PostComponents/PostHeader';
+import CommentsContainer from './PostComponents/CommentsContainer';
+import LikeContainer from './PostComponents/LikeContainer';
 
 const PostV2 = ({
   data,
@@ -23,14 +23,14 @@ const PostV2 = ({
     const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return "few moments ago";
-    else if (diffInMin < 60) return diffInMin + " min ago";
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
-    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    if (diffInMin < 1) return 'few moments ago';
+    else if (diffInMin < 60) return diffInMin + ' min ago';
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
+    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
   }, [data]);
   return (
-    <Box w="100%" mb={"12"} borderRadius="md">
-      <Box py="2">
+    <Box w='100%' mb={'12'} borderRadius='md'>
+      <Box py='2'>
         <PostHeader
           username={data.username}
           user_uuid={data.user_uuid}
@@ -39,8 +39,8 @@ const PostV2 = ({
           shared={shared}
         />
       </Box>
-      <Box w="100%" px="5" mb={data.post.length < 100 ? "20" : "5"}>
-        <Text fontSize="md" fontWeight="300">
+      <Box w='100%' px='5' mb={data.post.length < 100 ? '20' : '5'}>
+        <Text fontSize='md' fontWeight='600' fontFamily='light'>
           "{data?.post}"
         </Text>
       </Box>
@@ -59,14 +59,14 @@ const PostV2 = ({
         <Pressable
           onPress={() => {
             if (navigation) {
-              navigation.navigate("CommentPage", {
+              navigation.navigate('CommentPage', {
                 comments: data.comments,
                 post_uuid: data.uuid,
               });
             }
           }}
         >
-          <Box p="2">
+          <Box p='2'>
             <CommentsContainer comments={data.comments} user={user} />
           </Box>
         </Pressable>

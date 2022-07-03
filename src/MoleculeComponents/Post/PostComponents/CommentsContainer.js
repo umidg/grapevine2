@@ -11,10 +11,10 @@ const CommentsContainer = ({ comments }) => {
       {[...comments].splice(0, 3).map((d) => {
         return (
           <Flex direction='row' key={d.uuid}>
-            <Text fontSize='12' fontWeight='700'>
+            <Text fontSize='12' fontWeight='700' fontFamily='bold'>
               {d.user.username}{' '}
             </Text>
-            <Text fontSize='12' fontWeight='400'>
+            <Text fontSize='12' fontWeight='400' fontFamily='light'>
               {d.comment_text}
             </Text>
           </Flex>
@@ -22,11 +22,11 @@ const CommentsContainer = ({ comments }) => {
       })}
       <Box>
         {totalComments > 3 ? (
-          <Text fontSize='12' color='gray.500'>
+          <Text fontSize='12' color='gray.500' fontFamily='light'>
             View all {comments.length} comments
           </Text>
         ) : (
-          <Text fontSize='12' color='gray.500'>
+          <Text fontSize='12' color='gray.500' fontFamily='light'>
             Add a comment
           </Text>
         )}

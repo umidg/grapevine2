@@ -1,5 +1,5 @@
-import { Text, Box, Pressable, Menu } from "native-base";
-import React, { useState } from "react";
+import { Text, Box, Pressable, Menu } from 'native-base';
+import React, { useState } from 'react';
 const DropDownMenu = ({ icon, options, textStyle }) => {
   const [shouldOverlapWithTrigger] = useState(false);
   return (
@@ -18,20 +18,21 @@ const DropDownMenu = ({ icon, options, textStyle }) => {
           return (
             <Menu.Item onPress={onPress} key={text} p={0}>
               <Box
-                flex="1"
-                flexDir="row"
-                justifyContent="flex-start"
-                mx="5"
-                alignItems="center"
+                flex='1'
+                flexDir='row'
+                justifyContent='flex-start'
+                mx='5'
+                alignItems='center'
               >
                 {icon}
                 <Text
-                  fontWeight={"500"}
+                  fontWeight={'500'}
                   fontSize={12}
-                  textAlign="center"
-                  color="gray.500"
+                  textAlign='center'
+                  color='gray.500'
                   my={0}
                   {...textStyle}
+                  fontFamily='bold'
                 >
                   {text}
                 </Text>

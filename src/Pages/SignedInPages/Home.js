@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Center, Text, Flex, Pressable, Image } from "native-base";
-import { UserValue } from "../../Context/UserContext";
-import { useWindowDimensions } from "react-native";
-import { TabView } from "react-native-tab-view";
-import { Layout, PageComponent } from "../../Exports/index";
-import GetPost from "../../Hooks/Posts/getPosts";
+import React, { useState, useEffect, useContext } from 'react';
+import { Box, Center, Text, Flex, Pressable, Image } from 'native-base';
+import { UserValue } from '../../Context/UserContext';
+import { useWindowDimensions } from 'react-native';
+import { TabView } from 'react-native-tab-view';
+import { Layout, PageComponent } from '../../Exports/index';
+import GetPost from '../../Hooks/Posts/getPosts';
+import { LinearGradient } from 'expo-linear-gradient';
+
 const Home = ({ navigation }) => {
   const {
     Home: { ConnectedPosts, ForYouPost },
@@ -15,18 +17,18 @@ const Home = ({ navigation }) => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {
-      key: "first",
-      title: "First",
+      key: 'first',
+      title: 'First',
     },
     {
-      key: "second",
-      title: "second",
+      key: 'second',
+      title: 'second',
     },
   ]);
 
   const renderScene = ({ route }) => {
     switch (route.key) {
-      case "first":
+      case 'first':
         return (
           <ForYouPost
             user={user}
@@ -34,7 +36,7 @@ const Home = ({ navigation }) => {
             forYouPosts={forYouPosts}
           />
         );
-      case "second":
+      case 'second':
         return (
           <ConnectedPosts
             user={user}
@@ -50,15 +52,17 @@ const Home = ({ navigation }) => {
 
   const selectIcon = (key) => {
     switch (key) {
-      case "first":
+      case 'first':
         return (
-          <Text fontWeight={index === 0 ? "800" : "500"}>
-            For you <Text fontWeight="500"> |</Text>
+          <Text fontFamily={index === 0 ? 'bold' : 'light'}>
+            For you <Text fontFamily='light'> |</Text>
           </Text>
         );
         break;
-      case "second":
-        return <Text fontWeight={index === 1 ? "800" : "500"}>Connected</Text>;
+      case 'second':
+        return (
+          <Text fontFamily={index === 1 ? 'bold' : 'light'}>Connected</Text>
+        );
         break;
     }
     return;
@@ -66,19 +70,20 @@ const Home = ({ navigation }) => {
 
   const renderTabBar = (props) => {
     return (
-      <Box alignItems="center" w="full">
-        <Box display="flex" flexDirection="row">
+      <Box alignItems='center' w='full' bg='white'>
+        <Box display='flex' flexDirection='row'>
           {props.navigationState.routes.map((route, i) => {
             return (
-              <Box py="5" px="1" key={i}>
-                <Pressable
-                  onPress={() => {
-                    setIndex(i);
-                  }}
-                >
-                  {selectIcon(route.key)}
-                </Pressable>
-              </Box>
+              <Pressable
+                onPress={() => {
+                  setIndex(i);
+                }}
+                py='5'
+                px='1'
+                key={i}
+              >
+                {selectIcon(route.key)}
+              </Pressable>
             );
           })}
         </Box>
@@ -88,20 +93,21 @@ const Home = ({ navigation }) => {
 
   // return <Text>hello</Text>;
   return (
-    <Box h="100%" w="100%">
-      <Box>
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={(i) => setIndex(i)}
-          initialLayout={{ width: layout.width, height: layout.height }}
-          renderTabBar={renderTabBar}
-          style={{
-            minHeight: layout.height,
-            backgroundColor: "white",
-          }}
-        />
-      </Box>
+    <Box h='100%' w='100%'>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={(i) => setIndex(i)}
+        initialLayout={{ width: layout.width, height: layout.height }}
+        renderTabBar={renderTabBar}
+        style={{
+          minHeight: layout.height,
+          // backgroundColor: 'white',
+        }}
+        sceneContainerStyle={{
+          backgroundColor: 'white',
+        }}
+      />
     </Box>
   );
 };

@@ -35,10 +35,10 @@ const PostHeader = ({ username, user_uuid, navigation, address, shared }) => {
           />
         </Pressable>
         <Box ml='2'>
-          <Text fontSize='md' fontWeight='800'>
+          <Text fontSize='md' fontFamily='bold'>
             {username && username}
           </Text>
-          <Text fontSize='10' fontWeight='400'>
+          <Text fontSize='10' fontFamily='light'>
             {address}
           </Text>
         </Box>

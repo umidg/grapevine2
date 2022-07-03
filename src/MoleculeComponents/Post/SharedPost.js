@@ -1,12 +1,26 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Box, Center, Text, Image, Flex, Spinner } from "native-base";
-import PostHeader from "./PostComponents/PostHeader";
-import CommentsContainer from "./PostComponents/CommentsContainer";
-import LikeContainer from "./PostComponents/LikeContainer";
-import { grapevineBackend } from "../../API";
-import PostV2 from "./PostV2";
-import GetPost from "../../Hooks/Posts/getPost";
-const SharedPost = ({ data, user, navigation }) => {
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+  Box,
+  Center,
+  Text,
+  Image,
+  Flex,
+  Spinner,
+  Pressable,
+} from 'native-base';
+import PostHeader from './PostComponents/PostHeader';
+import CommentsContainer from './PostComponents/CommentsContainer';
+import LikeContainer from './PostComponents/LikeContainer';
+import { grapevineBackend } from '../../API';
+import PostV2 from './PostV2';
+import GetPost from '../../Hooks/Posts/getPost';
+const SharedPost = ({
+  data,
+  user,
+  navigation,
+  showLike = true,
+  showComment = true,
+}) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
     const date2 = new Date();
@@ -18,23 +32,23 @@ const SharedPost = ({ data, user, navigation }) => {
     const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return "few moments ago";
-    else if (diffInMin < 60) return diffInMin + " min ago";
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
-    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    if (diffInMin < 1) return 'few moments ago';
+    else if (diffInMin < 60) return diffInMin + ' min ago';
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
+    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
   }, [data]);
 
   const sharedPost = GetPost(data.shared_post_uuid);
   if (sharedPost.isLoading) {
-    return <Spinner accessibilityLabel="Loading" />;
+    return <Spinner accessibilityLabel='Loading' />;
   }
   if (sharedPost.isError) {
     return <Text>error</Text>;
   }
 
   return (
-    <Box w="100%" mb="12">
-      <Box py="2">
+    <Box w='100%' mb='12'>
+      <Box py='2'>
         <PostHeader
           username={data?.username}
           user_uuid={data.user_uuid}
@@ -42,7 +56,7 @@ const SharedPost = ({ data, user, navigation }) => {
           address={user.address}
         />
       </Box>
-      <Box w="100%" pl="5">
+      <Box w='100%' pl='5'>
         {sharedPost.data && (
           <PostV2
             showLike={false}
@@ -54,18 +68,35 @@ const SharedPost = ({ data, user, navigation }) => {
           />
         )}
       </Box>
-      <Box>
-        <LikeContainer
-          liked={data.liked}
-          post_uuid={data.uuid}
-          user={user}
-          timeStamp={time}
-          count={data.like_count}
-        />
-      </Box>
-      <Box p="2">
-        <CommentsContainer comments={data.comments} user={user} />
-      </Box>
+
+      {showLike && (
+        <Box>
+          <LikeContainer
+            liked={data.liked}
+            post_uuid={data.uuid}
+            user={user}
+            timeStamp={time}
+            count={data.like_count}
+          />
+        </Box>
+      )}
+
+      {showComment && (
+        <Pressable
+          onPress={() => {
+            if (navigation) {
+              navigation.navigate('CommentPage', {
+                comments: data.comments,
+                post_uuid: data.uuid,
+              });
+            }
+          }}
+        >
+          <Box p='2'>
+            <CommentsContainer comments={data.comments} user={user} />
+          </Box>
+        </Pressable>
+      )}
     </Box>
   );
 };
