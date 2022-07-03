@@ -1,8 +1,8 @@
-import { Center, View, Text } from "native-base";
-import React, { useRef } from "react";
-import WebView from "react-native-webview";
+import { Center, View, Text } from 'native-base';
+import React, { useRef } from 'react';
+import WebView from 'react-native-webview';
 
-const Tiktokvideo = ({ uri, h, w, size }) => {
+const Tiktokvideo = ({ uri, h, w, size, buttonSize }) => {
   console.log(uri);
   const webref = useRef(null);
   const script = `(function(){
@@ -19,19 +19,27 @@ const Tiktokvideo = ({ uri, h, w, size }) => {
 
     var videoSize = document.querySelectorAll('div.embed-video-container > div > div > div > div > div')[0];
     videoSize.style.height = "${size || 200}px";
+
+    var playButton = document.querySelectorAll('div.cover > span')[0];
+    
+    playButton.style.height = "${buttonSize || 100}px";
+    playButton.style.width = "${buttonSize || 100}px";
+
   })()`;
 
   const contentLoaded = () => {
-    webref.current.injectJavaScript(script);
+    setTimeout(() => {
+      webref.current.injectJavaScript(script);
+    }, 3000);
   };
 
   return (
-    <View w={w ? w : "100%"} h={h ? h : 200}>
+    <View w={w ? w : '100%'} h={h ? h : 200}>
       <WebView
         ref={webref}
         style={{
-          height: "100%",
-          width: "100%",
+          height: '100%',
+          width: '100%',
         }}
         onLoadEnd={contentLoaded}
         source={{
@@ -42,7 +50,7 @@ const Tiktokvideo = ({ uri, h, w, size }) => {
         useWebView2={true}
         cacheEnabled={false}
         useWebkit={true}
-        androidLayerType="hardware"
+        androidLayerType='hardware'
         // injectedJavaScript={script}
         // injectedJavaScriptBeforeContentLoaded={script}
         scrollEnabled={false}

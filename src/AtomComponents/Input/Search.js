@@ -38,9 +38,10 @@ const Search = ({ onSearch, onFocus, createHistory, clearText, ...rest }) => {
         bg: 'white',
         borderWidth: 1,
         borderColor: 'primary',
-        fontFamily: 'bold',
       }}
+      fontFamily='light'
       onPressIn={onFocus}
+      onBlur={() => console.log('Blurred')}
       {...rest}
     />
   );

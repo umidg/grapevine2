@@ -33,7 +33,7 @@ const FeatureBoxSecondary = (props) => {
     return (
       <Box p={1}>
         <Center w='100%'>
-          <Text>Error</Text>E
+          <Text>Error</Text>
         </Center>
       </Box>
     );
@@ -55,7 +55,7 @@ const FeatureBoxSecondary = (props) => {
       }
     >
       <RoundImage size='16' image={require('../../../assets/Images/1.png')} />
-      <Text fontSize='md' fontWeight='bold'>
+      <Text fontSize='md' fontWeight='bold' fontFamily='bold'>
         {featured_user.data.brand_name ||
           featured_user.data.agency_name ||
           `${featured_user.data.fname} ${featured_user.data.lname}`}
@@ -68,31 +68,46 @@ const FeatureBoxSecondary = (props) => {
         mt='5'
       >
         <Box>
-          <Text textAlign='center' fontWeight='900' fontSize='md'>
+          <Text
+            textAlign='center'
+            fontWeight='900'
+            fontSize='md'
+            fontFamily='bold'
+          >
             {featured_user.data._count?.posts || '0'}
           </Text>
-          <Text textAlign='center' fontSize='10'>
+          <Text textAlign='center' fontSize='10' fontFamily='light'>
             Posts
           </Text>
         </Box>
         <Box>
-          <Text textAlign='center' fontWeight='900' fontSize='md'>
+          <Text
+            textAlign='center'
+            fontWeight='900'
+            fontSize='md'
+            fontFamily='bold'
+          >
             {featured_user.data._count.connections || '0'}
           </Text>
-          <Text textAlign='center' fontSize='10'>
+          <Text textAlign='center' fontSize='10' fontFamily='light'>
             Connections
           </Text>
         </Box>
         <Box>
-          <Text textAlign='center' fontWeight='900' fontSize='md'>
+          <Text
+            textAlign='center'
+            fontWeight='900'
+            fontSize='md'
+            fontFamily='bold'
+          >
             {featured_user.data._count.followers || '0'}
           </Text>
-          <Text textAlign='center' fontSize='10'>
+          <Text textAlign='center' fontSize='10' fontFamily='light'>
             Vouches
           </Text>
         </Box>
       </Box>
-      <Text fontSize='10' my='5'>
+      <Text fontSize='10' my='5' fontFamily='light'>
         #1 Featured in {`${featured_user.data.intrests[0]} & others`}
       </Text>
 
@@ -104,10 +119,10 @@ const FeatureBoxSecondary = (props) => {
         w='3/4'
         height='8'
         p='0'
-        rounded='xl'
+        rounded='md'
         _text={{
           color: 'white',
-          fontWeight: 'bold',
+          fontFamily: 'bold',
         }}
       />
     </Pressable>

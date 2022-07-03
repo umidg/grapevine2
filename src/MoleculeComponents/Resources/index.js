@@ -10,8 +10,10 @@ const ResourcesBox = () => {
         mr='2'
         my='2'
       >
-        <Text fontWeight='600'>Engagement</Text>
-        <Text fontSize='12' fontWeight='600'>
+        <Text fontWeight='600' fontFamily='bold'>
+          Engagement
+        </Text>
+        <Text fontSize='12' fontWeight='600' fontFamily='light'>
           See all →
         </Text>
       </Box>
@@ -38,6 +40,7 @@ const ResourcesBox = () => {
                 fontSize='md'
                 fontWeight='800'
                 color='white'
+                fontFamily='bold'
               >
                 Coming soon...
               </Text>
@@ -52,8 +55,10 @@ const ResourcesBox = () => {
         mr='2'
         my='2'
       >
-        <Text fontWeight='600'>Content Creation</Text>
-        <Text fontSize='12' fontWeight='600'>
+        <Text fontWeight='600' fontFamily='bold'>
+          Content Creation
+        </Text>
+        <Text fontSize='12' fontWeight='600' fontFamily='light'>
           See all →
         </Text>
       </Box>
@@ -80,6 +85,7 @@ const ResourcesBox = () => {
                 fontSize='md'
                 fontWeight='800'
                 color='white'
+                fontFamily='bold'
               >
                 Coming soon...
               </Text>
