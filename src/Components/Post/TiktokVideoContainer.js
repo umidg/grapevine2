@@ -49,7 +49,7 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
                       name={'checkcircle'}
                       size={24}
                       color={`${
-                        selectedId !== v.id ? 'rgba(121,73,231,0.5)' : '#7949E7'
+                        selectedId !== v.id ? 'rgba(121,73,231,0.2)' : '#7949E7'
                       }`}
                       style={{
                         textShadowOffset: { width: 5, height: 2 },
