@@ -1,31 +1,33 @@
-import { TextArea, Text, Box, Pressable, Flex } from "native-base";
-import React, { useState, useContext } from "react";
-import Icon from "react-native-vector-icons/AntDesign";
-import PostHeader from "../../MoleculeComponents/Post/PostComponents/PostHeader";
-import { UserValue } from "../../Context/UserContext";
-import { grapevineBackend } from "../../API";
-import Toast from "react-native-root-toast";
-import { AtomComponents, Layout } from "../../Exports/index";
-import UploadPost from "../../Hooks/Posts/uploadPost";
+import { TextArea, Text, Box, Pressable, Flex } from 'native-base';
+import React, { useState, useContext } from 'react';
+import Icon from 'react-native-vector-icons/AntDesign';
+import PostHeader from '../../MoleculeComponents/Post/PostComponents/PostHeader';
+import { UserValue } from '../../Context/UserContext';
+import { grapevineBackend } from '../../API';
+import Toast from 'react-native-root-toast';
+import { AtomComponents, Layout } from '../../Exports/index';
+import UploadPost from '../../Hooks/Posts/uploadPost';
+import { BackLayout } from '../../Layout';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Post_Instagram_Tiktok_Youtube = ({ navigation, route }) => {
   const { RegularImage, Tiktokvideo } = AtomComponents;
   const { SignInLayout } = Layout;
   const { tiktokVideo } = route.params;
   const [user, setUser] = useContext(UserValue);
-  const [caption, setCaption] = useState("");
+  const [caption, setCaption] = useState('');
   const posts = UploadPost();
   const uploadPost = () => {
     let data = {
-      title: "Title",
-      post_type: "tiktok",
+      title: 'Title',
+      post_type: 'tiktok',
       user_uuid: user.uuid,
       post: caption,
       video_url: tiktokVideo.embed_link,
       keys: user.intrests,
       username: user.username,
     };
-    caption("");
+    setCaption('');
     posts.mutate(data);
     // grapevineBackend("/post/create", data, "POST")
     //   .then(async ({ data }) => {
@@ -48,146 +50,159 @@ const Post_Instagram_Tiktok_Youtube = ({ navigation, route }) => {
   };
 
   return (
-    <SignInLayout>
-      <Box h="100%" w="100%" bg="#fff" mb={5}>
-        <Flex
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          p="5"
-          borderBottomWidth={1}
-          borderBottomColor="#d3d3d3"
+    <BackLayout navigation={navigation} color='black' safeArea>
+      <Box h='100%' w='100%' bg='#fff' mb={5}>
+        <Box
+          display='flex'
+          flexDirection='row'
+          justifyContent='center'
+          position='relative'
+          pb='5'
+          borderBottomWidth='1'
+          borderBottomColor='gray.200'
         >
-          <Pressable onPress={() => navigation.goBack()}>
-            <Text fontSize={14} fontWeight="300" color={"#000"}>
-              Cancel
+          <Box>
+            <Text fontFamily='bold' textAlign='center'>
+              New Post
             </Text>
+          </Box>
+          <Pressable onPress={uploadPost} position='absolute' right='5'>
+            <Box px='5' py='1' borderRadius='md' bg='primary'>
+              <Text fontFamily='bold' color='white'>
+                Post
+              </Text>
+            </Box>
           </Pressable>
+        </Box>
+        <SignInLayout>
+          <Box p='2' flexDirection='row' mb='2'>
+            <Box width={81} height={70}>
+              <Tiktokvideo
+                uri={tiktokVideo.embed_link}
+                size={81}
+                buttonSize={20}
+              />
+            </Box>
 
-          <Pressable onPress={uploadPost}>
+            <Box px='2' flex='1' ml='5'>
+              <Box display='flex' justifyContent='center' mb='2'>
+                <Text fontSize={14} fontFamily='bold'>
+                  Caption
+                </Text>
+                <Box w='10' h='1' bg='primary' ml='2' borderRadius='full'></Box>
+              </Box>
+
+              <TextArea
+                placeholder='Write a Caption...'
+                w='100%'
+                h={10}
+                fontFamily='light'
+                bg='gray.100'
+                borderWidth='1'
+                _focus={{
+                  bg: 'gray.100',
+                }}
+                onChangeText={(text) => setCaption(text)}
+                value={caption}
+              />
+            </Box>
+          </Box>
+          <Flex
+            borderWidth={1}
+            borderColor='#d3d3d3'
+            p={3}
+            direction='row'
+            justifyContent='space-between'
+          >
+            <Text fontWeight={'800'} fontSize={16} fontFamily='light'>
+              Products
+            </Text>
+            <MaterialIcons name='arrow-right-alt' size={24} color='black' />
+          </Flex>
+          <Flex
+            borderBottomWidth={1}
+            borderBottomColor='#d3d3d3'
+            p={3}
+            direction='row'
+            justifyContent='space-between'
+          >
+            <Text fontWeight={'800'} fontSize={16} fontFamily='light'>
+              People
+            </Text>
+            <MaterialIcons name='arrow-right-alt' size={24} color='black' />
+          </Flex>
+          <Flex
+            borderBottomWidth={1}
+            borderBottomColor='#d3d3d3'
+            p={3}
+            direction='row'
+            justifyContent='space-between'
+          >
+            <Text fontWeight={'800'} fontSize={16} fontFamily='light'>
+              Inspo
+            </Text>
+            <MaterialIcons name='arrow-right-alt' size={24} color='black' />
+          </Flex>
+          <Flex p={3} direction='row' justifyContent='space-between'>
+            <Text fontWeight={'800'} fontSize={16} fontFamily='light'>
+              Preview
+            </Text>
+          </Flex>
+
+          <Box display='flex' justifyContent={'center'} alignItems='center'>
             <Box
-              bg="buttonPrimaryColor"
-              p="1"
-              pr="3"
-              pl="3"
-              borderRadius={"full"}
+              w='70%'
+              alignItems='center'
+              style={{
+                shadowColor: 'gray.200',
+                shadowOffset: { width: '0', height: '1' },
+                shadowRadius: '1',
+                elevation: '1',
+                shadowOpacity: '0.5',
+              }}
+              borderRadius='10'
+              bg='white'
+            >
+              <PostHeader username={user.username} type='tiktok' />
+
+              <Box w='100%' mt='5'>
+                <Tiktokvideo uri={tiktokVideo.embed_link} />
+              </Box>
+              <Box
+                w='full'
+                display='flex'
+                flexDirection='row'
+                justifyContent='flex-start'
+                p='2'
+              >
+                <Text mr='2' fontFamily='bold'>
+                  {user.username}
+                </Text>
+                <Text fontFamily='light'>{caption}</Text>
+              </Box>
+            </Box>
+          </Box>
+
+          <Pressable onPress={uploadPost} alignItems='center' mb='10' mt='5'>
+            <Box
+              bg='primary'
+              p='1'
+              pr='3'
+              pl='3'
+              w='80%'
+              borderRadius={'md'}
+              alignItems='center'
               _text={{
-                fontWeight: "800",
+                fontFamily: 'bold',
+                color: 'white',
               }}
             >
               Post
             </Box>
           </Pressable>
-        </Flex>
-        <Flex
-          p={5}
-          direction="row"
-          justifyContent={"flex-end"}
-          borderBottomWidth={1}
-          borderBottomColor="#d3d3d3"
-        >
-          <Box flex={3}>
-            <RegularImage
-              image={require("../../../assets/Images/2.png")}
-              h={70}
-              w={70}
-            />
-          </Box>
-          <Box flex={1}></Box>
-          <Box flex={12}>
-            <Text fontSize={16} fontWeight={"800"}>
-              Custom Caption
-            </Text>
-            <TextArea
-              placeholder="Write a Caption..."
-              borderWidth="0"
-              w="100%"
-              h={10}
-              onChangeText={(text) => setCaption(text)}
-              value={caption}
-            ></TextArea>
-          </Box>
-        </Flex>
-        <Flex
-          borderBottomWidth={1}
-          borderBottomColor="#d3d3d3"
-          p={5}
-          direction="row"
-          justifyContent="space-between"
-        >
-          <Text fontWeight={"800"} fontSize={16}>
-            Tag Brands
-          </Text>
-          <Icon name="arrowright" size={30} color="#000" />
-        </Flex>
-        <Flex
-          borderBottomWidth={1}
-          borderBottomColor="#d3d3d3"
-          p={5}
-          direction="row"
-          justifyContent="space-between"
-        >
-          <Text fontWeight={"800"} fontSize={16}>
-            Location
-          </Text>
-          <Icon name="arrowright" size={30} color="#000" />
-        </Flex>
-        <Flex
-          borderBottomWidth={1}
-          borderBottomColor="#d3d3d3"
-          p={5}
-          direction="row"
-          justifyContent="space-between"
-        >
-          <Text fontWeight={"800"} fontSize={16}>
-            Share
-          </Text>
-          <Icon name="arrowright" size={30} color="#000" />
-        </Flex>
-        <Box p={5}>
-          <Text fontWeight={"800"} fontSize={16} pb={2}>
-            Preview
-          </Text>
-          <Flex justifyContent={"center"} alignItems="center">
-            <Box
-              w="80%"
-              borderRadius={"md"}
-              alignItems={"center"}
-              p={3}
-              borderWidth={1}
-              borderColor="#d3d3d3"
-            >
-              <PostHeader username={user.username} />
-              <Box w="100%">
-                <Text mt={1} italic>
-                  {caption}
-                </Text>
-              </Box>
-              <Box w="100%" mt={3}>
-                <Tiktokvideo uri={tiktokVideo.embed_link} />
-              </Box>
-            </Box>
-          </Flex>
-        </Box>
-
-        <Pressable onPress={uploadPost} alignItems="center">
-          <Box
-            bg="buttonPrimaryColor"
-            p="1"
-            pr="3"
-            pl="3"
-            w="80%"
-            borderRadius={"full"}
-            alignItems="center"
-            _text={{
-              fontWeight: "800",
-            }}
-          >
-            Post
-          </Box>
-        </Pressable>
+        </SignInLayout>
       </Box>
-    </SignInLayout>
+    </BackLayout>
   );
 };
 

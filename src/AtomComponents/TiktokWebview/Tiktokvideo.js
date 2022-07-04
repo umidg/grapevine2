@@ -28,9 +28,10 @@ const Tiktokvideo = ({ uri, h, w, size, buttonSize }) => {
   })()`;
 
   const contentLoaded = () => {
-    setTimeout(() => {
-      webref.current.injectJavaScript(script);
-    }, 3000);
+    if (webref)
+      setTimeout(() => {
+        webref.current.injectJavaScript(script);
+      }, 3000);
   };
 
   return (

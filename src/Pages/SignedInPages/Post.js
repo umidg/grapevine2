@@ -147,7 +147,12 @@ const PostPage = ({ navigation }) => {
         </Pressable>
 
         <Pressable onPress={uploadPost}>
-          <Box
+          <Box px='5' py='1' borderRadius='md' bg='primary'>
+            <Text fontFamily='bold' color='white'>
+              {type == 'text' ? 'Post' : 'Next'}
+            </Text>
+          </Box>
+          {/* <Box
             bg='primary'
             p='1'
             px='3'
@@ -157,8 +162,8 @@ const PostPage = ({ navigation }) => {
               fontFamily: 'bold',
             }}
           >
-            {type == 'text' ? 'Post' : 'Next'}
-          </Box>
+           
+          </Box> */}
         </Pressable>
       </Flex>
       {layout}

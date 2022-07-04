@@ -4,7 +4,15 @@ import { StyleSheet } from 'react-native';
 import RoundImage from '../../../AtomComponents/Image/RoundImage';
 import { Entypo } from '@expo/vector-icons';
 import { DropDownMenu } from '../../Menu/index';
-const PostHeader = ({ username, user_uuid, navigation, address, shared }) => {
+import { FontAwesome5 } from '@expo/vector-icons';
+const PostHeader = ({
+  username,
+  user_uuid,
+  navigation,
+  address,
+  shared,
+  type,
+}) => {
   const styles = !shared && {
     borderTopWidth: '1',
     borderBottomWidth: '1',
@@ -44,11 +52,14 @@ const PostHeader = ({ username, user_uuid, navigation, address, shared }) => {
         </Box>
       </Flex>
 
-      {!shared && (
+      {!shared && !type && (
         <DropDownMenu
           icon={<Entypo name='dots-three-horizontal' size={16} color='black' />}
           options={[{ text: 'Report', onPress: undefined }]}
         />
+      )}
+      {type === 'tiktok' && (
+        <FontAwesome5 name='tiktok' size={24} color='black' />
       )}
     </Flex>
   );
