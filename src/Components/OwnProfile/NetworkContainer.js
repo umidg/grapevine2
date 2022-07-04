@@ -4,8 +4,12 @@ import { RegularImage } from "../../AtomComponents/index";
 import { Pressable } from "react-native";
 import Toast from "react-native-root-toast";
 
+import GetTiktokInfo from "../../Hooks/Tiktok/getTiktokInfo";
+import { connectAccount } from "../../API/Tiktok/connectAccount";
+
 const NetworkContainer = ({ setShowTiktokModal, user }) => {
-  const tiktokLogin = () => {};
+  const { tiktokLogin } = GetTiktokInfo();
+
   return (
     <Box>
       <Text textAlign="center" fontWeight="bold">
@@ -37,15 +41,13 @@ const NetworkContainer = ({ setShowTiktokModal, user }) => {
             />
           </Pressable>
         ) : (
-          <Link
-            href={`https://admin.grapevine-app.co/tiktok/login/${user.uuid}`}
-          >
+          <Pressable onPress={() => tiktokLogin(connectAccount)}>
             <RegularImage
               h={20}
               w={20}
               image={require("../../../assets/Icons/TikTok.png")}
             />
-          </Link>
+          </Pressable>
         )}
 
         <RegularImage
