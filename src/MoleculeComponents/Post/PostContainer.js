@@ -8,6 +8,7 @@ import { Spinner } from "native-base";
 
 const PostContainer = ({ post, navigation, user }) => {
   const _post = GetPost(post.uuid);
+  console.log(_post.data);
   if (_post.isLoading) {
     return <Spinner accessibilityLabel="Loading" />;
   }

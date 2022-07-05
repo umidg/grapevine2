@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import { Box, Center, Text, Image, Flex, Pressable } from 'native-base';
-import PostHeader from './PostComponents/PostHeader';
-import CommentsContainer from './PostComponents/CommentsContainer';
-import LikeContainer from './PostComponents/LikeContainer';
+import React, { useMemo } from "react";
+import { Box, Center, Text, Image, Flex, Pressable } from "native-base";
+import PostHeader from "./PostComponents/PostHeader";
+import CommentsContainer from "./PostComponents/CommentsContainer";
+import LikeContainer from "./PostComponents/LikeContainer";
 
 const PostV2 = ({
   data,
@@ -11,6 +11,7 @@ const PostV2 = ({
   showLike = true,
   showComment = true,
   shared,
+  showProduct = true,
 }) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
@@ -23,14 +24,14 @@ const PostV2 = ({
     const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return 'few moments ago';
-    else if (diffInMin < 60) return diffInMin + ' min ago';
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
-    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    if (diffInMin < 1) return "few moments ago";
+    else if (diffInMin < 60) return diffInMin + " min ago";
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
+    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   }, [data]);
   return (
-    <Box w='100%' mb={'12'} borderRadius='md'>
-      <Box py='2'>
+    <Box w="100%" mb={"12"} borderRadius="md">
+      <Box py="2">
         <PostHeader
           username={data.username}
           user_uuid={data.user_uuid}
@@ -39,8 +40,8 @@ const PostV2 = ({
           shared={shared}
         />
       </Box>
-      <Box w='100%' px='5' mb={data.post.length < 100 ? '20' : '5'}>
-        <Text fontSize='md' fontWeight='600' fontFamily='light'>
+      <Box w="100%" px="5" mb={data.post.length < 100 ? "20" : "5"}>
+        <Text fontSize="md" fontWeight="600" fontFamily="light">
           "{data?.post}"
         </Text>
       </Box>
@@ -59,17 +60,48 @@ const PostV2 = ({
         <Pressable
           onPress={() => {
             if (navigation) {
-              navigation.navigate('CommentPage', {
+              navigation.navigate("CommentPage", {
                 comments: data.comments,
                 post_uuid: data.uuid,
               });
             }
           }}
         >
-          <Box p='2'>
+          <Box p="2">
             <CommentsContainer comments={data.comments} user={user} />
           </Box>
         </Pressable>
+      )}
+      {showProduct && (
+        <Box width={"100%"}>
+          {data.products.map((_product) => {
+            return (
+              <Flex
+                direction="row"
+                justifyContent={"flex-start"}
+                alignItems="center"
+                p={1}
+                key={_product.uuid}
+                borderBottomColor={"#d3d3d3"}
+                borderBottomWidth={1}
+                borderTopColor="#d3d3d3"
+                borderTopWidth={1}
+              >
+                <Image
+                  source={require("../../../assets/Images/2.png")}
+                  alt="img"
+                  h={"20"}
+                  w={"20"}
+                  flex={1}
+                />
+                <Box flex={4} px={2}>
+                  <Text fontWeight={"400"}>{_product.name}</Text>
+                  <Text fontWeight={"800"}>$25</Text>
+                </Box>
+              </Flex>
+            );
+          })}
+        </Box>
       )}
     </Box>
   );
