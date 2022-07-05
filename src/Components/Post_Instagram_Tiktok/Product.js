@@ -51,7 +51,7 @@ const Product = ({ products, setProducts }) => {
               flex={1}
             />
             <Box flex={4} px={2}>
-              <Text fontWeight={"400"}>{_product}</Text>
+              <Text fontWeight={"400"}>{_product.name}</Text>
               <Text fontWeight={"800"}>$25</Text>
             </Box>
             <Pressable onPress={() => removeProduct(index)}>

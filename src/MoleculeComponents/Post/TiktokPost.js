@@ -85,6 +85,34 @@ const TiktokPost = ({
           </Box>
         </Pressable>
       )}
+      <Box width={"100%"}>
+        {data.products.map((_product) => {
+          return (
+            <Flex
+              direction="row"
+              justifyContent={"flex-start"}
+              alignItems="center"
+              p={1}
+              key={_product.uuid}
+              borderBottomColor={"#d3d3d3"}
+              borderBottomWidth={1}
+              borderTopColor="#d3d3d3"
+              borderTopWidth={1}
+            >
+              <Image
+                source={require("../../../assets/Images/2.png")}
+                alt="img"
+                h={"10"}
+                w={"10"}
+              />
+              <Box flex={4} px={2}>
+                <Text fontWeight={"400"}>{_product.name}</Text>
+                <Text fontWeight={"800"}>$25</Text>
+              </Box>
+            </Flex>
+          );
+        })}
+      </Box>
     </Box>
   );
 };
