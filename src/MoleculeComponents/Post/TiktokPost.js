@@ -28,7 +28,7 @@ const TiktokPost = ({
     const diffInMin = Math.floor(diffInTime / 60000);
     if (diffInMin < 1) return "few moments ago";
     else if (diffInMin < 60) return diffInMin + " min ago";
-    else if (diffInMin < 1140) return diffInMin / 60 + " hour ago";
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
     return diffInDays + " days ago";
   }, [data]);
   return (

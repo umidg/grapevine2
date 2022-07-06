@@ -35,6 +35,7 @@ import EditProfile from "../Pages/SignedInPages/Profile/EditProfile";
 import PostPage from "../Pages/SignedInPages/PostPage";
 import AllCreatorPage from "../Pages/SignedInPages/AllCreatorPage";
 import AllFeaturesUserPage from "../Pages/SignedInPages/AllFeaturesUserPage";
+import Share_Post from "../Pages/SignedInPages/SharePost";
 export const signedInRoutes = [
   {
     routeName: "Notification",
@@ -80,6 +81,7 @@ export const signedInRoutes = [
     routeName: "AllFeaturesUserPage",
     component: AllFeaturesUserPage,
   },
+  { routeName: "SharePost", component: Share_Post },
 ];
 
 export const TabRoutes = [

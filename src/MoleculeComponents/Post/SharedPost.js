@@ -14,6 +14,7 @@ import LikeContainer from "./PostComponents/LikeContainer";
 import { grapevineBackend } from "../../API";
 import PostV2 from "./PostV2";
 import GetPost from "../../Hooks/Posts/getPost";
+import { TiktokPost } from "..";
 const SharedPost = ({
   data,
   user,
@@ -21,6 +22,7 @@ const SharedPost = ({
   showLike = true,
   showComment = true,
 }) => {
+  // console.log(data, "shared");
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
     const date2 = new Date();
@@ -57,17 +59,26 @@ const SharedPost = ({
         />
       </Box>
       <Box w="100%" pl="5">
-        {sharedPost.data && (
-          <PostV2
-            showLike={false}
-            showComment={false}
-            showProduct={false}
-            data={sharedPost.data}
-            user={user}
-            navigation={navigation}
-            shared
-          />
-        )}
+        {sharedPost.data &&
+          (sharedPost.data.post_type == "text" ? (
+            <PostV2
+              showLike={false}
+              showComment={false}
+              showProduct={false}
+              data={sharedPost.data}
+              user={user}
+              navigation={navigation}
+              shared
+            />
+          ) : (
+            <TiktokPost
+              showLike={false}
+              showComment={false}
+              data={sharedPost.data}
+              user={user}
+              navigation={navigation}
+            />
+          ))}
       </Box>
 
       {showLike && (
@@ -78,6 +89,7 @@ const SharedPost = ({
             user={user}
             timeStamp={time}
             count={data.like_count}
+            shared_post_uuid={data.shared_post_uuid}
           />
         </Box>
       )}
