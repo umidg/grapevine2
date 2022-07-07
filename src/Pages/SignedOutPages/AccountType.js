@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Text, Center, View, Select, CheckIcon } from 'native-base';
 import { AtomComponents, Layout, Hooks } from '../../Exports/index';
 const AccountType = ({ navigation }) => {
-  console.log(Hooks, 'hooks');
+  // console.log(Hooks, 'hooks');
   const { ButtonDark, Logo } = AtomComponents;
   const { SignoutLayout, BackLayout, LoginLayout } = Layout;
   const { registerData, setRegisterData } = Hooks.ContextHook();

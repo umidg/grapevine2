@@ -20,7 +20,14 @@ const Tiktokvideo = ({ uri, h, w, size, buttonSize }) => {
     var videoSize = document.querySelectorAll('div.embed-video-container > div > div > div > div > div')[0];
     videoSize.style.height = "${size || 200}px";
 
+
+    
+
+    var username = document.querySelectorAll('div[data-testid="player-profile"]')[0]
+
     var playButton = document.querySelectorAll('div.cover > span')[0];
+
+
     
     playButton.style.height = "${buttonSize || 100}px";
     playButton.style.width = "${buttonSize || 100}px";
@@ -28,10 +35,10 @@ const Tiktokvideo = ({ uri, h, w, size, buttonSize }) => {
   })()`;
 
   const contentLoaded = () => {
-    if (webref)
-      setTimeout(() => {
-        webref.current.injectJavaScript(script);
-      }, 3000);
+    setTimeout(() => {
+      if (webref) webref?.current?.injectJavaScript(script);
+    }, 3000);
+    return () => {};
   };
 
   return (

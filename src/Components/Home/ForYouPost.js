@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PostContainer } from '../../MoleculeComponents/index';
+import { RefreshControl } from 'react-native';
 import { Center, Box, ScrollView, Image, Text, Spinner } from 'native-base';
+
 const ForYouPost = ({ user, navigation, forYouPosts }) => {
+  const [refreshState, setRefreshState] = useState(false);
+
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 20;
     if (
@@ -41,23 +45,40 @@ const ForYouPost = ({ user, navigation, forYouPosts }) => {
     );
   }
   return (
-    <ScrollView
-      h='100%'
-      onScroll={({ nativeEvent }) => {
-        onScroll(nativeEvent);
-      }}
-      mb='16'
-    >
-      {forYouPosts.data?.pages.map((page) =>
-        page.result.map((post, index) => {
-          return (
-            <Box mt={index === 0 ? '0' : '0'} key={post.uuid}>
-              <PostContainer post={post} user={user} navigation={navigation} />
-            </Box>
-          );
-        })
-      )}
-    </ScrollView>
+    <Box pb='81'>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshState}
+            onRefresh={() => {
+              setRefreshState(true);
+              setTimeout(() => {
+                setRefreshState(false);
+              }, 3000);
+            }}
+          />
+        }
+        h='100%'
+        onScroll={({ nativeEvent }) => {
+          onScroll(nativeEvent);
+        }}
+        mb='16'
+      >
+        {forYouPosts.data?.pages.map((page) =>
+          page.result.map((post, index) => {
+            return (
+              <Box mt={index === 0 ? '0' : '0'} key={post.uuid}>
+                <PostContainer
+                  post={post}
+                  user={user}
+                  navigation={navigation}
+                />
+              </Box>
+            );
+          })
+        )}
+      </ScrollView>
+    </Box>
   );
 
   return (

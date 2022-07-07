@@ -22,7 +22,7 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
         if (data.status) {
           setVideos([...data.data]);
         } else {
-          console.log(data);
+          // console.log(data);
         }
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
       });
   }, []);
 
-  console.log(selectedId, 'id');
+  // console.log(selectedId, 'id');
 
   return (
     <ScrollView>
