@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input, View, Flex, Box, Text, Image } from "native-base";
 import { Pressable } from "react-native";
+import { DropDownMenu } from "../../MoleculeComponents";
 
 const People = ({ persons, setPersons }) => {
   const [productName, setProductName] = useState("");
@@ -18,7 +19,7 @@ const People = ({ persons, setPersons }) => {
     <View py={5}>
       <Flex direction="column" justifyContent={"center"} alignItems="center">
         <Input
-          placeholder="http://..."
+          placeholder="Search"
           value={productName}
           onChangeText={(text) => setProductName(text)}
         />
