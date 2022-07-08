@@ -1,10 +1,10 @@
-import { View, Text, Box, Flex, Center, Button, Pressable } from 'native-base';
-import React, { useEffect, useState, useContext } from 'react';
-import { ScrollView } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { grapevineBackend } from '../../API';
-import { UserValue } from '../../Context/UserContext';
-import Toast from 'react-native-root-toast';
+import { View, Text, Box, Flex, Center, Button, Pressable } from "native-base";
+import React, { useEffect, useState, useContext } from "react";
+import { ScrollView } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { grapevineBackend } from "../../API";
+import { UserValue } from "../../Context/UserContext";
+import Toast from "react-native-root-toast";
 
 import {
   AtomComponents,
@@ -12,7 +12,7 @@ import {
   Modal,
   Layout,
   PageComponent,
-} from '../../Exports/index';
+} from "../../Exports/index";
 const data = [1, 3, 4, 6];
 const FriendRequest = ({ navigation }) => {
   const {
@@ -28,9 +28,9 @@ const FriendRequest = ({ navigation }) => {
 
   const acceptRequest = (uuid) => {
     grapevineBackend(
-      '/friendship/acceptfriendrequest',
+      "/friendship/acceptfriendrequest",
       { friendship_uuid: uuid, user_accept: user.uuid },
-      'POST'
+      "POST"
     )
       .then(async ({ data }) => {
         const updatedFriends = user?.friends.map((friend, i) => {
@@ -48,12 +48,12 @@ const FriendRequest = ({ navigation }) => {
           ...user,
           friends: [...updatedFriends],
         });
-        Toast.show('Accepted Friend Request', {
+        Toast.show("Accepted Friend Request", {
           duration: Toast.durations.SHORT,
         });
       })
       .catch((err) => {
-        Toast.show('Something Went Wrong', {
+        Toast.show("Something Went Wrong", {
           duration: Toast.durations.SHORT,
         });
         console.log(err);
@@ -61,18 +61,18 @@ const FriendRequest = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       grapevineBackend(
-        '/friendship/getfriendrequest',
+        "/friendship/getfriendrequest",
         { user_accept: user.uuid },
-        'POST'
+        "POST"
       )
         .then(async ({ data }) => {
           if (data.code == 200) {
             // console.log(data.data);
             setFriendRequest([...data.data]);
           } else {
-            console.log('Err: Friend Request', data);
+            console.log("Err: Friend Request", data);
           }
         })
         .catch((err) => console.log(err));
@@ -80,14 +80,14 @@ const FriendRequest = ({ navigation }) => {
     return unsubscribe;
   }, []);
   return (
-    <BackLayout navigation={navigation} color='#000' safeArea>
-      <Box w='100%' h='100%' alignItems={'center'} bg='#fff'>
+    <BackLayout navigation={navigation} color="#000" safeArea>
+      <Box w="100%" h="100%" alignItems={"center"} bg="#fff">
         <Text
-          fontWeight='800'
+          fontWeight="800"
           fontSize={16}
-          textAlign='center'
-          mb='5'
-          fontFamily='bold'
+          textAlign="center"
+          mb="5"
+          fontFamily="bold"
         >
           Connection Requests
         </Text>
@@ -96,40 +96,48 @@ const FriendRequest = ({ navigation }) => {
           {/* <View px={10}>
             <Search />
           </View> */}
-          <View mt={5} w='full' p='2'>
+          <View mt={5} w="full" p="2">
             {friendRequest.length > 0 ? (
               friendRequest.map((friend_request) => {
                 return (
-                  <Box key={friend_request.uuid} px='5'>
+                  <Box key={friend_request.uuid} px="5">
                     <Flex
-                      direction='row'
-                      justifyContent={'space-between'}
-                      alignItems='center'
+                      direction="row"
+                      justifyContent={"space-between"}
+                      alignItems="center"
                     >
-                      <Flex
-                        direction='row'
-                        justifyContent={'flex-start'}
-                        alignItems='center'
+                      <Pressable
+                        onPress={() =>
+                          navigation.navigate("FriendProfile", {
+                            user_uuid: friend_request.user_request,
+                          })
+                        }
                       >
-                        <RoundImage
-                          image={require('../../../assets/Images/1.png')}
-                          size={8}
-                        />
-                        <Text
-                          fontSize={18}
-                          fontWeight='600'
-                          ml={2}
-                          fontFamily='bold'
+                        <Flex
+                          direction="row"
+                          justifyContent={"flex-start"}
+                          alignItems="center"
                         >
-                          {'@' + friend_request.username}
-                        </Text>
-                      </Flex>
+                          <RoundImage
+                            image={require("../../../assets/Images/1.png")}
+                            size={8}
+                          />
+                          <Text
+                            fontSize={18}
+                            fontWeight="600"
+                            ml={2}
+                            fontFamily="bold"
+                          >
+                            {"@" + friend_request.username}
+                          </Text>
+                        </Flex>
+                      </Pressable>
                       <Button
                         onPress={() => acceptRequest(friend_request.uuid)}
-                        h='7'
-                        pt='0'
-                        pb='0'
-                        bg='primary'
+                        h="7"
+                        pt="0"
+                        pb="0"
+                        bg="primary"
                       >
                         Accept
                       </Button>
@@ -138,11 +146,11 @@ const FriendRequest = ({ navigation }) => {
                 );
               })
             ) : (
-              <Text textAlign={'center'}>No friendRequest</Text>
+              <Text textAlign={"center"}>No friendRequest</Text>
             )}
           </View>
-          <Box mt={5} m='2'>
-            <Features heading='Suggested' />
+          <Box mt={5} m="2">
+            <Features heading="Suggested" />
           </Box>
         </SignInLayout>
       </Box>
