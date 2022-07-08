@@ -44,7 +44,12 @@ const ActivityPage = ({ navigation }) => {
   return (
     <Box h='100%' w='100%' bg='white'>
       <Box>
-        <Text fontWeight='800' fontSize={16} textAlign='center'>
+        <Text
+          fontWeight='800'
+          fontSize={16}
+          textAlign='center'
+          fontFamily='bold'
+        >
           Activity
         </Text>
         <Flex
@@ -74,6 +79,7 @@ const ActivityPage = ({ navigation }) => {
             fontWeight={component == 'foryou' ? '800' : '400'}
             mx={1}
             shadow='1'
+            fontFamily={component == 'foryou' ? 'bold' : 'light'}
           >
             For You
           </Text>
@@ -84,6 +90,7 @@ const ActivityPage = ({ navigation }) => {
             fontWeight={component == 'connected' ? '800' : '400'}
             mx={1}
             shadow='1'
+            fontFamily={component == 'connected' ? 'bold' : 'light'}
           >
             Connected
           </Text>
@@ -94,7 +101,9 @@ const ActivityPage = ({ navigation }) => {
         <Box h='100%' w='100%'>
           {error ? (
             <Center h='100%' w='100%'>
-              <Text fontWeight={'800'}>Error occured</Text>
+              <Text fontWeight={'800'} fontFamily='bold'>
+                Error occured
+              </Text>
             </Center>
           ) : component == 'connected' ? (
             <>
@@ -133,7 +142,7 @@ const ActivityPage = ({ navigation }) => {
                     </Box>
                   ) : (
                     <Center h='100%' w='100%'>
-                      <Text>No Post To Show</Text>
+                      <Text fontFamily='bold'>No Post To Show</Text>
                     </Center>
                   )}
                 </>

@@ -82,13 +82,65 @@ const Notification = ({ notification, navigation }) => {
                 justifyContent='space-between'
                 width='100%'
               >
-                <Text>
-                  liked your <Text fontWeight='bold'>post.</Text>
+                <Text fontFamily='light'>
+                  liked your <Text fontFamily='bold'>post.</Text>
                 </Text>
                 <Text color='gray.500'>{time}</Text>
               </Box>
             </Box>
           </Box>
+        </Pressable>
+      );
+    case 'comment':
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate('PostPage', {
+              post_uuid: activity.action_uuid,
+            })
+          }
+          py={2}
+        >
+          {post && (
+            <Flex
+              direction='row'
+              justifyContent={'flex-start'}
+              alignItems='center'
+            >
+              <RoundImage
+                size='35'
+                image={require('../../../assets/Images/1.png')}
+              />
+
+              <Box pl={2} display='flex' flexDirection='column' flex='1'>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('FriendProfile', {
+                      user_uuid: activity.user_uuid,
+                    })
+                  }
+                >
+                  <Text fontSize={16} fontFamily='bold'>
+                    {notification.from_user_username}
+                  </Text>
+                </Pressable>
+                <Box
+                  flex='1'
+                  flexDirection={'row'}
+                  justifyContent='space-between'
+                >
+                  <Box display='flex' flexDirection='row'>
+                    <Text fontFamily='light'>commented on your </Text>
+
+                    <Text fontFamily='bold'>post.</Text>
+                  </Box>
+                  <Text color='gray.500' fontFamily='light'>
+                    {time}
+                  </Text>
+                </Box>
+              </Box>
+            </Flex>
+          )}
         </Pressable>
         // <Pressable
         //   onPress={() =>
@@ -110,7 +162,7 @@ const Notification = ({ notification, navigation }) => {
         //           image={require('../../../assets/Images/1.png')}
         //         />
         //       </Box>
-        //       <Box h='100%' flex={7} pl={2}>
+        //       <Box pl={2} flex='1' flexDirection={'column'}>
         //         <Pressable
         //           onPress={() =>
         //             navigation.navigate('FriendProfile', {
@@ -118,7 +170,7 @@ const Notification = ({ notification, navigation }) => {
         //             })
         //           }
         //         >
-        //           <Text fontSize={16} fontWeight='800'>
+        //           <Text fontSize={16} fontWeight='800' fontFamily='bold'>
         //             {notification.from_user_username}
         //           </Text>
         //         </Pressable>
@@ -129,7 +181,7 @@ const Notification = ({ notification, navigation }) => {
         //           justifyContent='flex-start'
         //           alignItems={'center'}
         //         >
-        //           liked your post.
+        //           commented on your post
         //           {time}
         //         </Box>
         //       </Box>
@@ -137,99 +189,49 @@ const Notification = ({ notification, navigation }) => {
         //   )}
         // </Pressable>
       );
-    case 'comment':
-      return (
-        <Pressable
-          onPress={() =>
-            navigation.navigate('PostPage', {
-              post_uuid: notification.action_uuid,
-            })
-          }
-          py={2}
-          px={5}
-        >
-          {post && (
-            <Flex
-              direction='row'
-              justifyContent={'flex-start'}
-              alignItems='center'
-            >
-              <Box flex={1}>
-                <RoundImage
-                  size={10}
-                  image={require('../../../assets/Images/1.png')}
-                />
-              </Box>
-              <Box h='100%' flex={7} pl={2}>
-                <Pressable
-                  onPress={() =>
-                    navigation.navigate('FriendProfile', {
-                      user_uuid: notification.from_user_uuid,
-                    })
-                  }
-                >
-                  <Text fontSize={16} fontWeight='800'>
-                    {notification.from_user_username}
-                  </Text>
-                </Pressable>
-                <Box
-                  ml={2}
-                  display='flex'
-                  flexDirection={'row'}
-                  justifyContent='flex-start'
-                  alignItems={'center'}
-                >
-                  commented on your post
-                  {time}
-                </Box>
-              </Box>
-            </Flex>
-          )}
-        </Pressable>
-      );
     case 'share':
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate("PostPage", {
+            navigation.navigate('PostPage', {
               post_uuid: activity.action_uuid,
             })
           }
           py={2}
         >
           <Box
-            flex="1"
-            flexDirection={"row"}
-            justifyContent={"flex-start"}
-            alignItems="center"
+            flex='1'
+            flexDirection={'row'}
+            justifyContent={'flex-start'}
+            alignItems='center'
           >
             <RoundImage
-              size="35"
-              image={require("../../../assets/Images/1.png")}
+              size='35'
+              image={require('../../../assets/Images/1.png')}
             />
 
-            <Box pl={2} flex="1" flexDirection={"column"}>
+            <Box pl={2} flex='1' flexDirection={'column'}>
               <Pressable
                 onPress={() =>
-                  navigation.navigate("FriendProfile", {
+                  navigation.navigate('FriendProfile', {
                     user_uuid: activity.user_uuid,
                   })
                 }
               >
-                <Text fontSize={16} fontWeight="800">
-                  {activity.user.username}
-                </Text> 
+                <Text fontSize={16} fontWeight='800' fontFamily='bold'>
+                  {notification.from_user_username}
+                </Text>
               </Pressable>
               <Box
-                flex="1"
-                flexDirection="row"
-                justifyContent="space-between"
-                width="100%"
+                flex='1'
+                flexDirection='row'
+                justifyContent='space-between'
+                width='100%'
               >
-                <Text>
-                  uploaded a new <Text fontWeight="bold">post.</Text>
+                <Text fontFamily='light'>
+                  uploaded a new <Text fontFamily='bold'>post.</Text>
                 </Text>
-                <Text color="gray.500">{time}</Text>
+                <Text color='gray.500'>{time}</Text>
               </Box>
             </Box>
           </Box>

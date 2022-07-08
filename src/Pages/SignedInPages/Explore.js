@@ -228,7 +228,7 @@ const ExplorePage = ({ navigation }) => {
             )}
           </Box>
           <View style={styles.featureContainer}>
-            <Features type='User' />
+            <Features heading='Featured' />
           </View>
 
           <Resources />

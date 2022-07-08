@@ -8,7 +8,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/native';
 import GetFeaturedUser from '../../../Hooks/User/getFeaturedUser';
 
-const Features = (props) => {
+const Features = ({ heading }) => {
   const navigation = useNavigation();
 
   // const [features, setFeatures] = useState({
@@ -47,8 +47,8 @@ const Features = (props) => {
   }
   return (
     <Box style={styles.container} mb='5'>
-      <Text style={styles.headerText} fontFamily='bold'>
-        Featured
+      <Text style={styles.headerText} fontFamily='bold' p='2'>
+        {heading ? heading : ''}
       </Text>
       {/* <Text style={styles.secondaryText}>Creators</Text> */}
       {featuredUsers.data ? (

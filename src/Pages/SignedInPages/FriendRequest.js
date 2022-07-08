@@ -11,9 +11,13 @@ import {
   MolecularComponents,
   Modal,
   Layout,
+  PageComponent,
 } from '../../Exports/index';
 const data = [1, 3, 4, 6];
 const FriendRequest = ({ navigation }) => {
+  const {
+    Explore: { Features, Collection, Resources },
+  } = PageComponent;
   const { Box1 } = MolecularComponents;
   const { Search, RoundImage } = AtomComponents;
   const { LoadingMessageModal } = Modal;
@@ -78,19 +82,25 @@ const FriendRequest = ({ navigation }) => {
   return (
     <BackLayout navigation={navigation} color='#000' safeArea>
       <Box w='100%' h='100%' alignItems={'center'} bg='#fff'>
-        <Text fontWeight='800' fontSize={16} textAlign='center' mb='5'>
+        <Text
+          fontWeight='800'
+          fontSize={16}
+          textAlign='center'
+          mb='5'
+          fontFamily='bold'
+        >
           Connection Requests
         </Text>
 
         <SignInLayout>
-          <View px={10}>
+          {/* <View px={10}>
             <Search />
-          </View>
-          <View mt={5} w='90%'>
+          </View> */}
+          <View mt={5} w='full' p='2'>
             {friendRequest.length > 0 ? (
               friendRequest.map((friend_request) => {
                 return (
-                  <Box key={friend_request.uuid} px={5}>
+                  <Box key={friend_request.uuid} px='5'>
                     <Flex
                       direction='row'
                       justifyContent={'space-between'}
@@ -105,7 +115,12 @@ const FriendRequest = ({ navigation }) => {
                           image={require('../../../assets/Images/1.png')}
                           size={8}
                         />
-                        <Text fontSize={18} fontWeight='600' ml={2}>
+                        <Text
+                          fontSize={18}
+                          fontWeight='600'
+                          ml={2}
+                          fontFamily='bold'
+                        >
                           {'@' + friend_request.username}
                         </Text>
                       </Flex>
@@ -126,17 +141,9 @@ const FriendRequest = ({ navigation }) => {
               <Text textAlign={'center'}>No friendRequest</Text>
             )}
           </View>
-          <View w='100%' mt={5}>
-            <Text fontWeight={'800'} fontSize='32' textAlign={'left'} ml={3}>
-              Suggested
-            </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {data.map((d) => (
-                //   <Box1 key={d} />
-                <Box1 key={d} />
-              ))}
-            </ScrollView>
-          </View>
+          <Box mt={5} m='2'>
+            <Features heading='Suggested' />
+          </Box>
         </SignInLayout>
       </Box>
     </BackLayout>
