@@ -52,7 +52,6 @@ const PostPage = ({ navigation }) => {
 
         return;
       } else {
-        // console.log("here", tiktokVideo);
         navigation.navigate("Post_Instagram_Tiktok_Youtube", {
           tiktokVideo: tiktokVideo,
         });

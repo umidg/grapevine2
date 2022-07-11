@@ -17,11 +17,12 @@ import { UserValue } from "../../Context/UserContext";
 import { RoundImage } from "../../AtomComponents/index";
 import Acceptfriendrequest from "../../Hooks/FriendRequest/acceptFriendRequest";
 import ConnectButton from "./ConnectButton";
+import GetPartialUserInfo from "../../Hooks/User/getPartialUserInfo";
 const UserCard = ({ user: { uuid } }) => {
   const [friendship, setFriendship] = useState(null);
   const [user, setUser] = useContext(UserValue);
   const navigation = useNavigation();
-  const user_info = GetUser(uuid);
+  const user_info = GetPartialUserInfo(uuid);
   const sendFriendRequest = Sendfriendrequest();
   const acceptFriendRequest = Acceptfriendrequest();
   useEffect(() => {

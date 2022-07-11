@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { View, Flex, Pressable, Slide, Box, Text, Button } from 'native-base';
-import { grapevineBackend } from '../../API';
-import { FontAwesome } from '@expo/vector-icons';
+import React, { useContext, useEffect, useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import { View, Flex, Pressable, Slide, Box, Text, Button } from "native-base";
+import { grapevineBackend } from "../../API";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   AtomComponents,
   MolecularComponents,
   Layout,
   PageComponent,
-} from '../../Exports/index';
-import { ButtonDark, RoundImage } from '../../AtomComponents';
-import { UserValue } from '../../Context/UserContext';
+} from "../../Exports/index";
+import { ButtonDark, RoundImage } from "../../AtomComponents";
+import { UserValue } from "../../Context/UserContext";
 
 const ExplorePage = ({ navigation }) => {
   const {
@@ -23,7 +23,7 @@ const ExplorePage = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
   const searchUser = async (name) => {
     if (name.length > 2) {
-      grapevineBackend('/auth/search', { name: name }, 'POST')
+      grapevineBackend("/auth/search", { name: name }, "POST")
         .then(async ({ data }) => {
           if (data.status) {
             setUsers([...data.data]); //TODO: Bipul only show profile of unblocked
@@ -34,11 +34,11 @@ const ExplorePage = ({ navigation }) => {
       setUsers(null);
     }
   };
-  const createHistory = async (username, search_user_uuid = '') => {
+  const createHistory = async (username, search_user_uuid = "") => {
     grapevineBackend(
-      '/history/create',
+      "/history/create",
       { username: username, search_user_uuid: search_user_uuid },
-      'POST'
+      "POST"
     )
       .then(({ data }) => {
         if (data.status) {
@@ -50,12 +50,12 @@ const ExplorePage = ({ navigation }) => {
   const profileClick = async (username, user_uuid) => {
     setFocus(false);
     const new_history = await createHistory(username, user_uuid);
-    navigation.navigate('FriendProfile', {
+    navigation.navigate("FriendProfile", {
       user_uuid: user_uuid,
     });
   };
   const getHistory = () =>
-    grapevineBackend('/history/get', {}, 'POST')
+    grapevineBackend("/history/get", {}, "POST")
       .then(({ data }) => {
         if (data.status) {
           setHistory([...data.data.result]);
@@ -68,8 +68,8 @@ const ExplorePage = ({ navigation }) => {
     return () => setFocus(false);
   }, []);
   return (
-    <Box h='100%' w='100%' bg='white'>
-      <Box display='flex' flexDir='row' justifyContent='space-between' p='3'>
+    <Box h="100%" w="100%" bg="white">
+      <Box display="flex" flexDir="row" justifyContent="space-between" p="3">
         <Search
           flex={1}
           onSearch={searchUser}
@@ -78,22 +78,22 @@ const ExplorePage = ({ navigation }) => {
           clearText={!focus}
         />
         {focus && (
-          <Pressable onPress={() => setFocus(false)} alignSelf='center'>
+          <Pressable onPress={() => setFocus(false)} alignSelf="center">
             <Text
-              textAlign='center'
-              color='red.300'
-              fontSize='xs'
-              pl='2'
-              fontFamily='bold'
+              textAlign="center"
+              color="red.300"
+              fontSize="xs"
+              pl="2"
+              fontFamily="bold"
             >
               Cancel
             </Text>
           </Pressable>
         )}
       </Box>
-      <ScrollView style={{ height: '100%' }}>
+      <ScrollView style={{ height: "100%" }}>
         {focus && (
-          <View w='100%' h='87%'>
+          <View w="100%" h="87%">
             {users ? (
               users.map((person) => {
                 return (
@@ -104,41 +104,41 @@ const ExplorePage = ({ navigation }) => {
                     }}
                   >
                     <Flex
-                      direction='row'
-                      justifyContent={'flex-start'}
-                      alignItems='center'
-                      px='2'
-                      my='2'
+                      direction="row"
+                      justifyContent={"flex-start"}
+                      alignItems="center"
+                      px="2"
+                      my="2"
                     >
                       <RoundImage
-                        image={require('../../../assets/Images/3.png')}
+                        image={require("../../../assets/Images/3.png")}
                         size={10}
                       />
                       <Text
                         fontSize={14}
-                        fontWeight='600'
+                        fontWeight="600"
                         ml={2}
-                        fontFamily='bold'
+                        fontFamily="bold"
                       >
-                        {'@' + person.username}
+                        {"@" + person.username}
                       </Text>
                     </Flex>
                   </Pressable>
                 );
               })
             ) : (
-              <Box px='2' width='full'>
-                <Box flex='1' flexDir='row' justifyContent='space-between'>
+              <Box px="2" width="full">
+                <Box flex="1" flexDir="row" justifyContent="space-between">
                   <Text
-                    fontWeight='700'
-                    fontSize='xl'
-                    textAlign='center'
-                    fontFamily='bold'
+                    fontWeight="700"
+                    fontSize="xl"
+                    textAlign="center"
+                    fontFamily="bold"
                   >
                     Recent
                   </Text>
 
-                  <Text fontSize='sm' textAlign='center' fontFamily='light'>
+                  <Text fontSize="sm" textAlign="center" fontFamily="light">
                     See all
                   </Text>
                 </Box>
@@ -155,23 +155,23 @@ const ExplorePage = ({ navigation }) => {
                         }}
                       >
                         <Flex
-                          direction='row'
-                          justifyContent={'flex-start'}
-                          alignItems='center'
-                          px='2'
-                          my='2'
+                          direction="row"
+                          justifyContent={"flex-start"}
+                          alignItems="center"
+                          px="2"
+                          my="2"
                         >
                           <RoundImage
-                            image={require('../../../assets/Images/3.png')}
+                            image={require("../../../assets/Images/3.png")}
                             size={8}
                           />
                           <Text
                             fontSize={18}
-                            fontWeight='600'
+                            fontWeight="600"
                             ml={2}
-                            fontFamily='bold'
+                            fontFamily="bold"
                           >
-                            {'@' + _history.username}
+                            {"@" + _history.username}
                           </Text>
                         </Flex>
                       </Pressable>
@@ -180,25 +180,25 @@ const ExplorePage = ({ navigation }) => {
                     return (
                       <Box
                         key={_history.uuid}
-                        flex='1'
-                        flexDir='row'
-                        justifyContent='flex-start'
+                        flex="1"
+                        flexDir="row"
+                        justifyContent="flex-start"
                       >
                         <Box
-                          borderWidth='1'
-                          borderColor='gray.300'
-                          rounded='full'
-                          m='2'
-                          p='3'
+                          borderWidth="1"
+                          borderColor="gray.300"
+                          rounded="full"
+                          m="2"
+                          p="3"
                         >
-                          <FontAwesome name='search' size={20} color='gray' />
+                          <FontAwesome name="search" size={20} color="gray" />
                         </Box>
                         <Box
-                          alignContent='center'
-                          alignItems='center'
-                          my='auto'
+                          alignContent="center"
+                          alignItems="center"
+                          my="auto"
                         >
-                          <Text textAlign='center' fontFamily='bold'>
+                          <Text textAlign="center" fontFamily="bold">
                             {_history.username}
                           </Text>
                         </Box>
@@ -209,26 +209,26 @@ const ExplorePage = ({ navigation }) => {
             )}
           </View>
         )}
-        <Box height={focus ? '0' : 'auto'} mb='24'>
-          <Box display='flex' alignItems='center' mb='5'>
-            {user.engagement_type == 'Brand' && !focus && (
+        <Box height={focus ? "0" : "auto"} mb="24">
+          <Box display="flex" alignItems="center" mb="5">
+            {user.engagement_type == "Brand" && !focus && (
               <Button
-                bg='primary'
-                onPress={() => navigation.navigate('AllCreatorPage')}
-                w='80%'
-                p='1'
+                bg="primary"
+                onPress={() => navigation.navigate("AllCreatorPage")}
+                w="80%"
+                p="1"
                 _text={{
-                  fontWeight: 'extrabold',
-                  fontFamily: 'bold',
+                  fontWeight: "extrabold",
+                  fontFamily: "bold",
                 }}
-                rounded='md'
+                rounded="md"
               >
                 All Creators
               </Button>
             )}
           </Box>
           <View style={styles.featureContainer}>
-            <Features heading='Featured' />
+            <Features heading="Featured" />
           </View>
 
           <Resources />

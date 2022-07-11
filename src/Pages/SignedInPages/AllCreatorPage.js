@@ -28,9 +28,9 @@ export default function AllCreatorPage({ navigation }) {
     FeaturedUser: { Filter },
   } = PageComponent;
   const [filterInformation, setFilterInformation] = useState({
-    gender: undefined,
-    intrests: undefined,
-    address: "",
+    // gender: undefined,
+    // intrests: undefined,
+    // address: "",
   });
   const creatorUser = GetCreatorUser({
     page: 1,

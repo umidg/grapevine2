@@ -26,9 +26,9 @@ export default function AllFeaturesUserPage({ navigation }) {
   } = PageComponent;
   const { DropDownMenu, UserCard } = MolecularComponents;
   const [filterInformation, setFilterInformation] = useState({
-    gender: undefined,
-    intrests: undefined,
-    address: "",
+    // gender: undefined,
+    // intrests: undefined,
+    // address: "",
   });
   const featuredUsers = GetFeaturedUser({
     page: 1,

@@ -8,6 +8,7 @@ const Acceptfriendrequest = () => {
   return useMutation(acceptFriendRequest, {
     onSuccess: async (response) => {
       queryClient.invalidateQueries(["User", response.user_request]);
+      queryClient.invalidateQueries(["Partial_User", response.user_request]);
     },
   });
 };

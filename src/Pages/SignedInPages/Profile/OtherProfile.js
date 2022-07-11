@@ -49,7 +49,7 @@ const OtherProfile = ({ navigation, user_uuid }) => {
           <HeaderContainer navigation={navigation} user={user_info.data} />
           <NetworkContainer user={user_info.data} />
           <TabContainer
-            tiktokPost={[]}
+            tiktokPost={user_info.data?.tiktokPost}
             posts={user_info.data.posts}
             user={user_info.data}
             activities={user_info.data?.activities.slice(0, 3)}
