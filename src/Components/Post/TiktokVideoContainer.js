@@ -66,10 +66,10 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
                     <Box>
                       <Tiktokvideo
                         uri={v.embed_link}
-                        size="100"
-                        h={100}
-                        w="30%"
-                        buttonSize="40"
+                        // size="100"
+                        // h={100}
+                        // w="30%"
+                        // buttonSize="40"
                       />
                     </Box>
                   </Box>

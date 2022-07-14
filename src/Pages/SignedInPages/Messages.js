@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { Box, View } from "native-base";
 import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-
 import { AtomComponents, Layout, PageComponent } from "../../Exports/index";
 
 const Messages = ({ navigation }) => {
@@ -12,31 +11,26 @@ const Messages = ({ navigation }) => {
   } = PageComponent;
   const { SignInLayout } = Layout;
 
-  const [friends, setFriends] = useState([]);
-  const [showFriends, setShowFriends] = useState([]);
+  const [chatrooms, setChatrooms] = useState([]);
+  const [showChatrooms, setShowChatrooms] = useState([]);
   const [user, setUser] = useContext(UserValue);
 
   const filterUser = (text) => {
     let searchText = text.toLowerCase();
-    setShowFriends(
-      friends.filter(
-        (friend) => friend.username.toLowerCase().indexOf(searchText) == 0
+    setShowChatrooms(
+      chatrooms.filter(
+        (room) => room.user[0].username.toLowerCase().indexOf(searchText) == 0
       )
     );
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend(
-        "/friendship/getAllFriends",
-        { user_uuid: user.uuid },
-        "POST"
-      )
+      grapevineBackend("/user/getAllChatRoom", { user_uuid: user.uuid }, "POST")
         .then(async ({ data }) => {
           if (data.status) {
-            setFriends([...data.data]);
-            setShowFriends([...data.data]);
+            setChatrooms([...data.data]);
+            setShowChatrooms([...data.data]);
           }
-          console.log(data);
         })
         .catch((err) => console.log(err));
     });
@@ -53,18 +47,16 @@ const Messages = ({ navigation }) => {
         </View>
 
         <View>
-          {showFriends.map((friend) => {
+          {showChatrooms.map((room) => {
             return (
-              <View key={friend.uuid}>
+              <View key={room.uuid}>
                 <Message
-                  username={friend.username}
+                  username={room.name ? room.name : room.user[0].username}
                   onPress={() =>
                     navigation.navigate("Chatroom", {
-                      friend_uuid: friend.user_uuid,
-                      username: friend.username,
-                      friendship_uuid: friend.friendship_uuid,
-                      chatroom_uuid: friend.chatroom_uuid,
-                      valid_room: friend.valid_room,
+                      username: room.name ? room.name : room.user[0].username,
+                      chatroom_uuid: room.uuid,
+                      valid_room: room.valid_room,
                     })
                   }
                 />

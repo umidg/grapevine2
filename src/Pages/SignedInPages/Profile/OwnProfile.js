@@ -19,7 +19,7 @@ const OwnProfile = ({ navigation }) => {
   const [showTiktokModal, setShowTiktokModal] = useState(false);
 
   const user_info = GetLoginUser();
-
+  console.log(user_info.data, "data", user_info.isError);
   const tiktokLoginSuccess = ({ token, posts, refresh_token }) => {
     setShowTiktokModal(false);
     Toast.show("loading", {
@@ -70,7 +70,6 @@ const OwnProfile = ({ navigation }) => {
       </Center>
     );
   }
-
   return (
     <SignInLayout>
       <TiktokLoginModel

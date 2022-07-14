@@ -19,10 +19,10 @@ const HeaderContainer = (props) => {
       friendship_status,
       _count,
       description,
+      chatroom,
     },
     navigation,
   } = props;
-
   return (
     <Box w="full" p="5">
       <Box flex="1" flexDir="row">
@@ -101,15 +101,15 @@ const HeaderContainer = (props) => {
                 bg="primary"
                 flex="0.45"
               />
-              {friendship_status?.chatroom ? (
+              {chatroom[0] ? (
                 <Button
                   onPress={() =>
                     navigation.navigate("Chatroom", {
-                      friend_uuid: uuid,
-                      username: username,
-                      friendship_uuid: friendship_status.uuid,
-                      chatroom_uuid: friendship_status.chatroom.uuid,
-                      valid_room: friendship_status.chatroom.valid_room,
+                      username: chatroom[0].name
+                        ? chatroom[0].name
+                        : chatroom[0].user[0].username,
+                      chatroom_uuid: chatroom[0].uuid,
+                      valid_room: chatroom[0].valid_room,
                     })
                   }
                   h="7"
