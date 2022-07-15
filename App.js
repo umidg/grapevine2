@@ -18,7 +18,6 @@ export default function App() {
   if (!loaded) {
     return null;
   }
-
   const { ThemeContext, UserContext, ExpoToastContext, PostContext } = Context;
   const queryClient = new QueryClient();
   return (

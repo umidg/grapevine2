@@ -15,12 +15,17 @@ const ContinueWith = ({ navigation }) => {
     setRegisterData({ ...registerData, instagramToken: token });
     navigation.navigate("AccountType");
   };
-  const tiktokLoginSuccess = ({ token, videos, refresh_token }) => {
+  const tiktokLoginSuccess = ({
+    token,
+    videos,
+    refresh_token,
+    tiktok_open_id,
+  }) => {
     setRegisterData({
       ...registerData,
       tiktokToken: token,
-      tiktokPost: videos,
       tiktok_refresh_token: refresh_token,
+      tiktok_open_id: tiktok_open_id,
     });
     navigation.navigate("EnterEmail");
   };

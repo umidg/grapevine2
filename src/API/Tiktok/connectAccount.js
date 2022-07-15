@@ -1,10 +1,14 @@
 import { grapevineBackend } from "../ci.axios";
-export const connectAccount = async ({ token, refresh_token, videos }) => {
+export const connectAccount = async ({
+  token,
+  refresh_token,
+  tiktok_open_id,
+}) => {
   return await grapevineBackend(
     "/tiktok/connect",
     {
       tiktokToken: token,
-      tiktokPost: videos,
+      tiktok_open_id: tiktok_open_id,
       tiktok_refresh: refresh_token,
     },
     "POST"

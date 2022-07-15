@@ -11,11 +11,11 @@ const GetTiktokInfo = () => {
 
   const getTiktokInfo = async (code) => {
     const token = await getToken(code);
-    const videos = await getVideos(token);
+    // const videos = await getVideos(token);
     return {
       token: token.access_token,
       refresh_token: token.refresh_token,
-      videos,
+      tiktok_open_id: token.open_id,
     };
   };
 
@@ -31,7 +31,6 @@ const GetTiktokInfo = () => {
         const data = Linking.parse(result.url);
         const tiktok_data = await getTiktokInfo(data.queryParams.code);
         const response = await onSuccess(tiktok_data);
-
         queryClient.invalidateQueries("LoginUserInfo");
       }
     } catch (err) {
