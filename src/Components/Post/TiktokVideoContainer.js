@@ -40,7 +40,7 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
         >
           {videos.length > 0 ? (
             videos.map((v) => (
-              <Box key={v.uuid} width="40%">
+              <Box key={v.embed_link} width="40%">
                 <Pressable
                   onPress={() => {
                     onPress(v);
