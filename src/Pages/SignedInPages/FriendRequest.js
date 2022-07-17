@@ -59,6 +59,26 @@ const FriendRequest = ({ navigation }) => {
         console.log(err);
       });
   };
+  const ignoreRequest = (uuid) => {
+    grapevineBackend(
+      "/friendship/ignorefriendrequest",
+      { friendship_uuid: uuid, user_accept: user.uuid },
+      "POST"
+    )
+      .then(async ({ data }) => {
+        if (data.status) {
+          Toast.show("Successfull", {
+            duration: Toast.durations.SHORT,
+          });
+        }
+      })
+      .catch((err) => {
+        Toast.show("Something Went Wrong", {
+          duration: Toast.durations.SHORT,
+        });
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -112,6 +132,7 @@ const FriendRequest = ({ navigation }) => {
                             user_uuid: friend_request.user_request,
                           })
                         }
+                        flex={3}
                       >
                         <Flex
                           direction="row"
@@ -132,15 +153,31 @@ const FriendRequest = ({ navigation }) => {
                           </Text>
                         </Flex>
                       </Pressable>
-                      <Button
-                        onPress={() => acceptRequest(friend_request.uuid)}
-                        h="7"
-                        pt="0"
-                        pb="0"
-                        bg="primary"
+                      <Flex
+                        direction="row"
+                        justifyContent={"space-between"}
+                        alignItems="center"
+                        flex={2}
                       >
-                        Accept
-                      </Button>
+                        <Button
+                          onPress={() => acceptRequest(friend_request.uuid)}
+                          h="7"
+                          pt="0"
+                          pb="0"
+                          bg="primary"
+                        >
+                          Accept
+                        </Button>
+                        <Button
+                          onPress={() => ignoreRequest(friend_request.uuid)}
+                          h="7"
+                          pt="0"
+                          pb="0"
+                          bg="red.700"
+                        >
+                          Ignore
+                        </Button>
+                      </Flex>
                     </Flex>
                   </Box>
                 );
