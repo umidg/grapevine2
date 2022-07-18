@@ -7,6 +7,7 @@ import * as Message from "./Messages/index";
 import * as Post from "./Post/index";
 import * as FeaturedUser from "./FeaturedUser/index";
 import * as Post_Instagram_Tiktok from "./Post_Instagram_Tiktok/index";
+import * as Activity from "./Activity/index";
 export {
   Profile,
   Explore,
@@ -17,4 +18,5 @@ export {
   Home,
   FeaturedUser,
   Post_Instagram_Tiktok,
+  Activity,
 };

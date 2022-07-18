@@ -2,44 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Box, Center, Flex, ScrollView, Text } from "native-base";
 import { FontAwesome5, Ionicons, Feather } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
-import { grapevineBackend } from "../../API";
-import { MolecularComponents, Layout } from "../../Exports/index";
+import { MolecularComponents, PageComponent } from "../../Exports/index";
+import GetActivity from "../../Hooks/Activity/getActivity";
 const ActivityPage = ({ navigation }) => {
-  const { Activity } = MolecularComponents;
-
+  const {
+    Activity: { ForYou, Connected },
+  } = PageComponent;
   const [component, setComponent] = useState("foryou");
-  const [forYouActicity, setForYouActivity] = useState([]);
-  const [connectedactivity, setConnectedActivity] = useState([]);
-  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/activity/get/foryou", {}, "POST")
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            setForYouActivity([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          setError(true);
-          console.log("Err", err);
-        });
-      grapevineBackend("/activity/get/connected", {}, "POST")
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            setConnectedActivity([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          setError(true);
-          console.log("Err", err);
-        });
-    });
-
-    return unsubscribe;
-  }, []);
+  const { forYouActivities, connectedActivities } = GetActivity();
 
   return (
     <Box h="100%" w="100%" bg="white">
@@ -99,58 +70,16 @@ const ActivityPage = ({ navigation }) => {
 
       <ScrollView>
         <Box h="100%" w="100%">
-          {error ? (
-            <Center h="100%" w="100%">
-              <Text fontWeight={"800"} fontFamily="bold">
-                Error occured
-              </Text>
-            </Center>
-          ) : component == "connected" ? (
-            <>
-              {connectedactivity ? (
-                <Box pb="70">
-                  {connectedactivity.map((activity) => (
-                    // <Text key={activity.uuid}>hello</Text>
-
-                    <Activity
-                      activity={activity}
-                      navigation={navigation}
-                      key={activity.uuid}
-                    />
-                  ))}
-                </Box>
-              ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
-                </Center>
-              )}
-            </>
+          {component == "connected" ? (
+            <Connected
+              connectedActivities={connectedActivities}
+              navigation={navigation}
+            />
           ) : (
-            <>
-              {forYouActicity ? (
-                <>
-                  {forYouActicity.length > 0 ? (
-                    <Box pb="70" p={2}>
-                      {forYouActicity.map((activity) => (
-                        <Activity
-                          activity={activity}
-                          navigation={navigation}
-                          key={activity.uuid}
-                        />
-                      ))}
-                    </Box>
-                  ) : (
-                    <Center h="100%" w="100%">
-                      <Text fontFamily="bold">No Activity To Show</Text>
-                    </Center>
-                  )}
-                </>
-              ) : (
-                <Center h="100%" w="100%">
-                  <ActivityIndicator size="small" color="#0000ff" />
-                </Center>
-              )}
-            </>
+            <ForYou
+              forYouActivities={forYouActivities}
+              navigation={navigation}
+            />
           )}
         </Box>
       </ScrollView>

@@ -1,33 +1,44 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Box, Flex, Text, Pressable, Center, Image } from "native-base";
+import {
+  Box,
+  Flex,
+  Text,
+  Pressable,
+  Center,
+  Image,
+  Spinner,
+} from "native-base";
 import { AntDesign } from "@expo/vector-icons";
-import { grapevineBackend } from "../../API";
-import { UserValue } from "../../Context/UserContext";
-
 import { MolecularComponents, Layout } from "../../Exports/index";
+import GetNotofication from "../../Hooks/Notification/getNotification";
 const NotificationPage = ({ navigation }) => {
   const { Notification } = MolecularComponents;
   const { SignInLayout, BackLayout } = Layout;
-
-  const [user, setUser] = useContext(UserValue);
-  const [notifications, setnotification] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      grapevineBackend("/notification/get", {}, "POST")
-        .then(async ({ data }) => {
-          console.log(data);
-          if (data.code == 200) {
-            setnotification([...data.data.result]);
-          } else {
-            console.log("Err: Friend Request", data);
-          }
-        })
-        .catch((err) => console.log("err", err.message));
-    });
-    return unsubscribe;
-  }, []);
-
+  const notification = GetNotofication();
+  if (notification.isLoading) {
+    return <Spinner />;
+  }
+  if (notification.isError || !notification.data?.pages[0].result.length > 0)
+    return (
+      <Center h="100%" w="100%">
+        <Image
+          source={require("../../../assets/Logo/Logo.png")}
+          size={100}
+          resizeMode="contain"
+          p="5"
+          alt="Image"
+        />
+        <Text
+          fontSize="16"
+          fontWidth="800"
+          color="primary"
+          mt="10"
+          fontFamily="bold"
+        >
+          Sorry, no notifications.
+        </Text>
+      </Center>
+    );
   return (
     <BackLayout navigation={navigation} color="#000" safeArea>
       <Box h="100%" w="100%" bg="white">
@@ -58,40 +69,15 @@ const NotificationPage = ({ navigation }) => {
         </Pressable>
         <SignInLayout>
           <Box h="100%" w="100%" p="2">
-            {/* <Box h='full' w='full'> */}
-            {notifications?.length > 0 ? (
-              notifications.map((notification) => {
-                return (
-                  <Notification
-                    key={notification.uuid}
-                    notification={notification}
-                    navigation={navigation}
-                  />
-                );
-              })
-            ) : (
-              <Center h="100%" w="100%">
-                <Image
-                  source={require("../../../assets/Logo/Logo.png")}
-                  size={100}
-                  resizeMode="contain"
-                  p="5"
-                  alt="Image"
+            {notification.data?.pages.map((page) =>
+              page.result.map((_notification, index) => (
+                <Notification
+                  key={_notification.uuid}
+                  notification={_notification}
+                  navigation={navigation}
                 />
-                <Text
-                  fontSize="16"
-                  fontWidth="800"
-                  color="primary"
-                  mt="10"
-                  fontFamily="bold"
-                >
-                  Sorry, no notifications.
-                </Text>
-              </Center>
+              ))
             )}
-            {/* <NotificationContainer time="Yesterday" />
-          <NotificationContainer time="This Week" /> */}
-            {/* </Box> */}
           </Box>
         </SignInLayout>
       </Box>
