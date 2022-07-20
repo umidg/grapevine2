@@ -8,7 +8,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/native';
 import GetFeaturedUser from '../../../Hooks/User/getFeaturedUser';
 
-const Features = ({ heading }) => {
+const Features = ({ heading, focus }) => {
   const navigation = useNavigation();
 
   // const [features, setFeatures] = useState({
