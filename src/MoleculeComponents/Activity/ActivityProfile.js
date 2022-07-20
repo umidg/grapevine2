@@ -1,21 +1,21 @@
-import { Text, Box, Flex, Spinner, Pressable } from "native-base";
-import React, { useEffect, useState, useMemo } from "react";
-import { grapevineBackend } from "../../API";
-import { FontAwesome5, AntDesign } from "@expo/vector-icons";
-import { Tiktokvideo } from "../../AtomComponents/index";
+import { Text, Box, Flex, Spinner, Pressable } from 'native-base';
+import React, { useEffect, useState, useMemo } from 'react';
+import { grapevineBackend } from '../../API';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { Tiktokvideo } from '../../AtomComponents/index';
 const ActivityProfile = ({ activity, navigation }) => {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     if (
-      activity.type == "post" ||
-      activity.type == "like" ||
-      activity.type == "comment"
+      activity.type == 'post' ||
+      activity.type == 'like' ||
+      activity.type == 'comment'
     ) {
       grapevineBackend(
-        "/post/getPostByUuid",
+        '/post/getPostByUuid',
         { post_uuid: activity.action_uuid },
-        "POST"
+        'POST'
       )
         .then(({ data }) => {
           if (data.status) {
@@ -25,19 +25,19 @@ const ActivityProfile = ({ activity, navigation }) => {
         .catch((err) => {
           console.log(err);
         });
-    } else if (activity.type == "share") {
+    } else if (activity.type == 'share') {
       grapevineBackend(
-        "/post/getPostByUuid",
+        '/post/getPostByUuid',
         { post_uuid: activity.action_uuid },
-        "POST"
+        'POST'
       )
         .then(({ data }) => {
           if (data.status) {
-            if (activity.type == "share") {
+            if (activity.type == 'share') {
               grapevineBackend(
-                "/post/getPostByUuid",
+                '/post/getPostByUuid',
                 { post_uuid: data.data.shared_post_uuid },
-                "POST"
+                'POST'
               ).then(({ data }) => {
                 if (data.status) {
                   setPost({ ...data.data });
@@ -63,38 +63,38 @@ const ActivityProfile = ({ activity, navigation }) => {
     const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return "few moments ago";
-    else if (diffInMin < 60) return diffInMin + " min ago";
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " hour ago";
-    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    if (diffInMin < 1) return 'few moments ago';
+    else if (diffInMin < 60) return diffInMin + ' min ago';
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' hour ago';
+    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
   }, [activity]);
 
   switch (activity.type) {
-    case "post":
+    case 'post':
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate("PostPage", {
+            navigation.navigate('PostPage', {
               post_uuid: activity.action_uuid,
             })
           }
-          p={5}
+          py={3}
           borderBottomWidth={1}
-          borderColor="#d3d3d3"
+          borderColor='#d3d3d3'
         >
           <Box>
             <Text fontSize={10} mt={1} mb={1}>
-              <Text fontWeight="800" color="#000">
-                {activity?.user?.username + " "}
+              <Text fontWeight='800' color='#000'>
+                {activity?.user?.username + ' '}
               </Text>
-              Posted this {" " + time}
+              posted this. {' ' + time}
             </Text>
             {post ? (
               <>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
                   {post.image_url ? (
                     <Box>
@@ -107,57 +107,69 @@ const ActivityProfile = ({ activity, navigation }) => {
                     </>
                   )}
 
-                  <Text fontSize={10} fontWeight="600" ml={3}>
+                  <Text fontSize={10} ml={3}>
                     {post.post}
                   </Text>
                 </Flex>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
+                  paddingTop='4'
                 >
-                  <FontAwesome5 name="comment" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <FontAwesome5 name='comment' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.comments?.length}
                   </Text>
-
-                  <AntDesign name="hearto" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <AntDesign name='hearto' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.likes?.length}
                   </Text>
                 </Flex>
               </>
             ) : (
-              <Spinner accessibilityLabel="Loading" color="primary" />
+              <Spinner accessibilityLabel='Loading' color='primary' />
             )}
           </Box>
         </Pressable>
       );
-    case "like":
+    case 'like':
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate("PostPage", {
+            navigation.navigate('PostPage', {
               post_uuid: activity.action_uuid,
             })
           }
-          p={5}
+          py={3}
           borderBottomWidth={1}
-          borderColor="#d3d3d3"
+          borderColor='#d3d3d3'
         >
           <Box>
             <Text fontSize={10} mt={1} mb={1}>
-              <Text fontWeight="800" color="#000">
-                {activity?.user?.username + " "}
+              <Text fontWeight='800' color='#000'>
+                {activity?.user?.username + ' '}
               </Text>
-              Liked this {" " + time}
+              liked this. {' ' + time}
             </Text>
             {post ? (
               <>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
                   {post.image_url ? (
                     <Box>
@@ -170,58 +182,70 @@ const ActivityProfile = ({ activity, navigation }) => {
                     </>
                   )}
                   <Box>
-                    <Text fontSize={10} fontWeight="600" ml={3}>
+                    <Text fontSize={10} fontWeight='600' ml={3}>
                       {post.post}
                     </Text>
                   </Box>
                 </Flex>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
-                  <FontAwesome5 name="comment" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <FontAwesome5 name='comment' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.comments?.length}
                   </Text>
 
-                  <AntDesign name="hearto" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <AntDesign name='hearto' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.likes?.length}
                   </Text>
                 </Flex>
               </>
             ) : (
-              <Spinner accessibilityLabel="Loading" color="primary" />
+              <Spinner accessibilityLabel='Loading' color='primary' />
             )}
           </Box>
         </Pressable>
       );
-    case "comment":
+    case 'comment':
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate("PostPage", {
+            navigation.navigate('PostPage', {
               post_uuid: activity.action_uuid,
             })
           }
-          p={5}
+          py={3}
           borderBottomWidth={1}
-          borderColor="#d3d3d3"
+          borderColor='#d3d3d3'
         >
           <Box>
             <Text fontSize={10} mt={1} mb={1}>
-              <Text fontWeight="800" color="#000">
-                {activity?.user?.username + " "}
+              <Text fontWeight='800' color='#000'>
+                {activity?.user?.username + ' '}
               </Text>
-              Commented this {" " + time}
+              commented on this. {' ' + time}
             </Text>
             {post ? (
               <>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
                   {post.image_url ? (
                     <Box>
@@ -234,58 +258,70 @@ const ActivityProfile = ({ activity, navigation }) => {
                     </>
                   )}
                   <Box>
-                    <Text fontSize={10} fontWeight="600" ml={3}>
+                    <Text fontSize={10} fontWeight='600' ml={3}>
                       {post.post}
                     </Text>
                   </Box>
                 </Flex>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
-                  <FontAwesome5 name="comment" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <FontAwesome5 name='comment' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.comments?.length}
                   </Text>
 
-                  <AntDesign name="hearto" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <AntDesign name='hearto' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.likes?.length}
                   </Text>
                 </Flex>
               </>
             ) : (
-              <Spinner accessibilityLabel="Loading" color="primary" />
+              <Spinner accessibilityLabel='Loading' color='primary' />
             )}
           </Box>
         </Pressable>
       );
-    case "share":
+    case 'share':
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate("PostPage", {
+            navigation.navigate('PostPage', {
               post_uuid: activity.action_uuid,
             })
           }
-          p={5}
+          py={3}
           borderBottomWidth={1}
-          borderColor="#d3d3d3"
+          borderColor='#d3d3d3'
         >
           <Box>
             <Text fontSize={10} mt={1} mb={1}>
-              <Text fontWeight="800" color="#000">
-                {activity?.user?.username + " "}
+              <Text fontWeight='800' color='#000'>
+                {activity?.user?.username + ' '}
               </Text>
-              shared this {" " + time}
+              shared this. {' ' + time}
             </Text>
             {post ? (
               <>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
                   {post.image_url ? (
                     <Box>
@@ -298,29 +334,41 @@ const ActivityProfile = ({ activity, navigation }) => {
                     </>
                   )}
                   <Box>
-                    <Text fontSize={10} fontWeight="600" ml={3}>
+                    <Text fontSize={10} fontWeight='600' ml={3}>
                       {post.post}
                     </Text>
                   </Box>
                 </Flex>
                 <Flex
-                  direction="row"
-                  justifyContent={"flex-start"}
-                  alignItems="center"
+                  direction='row'
+                  justifyContent={'flex-start'}
+                  alignItems='center'
                 >
-                  <FontAwesome5 name="comment" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <FontAwesome5 name='comment' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.comments?.length}
                   </Text>
 
-                  <AntDesign name="hearto" size={16} color="#000" p="2" />
-                  <Text textAlign={"center"} mr={3} ml={1}>
+                  <AntDesign name='hearto' size={12} color='#000' p='2' />
+                  <Text
+                    textAlign={'center'}
+                    mr={3}
+                    ml={1}
+                    fontSize='10'
+                    fontFamily='bold'
+                  >
                     {post.likes?.length}
                   </Text>
                 </Flex>
               </>
             ) : (
-              <Spinner accessibilityLabel="Loading" color="primary" />
+              <Spinner accessibilityLabel='Loading' color='primary' />
             )}
           </Box>
         </Pressable>

@@ -104,7 +104,7 @@ const ExplorePage = ({ navigation }) => {
       </Box>
       <ScrollView style={{ height: '100%' }}>
         {focus && (
-          <View w='100%' h='87%'>
+          <View w='100%' h='full'>
             {users ? (
               users.map((person) => {
                 return (
@@ -239,7 +239,7 @@ const ExplorePage = ({ navigation }) => {
             )}
           </Box>
           <Box style={styles.featureContainer}>
-            <Features heading='Featured' focus />
+            <Features heading={focus ? '' : 'Featured'} focus />
           </Box>
 
           <Resources />
