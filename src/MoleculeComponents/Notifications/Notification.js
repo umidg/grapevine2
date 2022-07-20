@@ -371,8 +371,59 @@ const Notification = ({ notification, navigation }) => {
         </Pressable>
       );
     }
+    case "view_profile": {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("FriendProfile", {
+              user_uuid: notification.from_user_uuid,
+            })
+          }
+          py={2}
+        >
+          <Box
+            flex="1"
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems="center"
+          >
+            <RoundImage
+              size="35"
+              image={require("../../../assets/Images/1.png")}
+            />
+
+            <Box pl={2} flex="1" flexDirection={"column"}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: notification.from_user_uuid,
+                  })
+                }
+              >
+                <Text fontSize={16} fontWeight="800" fontFamily="bold">
+                  {notification.from_user_username}
+                </Text>
+              </Pressable>
+              <Box
+                flex="1"
+                flexDirection="row"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Text fontFamily="light">viewed your profile</Text>
+                <Text color="gray.500">{time}</Text>
+              </Box>
+            </Box>
+          </Box>
+        </Pressable>
+      );
+    }
     default:
-      return <></>;
+      return (
+        <>
+          <Text bg="red.300">helo</Text>
+        </>
+      );
   }
 };
 

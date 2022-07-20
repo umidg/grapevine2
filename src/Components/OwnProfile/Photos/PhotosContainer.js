@@ -5,16 +5,11 @@ import Photo from "./photo";
 import Tiktokvideo from "../../../AtomComponents/TiktokWebview/Tiktokvideo";
 export default function PhotosContainer({ tiktokPost }) {
   return (
-    <Flex
-      direction="row"
-      justifyContent={"space-around"}
-      flexWrap="wrap"
-      mt={1}
-    >
+    <Flex direction="row" justifyContent={"flex-start"} flexWrap="wrap" mt={1}>
       {tiktokPost.length > 0 ? (
         tiktokPost.map((post) => {
           return (
-            <View w="40%" key={post.embed_link} mb={2}>
+            <View w="50%" key={post.embed_link} p={2}>
               <Tiktokvideo uri={post.embed_link} />
             </View>
           );

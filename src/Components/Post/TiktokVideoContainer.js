@@ -34,13 +34,13 @@ const TiktokVideoContainer = ({ onPress, selectedId }) => {
       <Box flex="1" m="2">
         <Flex
           direction="row"
-          justifyContent={"space-around"}
+          justifyContent={"flex-start"}
           alignItems="center"
           flexWrap={"wrap"}
         >
           {videos.length > 0 ? (
             videos.map((v) => (
-              <Box key={v.embed_link} width="40%">
+              <Box key={v.embed_link} width="50%" p={2}>
                 <Pressable
                   onPress={() => {
                     onPress(v);
