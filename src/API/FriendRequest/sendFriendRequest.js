@@ -14,6 +14,7 @@ export const sendFriendRequest = async (frined_data) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       throw new Error(err.message);
     });
 

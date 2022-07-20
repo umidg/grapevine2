@@ -14,7 +14,7 @@ export default function PhotosContainer({ tiktokPost }) {
       {tiktokPost.length > 0 ? (
         tiktokPost.map((post) => {
           return (
-            <View w="40%" key={post.id} mb={2}>
+            <View w="40%" key={post.embed_link} mb={2}>
               <Tiktokvideo uri={post.embed_link} />
             </View>
           );

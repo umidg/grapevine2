@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Center, Flex, Text, Image, Button, Pressable } from 'native-base';
-import RoundImage from '../../AtomComponents/Image/RoundImage';
-import { grapevineBackend } from '../../API';
+import React, { useState, useEffect, useMemo } from "react";
+import { Box, Center, Flex, Text, Image, Button, Pressable } from "native-base";
+import RoundImage from "../../AtomComponents/Image/RoundImage";
+import { grapevineBackend } from "../../API";
 const Notification = ({ notification, navigation }) => {
   const [post, setPost] = useState(null);
   useEffect(() => {
     if (
-      notification.type == 'like' ||
-      notification.type == 'comment' ||
-      notification.type == 'share'
+      notification.type == "like" ||
+      notification.type == "comment" ||
+      notification.type == "share"
     ) {
       grapevineBackend(
-        '/post/getPostByUuid',
+        "/post/getPostByUuid",
         { post_uuid: notification.action_uuid },
-        'POST'
+        "POST"
       )
         .then(({ data }) => {
           if (data.status) {
@@ -36,105 +36,105 @@ const Notification = ({ notification, navigation }) => {
     const diffInDays = Math.floor(diffInTime / oneDay);
 
     const diffInMin = Math.floor(diffInTime / 60000);
-    if (diffInMin < 1) return '0 m';
-    else if (diffInMin < 60) return diffInMin + ' m';
-    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + ' h';
+    if (diffInMin < 1) return "0 m";
+    else if (diffInMin < 60) return diffInMin + " m";
+    else if (diffInMin < 1140) return Math.floor(diffInMin / 60) + " h";
     return `${diffInDays} d `;
   }, [notification]);
 
   switch (notification.type) {
-    case 'like':
+    case "like":
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate('PostPage', {
+            navigation.navigate("PostPage", {
               post_uuid: notification.action_uuid,
             })
           }
           py={2}
         >
           <Box
-            flex='1'
-            flexDirection={'row'}
-            justifyContent={'flex-start'}
-            alignItems='center'
+            flex="1"
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems="center"
           >
             <RoundImage
-              size='35'
-              image={require('../../../assets/Images/1.png')}
+              size="35"
+              image={require("../../../assets/Images/1.png")}
             />
 
-            <Box pl={2} flex='1' flexDirection={'column'}>
+            <Box pl={2} flex="1" flexDirection={"column"}>
               <Pressable
                 onPress={() =>
-                  navigation.navigate('FriendProfile', {
-                    user_uuid: activity.user_uuid,
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: notification.user_uuid,
                   })
                 }
               >
-                <Text fontSize={16} fontWeight='800'>
+                <Text fontSize={16} fontWeight="800">
                   {notification.from_user_username}
                 </Text>
               </Pressable>
               <Box
-                flex='1'
-                flexDirection='row'
-                justifyContent='space-between'
-                width='100%'
+                flex="1"
+                flexDirection="row"
+                justifyContent="space-between"
+                width="100%"
               >
-                <Text fontFamily='light'>
-                  liked your <Text fontFamily='bold'>post.</Text>
+                <Text fontFamily="light">
+                  liked your <Text fontFamily="bold">post.</Text>
                 </Text>
-                <Text color='gray.500'>{time}</Text>
+                <Text color="gray.500">{time}</Text>
               </Box>
             </Box>
           </Box>
         </Pressable>
       );
-    case 'comment':
+    case "comment":
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate('PostPage', {
-              post_uuid: activity.action_uuid,
+            navigation.navigate("PostPage", {
+              post_uuid: notification.action_uuid,
             })
           }
           py={2}
         >
           {post && (
             <Flex
-              direction='row'
-              justifyContent={'flex-start'}
-              alignItems='center'
+              direction="row"
+              justifyContent={"flex-start"}
+              alignItems="center"
             >
               <RoundImage
-                size='35'
-                image={require('../../../assets/Images/1.png')}
+                size="35"
+                image={require("../../../assets/Images/1.png")}
               />
 
-              <Box pl={2} display='flex' flexDirection='column' flex='1'>
+              <Box pl={2} display="flex" flexDirection="column" flex="1">
                 <Pressable
                   onPress={() =>
-                    navigation.navigate('FriendProfile', {
-                      user_uuid: activity.user_uuid,
+                    navigation.navigate("FriendProfile", {
+                      user_uuid: notification.user_uuid,
                     })
                   }
                 >
-                  <Text fontSize={16} fontFamily='bold'>
+                  <Text fontSize={16} fontFamily="bold">
                     {notification.from_user_username}
                   </Text>
                 </Pressable>
                 <Box
-                  flex='1'
-                  flexDirection={'row'}
-                  justifyContent='space-between'
+                  flex="1"
+                  flexDirection={"row"}
+                  justifyContent="space-between"
                 >
-                  <Box display='flex' flexDirection='row'>
-                    <Text fontFamily='light'>commented on your </Text>
+                  <Box display="flex" flexDirection="row">
+                    <Text fontFamily="light">commented on your </Text>
 
-                    <Text fontFamily='bold'>post.</Text>
+                    <Text fontFamily="bold">post.</Text>
                   </Box>
-                  <Text color='gray.500' fontFamily='light'>
+                  <Text color="gray.500" fontFamily="light">
                     {time}
                   </Text>
                 </Box>
@@ -189,49 +189,49 @@ const Notification = ({ notification, navigation }) => {
         //   )}
         // </Pressable>
       );
-    case 'share':
+    case "share":
       return (
         <Pressable
           onPress={() =>
-            navigation.navigate('PostPage', {
-              post_uuid: activity.action_uuid,
+            navigation.navigate("PostPage", {
+              post_uuid: notification.action_uuid,
             })
           }
           py={2}
         >
           <Box
-            flex='1'
-            flexDirection={'row'}
-            justifyContent={'flex-start'}
-            alignItems='center'
+            flex="1"
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems="center"
           >
             <RoundImage
-              size='35'
-              image={require('../../../assets/Images/1.png')}
+              size="35"
+              image={require("../../../assets/Images/1.png")}
             />
 
-            <Box pl={2} flex='1' flexDirection={'column'}>
+            <Box pl={2} flex="1" flexDirection={"column"}>
               <Pressable
                 onPress={() =>
-                  navigation.navigate('FriendProfile', {
-                    user_uuid: activity.user_uuid,
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: notification.user_uuid,
                   })
                 }
               >
-                <Text fontSize={16} fontWeight='800' fontFamily='bold'>
+                <Text fontSize={16} fontWeight="800" fontFamily="bold">
                   {notification.from_user_username}
                 </Text>
               </Pressable>
               <Box
-                flex='1'
-                flexDirection='row'
-                justifyContent='space-between'
-                width='100%'
+                flex="1"
+                flexDirection="row"
+                justifyContent="space-between"
+                width="100%"
               >
-                <Text fontFamily='light'>
-                  uploaded a new <Text fontFamily='bold'>post.</Text>
+                <Text fontFamily="light">
+                  uploaded a new <Text fontFamily="bold">post.</Text>
                 </Text>
-                <Text color='gray.500'>{time}</Text>
+                <Text color="gray.500">{time}</Text>
               </Box>
             </Box>
           </Box>
@@ -284,6 +284,93 @@ const Notification = ({ notification, navigation }) => {
         //   )}
         // </Pressable>
       );
+    case "friendship_request": {
+      return (
+        <Pressable onPress={() => navigation.navigate("FriendRequest")} py={2}>
+          <Box
+            flex="1"
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems="center"
+          >
+            <RoundImage
+              size="35"
+              image={require("../../../assets/Images/1.png")}
+            />
+
+            <Box pl={2} flex="1" flexDirection={"column"}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: notification.from_user_uuid,
+                  })
+                }
+              >
+                <Text fontSize={16} fontWeight="800" fontFamily="bold">
+                  {notification.from_user_username}
+                </Text>
+              </Pressable>
+              <Box
+                flex="1"
+                flexDirection="row"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Text fontFamily="light">sent you a friend request.</Text>
+                <Text color="gray.500">{time}</Text>
+              </Box>
+            </Box>
+          </Box>
+        </Pressable>
+      );
+    }
+    case "friendship_accept": {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("FriendProfile", {
+              user_uuid: notification.from_user_uuid,
+            })
+          }
+          py={2}
+        >
+          <Box
+            flex="1"
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems="center"
+          >
+            <RoundImage
+              size="35"
+              image={require("../../../assets/Images/1.png")}
+            />
+
+            <Box pl={2} flex="1" flexDirection={"column"}>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("FriendProfile", {
+                    user_uuid: notification.from_user_uuid,
+                  })
+                }
+              >
+                <Text fontSize={16} fontWeight="800" fontFamily="bold">
+                  {notification.from_user_username}
+                </Text>
+              </Pressable>
+              <Box
+                flex="1"
+                flexDirection="row"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Text fontFamily="light">accepted your friend request.</Text>
+                <Text color="gray.500">{time}</Text>
+              </Box>
+            </Box>
+          </Box>
+        </Pressable>
+      );
+    }
     default:
       return <></>;
   }

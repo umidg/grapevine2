@@ -19,7 +19,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const { io } = require("socket.io-client");
 const ChatRoom = ({ navigation, route }) => {
   const { ButtonDark, RegularImage, RoundImage } = AtomComponents;
-  const { friend_uuid, username, chatroom_uuid, valid_room } = route.params;
+  const { username, chatroom_uuid, valid_room } = route.params;
   const [message, setMessage] = useState("");
   const [user, setUser] = useContext(UserValue);
   const [messages, setMessages] = useState([]);
@@ -31,7 +31,6 @@ const ChatRoom = ({ navigation, route }) => {
       socket.current.emit("messageSent", {
         user_id: user.uuid,
         content: message,
-        to_user: friend_uuid,
       });
       setMessage("");
     }
@@ -57,6 +56,7 @@ const ChatRoom = ({ navigation, route }) => {
   useEffect(() => {
     socket.current = io(
       `https://admin.grapevine-app.co/?chatRoomid=${chatroom_uuid}`
+      // `http://192.168.1.70:4000/?chatRoomid=${chatroom_uuid}`
     );
     grapevineBackend(`/chat/getRoomChats/${chatroom_uuid}`, {}, "POST")
       .then(({ data }) => {

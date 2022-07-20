@@ -1,15 +1,20 @@
 import { grapevineBackend } from "../ci.axios";
 
-export const getuserInfo = async (uuid) => {
-  return await grapevineBackend(`/auth/getuserInfo/${uuid}`, {}, "POST")
+export const getAllFriends = async (uuid) => {
+  const data = await grapevineBackend(
+    `/friendship/getAllFriends`,
+    { user_uuid: uuid },
+    "POST"
+  )
     .then(async ({ data }) => {
       if (data.status) {
         return data.data;
       } else {
-        return null;
+        throw new Error("Something went wrong");
       }
     })
     .catch((err) => {
       return new Error(err.message);
     });
+  return data;
 };

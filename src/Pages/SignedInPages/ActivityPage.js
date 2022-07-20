@@ -1,96 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Center, Flex, ScrollView, Text } from 'native-base';
-import { FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
-import { Pressable, TouchableOpacity } from 'react-native';
-import { grapevineBackend } from '../../API';
-import { MolecularComponents, Layout } from '../../Exports/index';
+import React, { useEffect, useState } from "react";
+import { Box, Center, Flex, ScrollView, Text } from "native-base";
+import { FontAwesome5, Ionicons, Feather } from "@expo/vector-icons";
+import { Pressable, TouchableOpacity } from "react-native";
+import { MolecularComponents, PageComponent } from "../../Exports/index";
+import GetActivity from "../../Hooks/Activity/getActivity";
 const ActivityPage = ({ navigation }) => {
-  const { Activity } = MolecularComponents;
+  const {
+    Activity: { ForYou, Connected },
+  } = PageComponent;
+  const [component, setComponent] = useState("foryou");
 
-  const [component, setComponent] = useState('foryou');
-  const [forYouActicity, setForYouActivity] = useState([]);
-  const [connectedactivity, setConnectedActivity] = useState([]);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      grapevineBackend('/activity/get/foryou', {}, 'POST')
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            setForYouActivity([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          setError(true);
-          console.log('Err', err);
-        });
-      grapevineBackend('/activity/get/connected', {}, 'POST')
-        .then(async ({ data }) => {
-          setError(false);
-          if (data.status == true) {
-            setConnectedActivity([...data.data.result]);
-          }
-        })
-        .catch((err) => {
-          setError(true);
-          console.log('Err', err);
-        });
-    });
-
-    return unsubscribe;
-  }, []);
+  const { forYouActivities, connectedActivities } = GetActivity();
 
   return (
-    <Box h='100%' w='100%' bg='white'>
+    <Box h="100%" w="100%" bg="white">
       <Box>
         <Text
-          fontWeight='800'
+          fontWeight="800"
           fontSize={16}
-          textAlign='center'
-          fontFamily='bold'
+          textAlign="center"
+          fontFamily="bold"
         >
           Activity
         </Text>
         <Flex
-          direction='row'
-          alignItems='center'
-          justifyContent='center'
-          position='absolute'
-          right='5'
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          position="absolute"
+          right="5"
         >
-          <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-            <Ionicons name='notifications-outline' color='black' size={24} />
+          <TouchableOpacity onPress={() => navigation.navigate("Notification")}>
+            <Ionicons name="notifications-outline" color="black" size={24} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Messages')}>
-            <Feather name='send' size={24} color='black' />
+          <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+            <Feather name="send" size={24} color="black" />
           </TouchableOpacity>
         </Flex>
       </Box>
 
       <Flex
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
-        m='20px'
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        m="20px"
       >
-        <Pressable onPress={() => setComponent('foryou')}>
+        <Pressable onPress={() => setComponent("foryou")}>
           <Text
-            fontWeight={component == 'foryou' ? '800' : '400'}
+            fontWeight={component == "foryou" ? "800" : "400"}
             mx={1}
-            shadow='1'
-            fontFamily={component == 'foryou' ? 'bold' : 'light'}
+            shadow="1"
+            fontFamily={component == "foryou" ? "bold" : "light"}
           >
             For You
           </Text>
         </Pressable>
         <Text>|</Text>
-        <Pressable onPress={() => setComponent('connected')}>
+        <Pressable onPress={() => setComponent("connected")}>
           <Text
-            fontWeight={component == 'connected' ? '800' : '400'}
+            fontWeight={component == "connected" ? "800" : "400"}
             mx={1}
-            shadow='1'
-            fontFamily={component == 'connected' ? 'bold' : 'light'}
+            shadow="1"
+            fontFamily={component == "connected" ? "bold" : "light"}
           >
             Connected
           </Text>
@@ -98,60 +69,17 @@ const ActivityPage = ({ navigation }) => {
       </Flex>
 
       <ScrollView>
-        <Box h='100%' w='100%'>
-          {error ? (
-            <Center h='100%' w='100%'>
-              <Text fontWeight={'800'} fontFamily='bold'>
-                Error occured
-              </Text>
-            </Center>
-          ) : component == 'connected' ? (
-            <>
-              {connectedactivity ? (
-                <Box pb='70'>
-                  {connectedactivity.map((activity) => (
-                    // <Text key={activity.uuid}>hello</Text>
-
-                    <Activity
-                      activity={activity}
-                      navigation={navigation}
-                      key={activity.uuid}
-                    />
-                  ))}
-                </Box>
-              ) : (
-                <Center h='100%' w='100%'>
-                  <ActivityIndicator size='small' color='#0000ff' />
-                </Center>
-              )}
-            </>
+        <Box h="100%" w="100%">
+          {component == "connected" ? (
+            <Connected
+              connectedActivities={connectedActivities}
+              navigation={navigation}
+            />
           ) : (
-            <>
-              {forYouActicity ? (
-                <>
-                  {forYouActicity.length > 0 ? (
-                    <Box pb='70' p={2}>
-                      {forYouActicity.map((activity) => (
-                        // <Text key={activity.uuid}>hello</Text>
-                        <Activity
-                          activity={activity}
-                          navigation={navigation}
-                          key={activity.uuid}
-                        />
-                      ))}
-                    </Box>
-                  ) : (
-                    <Center h='100%' w='100%'>
-                      <Text fontFamily='bold'>No Post To Show</Text>
-                    </Center>
-                  )}
-                </>
-              ) : (
-                <Center h='100%' w='100%'>
-                  <ActivityIndicator size='small' color='#0000ff' />
-                </Center>
-              )}
-            </>
+            <ForYou
+              forYouActivities={forYouActivities}
+              navigation={navigation}
+            />
           )}
         </Box>
       </ScrollView>

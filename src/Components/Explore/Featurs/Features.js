@@ -1,60 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { Spinner, Box, Pressable } from 'native-base';
-import { grapevineBackend } from '../../../API';
-import { Text } from 'native-base';
-import { FeatureBoxSecondary } from '../../../MoleculeComponents/index';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { useNavigation } from '@react-navigation/native';
-import GetFeaturedUser from '../../../Hooks/User/getFeaturedUser';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { Spinner, Box, Pressable } from "native-base";
+import { grapevineBackend } from "../../../API";
+import { Text } from "native-base";
+import { FeatureBoxSecondary } from "../../../MoleculeComponents/index";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import { useNavigation } from "@react-navigation/native";
+import GetFeaturedUser from "../../../Hooks/User/getFeaturedUser";
 
 const Features = ({ heading, focus }) => {
   const navigation = useNavigation();
 
-  // const [features, setFeatures] = useState({
-  //   user: [],
-  //   activeIndex: 0,
-  // });
   const featuredUsers = GetFeaturedUser({ page: 1, limit: 4 });
-  // useEffect(() => {
-  //   grapevineBackend(
-  //     "/user/getFeatured?page=1&limit=5",
-  //     {
-  //       type: type,
-  //     },
-  //     "POST"
-  //   )
-  //     .then(({ data }) => {
-  //       if (data.status) {
-  //         setFeatures({
-  //           user: [
-  //             ...data.data.result,
-  //             ...data.data.result,
-  //             ...data.data.result,
-  //           ],
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+
   if (featuredUsers.isLoading) {
-    return <Spinner accessibilityLabel='Loading' />;
+    return <Spinner accessibilityLabel="Loading" />;
   }
   if (featuredUsers.isError || !featuredUsers.data) {
     return <Text>Error</Text>;
   }
   return (
-    <Box style={styles.container} mb='5'>
-      <Text style={styles.headerText} fontFamily='bold' p='2'>
-        {heading ? heading : ''}
+    <Box style={styles.container} mb="5">
+      <Text style={styles.headerText} fontFamily="bold" p="2">
+        {heading ? heading : ""}
       </Text>
-      {/* <Text style={styles.secondaryText}>Creators</Text> */}
       {featuredUsers.data ? (
         <View style={{ marginTop: 10 }}>
           <Carousel
-            // data={features.user}
             data={featuredUsers.data}
             sliderWidth={400}
             itemWidth={220}
@@ -79,20 +51,20 @@ const Features = ({ heading, focus }) => {
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
           /> */}
-          <Pressable onPress={() => navigation.navigate('AllFeaturesUserPage')}>
+          <Pressable onPress={() => navigation.navigate("AllFeaturesUserPage")}>
             <Text
-              textAlign='center'
+              textAlign="center"
               underline
-              fontSize='12'
-              color='primary'
-              fontFamily='light'
+              fontSize="12"
+              color="primary"
+              fontFamily="light"
             >
               See all
             </Text>
           </Pressable>
         </View>
       ) : (
-        <Spinner accessibilityLabel='Loading' color='primary' />
+        <Spinner accessibilityLabel="Loading" color="primary" />
       )}
     </Box>
   );
@@ -104,14 +76,14 @@ const styles = StyleSheet.create({
   container: {},
   headerText: {
     fontSize: 21,
-    color: '#000',
+    color: "#000",
     // fontFamily: "Gilroy",
-    fontWeight: '800',
+    fontWeight: "800",
     marginLeft: 10,
   },
   secondaryText: {
     fontSize: 16,
-    fontWeight: '300',
+    fontWeight: "300",
     marginLeft: 20,
   },
 });
