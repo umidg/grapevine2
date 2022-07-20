@@ -16,7 +16,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 import { AtomComponents, Layout, PageComponent } from "../../Exports/index";
 import GetAllFriends from "../../Hooks/Friend/getAllFriend";
-import CreateChatroom from "../../Hooks/Friend/createChatroom";
+import CreateChatroom from "../../Hooks/Chatroom/createChatroom";
 
 const CreateGroup = ({ navigation }) => {
   const [user, setUser] = useContext(UserValue);
