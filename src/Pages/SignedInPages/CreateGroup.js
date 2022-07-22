@@ -168,9 +168,15 @@ const CreateGroup = ({ navigation }) => {
             );
           })}
         </Box>
-        <Button bg="primary" onPress={createGroup}>
-          Create
-        </Button>
+        {createChatroom.isLoading ? (
+          <Button bg="primary">
+            <Spinner />
+          </Button>
+        ) : (
+          <Button bg="primary" onPress={createGroup}>
+            Create
+          </Button>
+        )}
       </Box>
     </BackLayout>
   );

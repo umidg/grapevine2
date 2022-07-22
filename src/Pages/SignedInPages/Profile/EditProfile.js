@@ -1,55 +1,23 @@
-import {
-  Box,
-  Text,
-  Center,
-  TextArea,
-  Flex,
-  Button,
-  Spinner,
-} from "native-base";
-import Toast from "react-native-root-toast";
+import { Box, Text, TextArea, Button, Spinner } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { Layout, Hooks } from "../../../Exports/index";
 import { UserValue } from "../../../Context/UserContext";
-import { grapevineBackend } from "../../../API";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import UpdateUser from "../../../Hooks/User/updateUser";
 const EditProfile = (props) => {
   const { SignInLayout, BackLayout } = Layout;
-  const { navigation } = props;
   const [user, setUser] = useContext(UserValue);
   const [description, setDescription] = useState("");
   const [about, setAbout] = useState("");
-  const [loading, setLoading] = useState(false);
+  const updateUser = UpdateUser();
   const update = () => {
-    if (!loading) {
-      setLoading(true);
-      grapevineBackend(
-        "/user/updateUser",
-        { data: { description: description, about: about } },
-        "POST"
-      )
-        .then(async ({ data }) => {
-          setLoading(false);
-          if (data.status) {
-            setUser({ ...user, ...data.data });
-            await AsyncStorage.setItem(
-              "user",
-              JSON.stringify({ ...user, ...data.data })
-            );
-            Toast.show("Success", {
-              duration: Toast.durations.SHORT,
-            });
-            navigation.pop();
-          }
-        })
-        .catch((err) => {
-          setLoading(false);
-          Toast.show("Error", {
-            duration: Toast.durations.SHORT,
-          });
-        });
+    if (!updateUser.isLoading) {
+      updateUser.mutate({
+        data: { description: description, about: about },
+        user_uuid: user.uuid,
+      });
     }
   };
+
   useEffect(() => {
     setDescription(props.route.params.description);
     setAbout(props.route.params.about);
@@ -84,7 +52,7 @@ const EditProfile = (props) => {
             </Box>
           </Box>
           <Button bg="primary" w="100%" onPress={update}>
-            {loading ? (
+            {updateUser.isLoading ? (
               <Spinner accessibilityLabel="Loading posts" />
             ) : (
               "Update"
