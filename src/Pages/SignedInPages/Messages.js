@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Box, ScrollView, Spinner, View } from "native-base";
 import { grapevineBackend } from "../../API";
-import { UserValue } from "../../Context/UserContext";
 import { AtomComponents, Layout, PageComponent } from "../../Exports/index";
 import GetAllChatroom from "../../Hooks/Chatroom/getAllChatroom";
 
 const Messages = ({ navigation }) => {
+  const [searchParams, setSearchParams] = useState("");
   const { Search } = AtomComponents;
   const {
     Message: { Header, Message },
@@ -13,11 +13,11 @@ const Messages = ({ navigation }) => {
   const { SignInLayout } = Layout;
 
   const [showChatrooms, setShowChatrooms] = useState([]);
-  const [user, setUser] = useContext(UserValue);
 
-  const chatrooms = GetAllChatroom(user.uuid);
+  const chatrooms = GetAllChatroom(searchParams);
 
   const filterUser = (text) => {
+    setSearchParams(text);
     // let searchText = text.toLowerCase();
     // setShowChatrooms(
     //   chatrooms.filter(
@@ -35,9 +35,6 @@ const Messages = ({ navigation }) => {
     }
   };
 
-  if (chatrooms.isLoading) {
-    return <Spinner />;
-  }
   return (
     <SignInLayout>
       <Box h="100%" w="100%" pt="5">
@@ -47,7 +44,9 @@ const Messages = ({ navigation }) => {
         </View>
 
         <View>
-          {chatrooms.isError || chatrooms.data?.pages[0]?.length < 1 ? (
+          {chatrooms.isLoading ? (
+            <Spinner />
+          ) : chatrooms.isError || chatrooms.data?.pages[0]?.length < 1 ? (
             <></>
           ) : (
             <ScrollView
