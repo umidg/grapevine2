@@ -18,12 +18,6 @@ const Messages = ({ navigation }) => {
 
   const filterUser = (text) => {
     setSearchParams(text);
-    // let searchText = text.toLowerCase();
-    // setShowChatrooms(
-    //   chatrooms.filter(
-    //     (room) => room.user[0].username.toLowerCase().indexOf(searchText) == 0
-    //   )
-    // );
   };
   const onScroll = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 20;

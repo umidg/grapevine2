@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { View, Text, Flex } from "native-base";
 import Photo from "./photo";
 import Tiktokvideo from "../../../AtomComponents/TiktokWebview/Tiktokvideo";
-export default function PhotosContainer({ tiktokPost }) {
+export default function PhotosContainer({ posts }) {
   return (
     <Flex
       direction="row"
@@ -11,13 +11,9 @@ export default function PhotosContainer({ tiktokPost }) {
       flexWrap="wrap"
       mt={1}
     >
-      {tiktokPost.length > 0 ? (
-        tiktokPost.map((post) => {
-          return (
-            <View w="50%" key={post.embed_link} p={2}>
-              <Tiktokvideo uri={post.embed_link} />
-            </View>
-          );
+      {posts.length > 0 ? (
+        posts.map((post) => {
+          return <Photo post={post} key={post.uuid} />;
         })
       ) : (
         <Text textAlign={"center"} w="100%">

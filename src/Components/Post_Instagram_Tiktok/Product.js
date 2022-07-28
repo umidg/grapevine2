@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { Button, Input, View, Flex, Box, Text, Image } from "native-base";
+import {
+  Button,
+  Input,
+  View,
+  Flex,
+  Box,
+  Text,
+  Image,
+  Center,
+} from "native-base";
 import { Pressable } from "react-native";
-
+import { Entypo } from "@expo/vector-icons";
 const Product = ({ products, setProducts }) => {
   const [productName, setProductName] = useState("");
 
@@ -12,19 +21,76 @@ const Product = ({ products, setProducts }) => {
     }
   };
   const removeProduct = (index) => {
-    setProducts((p) => [...p].splice(index, 1));
+    let _products = [...products];
+    _products.splice(index, 1);
+    setProducts([..._products]);
   };
   return (
     <View py={5}>
-      <Flex direction="column" justifyContent={"center"} alignItems="center">
-        <Input
-          placeholder="http://..."
-          value={productName}
-          onChangeText={(text) => setProductName(text)}
-        />
-        <Button bg="primary" my={5} borderRadius="md" onPress={addProduct}>
-          Add
-        </Button>
+      <Flex
+        direction="row"
+        justifyContent={"flex-start"}
+        alignItems="center"
+        // bg="green.400"
+      >
+        <Flex
+          flex={2}
+          direction="column"
+          justifyContent="flex-start"
+          alignItems={"center"}
+          height={"100%"}
+          // pt={1}
+        >
+          <Text
+            fontWeight={"800"}
+            fontSize={12}
+            fontFamily="light"
+            width={"100%"}
+            textAlign="center"
+          >
+            Product Photo
+          </Text>
+          <Center h="20" w="20" bg="gray.200" borderRadius={"md"} mt={1}>
+            <Entypo name="plus" size={42} color="#d3d3d3" />
+          </Center>
+        </Flex>
+        <Flex
+          direction="column"
+          justifyContent={"center"}
+          alignItems="center"
+          flex={4}
+        >
+          <Text
+            fontWeight={"800"}
+            fontSize={12}
+            fontFamily="light"
+            width={"100%"}
+            textAlign="left"
+          >
+            Product Name
+          </Text>
+          <Input placeholder="" h={8} bg={"gray.200"} />
+          <Text
+            fontWeight={"800"}
+            fontSize={12}
+            fontFamily="light"
+            width={"100%"}
+            textAlign="left"
+            mt={2}
+          >
+            Product Link
+          </Text>
+          <Input
+            placeholder="http://..."
+            value={productName}
+            onChangeText={(text) => setProductName(text)}
+            h={8}
+            bg={"gray.200"}
+          />
+          <Button bg="primary" my={5} borderRadius="md" onPress={addProduct}>
+            Add
+          </Button>
+        </Flex>
       </Flex>
       <Box borderBottomColor={"#d3d3d3"} borderBottomWidth={1}>
         <Text fontWeight={"800"} fontSize={16} fontFamily="light">

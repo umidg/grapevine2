@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Button, Input, View, Flex, Box, Text, Image } from "native-base";
+import {
+  Button,
+  Input,
+  View,
+  Flex,
+  Box,
+  Text,
+  Image,
+  Select,
+} from "native-base";
 import { Pressable } from "react-native";
 import { DropDownMenu } from "../../MoleculeComponents";
 
@@ -17,8 +26,73 @@ const People = ({ persons, setPersons }) => {
   };
   return (
     <View py={5}>
-      <Flex direction="column" justifyContent={"center"} alignItems="center">
+      <Flex
+        direction="column"
+        justifyContent={"center"}
+        alignItems="flex-start"
+      >
+        <Text
+          fontWeight={"800"}
+          fontSize={12}
+          fontFamily="light"
+          width={"100%"}
+          textAlign="left"
+        >
+          Network
+        </Text>
+        <Select
+          bg="gray.200"
+          borderRadius={"md"}
+          fontFamily="bold"
+          height="10"
+          width={"30%"}
+          selectedValue={"Instagram"}
+          color={"#000"}
+          fontWeight="800"
+          accessibilityLabel="Choose "
+          placeholder="Choose "
+          _selectedItem={{
+            bg: "gray.200",
+          }}
+          borderWidth="0"
+          mt={1}
+          onValueChange={(itemValue) => {}}
+        >
+          <Select.Item label={"Instagram"} value={"Instagram"} />
+          <Select.Item label={"Tiktok"} value={"Tiktok"} />
+          <Select.Item label={"Youtube"} value={"Youtube"} />
+        </Select>
+        <Text
+          fontWeight={"800"}
+          fontSize={12}
+          fontFamily="light"
+          width={"100%"}
+          textAlign="left"
+          mt={2}
+        >
+          Role
+        </Text>
         <Input
+          h={8}
+          bg={"gray.200"}
+          placeholder="Search"
+          value={productName}
+          onChangeText={(text) => setProductName(text)}
+          w={"30%"}
+        />
+        <Text
+          fontWeight={"800"}
+          fontSize={12}
+          fontFamily="light"
+          width={"100%"}
+          textAlign="left"
+          mt={2}
+        >
+          Instagram Profile Link
+        </Text>
+        <Input
+          h={8}
+          bg={"gray.200"}
           placeholder="Search"
           value={productName}
           onChangeText={(text) => setProductName(text)}

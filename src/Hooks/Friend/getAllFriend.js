@@ -1,6 +1,17 @@
 import { getAllFriends } from "../../API/Friend/getAllFriends";
-import { useQuery } from "react-query";
-const GetAllFriends = (uuid) => {
-  return useQuery(["getFriends"], () => getAllFriends(uuid));
+import { useInfiniteQuery } from "react-query";
+const GetAllFriends = (search) => {
+  const friends = useInfiniteQuery(
+    ["getFriends", search],
+    (e) => getAllFriends(e, search),
+    {
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.next) {
+          return lastPage.next.page;
+        }
+      },
+    }
+  );
+  return friends;
 };
 export default GetAllFriends;

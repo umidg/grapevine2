@@ -1,45 +1,30 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   Box,
-  View,
   Text,
   Button,
-  Select,
   Flex,
   Image,
   Center,
   Spinner,
+  ScrollView,
+  Pressable,
 } from "native-base";
-import { grapevineBackend } from "../../API";
 import { UserValue } from "../../Context/UserContext";
-import DropDownPicker from "react-native-dropdown-picker";
 
 import { AtomComponents, Layout, PageComponent } from "../../Exports/index";
 import GetAllFriends from "../../Hooks/Friend/getAllFriend";
 import CreateChatroom from "../../Hooks/Chatroom/createChatroom";
 
 const CreateGroup = ({ navigation }) => {
+  const [searchParams, setSearchParams] = useState("");
   const [user, setUser] = useContext(UserValue);
   const [groupMember, setGroupMember] = useState([]);
   const [groupName, setGroupName] = useState("");
   const { SignInLayout, BackLayout } = Layout;
-  const { Input } = AtomComponents;
-  const friends = GetAllFriends(user.uuid);
+  const { Input, Search } = AtomComponents;
+  const friends = GetAllFriends(searchParams);
   const createChatroom = CreateChatroom();
-  if (friends.isLoading) {
-    return (
-      <Center h="100%" w="100%">
-        <Spinner />
-      </Center>
-    );
-  }
-  if (friends.isError) {
-    return (
-      <Center h="100%" w="100%">
-        Error
-      </Center>
-    );
-  }
 
   const createGroup = () => {
     if (groupName && groupMember.length > 0) {
@@ -49,6 +34,27 @@ const CreateGroup = ({ navigation }) => {
       createChatroom.mutate({ users: users, name: groupName });
     }
   };
+
+  const filterUser = (text) => {
+    setSearchParams(text);
+  };
+
+  const getIndex = (user) => {
+    return groupMember.findIndex((member) => {
+      return member.user_uuid === user.user_uuid;
+    });
+  };
+  const selectUser = (user) => {
+    const index = getIndex(user);
+    if (index == -1) {
+      setGroupMember((member) => [user, ...member]);
+    } else {
+      const member = [...groupMember];
+      member.splice(index, 1);
+      setGroupMember([...member]);
+    }
+  };
+
   return (
     <BackLayout navigation={navigation} color="#000" safeArea>
       <Box h="100%" w="100%" bg="white" pb={10} px={"10%"}>
@@ -61,7 +67,7 @@ const CreateGroup = ({ navigation }) => {
         >
           Create Group
         </Text>
-        <Box flex={1} pt={10}>
+        <Box flex={1} pt={5}>
           <Text fontWeight="400" fontSize={"sm"} fontFamily="bold">
             Group Name:
           </Text>
@@ -72,10 +78,11 @@ const CreateGroup = ({ navigation }) => {
             onChangeText={(text) => setGroupName(text)}
           />
           <Text fontWeight="400" fontSize={"sm"} fontFamily="bold">
-            Select Members:
+            To:
           </Text>
           <Box>
-            <Select
+            <Search onSearch={filterUser} />
+            {/* <Select
               selectedValue={""}
               width="100%"
               accessibilityLabel="Choose Service"
@@ -128,7 +135,7 @@ const CreateGroup = ({ navigation }) => {
                   />
                 );
               })}
-            </Select>
+            </Select> */}
           </Box>
 
           <Text
@@ -138,35 +145,113 @@ const CreateGroup = ({ navigation }) => {
             mb="5"
             fontFamily="bold"
           >
-            Members
+            Friends
           </Text>
-          {groupMember.map((member) => {
-            return (
-              <Flex
-                key={member.uuid}
-                direction="row"
-                justifyContent={"flex-start"}
-                alignItems="center"
-                m={2}
-              >
-                <Image
-                  source={require("../../../assets/Images/1.png")}
-                  height={10}
-                  w={10}
-                  alt={"image"}
-                  borderRadius="full"
-                />
-                <Box ml={2}>
-                  <Text fontWeight="400" fontSize={"md"} fontFamily="bold">
-                    @ {member.username}
-                  </Text>
-                  <Text fontWeight="400" fontSize={10} fontFamily="bold" ml={5}>
-                    {member.fname + " " + member.lname}
-                  </Text>
-                </Box>
-              </Flex>
-            );
-          })}
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {friends.isLoading ? (
+              <Spinner />
+            ) : (
+              friends.data?.pages.map((page) =>
+                page.result.map((member, index) => {
+                  return (
+                    <Pressable
+                      key={member.uuid}
+                      onPress={() => selectUser(member)}
+                    >
+                      <Flex
+                        direction="row"
+                        justifyContent={"space-between"}
+                        alignItems="center"
+                        m={2}
+                      >
+                        <Flex
+                          direction="row"
+                          justifyContent={"flex-start"}
+                          alignItems="center"
+                          m={2}
+                        >
+                          <Image
+                            source={require("../../../assets/Images/1.png")}
+                            height={10}
+                            w={10}
+                            alt={"image"}
+                            borderRadius="full"
+                          />
+                          <Box ml={2}>
+                            <Text
+                              fontWeight="400"
+                              fontSize={"md"}
+                              fontFamily="bold"
+                            >
+                              @ {member.username}
+                            </Text>
+                            <Text
+                              fontWeight="400"
+                              fontSize={10}
+                              fontFamily="bold"
+                              ml={5}
+                            >
+                              {member.fname + " " + member.lname}
+                            </Text>
+                          </Box>
+                        </Flex>
+                        <Flex
+                          h={5}
+                          w={5}
+                          borderWidth={1}
+                          borderColor="#d3d3d3"
+                          borderRadius="full"
+                          direction="row"
+                          justifyContent={"center"}
+                          alignItems="center"
+                        >
+                          <Box
+                            bg={getIndex(member) == -1 ? "white" : "gray.400"}
+                            h={3}
+                            w={3}
+                            borderRadius="full"
+                          ></Box>
+                        </Flex>
+                      </Flex>
+                    </Pressable>
+                  );
+                })
+              )
+            )}
+
+            {/* {friends.data.map((member, index) => {
+              return (
+                <Flex
+                  key={index}
+                  direction="row"
+                  justifyContent={"flex-start"}
+                  alignItems="center"
+                  m={2}
+                >
+                  <Image
+                    source={require("../../../assets/Images/1.png")}
+                    height={10}
+                    w={10}
+                    alt={"image"}
+                    borderRadius="full"
+                  />
+                  <Box ml={2}>
+                    <Text fontWeight="400" fontSize={"md"} fontFamily="bold">
+                      @ {member.username}
+                    </Text>
+                    <Text
+                      fontWeight="400"
+                      fontSize={10}
+                      fontFamily="bold"
+                      ml={5}
+                    >
+                      {member.fname + " " + member.lname}
+                    </Text>
+                  </Box>
+                </Flex>
+              );
+            })} */}
+          </ScrollView>
         </Box>
         {createChatroom.isLoading ? (
           <Button bg="primary">

@@ -1,8 +1,19 @@
-import { Box, Text, TextArea, Button, Spinner } from "native-base";
+import {
+  Box,
+  Text,
+  TextArea,
+  Button,
+  Spinner,
+  Center,
+  Flex,
+  Row,
+} from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 import { Layout, Hooks } from "../../../Exports/index";
 import { UserValue } from "../../../Context/UserContext";
 import UpdateUser from "../../../Hooks/User/updateUser";
+import { AtomComponents } from "../../../Exports/index";
+const { Input } = AtomComponents;
 const EditProfile = (props) => {
   const { SignInLayout, BackLayout } = Layout;
   const [user, setUser] = useContext(UserValue);
@@ -24,17 +35,95 @@ const EditProfile = (props) => {
   }, []);
 
   return (
-    <SignInLayout>
-      <BackLayout navigation={props.navigation} color="#000">
+    <BackLayout navigation={props.navigation} color="#000">
+      <SignInLayout>
         <Box
           flex={1}
           mx={5}
-          my={20}
+          my={10}
           flexDirection="column"
-          justifyContent={"space-between"}
-          alignItems="center"
+          alignItems="flex-start"
         >
+          <Center w="100%">
+            <Box
+              h="85"
+              w="85"
+              borderRadius={"full"}
+              borderWidth={3}
+              borderColor="primary"
+            ></Box>
+            <Text fontWeight={"800"} color="primary" mt={1}>
+              Change profile photo
+            </Text>
+          </Center>
           <Box w="100%">
+            <Box borderTopWidth={"1"} borderTopColor="#d3d3d3">
+              <Text fontSize={12} color="gray.600" fontWeight={"800"}>
+                About You
+              </Text>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Name :
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Username :
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Location :
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Bio :
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+            </Box>
+            <Box borderTopWidth={"1"} borderTopColor="#d3d3d3">
+              <Text fontSize={12} color="gray.600" fontWeight={"800"}>
+                Social
+              </Text>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Instagram:
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Youtube:
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+              <Row mt={2}>
+                <Text fontSize={16} fontWeight="400" flex={1}>
+                  Tiktok:
+                </Text>
+                <Box flex={2} px={2}>
+                  <Input />
+                </Box>
+              </Row>
+            </Box>
+
             <Box my={5}>
               <Text fontWeight={"800"} fontSize={16} color="primary" my={2}>
                 Description
@@ -59,8 +148,8 @@ const EditProfile = (props) => {
             )}
           </Button>
         </Box>
-      </BackLayout>
-    </SignInLayout>
+      </SignInLayout>
+    </BackLayout>
   );
 };
 

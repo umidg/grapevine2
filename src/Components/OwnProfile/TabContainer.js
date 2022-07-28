@@ -32,7 +32,7 @@ const TabContainer = ({ tiktokPost, user, activities, navigation }) => {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
-        return <PhotoContainer tiktokPost={tiktokPost} />;
+        return <PhotoContainer posts={user.posts} />;
       case "second":
         return <PostContainer_Profile posts={user.posts} user={user} />;
       case "third":
