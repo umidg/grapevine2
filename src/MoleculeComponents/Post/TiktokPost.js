@@ -7,12 +7,15 @@ import LikeContainer from "./PostComponents/LikeContainer";
 import Tiktokvideo from "../../AtomComponents/TiktokWebview/Tiktokvideo";
 import ColorWrapper from "../../AtomComponents/ColorWrapper/ColorWrapper";
 import { FontAwesome5 } from "@expo/vector-icons";
+import Footer from "./PostComponents/Footer";
 const TiktokPost = ({
   data,
   user,
   navigation,
   showLike = true,
   showComment = true,
+  footer,
+  setFooter,
 }) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
@@ -67,6 +70,7 @@ const TiktokPost = ({
           user={user}
           timeStamp={time}
           count={data.like_count}
+          setFooter={setFooter}
         />
       )}
       {showComment && (
@@ -81,38 +85,10 @@ const TiktokPost = ({
           }}
         >
           <Box p="2">
-            <CommentsContainer comments={data.comments} user={user} />
+            <Footer post={data} user={user} footer={footer} />
           </Box>
         </Pressable>
       )}
-      <Box width={"100%"}>
-        {data.products.map((_product) => {
-          return (
-            <Flex
-              direction="row"
-              justifyContent={"flex-start"}
-              alignItems="center"
-              p={1}
-              key={_product.uuid}
-              borderBottomColor={"#d3d3d3"}
-              borderBottomWidth={1}
-              borderTopColor="#d3d3d3"
-              borderTopWidth={1}
-            >
-              <Image
-                source={require("../../../assets/Images/2.png")}
-                alt="img"
-                h={"10"}
-                w={"10"}
-              />
-              <Box flex={4} px={2}>
-                <Text fontWeight={"400"}>{_product.name}</Text>
-                <Text fontWeight={"800"}>$25</Text>
-              </Box>
-            </Flex>
-          );
-        })}
-      </Box>
     </Box>
   );
 };

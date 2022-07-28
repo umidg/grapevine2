@@ -24,6 +24,7 @@ const LikeContainer = ({
   timeStamp,
   count,
   shared_post_uuid = null,
+  setFooter,
 }) => {
   const navigation = useNavigation();
 
@@ -78,28 +79,34 @@ const LikeContainer = ({
                 Like
               </Text>
             </Pressable>
-            <Center>
-              <FontAwesome5 name="comment" size={20} color="#000" p="2" />
-              <Text fontSize="8" fontFamily="bold">
-                Interaction
-              </Text>
-            </Center>
+            <Pressable onPress={() => setFooter("interraction")}>
+              <Center>
+                <FontAwesome5 name="comment" size={20} color="#000" p="2" />
+                <Text fontSize="8" fontFamily="bold">
+                  Interaction
+                </Text>
+              </Center>
+            </Pressable>
+
             <Center>
               <Ionicons name="people-outline" size={20} color="gray" />
               <Text fontSize="8" fontFamily="light">
                 People
               </Text>
             </Center>
-            <Center>
-              <MaterialCommunityIcons
-                name="shopping-outline"
-                size={20}
-                color="gray"
-              />
-              <Text fontSize="8" fontFamily="light">
-                Products
-              </Text>
-            </Center>
+            <Pressable onPress={() => setFooter("product")}>
+              <Center>
+                <MaterialCommunityIcons
+                  name="shopping-outline"
+                  size={20}
+                  color="gray"
+                />
+                <Text fontSize="8" fontFamily="light">
+                  Products
+                </Text>
+              </Center>
+            </Pressable>
+
             <Center>
               <FontAwesome name="lightbulb-o" size={20} color="gray" />
               <Text fontSize="8" fontFamily="light">

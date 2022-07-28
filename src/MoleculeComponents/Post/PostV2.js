@@ -3,6 +3,7 @@ import { Box, Center, Text, Image, Flex, Pressable } from "native-base";
 import PostHeader from "./PostComponents/PostHeader";
 import CommentsContainer from "./PostComponents/CommentsContainer";
 import LikeContainer from "./PostComponents/LikeContainer";
+import Footer from "./PostComponents/Footer";
 
 const PostV2 = ({
   data,
@@ -11,7 +12,8 @@ const PostV2 = ({
   showLike = true,
   showComment = true,
   shared,
-  showProduct = true,
+  footer,
+  setFooter,
 }) => {
   const time = useMemo(() => {
     const date1 = new Date(data.created_at);
@@ -53,6 +55,7 @@ const PostV2 = ({
             user={user}
             timeStamp={time}
             count={data.like_count}
+            setFooter={setFooter}
           />
         </Box>
       )}
@@ -68,40 +71,9 @@ const PostV2 = ({
           }}
         >
           <Box p="2">
-            <CommentsContainer comments={data.comments} user={user} />
+            <Footer post={data} user={user} footer={footer} />
           </Box>
         </Pressable>
-      )}
-      {showProduct && (
-        <Box width={"100%"}>
-          {data.products.map((_product) => {
-            return (
-              <Flex
-                direction="row"
-                justifyContent={"flex-start"}
-                alignItems="center"
-                p={1}
-                key={_product.uuid}
-                borderBottomColor={"#d3d3d3"}
-                borderBottomWidth={1}
-                borderTopColor="#d3d3d3"
-                borderTopWidth={1}
-              >
-                <Image
-                  source={require("../../../assets/Images/2.png")}
-                  alt="img"
-                  h={"20"}
-                  w={"20"}
-                  flex={1}
-                />
-                <Box flex={4} px={2}>
-                  <Text fontWeight={"400"}>{_product.name}</Text>
-                  <Text fontWeight={"800"}>$25</Text>
-                </Box>
-              </Flex>
-            );
-          })}
-        </Box>
       )}
     </Box>
   );
